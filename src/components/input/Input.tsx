@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react';
+
 type Props = {
   labelText?: string;
   type?: string;
@@ -6,8 +8,10 @@ type Props = {
   isHaveError?: boolean;
   errorMessage?: string;
   checked?: boolean;
-  nameInSchema: string;
+  name?: string;
   placeholder?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  value?: string | number;
 };
 
 export default function Input({
@@ -18,18 +22,22 @@ export default function Input({
   isHaveError,
   errorMessage,
   checked,
+  name,
   placeholder,
+  onChange,
+  value,
 }: Props) {
   return (
-    <label className={labelClass ? `input__wrapper ${labelClass}` : 'input__wrapper'}>
+    <label className={labelClass}>
       {labelText || ''}
       <input
+        onChange={onChange}
+        value={value}
+        name={name}
         placeholder={placeholder}
         defaultChecked={checked}
         className={inputClass}
         type={type || 'text'}
-        min={type === 'date' ? '1910-01-01' : ''}
-        max={type === 'date' ? '2022-01-01' : ''}
       />
       {isHaveError && <div className='input__error'>{errorMessage}</div>}
     </label>
