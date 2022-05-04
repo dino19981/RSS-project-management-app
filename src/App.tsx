@@ -1,24 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Form from './components/form/Form';
+import * as yup from 'yup';
+
+const firstSchema = yup
+  .object()
+  .shape({
+    age: yup.number(),
+    name: yup.string().required(),
+  })
+  .required();
+
+const firstInitVal = {
+  name: '',
+  age: 0,
+};
+
+const firstFields = [{ schemaName: 'name' }, { schemaName: 'age' }];
+
+const secondSchema = yup
+  .object()
+  .shape({
+    secondAge: yup.number(),
+    secondName: yup.string(),
+  })
+  .required();
+
+const secondInitVal = {
+  secondAge: 0,
+  secondName: '',
+};
+
+const secondFields = [{ schemaName: 'secondAge' }, { schemaName: 'secondName' }];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Form schema={firstSchema} initialValues={firstInitVal} fields={firstFields} />
+      <Form schema={secondSchema} initialValues={secondInitVal} fields={secondFields} />
     </div>
   );
 }
