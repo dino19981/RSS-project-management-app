@@ -15,28 +15,31 @@ const firstInitVal = {
   age: 0,
 };
 
-const firstFields = [{ schemaName: 'name' }, { schemaName: 'age' }];
+const firstFields = [{ name: 'name', inputClass: 'qwe' }, { name: 'age' }];
 
-const secondSchema = yup
-  .object()
-  .shape({
-    secondAge: yup.number(),
-    secondName: yup.string(),
-  })
-  .required();
-
-const secondInitVal = {
-  secondAge: 0,
-  secondName: '',
+type schema = {
+  name: string;
+  age: number;
 };
 
-const secondFields = [{ schemaName: 'secondAge' }, { schemaName: 'secondName' }];
-
 function App() {
+  function onSubmit(values: schema) {
+    console.log(values);
+  }
+
   return (
     <div className='App'>
-      <Form schema={firstSchema} initialValues={firstInitVal} fields={firstFields} />
-      <Form schema={secondSchema} initialValues={secondInitVal} fields={secondFields} />
+      <Form
+        schema={firstSchema}
+        initialValues={firstInitVal}
+        fields={firstFields}
+        // requestData={{ url: 'url', methood: 'post' }}
+        onSubmit={onSubmit}
+        formId='formButton'
+      />
+      <button type='submit' form='formButton'>
+        Submit
+      </button>
     </div>
   );
 }

@@ -1,58 +1,62 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { string } from 'yup';
+import Input from '../input/Input';
+import { input } from '../../types/input';
 
-type firstSchema = {
+type schema = {
   name: string;
   age: number;
 };
 
-type secondSchema = {
-  secondAge: number;
-  secondName: string;
+const initialValues = {
+  name: '',
+  age: 0,
 };
 
-interface IFormField {
-  schemaName: string;
-  label?: string;
-  inputClass?: string;
-  labelClass?: string;
-  type?: string;
-  errorMessage?: string;
-  placeholder?: string;
-  selectClassName?: string;
-}
+const fields: input[] = [
+  { name: 'name', inputClass: 'inputClass', type: 'date' },
+  { name: 'age', labelClass: 'labelClass' },
+];
 
 type Props = {
-  schema: secondSchema | firstSchema;
-  initialValues: secondSchema | firstSchema;
-  fields: IFormField[];
+  schema: schema;
+  initialValues: schema;
+  fields: input[];
+  isHaveButton?: boolean;
+  formId?: string;
+  onSubmit: (values: schema) => void;
 };
 
-export default function Form({ schema, initialValues, fields }: Props) {
-  const formik = useFormik({
+export default function Form({
+  schema,
+  initialValues,
+  fields,
+  isHaveButton,
+  formId,
+  onSubmit,
+}: Props) {
+  const { handleChange, handleSubmit, values, errors } = useFormik({
     initialValues,
     validationSchema: schema,
-    onSubmit: (values) => {
-      console.log(values, 'values');
-    },
+    validateOnChange: false,
+    onSubmit,
   });
-  console.log(formik.errors, 'formik.errors');
 
   type fieldName = keyof typeof schema;
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={handleSubmit} id={formId}>
       {fields.map((field, id) => (
-        <input
+        <Input
           key={id}
-          name={field.schemaName}
-          onChange={formik.handleChange}
-          value={formik.values[field.schemaName as fieldName]}
+          onChange={handleChange}
+          value={values[field.name as fieldName]}
+          isHaveError={!!errors[field.name as fieldName]}
+          {...field}
         />
       ))}
 
-      <button type='submit'>Submit</button>
+      {isHaveButton && <button type='submit'>Submit</button>}
     </form>
   );
 }
