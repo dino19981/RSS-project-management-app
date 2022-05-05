@@ -3,6 +3,10 @@ import { useFormik } from 'formik';
 import Input from '../input/Input';
 import { input } from '../../types/input';
 
+type schema = {
+  name: string;
+};
+
 type Props = {
   schema: schema;
   initialValues: schema;
@@ -41,7 +45,7 @@ export default function Form({
         />
       ))}
 
-      {isHaveButton && <button type='submit'>Submit</button>}
+      {isHaveButton && <button type="submit">Submit</button>}
     </form>
   );
 }
