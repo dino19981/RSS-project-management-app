@@ -1,20 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import Input from '../input/Input';
-import { input } from '../../types/input';
-
-type schema = {
-  name: string;
-};
-
-type Props = {
-  schema: schema;
-  initialValues: schema;
-  fields: input[];
-  isHaveButton?: boolean;
-  formId?: string;
-  onSubmit: (values: schema) => void;
-};
+import { formProps } from '../../models/form';
 
 export default function Form({
   schema,
@@ -23,7 +10,7 @@ export default function Form({
   isHaveButton,
   formId,
   onSubmit,
-}: Props) {
+}: formProps) {
   const { handleChange, handleSubmit, values, errors } = useFormik({
     initialValues,
     validationSchema: schema,
