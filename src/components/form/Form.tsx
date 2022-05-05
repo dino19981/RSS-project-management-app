@@ -3,21 +3,6 @@ import { useFormik } from 'formik';
 import Input from '../input/Input';
 import { input } from '../../types/input';
 
-type schema = {
-  name: string;
-  age: number;
-};
-
-const initialValues = {
-  name: '',
-  age: 0,
-};
-
-const fields: input[] = [
-  { name: 'name', inputClass: 'inputClass', type: 'date' },
-  { name: 'age', labelClass: 'labelClass' },
-];
-
 type Props = {
   schema: schema;
   initialValues: schema;
