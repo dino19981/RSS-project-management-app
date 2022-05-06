@@ -1,0 +1,92 @@
+body {
+  display: flex;
+  min-height: 100vh;
+
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  width: 100%;
+  min-width: 320px;
+
+  box-sizing: border-box;
+
+  background-color: $background-color;
+
+  font-family: $title-font;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  color: $green;
+}
+
+// sticky footer
+main {
+  flex: 1;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* visually-hidden */
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+
+  @media (min-width: 768px) {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  @media (min-width: 1800px) {
+    margin-right: auto;
+    margin-left: auto;
+    width: 1720px;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
