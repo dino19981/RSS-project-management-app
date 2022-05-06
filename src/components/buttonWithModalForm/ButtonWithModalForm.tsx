@@ -5,7 +5,7 @@ import Modal from '../modal/Modal';
 
 export default function ButtonWithModalForm({
   formOptions,
-  buttonOptions, // Когда создадим компонент кнопки то закинем в кнопку эти пропсы вот так - {...buttonOptions}
+  buttonOptions,
   modalState,
   submitBtnName,
 }: buttonWithModalFormProps) {
