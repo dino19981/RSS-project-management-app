@@ -12,6 +12,7 @@ export default function Form({
   formId,
   onSubmit,
   buttonOptions,
+  formClassName,
 }: formProps) {
   const { handleChange, handleSubmit, values, errors } = useFormik({
     initialValues,
@@ -23,7 +24,7 @@ export default function Form({
   type fieldName = keyof typeof schema;
 
   return (
-    <form onSubmit={handleSubmit} id={formId}>
+    <form onSubmit={handleSubmit} id={formId} className={`form${formClassName || ''}`}>
       {fields.map((field, id) => (
         <Input
           key={id}

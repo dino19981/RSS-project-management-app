@@ -14,7 +14,7 @@ export default function Input({
   value,
 }: inputProps) {
   return (
-    <label className={labelClass}>
+    <label className={`label${labelClass || ''}`}>
       {labelText || ''}
       <input
         onChange={onChange}
@@ -22,7 +22,7 @@ export default function Input({
         name={name}
         placeholder={placeholder}
         defaultChecked={checked}
-        className={inputClass}
+        className={`input${inputClass || ''}`}
         type={type || 'text'}
       />
       {isHaveError && <div className="input__error">{errorMessage}</div>}

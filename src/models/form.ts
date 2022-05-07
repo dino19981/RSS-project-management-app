@@ -1,18 +1,19 @@
 import { buttonProps } from './button';
 
 export interface formProps {
-  schema: schema;
-  initialValues: schema;
+  schema: fieldsType;
+  initialValues: fieldsType;
   fields: formField[];
   isHaveButton?: boolean;
   formId?: string;
-  onSubmit: (values: schema) => void;
-  buttonOptions: buttonProps;
+  onSubmit: (values: fieldsType) => void;
+  buttonOptions?: buttonProps;
+  formClassName?: string;
 }
 
 interface formField {
   name: string;
-  label?: string;
+  labelText?: string;
   inputClass?: string;
   labelClass?: string;
   type?: string;
@@ -21,7 +22,10 @@ interface formField {
   selectClassName?: string;
 }
 
-export type schema = {
+export interface registrationSchemaType {
   name: string;
-  id: number;
-};
+  login: string;
+  password: string;
+}
+
+type fieldsType = registrationSchemaType;
