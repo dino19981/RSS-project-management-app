@@ -3,9 +3,10 @@ import { formProps } from './form';
 export interface buttonWithModalFormProps {
   formOptions: formProps;
   buttonOptions: {
-    type?: string;
+    btnClass?: string;
+    type?: 'button' | 'submit' | 'reset' | undefined;
     text?: string;
-    icon?: React.ReactNode;
+    icon?: JSX.Element;
     handler?: () => void;
     formId?: string;
   };

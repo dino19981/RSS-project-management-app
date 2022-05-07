@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import Input from '../input/Input';
 import { formProps } from '../../models/form';
+import Button from '../button/Button';
 
 export default function Form({
   schema,
@@ -10,6 +11,7 @@ export default function Form({
   isHaveButton,
   formId,
   onSubmit,
+  buttonOptions,
 }: formProps) {
   const { handleChange, handleSubmit, values, errors } = useFormik({
     initialValues,
@@ -32,7 +34,7 @@ export default function Form({
         />
       ))}
 
-      {isHaveButton && <button type="submit">Submit</button>}
+      {isHaveButton && <Button type="submit" {...buttonOptions} />}
     </form>
   );
 }
