@@ -2,9 +2,13 @@ import React from 'react';
 import { modalProps } from '../../models/modal';
 import Button from '../button/Button';
 
-import './style.scss';
-
-export default function Modal({ formId, children, handleCloseModal, submitBtnName }: modalProps) {
+export default function Modal({
+  formId,
+  children,
+  handleCloseModal,
+  submitBtnName,
+  isShowFooter = true,
+}: modalProps) {
   return (
     <div className="main__container" aria-label="modal">
       <div
@@ -23,10 +27,12 @@ export default function Modal({ formId, children, handleCloseModal, submitBtnNam
         >
           {children}
 
-          <div className="modal__footer">
-            <Button handler={handleCloseModal} text="Закрыть" />
-            <Button type="submit" formId={formId} text={submitBtnName} />
-          </div>
+          {isShowFooter && (
+            <div className="modal__footer">
+              <Button handler={handleCloseModal} text="Закрыть" />
+              <Button type="submit" formId={formId} text={submitBtnName} />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -21,6 +21,10 @@ body {
   color: $green;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 // sticky footer
 main {
   flex: 1;
@@ -80,7 +84,7 @@ input::-webkit-inner-spin-button {
   /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
   /* Firefox */
 }

@@ -13,8 +13,9 @@ export default function Input({
   onChange,
   value,
 }: inputProps) {
+  const inputClassName = isHaveError ? `${inputClass} input__invalid` : inputClass;
   return (
-    <label className={`label${labelClass || ''}`}>
+    <label className={labelClass}>
       {labelText || ''}
       <input
         onChange={onChange}
@@ -22,7 +23,7 @@ export default function Input({
         name={name}
         placeholder={placeholder}
         defaultChecked={checked}
-        className={`input${inputClass || ''}`}
+        className={inputClassName}
         type={type || 'text'}
       />
       {isHaveError && <div className="input__error">{errorMessage}</div>}

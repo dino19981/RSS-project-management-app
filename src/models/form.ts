@@ -19,7 +19,6 @@ interface formField {
   type?: string;
   errorMessage?: string;
   placeholder?: string;
-  selectClassName?: string;
 }
 
 export interface registrationSchemaType {
