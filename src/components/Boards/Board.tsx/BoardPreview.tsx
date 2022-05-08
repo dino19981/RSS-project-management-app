@@ -18,7 +18,7 @@ function calculateTask(columns: TColumn[] | undefined) {
   return tasks;
 }
 
-function Board(props: TProps) {
+function BoardPreview(props: TProps) {
   const { id, title, columns } = props.board;
   const taskCount = calculateTask(columns);
 
@@ -32,4 +32,4 @@ function Board(props: TProps) {
   );
 }
 
-export default Board;
+export default BoardPreview;

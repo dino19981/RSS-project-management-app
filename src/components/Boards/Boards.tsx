@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { TBoard } from '../../models/board';
-import Board from './Board.tsx/Board';
+import BoardPreview from './Board.tsx/BoardPreview';
 
 const fakeBoards: TBoard[] = [
   {
@@ -202,7 +202,7 @@ function Boards() {
   return (
     <div className="boards">
       {fakeBoards.map((board) => {
-        return <Board board={board} key={board.id} />;
+        return <BoardPreview board={board} key={board.id} />;
       })}
     </div>
   );
