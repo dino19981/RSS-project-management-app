@@ -4,7 +4,9 @@
   padding-bottom: 15px;
   box-sizing: border-box;
   max-width: 100%;
+  width: 100%;
   overflow: hidden;
+  background-color: $basic-white;
   
   @media (min-width: $tablet-width) {
     margin-bottom: 10px;
@@ -12,7 +14,11 @@
   
 }
 
-.header__nav-list {
+.header__nav {
+  margin-left: auto;
+}
+
+.header__nav-list, .header__menu {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
