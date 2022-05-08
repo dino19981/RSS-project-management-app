@@ -23,7 +23,7 @@ function BoardPreview(props: TProps) {
   const taskCount = calculateTask(columns);
 
   return (
-    <Link to={`/board/${id}`}>
+    <Link to={`/boards/${id}`}>
       <div className="board_preview">
         <div className="board_preview_title">{title}</div>
         {taskCount ? (
