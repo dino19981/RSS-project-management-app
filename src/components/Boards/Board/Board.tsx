@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { TColumn } from '../../../models/column';
-import ColumnPreview from '../../Column/ColumnPreview';
+import ColumnPreview from '../../Columns/ColumnPreview';
 
 function Board() {
   useEffect(() => {
     //TODO Загрузка  доски /board:id
   }, []);
-
-  console.log('board');
 
   const columns: TColumn[] | undefined = [
     {

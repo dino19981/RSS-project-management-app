@@ -5,12 +5,16 @@
   height: 100vh;
   background-color: #ddd;
   width: 100%;
+  padding: 0.5rem;
 }
+.column-preview,
 .column {
   display: flex;
   height: 100%;
   flex-direction: column;
   width: 25%;
+  border: 1px solid #000;
+  border-radius: 5px;
   &_link {
     width: 100%;
     height: 100%;
