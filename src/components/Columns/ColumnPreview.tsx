@@ -16,9 +16,10 @@ function ColumnPreview(props: TProps) {
     <div className="column-preview">
       <Link to={urlToColumn} className="column-preview_link">
         <div className="column-preview_title">{title}</div>
-        {tasks?.map((task) => {
-          return <Task key={task.id} />;
-        })}
+        {tasks &&
+          tasks.map((task) => {
+            return <Task key={task.id} />;
+          })}
       </Link>
     </div>
   );

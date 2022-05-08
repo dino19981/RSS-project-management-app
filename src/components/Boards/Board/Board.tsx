@@ -38,11 +38,10 @@ function Board() {
         <button type="button">delete board</button>
       </div>
       <div className="columns_wrapper">
-        {columns
-          ? columns.map((col) => {
-              return <ColumnPreview key={col.id} column={col} />;
-            })
-          : null}
+        {columns &&
+          columns.map((col) => {
+            return <ColumnPreview key={col.id} column={col} />;
+          })}
       </div>
     </div>
   );

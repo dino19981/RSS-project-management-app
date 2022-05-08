@@ -26,9 +26,7 @@ function BoardPreview(props: TProps) {
     <Link to={`/boards/${id}`}>
       <div className="board_preview">
         <div className="board_preview_title">{title}</div>
-        {taskCount ? (
-          <div className="board_preview__task-count">Total tasks: {taskCount}</div>
-        ) : null}
+        {taskCount && <div className="board_preview__task-count">Total tasks: {taskCount}</div>}
       </div>
     </Link>
   );

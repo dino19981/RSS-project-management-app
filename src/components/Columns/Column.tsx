@@ -12,14 +12,11 @@ function Column() {
 
   return (
     <div className="column">
-      {column ? (
-        <>
-          <div className="column_title">{column.title}</div>
-          {tasks?.map((task) => {
-            return <Task key={task.id} />;
-          })}
-        </>
-      ) : null}
+      {column && <div className="column_title">{column.title}</div>}
+      {tasks &&
+        tasks.map((task) => {
+          return <Task key={task.id} />;
+        })}
     </div>
   );
 }
