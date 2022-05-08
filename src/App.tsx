@@ -2,7 +2,8 @@ import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Boards from './components/Boards/Boards';
 import Board from './components/Boards/Board/Board';
-import Column from './components/Column/Column';
+import Column from './components/Columns/Column';
+import Columns from './components/Columns/Columns';
 
 function App() {
   return (
@@ -10,9 +11,10 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/boards" element={<Boards />}></Route>
-            <Route path="/boards/:id" element={<Board />}></Route>
-            <Route path="/boards/:id/columns/:id" element={<Column />}></Route>
+            <Route path="/boards" element={<Boards />} />
+            <Route path="/boards/:id" element={<Board />} />
+            <Route path="/boards/:id/columns" element={<Columns />} />
+            <Route path="/boards/:id/columns/:id" element={<Column />} />
           </Routes>
         </div>
       </Router>
