@@ -202,7 +202,7 @@ function Boards() {
   return (
     <div className="boards">
       {fakeBoards.map((board) => {
-        return <BoardPreview board={board} key={board.id} />;
+        return <BoardPreview {...board} key={board.id} />;
       })}
     </div>
   );

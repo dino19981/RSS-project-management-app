@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import { TBoard } from '../../../models/board';
 import { TColumn } from '../../../models/column';
 
-type TProps = {
-  board: TBoard;
-};
-
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
   let tasks = 0;
@@ -18,8 +14,7 @@ function calculateTask(columns: TColumn[] | undefined) {
   return tasks;
 }
 
-function BoardPreview(props: TProps) {
-  const { id, title, columns } = props.board;
+function BoardPreview({ id, title, columns }: TBoard) {
   const taskCount = calculateTask(columns);
 
   return (

@@ -3,12 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { TColumn } from '../../models/column';
 import Task from '../Task/Task';
 
-type TProps = {
-  column: TColumn;
-};
-
-function ColumnPreview(props: TProps) {
-  const { id: columnId, order, title, tasks } = props.column;
+function ColumnPreview({ id: columnId, order, title, tasks }: TColumn) {
   const { pathname } = useLocation();
   const urlToColumn = pathname + '/columns/' + columnId;
 

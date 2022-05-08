@@ -40,7 +40,7 @@ function Board() {
       <div className="columns_wrapper">
         {columns &&
           columns.map((col) => {
-            return <ColumnPreview key={col.id} column={col} />;
+            return <ColumnPreview key={col.id} {...col} />;
           })}
       </div>
     </div>
