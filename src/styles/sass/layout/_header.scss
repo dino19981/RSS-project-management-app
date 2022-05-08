@@ -62,7 +62,7 @@
   font-size: 17px;
   font-family: $title-font;
   font-weight: 500;
-  color: $violet;
+  color: $accent-color;
   
   transition: all 0.5s;
   box-sizing: border-box;
@@ -85,7 +85,7 @@
   }
 
   &:active:not(.header__link--active) {
-    color: $violet-super-light;
+    color: $accent-color;
   }
 
   &--about-us {
