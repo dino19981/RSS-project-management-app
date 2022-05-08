@@ -84,6 +84,114 @@ const fakeBoards: TBoard[] = [
       },
     ],
   },
+  {
+    id: '9a111e19-24ec-43e1-b8c4-4',
+    title: 'Homework tasks 444',
+    columns: [
+      {
+        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
+        title: 'Done',
+        order: 1,
+        tasks: [
+          {
+            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
+            title: 'Task: pet the cat',
+            order: 1,
+            done: false,
+            description: 'Domestic cat needs to be stroked gently',
+            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
+            files: [
+              {
+                filename: 'foto.jpg',
+                fileSize: 6105000,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: '9a111e19-24ec-43e1-b8c4-5',
+    title: 'Homework tasks 555',
+    columns: [
+      {
+        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
+        title: 'Done',
+        order: 1,
+        tasks: [
+          {
+            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
+            title: 'Task: pet the cat',
+            order: 1,
+            done: false,
+            description: 'Domestic cat needs to be stroked gently',
+            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
+            files: [
+              {
+                filename: 'foto.jpg',
+                fileSize: 6105000,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: '9a111e19-24ec-43e1-b8c4-6',
+    title: 'Homework tasks 666',
+    columns: [
+      {
+        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
+        title: 'Done',
+        order: 1,
+        tasks: [
+          {
+            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
+            title: 'Task: pet the cat',
+            order: 1,
+            done: false,
+            description: 'Domestic cat needs to be stroked gently',
+            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
+            files: [
+              {
+                filename: 'foto.jpg',
+                fileSize: 6105000,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: '9a111e19-24ec-43e1-b8c4-7',
+    title: 'Homework tasks 777',
+    columns: [
+      {
+        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
+        title: 'Done',
+        order: 1,
+        tasks: [
+          {
+            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
+            title: 'Task: pet the cat',
+            order: 1,
+            done: false,
+            description: 'Domestic cat needs to be stroked gently',
+            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
+            files: [
+              {
+                filename: 'foto.jpg',
+                fileSize: 6105000,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 function Boards() {
