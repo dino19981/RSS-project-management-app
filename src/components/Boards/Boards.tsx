@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { TBoard } from '../../models/board';
-import BoardPreview from './Board.tsx/BoardPreview';
+import BoardPreview from './BoardPreview/BoardPreview';
 
 const fakeBoards: TBoard[] = [
   {
