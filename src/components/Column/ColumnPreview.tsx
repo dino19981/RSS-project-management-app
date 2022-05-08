@@ -13,14 +13,14 @@ function Column(props: TProps) {
   const urlToColumn = pathname + '/columns/' + columnId;
 
   return (
-    <Link to={urlToColumn}>
-      <div className="column">
+    <div className="column">
+      <Link to={urlToColumn} className="column_link">
         <div className="column_title">{title}</div>
         {tasks?.map((task) => {
           return <Task key={task.id} />;
         })}
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
