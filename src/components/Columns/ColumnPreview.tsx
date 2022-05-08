@@ -7,15 +7,15 @@ type TProps = {
   column: TColumn;
 };
 
-function Column(props: TProps) {
+function ColumnPreview(props: TProps) {
   const { id: columnId, order, title, tasks } = props.column;
   const { pathname } = useLocation();
   const urlToColumn = pathname + '/columns/' + columnId;
 
   return (
-    <div className="column">
-      <Link to={urlToColumn} className="column_link">
-        <div className="column_title">{title}</div>
+    <div className="column-preview">
+      <Link to={urlToColumn} className="column-preview_link">
+        <div className="column-preview_title">{title}</div>
         {tasks?.map((task) => {
           return <Task key={task.id} />;
         })}
@@ -24,4 +24,4 @@ function Column(props: TProps) {
   );
 }
 
-export default Column;
+export default ColumnPreview;
