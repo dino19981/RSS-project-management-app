@@ -1,40 +1,25 @@
 body {
   display: flex;
   min-height: 100vh;
-
-  position: relative;
-  margin: 0;
-  padding: 0;
-
   width: 100%;
   min-width: 320px;
 
-  box-sizing: border-box;
-
   background-color: $background-color;
 
-  font-family: $title-font;
+  font-family: $main-font;
   font-style: normal;
   font-weight: 400;
   font-size: 24px;
   line-height: 28px;
   color: $dark-green;
 }
-
+    
 // sticky footer
-main {
-  flex: 1;
-}
-
-footer {
-  flex-shrink: 0;
-}
-
 #root {
-  display: flex;
-  flex-direction: column;
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   width: 100%;
-  box-sizing: border-box;
 }
 
 a {
