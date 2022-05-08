@@ -1,5 +1,6 @@
 import React from 'react';
 import { modalProps } from '../../models/modal';
+import Button from '../button/Button';
 
 import './style.scss';
 
@@ -23,10 +24,8 @@ export default function Modal({ formId, children, handleCloseModal, submitBtnNam
           {children}
 
           <div className="modal__footer">
-            <button onClick={handleCloseModal}>Закрыть</button>
-            <button type="submit" form={formId}>
-              {submitBtnName}
-            </button>
+            <Button handler={handleCloseModal} text="Закрыть" />
+            <Button type="submit" formId={formId} text={submitBtnName} />
           </div>
         </div>
       </div>
