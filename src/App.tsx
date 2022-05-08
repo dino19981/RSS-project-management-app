@@ -12,9 +12,9 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/boards" element={<Boards />} />
-            <Route path="/boards/:id" element={<Board />} />
-            <Route path="/boards/:id/columns" element={<Columns />} />
-            <Route path="/boards/:id/columns/:id" element={<Column />} />
+            <Route path="/boards/:boardId" element={<Board />} />
+            <Route path="/boards/:boardId/columns" element={<Columns />} />
+            <Route path="/boards/:boardId/columns/:columnId" element={<Column />} />
           </Routes>
         </div>
       </Router>
