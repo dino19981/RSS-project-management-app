@@ -13,11 +13,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.MAIN} element={<MainLayout />}>
-            <Route path={AppRoute.MAIN} element={<MainPage />} />
-            <Route path="/boards" element={<Boards />} />
-            <Route path="/boards/:boardId" element={<Board />} />
-            <Route path="/boards/:boardId/columns" element={<Board />} />
-            <Route path="/boards/:boardId/columns/:columnId" element={<Column />} />
+            <Route index element={<MainPage />} />
+            <Route path={AppRoute.BOARDS} element={<Boards />} />
+            <Route path={AppRoute.BOARD} element={<Board />} />
+            <Route path={AppRoute.COLUMNS} element={<Board />} />
+            <Route path={AppRoute.COLUMN} element={<Column />} />
           </Route>
         </Routes>
       </BrowserRouter>
