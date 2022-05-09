@@ -21,7 +21,15 @@
 .header__logo {
   margin-left: -15px;
 
-   @media (min-width: $tablet-width) {
+  @media (min-width: $tablet-width) {
     margin-left: -20px;
+  }
+
+  @media (min-width: 900px) {
+    margin-right: 60px;
+  }
+
+  @media (min-width: $desktop-width) {
+    margin-right: 90px;
   }
 }
