@@ -20,4 +20,7 @@
     flex-direction: column;
     justify-content: space-between;
   }
+  &_preview__link {
+    flex-grow: 1;
+  }
 }
