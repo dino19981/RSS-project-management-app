@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
-import Registration from './views/registration/Registration';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import Boards from './components/Boards/Boards';
 import Board from './components/Boards/Board/Board';
 import Column from './components/Columns/Column';
 import Autorization from './views/autorization/Autorization';
+import Registration from './views/registration/Registration';
 
 function App() {
   return (
