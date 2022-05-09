@@ -29,8 +29,8 @@
   }
 
   &:hover {
-    background-color: #fe21b2;
-    border-color: #fe21b2;
+    background-color: $hover-link-color;
+    border-color: $hover-link-color;
     color: $basic-white;
   }
 
@@ -48,8 +48,8 @@
   transition: all 0.3s;
 
   &:hover {
-    background-color: #fe21b2;
-    border-color: #fe21b2;
+    background-color: $hover-link-color;
+    border-color: $hover-link-color;
     color: $basic-white;
   }
 }
