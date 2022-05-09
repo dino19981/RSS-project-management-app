@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, teamMembers, navData } from '../../config/const';
+import { AppRoute, navData } from '../../config/navigation';
+import { teamMembers } from '../../config/teamData';
 
 const authorizeStatus = true; // temporary
 

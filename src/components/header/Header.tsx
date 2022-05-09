@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, navData } from '../../config/const';
+import { AppRoute, navData } from '../../config/navigation';
 
 const authorizeStatus = true; // temporary
 

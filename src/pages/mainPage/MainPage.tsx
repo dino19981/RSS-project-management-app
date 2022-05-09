@@ -1,4 +1,4 @@
-import { teamMembers } from '../../config/const';
+import { teamMembers } from '../../config/teamData';
 
 export default function MainPage() {
   return (
