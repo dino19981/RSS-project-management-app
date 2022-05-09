@@ -1,13 +1,10 @@
-import { Link } from 'react-router-dom';
-import Button from '../../components/button/Button';
-import Form from '../../components/form/Form';
-import Modal from '../../components/modal/Modal';
+import { instanceAxios } from '../../HTTP/configuration';
 import { fieldsType } from '../../models/form';
-import { registrationSchema } from '../../schemas/registration';
+import { registrationSchema } from '../../schemas/authentification';
 import Authentification from '../authentification/Authentification';
 
 export default function Registration() {
-  function onSubmit(value: fieldsType) {
+  async function onSubmit(value: fieldsType) {
     console.log(value);
   }
 

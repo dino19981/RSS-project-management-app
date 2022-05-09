@@ -1,5 +1,5 @@
 import { buttonProps } from './button';
-import { registrationSchemaType, registrationSchemaType2 } from './schemas';
+import { autorizationSchemaType, registrationSchemaType } from './schemas';
 
 export interface formProps {
   schema: fieldsType;
@@ -22,4 +22,4 @@ interface formField {
   placeholder?: string;
 }
 
-export type fieldsType = registrationSchemaType | registrationSchemaType2;
+export type fieldsType = registrationSchemaType | autorizationSchemaType;
