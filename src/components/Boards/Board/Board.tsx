@@ -1,6 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import * as yup from 'yup';
+import { useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
+import ButtonWithModalForm from '../../buttonWithModalForm/ButtonWithModalForm';
 import ColumnPreview from '../../Columns/ColumnPreview';
+
+const schema = yup
+  .object()
+  .shape({
+    title: yup.string().trim().required(),
+  })
+  .required();
+
+const initialValues = {
+  title: '',
+};
+
+const fields = [
+  //TODO разобраться с полями
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' },
+];
+
+const formOptions = {
+  schema,
+  initialValues,
+  fields,
+};
 
 function Board() {
   useEffect(() => {
@@ -31,11 +56,46 @@ function Board() {
     },
   ];
 
+  const [isModalActive, setModal] = useState(false);
+
+  function setIsModalActive(bool: boolean) {
+    setModal(bool);
+  }
+
+  const { boardId } = useParams();
+
+  async function deleteBoardHandler(id: string | undefined) {
+    //TODO ADD API REQuest
+    console.log('delete board', id);
+  }
+
+  function createColumnHandler(value: typeof schema) {
+    //TODO ADD API REQuest
+    console.log('create column', value);
+  }
+
   return (
     <div className="board">
       <div className="board_menu">
-        <button type="button">create Column</button>
-        <button type="button">delete board</button>
+        <>
+          <ButtonWithModalForm
+            submitBtnName="Create column"
+            modalState={{ isModalActive, setIsModalActive }}
+            buttonOptions={{
+              btnClass: 'column_create__btn',
+              type: 'button',
+              text: 'Add column',
+            }}
+            formOptions={{
+              ...formOptions,
+              onSubmit: createColumnHandler,
+              buttonOptions: { type: 'button' },
+            }}
+          />
+          <button type="button" onClick={() => deleteBoardHandler(boardId)}>
+            delete board
+          </button>
+        </>
       </div>
       <div className="columns_wrapper">
         {columns &&
