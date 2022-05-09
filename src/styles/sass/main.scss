@@ -5,9 +5,11 @@
 @import "base/_global";
 
 // layout
-@import "layout/_header";
-@import "layout/_main";
+@import 'layout/_header';
+@import 'layout/_main';
+@import 'layout/_footer';
 @import "layout/_boards";
 @import "layout/_columns";
 
 // components
+@import "components/_user-nav";
