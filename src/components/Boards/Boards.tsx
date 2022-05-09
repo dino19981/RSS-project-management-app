@@ -210,7 +210,7 @@ const initialValues = {
 
 const fields = [
   //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Titile is required', placeholder: 'Board Title' },
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' },
 ];
 
 const formOptions = {
