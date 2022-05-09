@@ -8,3 +8,11 @@ export const registrationSchema = yup
     password: yup.string().required().min(5),
   })
   .required();
+
+export const registrationSchema2 = yup
+  .object()
+  .shape({
+    name: yup.string().required().max(15),
+    name2: yup.string().required().matches(/^\S+$/),
+  })
+  .required();

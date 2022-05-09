@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import Form from '../../components/form/Form';
 import Modal from '../../components/modal/Modal';
-import { registrationSchemaType } from '../../models/schemas';
+import { fieldsType } from '../../models/form';
 import { registrationSchema } from '../../schemas/registration';
+import Authentification from '../authentification/Authentification';
 
 export default function Registration() {
-  function onSubmit(value: registrationSchemaType) {
+  function onSubmit(value: fieldsType) {
     console.log(value);
   }
 
@@ -32,20 +33,5 @@ export default function Registration() {
     formClassName: 'authentification__form',
   };
 
-  return (
-    <Modal isShowFooter={false}>
-      <Form {...formOptions}></Form>
-      <p className="authentification__text">
-        Уже зарегистрированы? <Link to="/signin">Войти</Link>
-      </p>
-      <div className="authentification__footer">
-        <Button
-          type="submit"
-          text="Зарегистрироваться"
-          formId={formOptions.formId}
-          btnClass="authentification__button"
-        />
-      </div>
-    </Modal>
-  );
+  return <Authentification formOptions={formOptions} buttonText="Зарегистрироваться" />;
 }
