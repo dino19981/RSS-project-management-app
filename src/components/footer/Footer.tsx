@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, navData } from '../../config/navigation';
-import { teamMembers } from '../../config/teamData';
+import { navData } from '../../const/navData';
+import { AppRoute } from '../../const/routes';
+import { teamMembers } from '../../const/teamData';
+import UserNav from '../userNav/UserNav';
 
 const authorizeStatus = true; // temporary
 
 export default function Footer() {
-  const renderNavData = navData.filter(({ isAuthorize }) => isAuthorize === authorizeStatus);
-
   return (
     <footer className="footer">
       <div className="footer__container container">
@@ -34,17 +34,7 @@ export default function Footer() {
             ))}
           </ul>
 
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              {renderNavData.map(({ title, path }) => (
-                <li key={path} className="header__item">
-                  <Link className="header__link" to={path}>
-                    {title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <UserNav authorizeStatus={authorizeStatus} />
         </div>
 
         <div className="footer__logo-wrapper">

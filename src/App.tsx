@@ -1,6 +1,6 @@
 import MainPage from './pages/mainPage/MainPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute } from './config/navigation';
+import { AppRoute } from './const/routes';
 import MainLayout from './layouts/MainLayout';
 import Boards from './components/Boards/Boards';
 import Board from './components/Boards/Board/Board';
