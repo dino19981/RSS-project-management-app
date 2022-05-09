@@ -1,12 +1,14 @@
-@import 'base/_typography';
-@import 'base/_normalize';
-@import 'abstract/_variables';
-@import 'abstract/_mixins';
-@import 'base/_global';
+@import "base/_typography";
+@import "base/_normalize";
+@import "abstract/_variables";
+@import "abstract/_mixins";
+@import "base/_global";
 
 // layout
 @import 'layout/_header';
 @import 'layout/_main';
 @import 'layout/_footer';
+@import "layout/_boards";
+@import "layout/_columns";
 
 // components
