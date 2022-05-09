@@ -6,7 +6,8 @@ export interface formProps {
   fields: formField[];
   isHaveButton?: boolean;
   formId?: string;
-  onSubmit: (values: schema | TBoardCreateSchema) => void;
+  onSubmit: (values: schema | TBoardCreateSchema | TColumnCreateSchema) => void;
+
   buttonOptions: buttonProps;
 }
 
@@ -27,5 +28,9 @@ export type schema = {
 };
 
 export type TBoardCreateSchema = {
+  title: string;
+};
+
+export type TColumnCreateSchema = {
   title: string;
 };
