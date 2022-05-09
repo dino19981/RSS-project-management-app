@@ -1,3 +1,5 @@
+import { registrationFields } from '../../components/form/constants/fieldsOptions';
+import { registrationValues } from '../../components/form/constants/initialValues';
 import { instanceAxios } from '../../HTTP/configuration';
 import { fieldsType } from '../../models/form';
 import { registrationSchema } from '../../schemas/authentification';
@@ -10,25 +12,20 @@ export default function Registration() {
 
   const formOptions = {
     schema: registrationSchema,
-    initialValues: {
-      name: '',
-      login: '',
-      password: '',
-    },
-    fields: [
-      { name: 'name', labelText: 'Имя', errorMessage: 'Максимальная длина 15 символов' },
-      { name: 'login', labelText: 'Логин', errorMessage: 'Пробелы недопустимы' },
-      {
-        name: 'password',
-        labelText: 'Пароль',
-        type: 'password',
-        errorMessage: 'Минимальная длина 5 символов',
-      },
-    ],
+    initialValues: registrationValues,
+    fields: registrationFields,
     formId: 'registration',
     onSubmit,
     formClassName: 'authentification__form',
   };
 
-  return <Authentification formOptions={formOptions} buttonText="Зарегистрироваться" />;
+  return (
+    <Authentification
+      formOptions={formOptions}
+      buttonText="Зарегистрироваться"
+      link="/signin"
+      linkText="Войти"
+      answerText="Уже зарегистрированы?"
+    />
+  );
 }

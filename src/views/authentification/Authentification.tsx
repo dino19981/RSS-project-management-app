@@ -4,12 +4,18 @@ import Form from '../../components/form/Form';
 import Modal from '../../components/modal/Modal';
 import { authentificationProps } from '../../models/authentification';
 
-export default function Authentification({ formOptions, buttonText }: authentificationProps) {
+export default function Authentification({
+  formOptions,
+  buttonText,
+  link,
+  linkText,
+  answerText,
+}: authentificationProps) {
   return (
     <Modal isShowFooter={false}>
       <Form {...formOptions}></Form>
       <p className="authentification__text">
-        Уже зарегистрированы? <Link to="/signin">Войти</Link>
+        {answerText} <Link to={link}>{linkText}</Link>
       </p>
       <div className="authentification__footer">
         <Button

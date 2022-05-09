@@ -1,4 +1,6 @@
 import React from 'react';
+import { autorizationFields } from '../../components/form/constants/fieldsOptions';
+import { autorizationValues } from '../../components/form/constants/initialValues';
 import { fieldsType } from '../../models/form';
 import { autorizationSchema } from '../../schemas/authentification';
 import Authentification from '../authentification/Authentification';
@@ -10,27 +12,20 @@ export default function Autorization() {
 
   const formOptions = {
     schema: autorizationSchema,
-    initialValues: {
-      login: '',
-      password: '',
-    },
-    fields: [
-      {
-        name: 'login',
-        labelText: 'Логин',
-        errorMessage: 'Пробелы недопустимы, минимальная длина 3 символа',
-      },
-      {
-        name: 'password',
-        labelText: 'Пароль',
-        type: 'password',
-        errorMessage: 'Минимальная длина 5 символов',
-      },
-    ],
+    initialValues: autorizationValues,
+    fields: autorizationFields,
     formId: 'autorization',
     onSubmit,
     formClassName: 'authentification__form',
   };
 
-  return <Authentification formOptions={formOptions} buttonText="Войти" />;
+  return (
+    <Authentification
+      formOptions={formOptions}
+      buttonText="Войти"
+      link="/signup"
+      linkText="Создать аккаунт"
+      answerText="Еще не зарегистрированы?"
+    />
+  );
 }
