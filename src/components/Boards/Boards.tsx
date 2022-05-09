@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { getBoards } from '../../common/api';
 import { TBoard } from '../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 
@@ -195,8 +196,13 @@ const fakeBoards: TBoard[] = [
 ];
 
 function Boards() {
+  // let boards: TBoard[] | string;
   useEffect(() => {
     //TODO Загрузка  досок /boards
+    // (async () => {
+    //   boards = await getBoards();
+    // })();
+    // console.log(boards);
   }, []);
 
   return (
