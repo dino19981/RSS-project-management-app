@@ -1,3 +1,4 @@
+import Footer from '../../components/footer/Footer';
 import Header from '../../components/header/Header';
 
 export default function MainPage() {
@@ -9,7 +10,7 @@ export default function MainPage() {
           <h1>Main page</h1>
         </div>
       </main>
-      <footer className="footer">footer</footer>
+      <Footer />
     </>
   );
 }
