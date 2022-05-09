@@ -1,3 +1,5 @@
+import { buttonProps } from './button';
+
 export interface formProps {
   schema: schema;
   initialValues: schema;
@@ -5,6 +7,7 @@ export interface formProps {
   isHaveButton?: boolean;
   formId?: string;
   onSubmit: (values: schema) => void;
+  buttonOptions: buttonProps;
 }
 
 interface formField {
