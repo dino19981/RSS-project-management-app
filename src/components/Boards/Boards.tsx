@@ -207,9 +207,14 @@ function Boards() {
 
   return (
     <div className="boards">
-      {fakeBoards.map((board) => {
-        return <BoardPreview {...board} key={board.id} />;
-      })}
+      <div className="boards_menu">
+        <button type="button">Создать доску</button>
+      </div>
+      <div className="boards_wrapper">
+        {fakeBoards.map((board) => {
+          return <BoardPreview {...board} key={board.id} />;
+        })}
+      </div>
     </div>
   );
 }
