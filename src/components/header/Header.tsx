@@ -12,7 +12,14 @@ export default function Header() {
           Logo
         </Link>
 
-        {authorizeStatus && <button>Create new board</button>}
+        {authorizeStatus && (
+          <button className="btn-new-board">
+            <svg className="btn-new-board__icon" width="24" height="24">
+              <use xlinkHref="#create-icon" />
+            </svg>
+            <span className="btn-new-board__text">Create new board</span>
+          </button>
+        )}
 
         <UserNav authorizeStatus={authorizeStatus} />
       </div>
