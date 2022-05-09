@@ -205,8 +205,7 @@ const schema = yup
   .required();
 
 const initialValues = {
-  name: '',
-  id: 1,
+  title: '',
 };
 
 const fields = [
@@ -227,10 +226,10 @@ function Boards() {
     // (async () => {
     //   boards = await getBoards();
     // })();
-    // console.log(boards);
   }, []);
 
   function createBoardHandler(value: typeof schema) {
+    //TODO отправить запрос на создание
     console.log('create board');
   }
 

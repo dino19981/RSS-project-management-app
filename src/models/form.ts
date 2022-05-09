@@ -1,12 +1,12 @@
 import { buttonProps } from './button';
 
 export interface formProps {
-  schema: schema;
-  initialValues: schema;
+  schema: schema | TBoardCreateSchema;
+  initialValues: schema | TBoardCreateSchema;
   fields: formField[];
   isHaveButton?: boolean;
   formId?: string;
-  onSubmit: (values: schema) => void;
+  onSubmit: (values: schema | TBoardCreateSchema) => void;
   buttonOptions: buttonProps;
 }
 
@@ -24,4 +24,8 @@ interface formField {
 export type schema = {
   name: string;
   id: number;
+};
+
+export type TBoardCreateSchema = {
+  title: string;
 };
