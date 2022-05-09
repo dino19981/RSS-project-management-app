@@ -12,3 +12,15 @@ export const getBoards = async (config: AxiosRequestConfig = {}) => {
     return err.message;
   }
 };
+
+export const createBoard = async (title: string, config: AxiosRequestConfig = {}) => {
+  const boardsURL = process.env.REACT_APP_SERVER_URL + '/boards';
+  try {
+    const response = await axios.post<Omit<TBoard, 'columns'>>(boardsURL, { title }, config);
+    return response.data;
+  } catch (error) {
+    const err = error as AxiosError;
+    console.log(err);
+    return err.message;
+  }
+};
