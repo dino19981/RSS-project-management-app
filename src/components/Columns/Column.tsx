@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { TColumn } from '../../models/column';
 import { TTask } from '../../models/task';
 import Task from '../Task/Task';
+import TaskPreview from '../Task/TaskPreview';
 
 function Column() {
   let tasks: undefined | TTask[];
@@ -15,7 +16,7 @@ function Column() {
       {column && <div className="column_title">{column.title}</div>}
       {tasks &&
         tasks.map((task) => {
-          return <Task key={task.id} />;
+          return <TaskPreview key={task.id} />;
         })}
     </div>
   );
