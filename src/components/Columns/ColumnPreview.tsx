@@ -55,13 +55,12 @@ function ColumnPreview({ id: columnId, order, title, tasks }: TColumn) {
         modalState={{ isModalActive, setIsModalActive }}
         buttonOptions={{
           btnClass: 'task_create__btn',
-          type: 'button',
           text: 'Add task',
         }}
         formOptions={{
           ...formOptions,
           onSubmit: createTaskHandler,
-          buttonOptions: { type: 'button' },
+          buttonOptions: {},
         }}
       />
     </div>

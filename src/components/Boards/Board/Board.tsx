@@ -79,13 +79,12 @@ function Board() {
             modalState={{ isModalActive, setIsModalActive }}
             buttonOptions={{
               btnClass: 'column_create__btn',
-              type: 'button',
               text: 'Add column',
             }}
             formOptions={{
               ...formOptions,
               onSubmit: createColumnHandler,
-              buttonOptions: { type: 'button' },
+              buttonOptions: {},
             }}
           />
           <button type="button" onClick={() => deleteBoardHandler(boardId)}>

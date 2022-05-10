@@ -99,13 +99,12 @@ function Column() {
               modalState={{ isModalActive, setIsModalActive }}
               buttonOptions={{
                 btnClass: 'column_create__btn',
-                type: 'button',
                 text: 'edit column',
               }}
               formOptions={{
                 ...formOptions,
                 onSubmit: editColumnHandler,
-                buttonOptions: { type: 'button' },
+                buttonOptions: {},
               }}
             />
           </div>

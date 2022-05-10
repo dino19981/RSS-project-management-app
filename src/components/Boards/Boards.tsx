@@ -242,13 +242,12 @@ function Boards() {
           modalState={{ isModalActive, setIsModalActive }}
           buttonOptions={{
             btnClass: 'boards_create__btn',
-            type: 'button',
             text: 'Add Board',
           }}
           formOptions={{
             ...formOptions,
             onSubmit: createBoardHandler,
-            buttonOptions: { type: 'button' },
+            buttonOptions: {},
           }}
         />
       </div>
