@@ -8,7 +8,7 @@ import Boards from './layouts/Boards/Boards';
 import Board from './layouts/Boards/Board/Board';
 import Column from './layouts/Columns/Column';
 import Task from './layouts/Task/Task';
-import Autorization from './views/autorization/Autorization';
+import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
             <Route path={AppRoute.TASKS} element={<Column />} />
             <Route path={AppRoute.TASK} element={<Task />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-            <Route path={AppRoute.LOGIN} element={<Autorization />} />
+            <Route path={AppRoute.LOGIN} element={<Authorization />} />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
             <Route path="*" element={<Navigate replace to={AppRoute.NOT_FOUND_PAGE} />} />
           </Route>
