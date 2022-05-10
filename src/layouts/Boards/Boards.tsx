@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
+import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { TBoard } from '../../models/board';
-import ButtonWithModalForm from '../buttonWithModalForm/ButtonWithModalForm';
 import BoardPreview from './BoardPreview/BoardPreview';
 
 const fakeBoards: TBoard[] = [

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ButtonWithModalForm from '../../buttonWithModalForm/ButtonWithModalForm';
 import ColumnPreview from '../../Columns/ColumnPreview';
+import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 
 const schema = yup
   .object()
