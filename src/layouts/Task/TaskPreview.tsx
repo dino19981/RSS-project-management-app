@@ -8,6 +8,7 @@ type TProps = TTask & {
 
 function TaskPreview({ id, title, description, order, userId, done, columnId }: TProps) {
   const { pathname } = useLocation();
+  console.log(columnId, 'taskpreview');
   const urlToTask = columnId
     ? pathname + `/columns/${columnId}/tasks/${id}`
     : pathname + `/tasks/${id}`;

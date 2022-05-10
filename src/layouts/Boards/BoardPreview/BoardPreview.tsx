@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import { TBoard } from '../../../models/board';
 import { TColumn } from '../../../models/column';
-import ButtonWithModalForm from '../../buttonWithModalForm/ButtonWithModalForm';
+import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
