@@ -8,11 +8,11 @@
 @import "layout/_header";
 @import "layout/_main";
 @import "layout/_footer";
-@import "layout/_boards";
-@import "layout/_columns";
-@import "layout/_tasks";
 
 // components
+@import "components/_boards";
+@import "components/_tasks";
+@import "components/_columns";
 @import "components/_input";
 @import "components/_modal";
 @import "components/_form";
