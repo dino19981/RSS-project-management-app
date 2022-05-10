@@ -5,9 +5,9 @@ import Boards from './components/Boards/Boards';
 import Board from './components/Boards/Board/Board';
 import Column from './components/Columns/Column';
 import Autorization from './views/autorization/Autorization';
-import Registration from './views/registration/Registration';
 import MainPage from './pages/mainPage/MainPage';
 import { AppRoute } from './const/routes';
+import Registration from './views/registration/Registration';
 
 function App() {
   return (
