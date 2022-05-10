@@ -4,13 +4,7 @@ import Button from '../button/Button';
 
 import './style.scss';
 
-export default function Modal({
-  formId,
-  children,
-  handleCloseModal,
-  submitBtnName,
-  handler,
-}: modalProps) {
+export default function Modal({ formId, children, handleCloseModal, submitBtnName }: modalProps) {
   return (
     <div className="main__container" aria-label="modal">
       <div
@@ -31,7 +25,7 @@ export default function Modal({
 
           <div className="modal__footer">
             <Button handler={handleCloseModal} text="Закрыть" />
-            <Button type="submit" formId={formId} text={submitBtnName} handler={handler} />
+            <Button type="submit" formId={formId} text={submitBtnName} />
           </div>
         </div>
       </div>

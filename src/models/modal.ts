@@ -5,5 +5,4 @@ export interface modalProps {
   children: React.ReactNode;
   submitBtnName?: string;
   handleCloseModal: () => void;
-  handler?: () => void;
 }
