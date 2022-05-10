@@ -16,7 +16,7 @@ function App() {
             <Route path="/boards/:boardId/columns" element={<Board />} />
             <Route path="/boards/:boardId/columns/:columnId" element={<Column />} />
             <Route path="/boards/:boardId/columns/:columnId/tasks" element={<Column />} />
-            <Route path="/boards/:boardId/columns/:columnId/tasks/taskId" element={<Task />} />
+            <Route path="/boards/:boardId/columns/:columnId/tasks/:taskId" element={<Task />} />
           </Routes>
         </div>
       </Router>
