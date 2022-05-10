@@ -30,8 +30,8 @@ export default function Modal({
           {children}
 
           <div className="modal__footer">
-            <Button type="submit" formId={formId} text={submitBtnName} handler={handler} />
             <Button handler={handleCloseModal} text="Закрыть" />
+            <Button type="submit" formId={formId} text={submitBtnName} handler={handler} />
           </div>
         </div>
       </div>
