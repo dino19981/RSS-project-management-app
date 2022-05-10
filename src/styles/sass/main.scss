@@ -5,13 +5,19 @@
 @import "base/_global";
 
 // layout
-@import 'layout/_header';
-@import 'layout/_main';
-@import 'layout/_footer';
+@import "layout/_header";
+@import "layout/_main";
+@import "layout/_footer";
 @import "layout/_boards";
 @import "layout/_columns";
+@import "layout/_tasks";
 
 // components
+@import "components/_input";
+@import "components/_modal";
+@import "components/_form";
+@import "components/_button";
+@import "components/_authentification";
 @import "components/_user-nav";
 @import "components/_btn";
 @import "components/_btn-new-board";

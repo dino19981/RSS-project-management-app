@@ -4,5 +4,6 @@ export interface modalProps {
   formId?: string;
   children: React.ReactNode;
   submitBtnName?: string;
-  handleCloseModal: () => void;
+  handleCloseModal?: () => void;
+  isShowFooter?: boolean;
 }

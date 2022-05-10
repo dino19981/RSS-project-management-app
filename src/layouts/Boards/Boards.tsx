@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import * as yup from 'yup';
+import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { TBoard } from '../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 
@@ -194,16 +196,66 @@ const fakeBoards: TBoard[] = [
   },
 ];
 
+const schema = yup
+  .object()
+  .shape({
+    title: yup.string().trim().required(),
+  })
+  .required();
+
+const initialValues = {
+  title: '',
+};
+
+const fields = [
+  //TODO разобраться с полями
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' },
+];
+
+const formOptions = {
+  schema,
+  initialValues,
+  fields,
+};
+
 function Boards() {
+  // let boards: TBoard[] | string;
   useEffect(() => {
     //TODO Загрузка  досок /boards
+    // (async () => {
+    //   boards = await getBoards();
+    // })();
   }, []);
+
+  function createBoardHandler(value: typeof schema) {
+    //TODO отправить запрос на создание
+    console.log('create board');
+  }
+
+  const [isModalActive, setIsModalActive] = useState(false);
 
   return (
     <div className="boards">
-      {fakeBoards.map((board) => {
-        return <BoardPreview {...board} key={board.id} />;
-      })}
+      <div className="boards_menu">
+        <ButtonWithModalForm
+          submitBtnName="Create Board"
+          modalState={{ isModalActive, setIsModalActive }}
+          buttonOptions={{
+            btnClass: 'boards_create__btn',
+            text: 'Add Board',
+          }}
+          formOptions={{
+            ...formOptions,
+            onSubmit: createBoardHandler,
+            buttonOptions: {},
+          }}
+        />
+      </div>
+      <div className="boards_wrapper">
+        {fakeBoards.map((board) => {
+          return <BoardPreview {...board} key={board.id} />;
+        })}
+      </div>
     </div>
   );
 }

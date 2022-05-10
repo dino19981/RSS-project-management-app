@@ -9,4 +9,6 @@ export const enum AppRoute {
   BOARD = '/boards/:boardId',
   COLUMNS = '/boards/:boardId/columns',
   COLUMN = '/boards/:boardId/columns/:columnId',
+  TASKS = '/boards/:boardId/columns/:columnId/tasks',
+  TASK = '/boards/:boardId/columns/:columnId/tasks/:taskId',
 }

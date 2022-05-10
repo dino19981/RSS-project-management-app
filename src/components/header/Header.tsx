@@ -4,7 +4,7 @@ import { AppRoute } from '../../const/routes';
 import UserNav from '../userNav/UserNav';
 import { throttle } from 'throttle-typescript';
 
-const authorizeStatus = true; // temporary
+const authorizeStatus = false; // temporary
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);

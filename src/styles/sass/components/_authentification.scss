@@ -1,0 +1,21 @@
+.authentification__form {
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.authentification__footer {
+  display: flex;
+  justify-content: center;
+}
+
+.authentification__text {
+  font-size: 18px;
+  text-align: center;
+}
+
+.authentification__button {
+  padding: 10px 20px;
+}
