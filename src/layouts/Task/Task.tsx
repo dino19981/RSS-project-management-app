@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import ButtonWithModalForm from '../buttonWithModalForm/ButtonWithModalForm';
+import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 
 const schema = yup
   .object()

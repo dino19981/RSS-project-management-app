@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
+import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { TColumn } from '../../models/column';
 import { TTask } from '../../models/task';
-import ButtonWithModalForm from '../buttonWithModalForm/ButtonWithModalForm';
 import TaskPreview from '../Task/TaskPreview';
 
 const fakeTasks = [

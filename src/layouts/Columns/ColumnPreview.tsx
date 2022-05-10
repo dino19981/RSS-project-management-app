@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import * as yup from 'yup';
+import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { TColumn } from '../../models/column';
-import ButtonWithModalForm from '../buttonWithModalForm/ButtonWithModalForm';
 import TaskPreview from '../Task/TaskPreview';
 
 const schema = yup
