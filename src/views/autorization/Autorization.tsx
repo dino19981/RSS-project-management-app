@@ -1,6 +1,7 @@
 import React from 'react';
 import { autorizationFields } from '../../components/form/constants/fieldsOptions';
 import { autorizationValues } from '../../components/form/constants/initialValues';
+import { AppRoute } from '../../const/routes';
 import { fieldsType } from '../../models/form';
 import { autorizationSchema } from '../../schemas/authentification';
 import Authentification from '../authentification/Authentification';
@@ -23,7 +24,7 @@ export default function Autorization() {
     <Authentification
       formOptions={formOptions}
       buttonText="Войти"
-      link="/signup"
+      link={AppRoute.REGISTRATION}
       linkText="Создать аккаунт"
       answerText="Еще не зарегистрированы?"
     />

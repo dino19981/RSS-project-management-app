@@ -32,16 +32,20 @@ export default function Form({
 
   return (
     <form onSubmit={handleSubmit} id={formId} className={formClassName}>
-      {fields.map((field, id) => (
-        <Input
-          key={id}
-          onChange={handleChange}
-          value={values[field.name as fieldName]}
-          isHaveError={!!errors[field.name as fieldName]}
-          {...field}
-        />
-      ))}
-
+      <fieldset>
+        <ul>
+          {fields.map((field, id) => (
+            <li key={field.name}>
+              <Input
+                onChange={handleChange}
+                value={values[field.name as fieldName]}
+                isHaveError={!!errors[field.name as fieldName]}
+                {...field}
+              />
+            </li>
+          ))}
+        </ul>
+      </fieldset>
       {isHaveButton && <Button type="submit" {...buttonOptions} />}
     </form>
   );

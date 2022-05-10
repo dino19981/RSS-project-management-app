@@ -1,5 +1,6 @@
 import { registrationFields } from '../../components/form/constants/fieldsOptions';
 import { registrationValues } from '../../components/form/constants/initialValues';
+import { AppRoute } from '../../const/routes';
 import { instanceAxios } from '../../HTTP/configuration';
 import { fieldsType } from '../../models/form';
 import { registrationSchema } from '../../schemas/authentification';
@@ -23,7 +24,7 @@ export default function Registration() {
     <Authentification
       formOptions={formOptions}
       buttonText="Зарегистрироваться"
-      link="/signin"
+      link={AppRoute.LOGIN}
       linkText="Войти"
       answerText="Уже зарегистрированы?"
     />

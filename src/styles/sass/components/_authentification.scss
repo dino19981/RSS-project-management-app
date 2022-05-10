@@ -1,7 +1,9 @@
 .authentification__form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .authentification__footer {

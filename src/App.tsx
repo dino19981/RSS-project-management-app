@@ -6,19 +6,22 @@ import Board from './components/Boards/Board/Board';
 import Column from './components/Columns/Column';
 import Autorization from './views/autorization/Autorization';
 import Registration from './views/registration/Registration';
+import MainPage from './pages/mainPage/MainPage';
+import { AppRoute } from './const/routes';
 
 function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route path="signup" element={<Registration />} />
-            <Route path="signin" element={<Autorization />} />
-            <Route path="boards" element={<Boards />} />
-            <Route path="boards/:boardId" element={<Board />} />
-            <Route path="boards/:boardId/columns" element={<Board />} />
-            <Route path="boards/:boardId/columns/:columnId" element={<Column />} />
+          <Route path={AppRoute.MAIN} element={<MainLayout />}>
+            <Route index element={<MainPage />} />
+            <Route path={AppRoute.BOARDS} element={<Boards />} />
+            <Route path={AppRoute.BOARD} element={<Board />} />
+            <Route path={AppRoute.COLUMNS} element={<Board />} />
+            <Route path={AppRoute.COLUMN} element={<Column />} />
+            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+            <Route path={AppRoute.LOGIN} element={<Autorization />} />
           </Route>
         </Routes>
       </BrowserRouter>
