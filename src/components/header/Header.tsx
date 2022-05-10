@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/routes';
 import UserNav from '../userNav/UserNav';
@@ -5,8 +6,24 @@ import UserNav from '../userNav/UserNav';
 const authorizeStatus = true; // temporary
 
 export default function Header() {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', getStickyStatus);
+    return () => {
+      window.removeEventListener('scroll', getStickyStatus);
+    };
+  });
+
+  const getStickyStatus = () => {
+    const scrollTop = window.scrollY;
+    scrollTop >= 50 ? setIsSticky(true) : setIsSticky(false);
+  };
+
+  const headerClass = isSticky ? 'header header--sticky' : 'header';
+
   return (
-    <header className="header">
+    <header className={headerClass}>
       <div className="header__container container">
         <Link className="header__logo header__link" to={AppRoute.MAIN}>
           Logo
