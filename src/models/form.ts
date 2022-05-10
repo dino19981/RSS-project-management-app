@@ -1,12 +1,12 @@
 import { buttonProps } from './button';
 
 export interface formProps {
-  schema: schema | TBoardCreateSchema;
-  initialValues: schema | TBoardCreateSchema;
+  schema: schema | TBoardCreateSchema | TDeleteBoard;
+  initialValues: schema | TBoardCreateSchema | TDeleteBoard;
   fields: formField[];
   isHaveButton?: boolean;
   formId?: string;
-  onSubmit: (values: schema | TBoardCreateSchema | TColumnCreateSchema) => void;
+  onSubmit: (values: schema | TBoardCreateSchema | TColumnCreateSchema | TDeleteBoard) => void;
 
   buttonOptions: buttonProps;
 }
@@ -34,3 +34,5 @@ export type TBoardCreateSchema = {
 export type TColumnCreateSchema = {
   title: string;
 };
+
+export type TDeleteBoard = { confirm: boolean };
