@@ -14,3 +14,4 @@ export type TBoardCreateSchema = {
 export type TColumnCreateSchema = {
   title: string;
 };
+export type TDeleteBoard = { confirm: boolean };

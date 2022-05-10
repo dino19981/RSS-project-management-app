@@ -4,6 +4,7 @@ import {
   registrationSchemaType,
   TBoardCreateSchema,
   TColumnCreateSchema,
+  TDeleteBoard,
 } from './schemas';
 
 export interface formProps {
@@ -27,9 +28,9 @@ interface formField {
   placeholder?: string;
 }
 
-export type TDeleteBoard = { confirm: boolean };
 export type fieldsType =
   | registrationSchemaType
   | autorizationSchemaType
   | TBoardCreateSchema
-  | TColumnCreateSchema;
+  | TColumnCreateSchema
+  | TDeleteBoard;
