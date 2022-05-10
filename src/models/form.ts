@@ -1,5 +1,11 @@
 import { buttonProps } from './button';
-import { autorizationSchemaType, registrationSchemaType } from './schemas';
+import {
+  autorizationSchemaType,
+  registrationSchemaType,
+  TBoardCreateSchema,
+  TColumnCreateSchema,
+  TDeleteBoard,
+} from './schemas';
 
 export interface formProps {
   schema: fieldsType;
@@ -22,4 +28,9 @@ interface formField {
   placeholder?: string;
 }
 
-export type fieldsType = registrationSchemaType | autorizationSchemaType;
+export type fieldsType =
+  | registrationSchemaType
+  | autorizationSchemaType
+  | TBoardCreateSchema
+  | TColumnCreateSchema
+  | TDeleteBoard;
