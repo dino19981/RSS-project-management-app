@@ -43,7 +43,7 @@ function BoardPreview({ id, title, columns }: TBoard) {
 
   const [isModalActive, setIsModalActive] = useState(false);
 
-  async function deleteBoard() {
+  function deleteBoard() {
     console.log('delete board');
   }
 
