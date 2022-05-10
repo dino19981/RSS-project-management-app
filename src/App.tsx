@@ -1,11 +1,13 @@
-import MainPage from './pages/mainPage/MainPage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute } from './const/routes';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
+import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import Boards from './components/Boards/Boards';
 import Board from './components/Boards/Board/Board';
 import Column from './components/Columns/Column';
-import ErrorBoundary from './components/errorBoundary/errorBoundary';
+import Autorization from './views/autorization/Autorization';
+import Registration from './views/registration/Registration';
+import MainPage from './pages/mainPage/MainPage';
+import { AppRoute } from './const/routes';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path={AppRoute.BOARD} element={<Board />} />
             <Route path={AppRoute.COLUMNS} element={<Board />} />
             <Route path={AppRoute.COLUMN} element={<Column />} />
+            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+            <Route path={AppRoute.LOGIN} element={<Autorization />} />
           </Route>
         </Routes>
       </BrowserRouter>

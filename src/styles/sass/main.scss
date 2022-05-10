@@ -1,15 +1,20 @@
-@import "base/_typography";
-@import "base/_normalize";
-@import "abstract/_variables";
-@import "abstract/_mixins";
-@import "base/_global";
+@import 'base/_typography';
+@import 'base/_normalize';
+@import 'abstract/_variables';
+@import 'abstract/_mixins';
+@import 'base/_global';
 
 // layout
 @import 'layout/_header';
 @import 'layout/_main';
 @import 'layout/_footer';
-@import "layout/_boards";
-@import "layout/_columns";
+@import 'layout/_boards';
+@import 'layout/_columns';
 
 // components
-@import "components/_user-nav";
+@import 'components/_input';
+@import 'components/_modal';
+@import 'components/_form';
+@import 'components/_button';
+@import 'components/_authentification';
+@import 'components/_user-nav';

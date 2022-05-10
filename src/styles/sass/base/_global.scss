@@ -11,9 +11,9 @@ body {
   font-weight: 400;
   font-size: 24px;
   line-height: 28px;
-  color: $dark-green;
+  color: $green;
 }
-    
+
 // sticky footer
 #root {
   min-height: 100%;
@@ -36,7 +36,9 @@ img {
   @include visually-hidden;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -68,7 +70,7 @@ input::-webkit-inner-spin-button {
   /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
   /* Firefox */
 }

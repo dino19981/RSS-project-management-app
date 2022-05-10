@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/routes';
 import UserNav from '../userNav/UserNav';
 
-const authorizeStatus = true; // temporary
+const authorizeStatus = false; // temporary
 
 export default function Header() {
   return (
