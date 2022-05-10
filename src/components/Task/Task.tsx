@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import Form from '../form/Form';
-import Modal from '../modal/Modal';
+import ButtonWithModalForm from '../buttonWithModalForm/ButtonWithModalForm';
 
 const schema = yup
   .object()
@@ -34,11 +33,6 @@ function Task() {
     fields,
   };
 
-  function closeModal() {
-    console.log('close modal');
-    setIsModalActive(false);
-  }
-
   function saveTask() {
     // TODO  FETCH PUT /boards/:boardId/columns/:columnId/tasks/:taskId
     console.log('save task');
@@ -46,14 +40,16 @@ function Task() {
 
   return (
     <div className="task">
-      <Modal formId="modalForm-task" handleCloseModal={closeModal} submitBtnName="save task">
-        <Form
-          formId="modalForm-task"
-          {...formOptions}
-          onSubmit={saveTask}
-          buttonOptions={{ text: '123' }}
-        />
-      </Modal>
+      <ButtonWithModalForm
+        modalState={{ isModalActive, setIsModalActive }}
+        buttonOptions={{ btnClass: 'hidden' }}
+        submitBtnName="save task"
+        formOptions={{
+          ...formOptions,
+          onSubmit: saveTask,
+          buttonOptions: {},
+        }}
+      />
     </div>
   );
 }
