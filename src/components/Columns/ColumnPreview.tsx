@@ -33,11 +33,7 @@ const formOptions = {
 function ColumnPreview({ id: columnId, order, title, tasks }: TColumn) {
   const { pathname } = useLocation();
   const urlToColumn = pathname + '/columns/' + columnId;
-  const [isModalActive, setModal] = useState(false);
-
-  function setIsModalActive(bool: boolean) {
-    setModal(bool);
-  }
+  const [isModalActive, setIsModalActive] = useState(false);
 
   function createTaskHandler(value: typeof schema) {
     //TODO ADD API REQuest

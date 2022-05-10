@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
-import { getBoards } from '../../common/api';
 import { TBoard } from '../../models/board';
 import ButtonWithModalForm from '../buttonWithModalForm/ButtonWithModalForm';
 import BoardPreview from './BoardPreview/BoardPreview';
@@ -233,11 +232,7 @@ function Boards() {
     console.log('create board');
   }
 
-  const [isModalActive, setModal] = useState(false);
-
-  function setIsModalActive(bool: boolean) {
-    setModal(bool);
-  }
+  const [isModalActive, setIsModalActive] = useState(false);
 
   return (
     <div className="boards">

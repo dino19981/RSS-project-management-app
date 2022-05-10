@@ -19,14 +19,14 @@ function calculateTask(columns: TColumn[] | undefined) {
 function BoardPreview({ id, title, columns }: TBoard) {
   const taskCount = calculateTask(columns);
 
-  const [isModalActive, setModal] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   function closeModal() {
-    setModal(false);
+    setIsModalActive(false);
   }
 
   function openModal() {
-    setModal(true);
+    setIsModalActive(true);
   }
   async function deleteBoard() {
     console.log('delete board');

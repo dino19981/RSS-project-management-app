@@ -18,7 +18,7 @@ const fields = [
 ];
 
 function Task() {
-  const [isModalActive, setModal] = useState(true);
+  const [isModalActive, setIsModalActive] = useState(true);
   const initialValues = {
     title: '',
     description: '',
@@ -36,7 +36,7 @@ function Task() {
 
   function closeModal() {
     console.log('close modal');
-    setModal(false);
+    setIsModalActive(false);
   }
 
   function saveTask() {

@@ -81,11 +81,7 @@ function Column() {
     //TODO Загрузка  колонки /boards/:boardId/columns/:columnId
   }, []);
 
-  const [isModalActive, setModal] = useState(false);
-
-  function setIsModalActive(bool: boolean) {
-    setModal(bool);
-  }
+  const [isModalActive, setIsModalActive] = useState(false);
 
   function editColumnHandler(value: typeof schema) {
     //TODO ADD API REQuest

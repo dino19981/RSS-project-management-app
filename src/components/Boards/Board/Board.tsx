@@ -56,11 +56,7 @@ function Board() {
     },
   ];
 
-  const [isModalActive, setModal] = useState(false);
-
-  function setIsModalActive(bool: boolean) {
-    setModal(bool);
-  }
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const { boardId } = useParams();
 
