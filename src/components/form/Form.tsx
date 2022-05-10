@@ -34,7 +34,7 @@ export default function Form({
     <form onSubmit={handleSubmit} id={formId} className={formClassName}>
       <fieldset>
         <ul>
-          {fields.map((field, id) => (
+          {fields.map((field) => (
             <li key={field.name}>
               <Input
                 onChange={handleChange}
