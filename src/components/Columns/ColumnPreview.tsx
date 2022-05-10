@@ -48,11 +48,12 @@ function ColumnPreview({ id: columnId, order, title, tasks }: TColumn) {
     <div className="column-preview">
       <Link to={urlToColumn} className="column-preview_link">
         <div className="column-preview_title">{title}</div>
-        {tasks &&
-          tasks.map((task) => {
-            return <TaskPreview key={task.id} {...task} />;
-          })}
       </Link>
+      {tasks &&
+        tasks.map((task) => {
+          return <TaskPreview key={task.id} {...task} columnId={columnId} />;
+        })}
+
       <ButtonWithModalForm
         submitBtnName="add task"
         modalState={{ isModalActive, setIsModalActive }}
