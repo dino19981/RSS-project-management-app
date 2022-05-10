@@ -22,7 +22,8 @@
 }
 
 .modal__content {
-  max-width: 450px;
+  width: 100%;
+  max-width: 500px;
   padding: 45px;
   position: absolute;
   z-index: 3;
@@ -52,4 +53,6 @@
 .modal__footer {
   display: flex;
   justify-content: right;
+  gap: 1rem;
+  margin-top: 2rem;
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { buttonProps } from '../../models/button';
 
 export default function Button({ text, type, formId, icon, handler, btnClass }: buttonProps) {

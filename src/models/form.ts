@@ -1,38 +1,35 @@
 import { buttonProps } from './button';
+import {
+  autorizationSchemaType,
+  registrationSchemaType,
+  TBoardCreateSchema,
+  TColumnCreateSchema,
+} from './schemas';
 
 export interface formProps {
-  schema: schema | TBoardCreateSchema | TDeleteBoard;
-  initialValues: schema | TBoardCreateSchema | TDeleteBoard;
+  schema: fieldsType;
+  initialValues: fieldsType;
   fields: formField[];
   isHaveButton?: boolean;
   formId?: string;
-  onSubmit: (values: schema | TBoardCreateSchema | TColumnCreateSchema | TDeleteBoard) => void;
-
-  buttonOptions: buttonProps;
+  onSubmit: (values: fieldsType) => void;
+  buttonOptions?: buttonProps;
+  formClassName?: string;
 }
 
 interface formField {
   name: string;
-  label?: string;
+  labelText?: string;
   inputClass?: string;
   labelClass?: string;
   type?: string;
   errorMessage?: string;
   placeholder?: string;
-  selectClassName?: string;
 }
 
-export type schema = {
-  name: string;
-  id: number;
-};
-
-export type TBoardCreateSchema = {
-  title: string;
-};
-
-export type TColumnCreateSchema = {
-  title: string;
-};
-
 export type TDeleteBoard = { confirm: boolean };
+export type fieldsType =
+  | registrationSchemaType
+  | autorizationSchemaType
+  | TBoardCreateSchema
+  | TColumnCreateSchema;
