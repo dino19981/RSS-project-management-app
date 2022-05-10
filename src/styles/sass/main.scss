@@ -7,7 +7,9 @@
 // layout
 @import "layout/_header";
 @import "layout/_main";
-@import "layout/_boards";
-@import "layout/_columns";
 
 // components
+
+@import "components/_boards";
+@import "components/_columns";
+@import "components/_tasks";
