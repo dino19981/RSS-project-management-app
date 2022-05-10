@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import * as yup from 'yup';
 import { TColumn } from '../../models/column';
 import { TTask } from '../../models/task';
+import ButtonWithModalForm from '../buttonWithModalForm/ButtonWithModalForm';
 import TaskPreview from '../Task/TaskPreview';
 
 const fakeTasks = [
@@ -29,6 +30,28 @@ const fakeTasks = [
     files: [],
   },
 ];
+
+const schema = yup
+  .object()
+  .shape({
+    title: yup.string().trim().required(),
+  })
+  .required();
+
+const initialValues = {
+  title: '',
+};
+
+const fields = [
+  //TODO разобраться с полями
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
+];
+
+const formOptions = {
+  schema,
+  initialValues,
+  fields,
+};
 
 function Column() {
   let tasks: undefined | TTask[];
@@ -58,10 +81,40 @@ function Column() {
     //TODO Загрузка  колонки /boards/:boardId/columns/:columnId
   }, []);
 
+  const [isModalActive, setModal] = useState(false);
+
+  function setIsModalActive(bool: boolean) {
+    setModal(bool);
+  }
+
+  function editColumnHandler(value: typeof schema) {
+    //TODO ADD API REQuest
+    console.log('edit column', value);
+  }
+
   return (
     <div className="columns_wrapper">
       <div className="column">
-        {column && <div className="column_title">{column.title}</div>}
+        {column && (
+          <div className="column_title">
+            {column.title}
+            <ButtonWithModalForm
+              submitBtnName="save column"
+              modalState={{ isModalActive, setIsModalActive }}
+              buttonOptions={{
+                btnClass: 'column_create__btn',
+                type: 'button',
+                text: 'edit column',
+              }}
+              formOptions={{
+                ...formOptions,
+                onSubmit: editColumnHandler,
+                buttonOptions: { type: 'button' },
+              }}
+            />
+          </div>
+        )}
+
         {fakeTasks &&
           fakeTasks.map((task) => {
             return <TaskPreview key={task.id} {...task} />;
