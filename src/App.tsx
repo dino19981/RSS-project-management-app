@@ -8,6 +8,17 @@ import Autorization from './views/autorization/Autorization';
 import MainPage from './pages/mainPage/MainPage';
 import { AppRoute } from './const/routes';
 import Registration from './views/registration/Registration';
+import Axios from 'axios';
+import qs from 'qs';
+import { configure } from 'axios-hooks';
+
+const axios = Axios.create({
+  baseURL: process.env.REACT_APP_SERVER_URL,
+  timeout: 5000,
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
+});
+
+configure({ axios, cache: false });
 
 function App() {
   return (

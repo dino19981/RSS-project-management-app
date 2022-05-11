@@ -1,3 +1,4 @@
+import { Axios, AxiosError } from 'axios';
 import { formProps } from './form';
 
 export interface authentificationProps {
@@ -5,5 +6,6 @@ export interface authentificationProps {
   buttonText: string;
   link: string;
   linkText: string;
-  answerText: string;
+  questionText: string;
+  errorMessage?: string | null;
 }

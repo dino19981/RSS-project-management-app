@@ -1,14 +1,24 @@
+import useAxios from 'axios-hooks';
 import { registrationFields } from '../../components/form/constants/fieldsOptions';
 import { registrationValues } from '../../components/form/constants/initialValues';
+import Preloader from '../../components/preloader/Preloader';
 import { AppRoute } from '../../const/routes';
-import { instanceAxios } from '../../HTTP/configuration';
 import { fieldsType } from '../../models/form';
 import { registrationSchema } from '../../schemas/authentification';
 import Authentification from '../authentification/Authentification';
 
 export default function Registration() {
+  const [{ loading, error }, refetch] = useAxios('', { manual: true });
+
   async function onSubmit(value: fieldsType) {
-    console.log(value);
+    const requestOptions = {
+      url: '/signup',
+      method: 'post',
+      data: value,
+    };
+    console.log(requestOptions);
+    const data = await refetch(requestOptions);
+    console.log(data);
   }
 
   const formOptions = {
@@ -21,12 +31,16 @@ export default function Registration() {
   };
 
   return (
-    <Authentification
-      formOptions={formOptions}
-      buttonText="Зарегистрироваться"
-      link={AppRoute.LOGIN}
-      linkText="Войти"
-      answerText="Уже зарегистрированы?"
-    />
+    <>
+      <Authentification
+        formOptions={formOptions}
+        buttonText="Зарегистрироваться"
+        link={AppRoute.LOGIN}
+        linkText="Войти"
+        questionText="Уже зарегистрированы?"
+        errorMessage={error?.code}
+      />
+      {loading && <Preloader />}
+    </>
   );
 }
