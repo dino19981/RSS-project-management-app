@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import Loader from '../../components/loader/loader';
+import { useAxios } from '../../hooks/useAxios';
 import { TBoard } from '../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 
@@ -219,20 +221,50 @@ const formOptions = {
 };
 
 function Boards() {
+  const { data, isLoading, isError, refetch } = useAxios(
+    {
+      url: '/boards',
+      method: 'get',
+    },
+    {}
+  );
+
+  const {
+    isLoading: requestLoading,
+    isError: requestError,
+    refetch: requestRefetch,
+  } = useAxios({});
   // let boards: TBoard[] | string;
   useEffect(() => {
+    // console.log('useEffect');
     //TODO Загрузка  досок /boards
     // (async () => {
     //   boards = await getBoards();
     // })();
   }, []);
 
-  function createBoardHandler(value: typeof schema) {
+  async function createBoardHandler(value: typeof schema) {
     //TODO отправить запрос на создание
+    await requestRefetch({
+      url: '/boards',
+      method: 'post',
+      data: value,
+    });
+    await refetch();
+    setIsModalActive(false);
     console.log('create board');
   }
 
   const [isModalActive, setIsModalActive] = useState(false);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (isError) {
+    console.log('error');
+  }
+  console.log(data, 'data');
 
   return (
     <div className="boards">
@@ -252,9 +284,10 @@ function Boards() {
         />
       </div>
       <div className="boards_wrapper">
-        {fakeBoards.map((board) => {
+        {data!.map((board) => {
           return <BoardPreview {...board} key={board.id} />;
         })}
+        {requestLoading && <Loader />}
       </div>
     </div>
   );

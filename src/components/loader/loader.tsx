@@ -42,8 +42,6 @@ export default function Loader() {
           />
         </svg>
       </div>
-
-      <h2 className="loading-screen__text">Загрузка...</h2>
     </div>
   );
 }
