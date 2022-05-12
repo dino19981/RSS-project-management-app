@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { instanceAxios } from '../HTTP/configuration';
+import { TBoard } from '../models/board';
+import { TColumn } from '../models/column';
 import { fieldsType } from '../models/form';
+import { responses } from '../models/useAxios';
 
 type params = {
   [key: string]: string;
@@ -20,12 +23,11 @@ type hookOptions = {
 export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: hookOptions) => {
   const initialLoading = hookOptions?.dontFetchAtMount ? false : true;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [data, setData] = useState<any[]>();
+  const [data, setData] = useState<responses>();
   const [isLoading, setIsLoading] = useState(initialLoading);
   const [isError, setIsError] = useState(false);
 
-  const request = async (requestOptions = defaultRequestOptions) => {
+  const request = async (requestOptions: requestOptions = defaultRequestOptions) => {
     setIsLoading(true);
     setIsError(false);
 
@@ -44,15 +46,11 @@ export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: ho
     }
   };
 
-  const refetch = (params: requestOptions = defaultRequestOptions) => {
-    return request(params);
-  };
-
   useEffect(() => {
     if (!hookOptions?.dontFetchAtMount) {
       request();
     }
   }, []);
 
-  return { data, isLoading, isError, refetch };
+  return { data, isLoading, isError, request };
 };
