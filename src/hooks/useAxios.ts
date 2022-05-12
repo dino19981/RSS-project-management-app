@@ -1,26 +1,8 @@
 import { useEffect, useState } from 'react';
 import { instanceAxios } from '../HTTP/configuration';
-import { TBoard } from '../models/board';
-import { TColumn } from '../models/column';
-import { fieldsType } from '../models/form';
-import { responses } from '../models/useAxios';
+import { hookOptionsType, requestOptions, responses } from '../models/useAxios';
 
-type params = {
-  [key: string]: string;
-};
-
-type requestOptions = {
-  url?: string;
-  method?: string;
-  params?: params;
-  data?: fieldsType;
-};
-
-type hookOptions = {
-  dontFetchAtMount?: boolean;
-};
-
-export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: hookOptions) => {
+export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: hookOptionsType) => {
   const initialLoading = hookOptions?.dontFetchAtMount ? false : true;
 
   const [data, setData] = useState<responses>();
