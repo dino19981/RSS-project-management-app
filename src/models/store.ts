@@ -1,7 +1,8 @@
-export interface DataState {
+import { store } from '../store/store';
+
+export interface AuthorizationState {
   authorizeStatus: boolean;
 }
 
-export interface CombineState {
-  DATA: DataState;
-}
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
