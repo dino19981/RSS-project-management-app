@@ -37,22 +37,15 @@
     opacity: 0;
     transform: rotate(0deg) translateY(2em);
   }
-
-}
-
-.loading-screen__text {
-  font-family: $title-font;
-  font-weight: 400;
-  font-size: 28px;
-  color: $dark-green;
 }
 
 .loading-screen {
   width: 50%;
-  margin: 20VH auto 20VH auto;
-  margin-bottom: 30VH;
-  text-align: center;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
 }
 
 .loading-screen__spinner {
