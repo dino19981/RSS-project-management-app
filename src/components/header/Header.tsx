@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/routes';
 import UserNav from '../userNav/UserNav';
 import { throttle } from 'throttle-typescript';
-
-const authorizeStatus = false; // temporary
+import { useSelector } from 'react-redux';
+import { getAuthorizeStatus } from '../../store/data/selectors';
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
+  const authorizeStatus = useSelector(getAuthorizeStatus);
 
   useEffect(() => {
     window.addEventListener('scroll', getStickyThrottled);
