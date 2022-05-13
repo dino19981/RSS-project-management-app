@@ -1,0 +1,46 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.main__title {
+  margin: 0;
+  margin-bottom: 25px;
+  padding: 0;
+
+  font-family: $title-font;
+  color: $dark-green;
+  font-size: 32px;
+  
+  @media (min-width: $tablet-width) {
+    font-size: 38px;
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: $desktop-width) {
+    margin-bottom: 50px;
+  }
+}
+
+.main__pagination-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: $tablet-width) {
+    flex-direction: row;
+  }
+}
+
+.main .main__pagination {
+  margin-top: 5px;
+  margin-left: 0;
+  margin-right: 20px;
+}
+
+.main__wrapper--control {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+}

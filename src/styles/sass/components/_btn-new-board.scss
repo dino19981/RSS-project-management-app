@@ -1,0 +1,28 @@
+.btn-new-board {
+  @include nav-link;
+
+  position: relative;
+  background-color: transparent;
+  border: none;
+  margin-bottom: 0;
+
+  &:hover {
+    background-color: transparent;
+  }
+
+  &:hover .btn-new-board__icon {
+    fill: $hover-link-color;
+  }
+}
+
+.btn-new-board__icon {
+  position: absolute;
+  transition: all 0.5s;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: $accent-color;
+}
+
+.btn-new-board__text {
+  margin-left: 30px;
+}

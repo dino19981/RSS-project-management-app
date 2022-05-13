@@ -1,0 +1,56 @@
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+@mixin nav-link {
+  display: block;
+
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  font-size: 17px;
+  font-family: $title-font;
+  font-weight: 500;
+  color: $accent-color;
+  
+  transition: all 0.5s;
+
+  @media (min-width: 420px) {
+    font-size: 18px;
+  }
+  
+  @media (min-width: $tablet-width) {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 24px;
+  }
+
+  &:hover:not(.header__link--active),
+  &:focus:not(.header__link--active) {
+    color: $hover-link-color;
+  }
+
+  &:active:not(.header__link--active) {
+    color: $accent-color;
+  }
+
+  &--about-us {
+    margin-right: -20px;
+  }
+
+  &--active {
+    color: $basic-white;
+    cursor: default;
+  }
+}
