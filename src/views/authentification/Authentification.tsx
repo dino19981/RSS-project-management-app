@@ -14,21 +14,23 @@ export default function Authentification({
   loadingStatus,
 }: authentificationProps) {
   return (
-    <Modal isShowFooter={false}>
-      {errorMessage && <p className="authentification__error">{errorMessage}</p>}
-      <Form {...formOptions}></Form>
-      <p className="authentification__text">
-        {questionText} <Link to={link}>{linkText}</Link>
-      </p>
-      <div className="authentification__footer">
-        <Button
-          isDisabled={loadingStatus}
-          type="submit"
-          text={buttonText}
-          formId={formOptions.formId}
-          btnClass="authentification__button"
-        />
+    <div className="authentification">
+      <div className="authentification__inner">
+        {errorMessage && <p className="authentification__error">{errorMessage}</p>}
+        <Form {...formOptions}></Form>
+        <p className="authentification__text">
+          {questionText} <Link to={link}>{linkText}</Link>
+        </p>
+        <div className="authentification__footer">
+          <Button
+            isDisabled={loadingStatus}
+            type="submit"
+            text={buttonText}
+            formId={formOptions.formId}
+            btnClass="authentification__button"
+          />
+        </div>
       </div>
-    </Modal>
+    </div>
   );
 }
