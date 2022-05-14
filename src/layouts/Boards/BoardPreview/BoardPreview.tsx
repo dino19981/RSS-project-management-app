@@ -40,6 +40,7 @@ const formOptions = {
 
 function BoardPreview({ id, title, columns }: TBoard) {
   const taskCount = calculateTask(columns);
+  console.log(id, title);
 
   const [isModalActive, setIsModalActive] = useState(false);
 
