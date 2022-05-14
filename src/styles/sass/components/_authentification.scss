@@ -1,3 +1,15 @@
+.authentification {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 98px - 219px);
+}
+
+.authentification__inner {
+  width: 100%;
+  max-width: 500px;
+  margin: auto 0;
+}
+
 .authentification__form {
   ul {
     display: flex;
@@ -18,4 +30,11 @@
 
 .authentification__button {
   padding: 10px 20px;
+}
+
+.authentification__error {
+  margin: 0 auto;
+  text-align: center;
+  color: red;
+  font-size: 15px;
 }

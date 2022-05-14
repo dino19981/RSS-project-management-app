@@ -5,4 +5,5 @@ export interface buttonProps {
   icon?: JSX.Element;
   handler?: () => void;
   formId?: string;
+  isDisabled?: boolean;
 }

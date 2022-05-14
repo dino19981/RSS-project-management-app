@@ -9,22 +9,28 @@ export default function Authentification({
   buttonText,
   link,
   linkText,
-  answerText,
+  questionText,
+  errorMessage,
+  loadingStatus,
 }: authentificationProps) {
   return (
-    <Modal isShowFooter={false}>
-      <Form {...formOptions}></Form>
-      <p className="authentification__text">
-        {answerText} <Link to={link}>{linkText}</Link>
-      </p>
-      <div className="authentification__footer">
-        <Button
-          type="submit"
-          text={buttonText}
-          formId={formOptions.formId}
-          btnClass="authentification__button"
-        />
+    <div className="authentification">
+      <div className="authentification__inner">
+        {errorMessage && <p className="authentification__error">{errorMessage}</p>}
+        <Form {...formOptions}></Form>
+        <p className="authentification__text">
+          {questionText} <Link to={link}>{linkText}</Link>
+        </p>
+        <div className="authentification__footer">
+          <Button
+            isDisabled={loadingStatus}
+            type="submit"
+            text={buttonText}
+            formId={formOptions.formId}
+            btnClass="authentification__button"
+          />
+        </div>
       </div>
-    </Modal>
+    </div>
   );
 }
