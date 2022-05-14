@@ -33,7 +33,6 @@ export default function Autorization() {
       localStorage.setItem('token', loginData?.data.token);
 
       const userData = await getUserData(loginData?.data.token);
-
       dispatch(setUserData(userData));
 
       navigate(AppRoute.MAIN);
@@ -48,7 +47,6 @@ export default function Autorization() {
     onSubmit,
     formClassName: 'authentification__form',
   };
-  console.log(isError);
 
   return (
     <>

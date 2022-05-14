@@ -22,8 +22,8 @@ export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: ho
       }
 
       return response;
-    } catch (e) {
-      const error = e as AxiosError;
+    } catch (err) {
+      const error = err as AxiosError;
 
       setIsError(error);
     } finally {
