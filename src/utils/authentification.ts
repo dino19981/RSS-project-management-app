@@ -1,3 +1,5 @@
+import { instanceAxios } from '../HTTP/configuration';
+
 export function getAuthentificationErrorMessage(code: number | undefined) {
   if (!code) return;
   switch (code) {
@@ -20,4 +22,13 @@ export const parseJwt = (token: string) => {
   } catch (e) {
     return null;
   }
+};
+
+export const getUserData = async (token: string) => {
+  const userId = parseJwt(token).userId;
+
+  const userRequestOptions = { url: `/users/${userId}`, method: 'get' };
+  const userResponse = await instanceAxios.get(`/users/${userId}`);
+
+  return { ...userResponse?.data, authorizeStatus: true };
 };

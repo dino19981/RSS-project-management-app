@@ -10,8 +10,25 @@ import Column from './layouts/Columns/Column';
 import Task from './layouts/Task/Task';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
+import { useAppDispatch } from './store/hooks';
+import { useEffect } from 'react';
+import { getUserData } from './utils/authentification';
+import { setUserData } from './store/user/actions';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      (async () => {
+        const userData = await getUserData(token);
+        dispatch(setUserData(userData));
+      })();
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       <BrowserRouter>

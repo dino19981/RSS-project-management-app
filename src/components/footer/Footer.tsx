@@ -3,7 +3,7 @@ import { AppRoute } from '../../const/routes';
 import { teamMembers } from '../../const/teamData';
 import UserNav from '../userNav/UserNav';
 import { useAppSelector } from '../../store/hooks';
-import { selectAuthStatus } from '../../store/auth/action';
+import { selectAuthStatus } from '../../store/user/action';
 
 export default function Footer() {
   const authorizeStatus = useAppSelector(selectAuthStatus);

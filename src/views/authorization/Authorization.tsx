@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { autorizationFields } from '../../components/form/constants/fieldsOptions';
 import { autorizationValues } from '../../components/form/constants/initialValues';
@@ -7,33 +6,37 @@ import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { fieldsType } from '../../models/form';
 import { autorizationSchema } from '../../schemas/authentification';
-import authorizationSlice from '../../store/auth/reducer';
-import { useAppSelector } from '../../store/hooks';
-import { getAuthentificationErrorMessage, parseJwt } from '../../utils/authentification';
+import { useAppDispatch } from '../../store/hooks';
+import {
+  getAuthentificationErrorMessage,
+  getUserData,
+  parseJwt,
+} from '../../utils/authentification';
 import Authentification from '../authentification/Authentification';
+import { setUserData } from '../../store/user/actions';
 
 export default function Autorization() {
-  const { authorizeStatus } = useAppSelector((state) => state.authorization);
-  const { changeAuthStatus } = authorizationSlice.actions;
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
   async function onSubmit(value: fieldsType) {
-    const requestOptions = {
+    const loginRequestOptions = {
       url: '/signin',
       method: 'post',
       data: value,
     };
 
-    const loginData = await request(requestOptions);
+    const loginData = await request(loginRequestOptions);
 
     if (loginData) {
       localStorage.setItem('token', loginData?.data.token);
 
-      const userData = parseJwt(loginData?.data.token);
-      console.log(userData);
+      const userData = await getUserData(loginData?.data.token);
 
-      // navigate(AppRoute.MAIN);
+      dispatch(setUserData(userData));
+
+      navigate(AppRoute.MAIN);
     }
   }
 
@@ -45,6 +48,7 @@ export default function Autorization() {
     onSubmit,
     formClassName: 'authentification__form',
   };
+
   return (
     <>
       <Authentification
