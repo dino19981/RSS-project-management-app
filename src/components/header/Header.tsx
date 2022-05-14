@@ -4,7 +4,7 @@ import { AppRoute } from '../../const/routes';
 import UserNav from '../userNav/UserNav';
 import { throttle } from 'throttle-typescript';
 import { useAppSelector } from '../../store/hooks';
-import { selectAuthStatus } from '../../store/auth/action';
+import { selectAuthStatus } from '../../store/user/action';
 import { MIN_SCROLL_Y, THROTTLE_DELAY } from './const';
 
 export default function Header() {

@@ -1,6 +1,9 @@
 import { store } from '../store/store';
 
 export interface AuthorizationState {
+  id: string;
+  name: string;
+  login: string;
   authorizeStatus: boolean;
 }
 
