@@ -5,6 +5,7 @@ import UserNav from '../userNav/UserNav';
 import { throttle } from 'throttle-typescript';
 import { useAppSelector } from '../../store/hooks';
 import { selectAuthStatus } from '../../store/auth/action';
+import { MIN_SCROLL_Y, THROTTLE_DELAY } from './const';
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
@@ -19,11 +20,10 @@ export default function Header() {
 
   const getStickyStatus = () => {
     const scrollTop = window.scrollY;
-    scrollTop >= 50 ? setIsSticky(true) : setIsSticky(false);
-    console.log('scrollTop:', scrollTop);
+    scrollTop >= MIN_SCROLL_Y ? setIsSticky(true) : setIsSticky(false);
   };
 
-  const getStickyThrottled = throttle(getStickyStatus, 100);
+  const getStickyThrottled = throttle(getStickyStatus, THROTTLE_DELAY);
 
   const headerClass = isSticky ? 'header header--sticky' : 'header';
 
@@ -33,6 +33,11 @@ export default function Header() {
         <Link className="header__logo header__link" to={AppRoute.MAIN}>
           Logo
         </Link>
+
+        <select className="lang-select" name="lang-select" id="lang-select" defaultValue="ru">
+          <option value="ru">Рус</option>
+          <option value="en">Анг</option>
+        </select>
 
         {authorizeStatus && (
           <button className="btn-new-board">
