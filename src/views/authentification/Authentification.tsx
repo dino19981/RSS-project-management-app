@@ -11,18 +11,18 @@ export default function Authentification({
   linkText,
   questionText,
   errorMessage,
+  loadingStatus,
 }: authentificationProps) {
-  const authentificationError = 'Неверный логин или пароль';
-
   return (
     <Modal isShowFooter={false}>
-      {errorMessage && <p className="authentification__error">{authentificationError}</p>}
+      {errorMessage && <p className="authentification__error">{errorMessage}</p>}
       <Form {...formOptions}></Form>
       <p className="authentification__text">
         {questionText} <Link to={link}>{linkText}</Link>
       </p>
       <div className="authentification__footer">
         <Button
+          isDisabled={loadingStatus}
           type="submit"
           text={buttonText}
           formId={formOptions.formId}

@@ -1,14 +1,17 @@
-import useAxios from 'axios-hooks';
+import { useNavigate } from 'react-router-dom';
 import { registrationFields } from '../../components/form/constants/fieldsOptions';
 import { registrationValues } from '../../components/form/constants/initialValues';
-import Preloader from '../../components/preloader/Preloader';
+import Loader from '../../components/loader/loader';
 import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
 import { fieldsType } from '../../models/form';
 import { registrationSchema } from '../../schemas/authentification';
+import { getAuthentificationErrorMessage } from '../../utils/authentification';
 import Authentification from '../authentification/Authentification';
 
 export default function Registration() {
-  const [{ loading, error }, refetch] = useAxios('', { manual: true });
+  const navigate = useNavigate();
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
   async function onSubmit(value: fieldsType) {
     const requestOptions = {
@@ -16,9 +19,10 @@ export default function Registration() {
       method: 'post',
       data: value,
     };
-    console.log(requestOptions);
-    const data = await refetch(requestOptions);
-    console.log(data);
+    const data = await request(requestOptions);
+    if (data) {
+      navigate(AppRoute.LOGIN);
+    }
   }
 
   const formOptions = {
@@ -38,9 +42,10 @@ export default function Registration() {
         link={AppRoute.LOGIN}
         linkText="Войти"
         questionText="Уже зарегистрированы?"
-        errorMessage={error?.code}
+        errorMessage={isError && getAuthentificationErrorMessage(isError.response?.status)}
+        loadingStatus={isLoading}
       />
-      {loading && <Preloader />}
+      {isLoading && <Loader />}
     </>
   );
 }

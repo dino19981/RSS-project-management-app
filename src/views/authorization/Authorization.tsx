@@ -1,16 +1,22 @@
-import useAxios from 'axios-hooks';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { autorizationFields } from '../../components/form/constants/fieldsOptions';
 import { autorizationValues } from '../../components/form/constants/initialValues';
-import Preloader from '../../components/preloader/Preloader';
+import Loader from '../../components/loader/loader';
 import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
 import { fieldsType } from '../../models/form';
 import { autorizationSchema } from '../../schemas/authentification';
+import authorizationSlice from '../../store/auth/reducer';
+import { useAppSelector } from '../../store/hooks';
+import { getAuthentificationErrorMessage, parseJwt } from '../../utils/authentification';
 import Authentification from '../authentification/Authentification';
 
 export default function Autorization() {
+  const { authorizeStatus } = useAppSelector((state) => state.authorization);
+  const { changeAuthStatus } = authorizationSlice.actions;
   const navigate = useNavigate();
-  const [{ loading, error }, refetch] = useAxios('', { manual: true });
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
   async function onSubmit(value: fieldsType) {
     const requestOptions = {
@@ -19,8 +25,16 @@ export default function Autorization() {
       data: value,
     };
 
-    await refetch(requestOptions);
-    navigate(AppRoute.MAIN);
+    const loginData = await request(requestOptions);
+
+    if (loginData) {
+      localStorage.setItem('token', loginData?.data.token);
+
+      const userData = parseJwt(loginData?.data.token);
+      console.log(userData);
+
+      // navigate(AppRoute.MAIN);
+    }
   }
 
   const formOptions = {
@@ -31,7 +45,6 @@ export default function Autorization() {
     onSubmit,
     formClassName: 'authentification__form',
   };
-
   return (
     <>
       <Authentification
@@ -40,9 +53,10 @@ export default function Autorization() {
         link={AppRoute.REGISTRATION}
         linkText="Создать аккаунт"
         questionText="Еще не зарегистрированы?"
-        errorMessage={error?.code}
+        errorMessage={isError && getAuthentificationErrorMessage(isError.response?.status)}
+        loadingStatus={isLoading}
       />
-      {loading && <Preloader />}
+      {isLoading && <Loader />}
     </>
   );
 }
