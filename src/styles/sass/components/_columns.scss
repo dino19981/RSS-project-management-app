@@ -1,0 +1,28 @@
+.columns_wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  row-gap: 0.5rem;
+  height: 90vh;
+  background-color: #ddd;
+  width: 100%;
+  padding: 0.5rem;
+}
+.column-preview,
+.column {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  width: 25%;
+  border: 1px solid #000;
+  border-radius: 5px;
+
+  &_link {
+    width: 100%;
+  }
+  &_title {
+    text-align: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 0.5rem;
+  }
+}

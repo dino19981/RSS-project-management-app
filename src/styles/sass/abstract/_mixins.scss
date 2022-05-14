@@ -38,7 +38,7 @@
 
   &:hover:not(.header__link--active),
   &:focus:not(.header__link--active) {
-    color: #fe21b2;
+    color: $hover-link-color;
   }
 
   &:active:not(.header__link--active) {

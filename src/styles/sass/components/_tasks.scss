@@ -1,4 +1,4 @@
-.columns_wrapper {
+.tasks_wrapper {
   display: flex;
   flex-wrap: nowrap;
   row-gap: 0.5rem;
@@ -7,22 +7,24 @@
   width: 100%;
   padding: 0.5rem;
 }
-.column-preview,
-.column {
+.task-preview {
   display: flex;
-  height: 100%;
-  flex-direction: column;
-  width: 25%;
   border: 1px solid #000;
   border-radius: 5px;
   &_link {
     width: 100%;
     height: 100%;
   }
+}
+
+.task {
   &_title {
     text-align: center;
     border: 1px solid #000;
     border-radius: 5px;
     padding: 0.5rem;
+  }
+  &_link {
+    width: 100%;
   }
 }

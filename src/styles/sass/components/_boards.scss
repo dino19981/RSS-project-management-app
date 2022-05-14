@@ -1,0 +1,26 @@
+.boards {
+  background-color: #ddd;
+  &_wrapper {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(auto-fill, 200px);
+    grid-template-rows: repeat(auto-fill, 200px);
+
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+}
+
+.board {
+  &_preview {
+    border: 1px solid #000;
+    border-radius: 5px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &_preview__link {
+    flex-grow: 1;
+  }
+}

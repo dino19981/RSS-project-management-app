@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
-import { navData } from '../../const/navData';
 import { AppRoute } from '../../const/routes';
 import { teamMembers } from '../../const/teamData';
 import UserNav from '../userNav/UserNav';
-
-const authorizeStatus = true; // temporary
+import { useAppSelector } from '../../store/hooks';
+import { selectAuthStatus } from '../../store/auth/action';
 
 export default function Footer() {
+  const authorizeStatus = useAppSelector(selectAuthStatus);
+
   return (
     <footer className="footer">
       <div className="footer__container container">
