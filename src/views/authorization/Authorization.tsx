@@ -48,6 +48,7 @@ export default function Autorization() {
     onSubmit,
     formClassName: 'authentification__form',
   };
+  console.log(isError);
 
   return (
     <>
