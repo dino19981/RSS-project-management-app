@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import { useAppSelector } from '../../store/hooks';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -48,7 +48,6 @@ type TProps = TColumn & {
 function ColumnPreview({ id: columnId, order, title, tasks, updateHandler }: TProps) {
   const { pathname } = useLocation();
   const { boardId } = useParams();
-  const urlToColumn = pathname + '/columns/' + columnId;
   const [isModalActive, setIsModalActive] = useState(false);
 
   const { id: userId } = useAppSelector((state) => state.authorization);
