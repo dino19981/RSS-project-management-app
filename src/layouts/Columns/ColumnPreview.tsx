@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import * as yup from 'yup';
+import { useAppSelector } from '../../store/hooks';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import { useAxios } from '../../hooks/useAxios';
 import { TColumn } from '../../models/column';
 import TaskPreview from '../Task/TaskPreview';
 
@@ -30,18 +32,64 @@ const formOptions = {
   fields,
 };
 
-function ColumnPreview({ id: columnId, order, title, tasks }: TColumn) {
+function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+  e.preventDefault();
+  const target = e.target as HTMLDivElement;
+  target.classList.add('drag');
+}
+function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
+  const target = e.target as HTMLDivElement;
+  target.classList.remove('drag');
+}
+
+type TProps = TColumn & {
+  updateHandler: () => void;
+};
+function ColumnPreview({ id: columnId, order, title, tasks, updateHandler }: TProps) {
   const { pathname } = useLocation();
+  const { boardId } = useParams();
   const urlToColumn = pathname + '/columns/' + columnId;
   const [isModalActive, setIsModalActive] = useState(false);
 
-  function createTaskHandler(value: typeof schema) {
-    //TODO ADD API REQuest
-    console.log('create task', value);
+  const { id: userId } = useAppSelector((state) => state.authorization);
+  const { data, isLoading, isError, request } = useAxios({
+    url: `/boards/${boardId}`,
+    method: 'get',
+  });
+
+  async function createTaskHandler(value: typeof schema) {
+    const body = { ...value, order: tasks.length + 1, userId };
+    await request({
+      url: `/boards/${boardId}/columns/${columnId}/tasks`,
+      method: 'post',
+      data: body,
+    });
+    updateHandler();
+    setIsModalActive(false);
+  }
+
+  async function dropHandler(e: React.DragEvent<HTMLDivElement>, order: number) {
+    e.preventDefault();
+    console.log('drop', columnId);
+    // await request({
+    //   url: `/boards/${boardId}/columns/${columnId}`,
+    //   method: 'put',
+    //   data: {
+    //     title,
+    //     order,
+    //   },
+    // });
+    // await request();
   }
 
   return (
-    <div className={`column-preview`}>
+    <div
+      className={`column-preview`}
+      draggable={true}
+      onDragOver={(e) => dragOverHandler(e)}
+      onDragLeave={(e) => dragLeaveHandler(e)}
+      onDrop={(e) => dropHandler(e, 2)}
+    >
       <Link to={urlToColumn} className="column-preview_link">
         <div className="column-preview_title">{title}</div>
       </Link>

@@ -15,7 +15,7 @@ function TaskPreview({ id, title, description, order, userId, done, columnId }: 
   return (
     <div className="task-preview">
       <Link to={urlToTask} className="task_link">
-        TaskPreview
+        {title}
       </Link>
     </div>
   );

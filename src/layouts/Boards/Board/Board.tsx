@@ -33,11 +33,21 @@ const formOptions = {
   fields,
 };
 
-function generateColumns(columns: TColumn[] | undefined, columnCount = 5) {
+function generateColumns(
+  columns: TColumn[] | undefined,
+  columnCount = 5,
+  updateHandler: () => void
+) {
   return [...Array(columnCount)].map((el, index) => {
     const comparedColumn = columns?.find((c) => c.order === index + 1);
     if (comparedColumn) {
-      return <ColumnPreview key={comparedColumn?.id || index} {...comparedColumn} />;
+      return (
+        <ColumnPreview
+          key={comparedColumn?.id || index}
+          {...comparedColumn}
+          updateHandler={updateHandler}
+        />
+      );
     }
     return <EmptyColumn key={index} order={index} />;
   });
@@ -107,7 +117,7 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">{generateColumns(columns)}</div>
+      <div className="columns_wrapper">{generateColumns(columns, 5, request)}</div>
     </div>
   );
 }
