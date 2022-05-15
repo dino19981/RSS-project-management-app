@@ -46,24 +46,13 @@ function generateColumns(columns: TColumn[] | undefined, columnCount = 5) {
 function Board() {
   const { boardId } = useParams();
   const navigate = useNavigate();
-  // const nextOrder = columns?.length > 0 ? columns?.length : 1;
 
-  const {
-    isLoading: isBoardLoading,
-    isError: isBoardError,
-    request: boardsRequest,
-  } = useAxios({}, { dontFetchAtMount: true });
-
-  const {
-    data: board,
-    isLoading,
-    isError,
-    request,
-  } = useAxios({
+  const { data, isLoading, isError, request } = useAxios({
     url: `/boards/${boardId}`,
     method: 'get',
   });
-
+  const board = data as TBoard;
+  const nextOrder = board?.columns.length > 0 ? board.columns.length + 1 : 1;
   const [isModalActive, setIsModalActive] = useState(false);
 
   async function deleteBoardHandler(id: string | undefined) {
@@ -76,26 +65,19 @@ function Board() {
     }
   }
 
-  async function createColumnHandler(
-    boardId: string | undefined,
-    values: fieldsType,
-    order: number
-  ) {
-    const body = { ...values, order } as { title: string; order: number };
-    const columnsRequestOptions = {
-      url: `/boards/${boardId}/columns`,
-      method: 'post',
-      data: body,
-    };
-    if (boardId) {
-      await boardsRequest(columnsRequestOptions);
+  async function createColumnHandler(boardId = '', values: fieldsType, order: number) {
+    if (order <= 5) {
+      const body = { ...values, order } as { title: string; order: number };
+      const columnsRequestOptions = {
+        url: `/boards/${boardId}/columns`,
+        method: 'post',
+        data: body,
+      };
+      await request(columnsRequestOptions);
       setIsModalActive(false);
       request();
     }
-  }
-
-  function changeOrderHandler(item: HTMLDivElement) {
-    console.log('change order', item);
+    setIsModalActive(false);
   }
 
   if (isError) return <p>Ошибка</p>;
@@ -115,7 +97,7 @@ function Board() {
             formOptions={{
               ...formOptions,
               onSubmit: (values) => {
-                createColumnHandler(boardId, values, 4);
+                createColumnHandler(boardId, values, nextOrder);
               },
               buttonOptions: {},
             }}
