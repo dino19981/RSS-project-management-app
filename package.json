@@ -22,8 +22,6 @@
     "lint-staged": "^12.1.2",
     "prettier": "^2.5.1",
     "react": "^18.1.0",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.1.0",
     "react-i18next": "^11.16.7",
     "react-redux": "^8.0.1",

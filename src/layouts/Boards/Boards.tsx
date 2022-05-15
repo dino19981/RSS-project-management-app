@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import { selectBoards } from '../../store/global/action';
-import { setBoards } from '../../store/global/actions';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { getBoards } from '../../utils/boards';
+import Loader from '../../components/loader/loader';
+import { useAxios } from '../../hooks/useAxios';
+import { TBoard } from '../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 
 const schema = yup
@@ -30,22 +29,26 @@ const formOptions = {
 };
 
 function Boards() {
-  const { boards } = useAppSelector(selectBoards);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    (async () => {
-      const boardsFromDB = await getBoards();
-      dispatch(setBoards(boardsFromDB));
-    })();
-  }, []);
+  const { data, isLoading, isError, request } = useAxios({
+    url: `/boards`,
+    method: 'get',
+  });
 
-  function createBoardHandler(value: typeof schema) {
-    //TODO отправить запрос на создание
-    console.log('create board');
-  }
-
+  const boards = data as TBoard[];
   const [isModalActive, setIsModalActive] = useState(false);
+  function createBoardHandler(value: typeof schema) {
+    request({
+      data: value,
+      method: 'post',
+      url: `/boards`,
+    });
+    setIsModalActive(false);
+    request();
+  }
+  function deleteBoardHandler(value: typeof schema) {}
 
+  if (isError) return <p>Error</p>;
+  if (isLoading) return <Loader />;
   return (
     <div className="boards">
       <div className="boards_menu">
@@ -58,7 +61,7 @@ function Boards() {
           }}
           formOptions={{
             ...formOptions,
-            onSubmit: createBoardHandler,
+            onSubmit: (values) => createBoardHandler(values),
             buttonOptions: {},
           }}
         />

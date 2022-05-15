@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -36,22 +35,13 @@ function ColumnPreview({ id: columnId, order, title, tasks }: TColumn) {
   const urlToColumn = pathname + '/columns/' + columnId;
   const [isModalActive, setIsModalActive] = useState(false);
 
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'columns',
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-    item: { columnId, order },
-  }));
-
   function createTaskHandler(value: typeof schema) {
     //TODO ADD API REQuest
     console.log('create task', value);
   }
-  const dragClass = isDragging ? 'drag' : '';
 
   return (
-    <div className={`column-preview ${dragClass}`} ref={drag}>
+    <div className={`column-preview`}>
       <Link to={urlToColumn} className="column-preview_link">
         <div className="column-preview_title">{title}</div>
       </Link>
