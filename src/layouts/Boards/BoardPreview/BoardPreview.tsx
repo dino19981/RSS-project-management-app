@@ -38,13 +38,16 @@ const formOptions = {
   fields,
 };
 
-function BoardPreview({ id, title, columns }: TBoard) {
+type TProps = TBoard & {
+  deleteBoardHandler: (id: string) => void;
+};
+
+function BoardPreview({ id, title, columns, deleteBoardHandler }: TProps) {
   const taskCount = calculateTask(columns);
 
   const [isModalActive, setIsModalActive] = useState(false);
-
   function deleteBoard() {
-    console.log('delete board');
+    deleteBoardHandler(id);
   }
 
   return (

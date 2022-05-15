@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import Loader from '../../components/loader/loader';
@@ -36,16 +36,25 @@ function Boards() {
 
   const boards = data as TBoard[];
   const [isModalActive, setIsModalActive] = useState(false);
-  function createBoardHandler(value: typeof schema) {
-    request({
+  async function createBoardHandler(value: typeof schema) {
+    await request({
       data: value,
       method: 'post',
       url: `/boards`,
     });
     setIsModalActive(false);
-    request();
+    await request();
   }
-  function deleteBoardHandler(value: typeof schema) {}
+  const deleteBoardHandler = useCallback(
+    async (id: string) => {
+      await request({
+        method: 'delete',
+        url: `/boards/${id}`,
+      });
+      await request();
+    },
+    [request]
+  );
 
   if (isError) return <p>Error</p>;
   if (isLoading) return <Loader />;
@@ -69,7 +78,9 @@ function Boards() {
       <div className="boards_wrapper">
         {boards &&
           boards.map((board) => {
-            return <BoardPreview {...board} key={board.id} />;
+            return (
+              <BoardPreview {...board} key={board.id} deleteBoardHandler={deleteBoardHandler} />
+            );
           })}
       </div>
     </div>

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ColumnPreview from '../../Columns/ColumnPreview';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
-import { useDrop } from 'react-dnd';
 import EmptyColumn from '../../Columns/EmptyColumn';
 import { fieldsType } from '../../../models/form';
 import { TColumnCreateSchema } from '../../../models/schemas';
@@ -34,6 +33,16 @@ const formOptions = {
   fields,
 };
 
+function generateColumns(columns: TColumn[] | undefined, columnCount = 5) {
+  return [...Array(columnCount)].map((el, index) => {
+    const comparedColumn = columns?.find((c) => c.order === index + 1);
+    if (comparedColumn) {
+      return <ColumnPreview key={comparedColumn?.id || index} {...comparedColumn} />;
+    }
+    return <EmptyColumn key={index} order={index} />;
+  });
+}
+
 function Board() {
   const { boardId } = useParams();
   // const nextOrder = columns?.length > 0 ? columns?.length : 1;
@@ -55,14 +64,6 @@ function Board() {
   });
 
   const [isModalActive, setIsModalActive] = useState(false);
-
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: 'column',
-    drop: (item: HTMLDivElement) => changeOrderHandler(item),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
 
   async function deleteBoardHandler(id: string | undefined) {
     //TODO ADD API REQuest
@@ -89,16 +90,6 @@ function Board() {
 
   function changeOrderHandler(item: HTMLDivElement) {
     console.log('change order', item);
-  }
-
-  function generateColumns(columns: TColumn[] | undefined, columnCount = 5) {
-    return [...Array(columnCount)].map((el, index) => {
-      const comparedColumn = columns?.find((c) => c.order === index + 1);
-      if (comparedColumn) {
-        return <ColumnPreview key={comparedColumn?.id || index} {...comparedColumn} />;
-      }
-      return <EmptyColumn key={index} order={index} />;
-    });
   }
 
   if (isError) return <p>Ошибка</p>;
@@ -128,9 +119,7 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper" ref={drop}>
-        {generateColumns(columns)}
-      </div>
+      <div className="columns_wrapper">{generateColumns(columns)}</div>
     </div>
   );
 }
