@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { TColumn } from '../../models/column';
+import { TColumnUpdateSchema } from '../../models/schemas';
+import { TTask } from '../../models/task';
 import TaskPreview from '../Task/TaskPreview';
 
 const schema = yup
@@ -25,20 +27,6 @@ const formOptions = {
   initialValues,
   fields,
 };
-
-/*
-смена порядка
-1 определить order=X элемента куда ставить 
-2 Если order текущего элемента Y  больше чем order заменяемого элемента Х
-- начиная с конца изменить ордер всех элементов на +1 по X включительно
-- изменить Order Y на Х
-3 Если order текущего элемента Y  меньше чем order заменяемого элемента Х
-- изменить X на последний (columns.length) +1 
-- изменить Y  на х
-- изменить X на Y-1
-
-
-*/
 
 function Column() {
   const column: TColumn = {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
@@ -29,26 +29,6 @@ const formOptions = {
   initialValues,
   fields,
 };
-
-function generateColumns(
-  columns: TColumn[] | undefined,
-  columnCount = 5,
-  updateHandler: () => void
-) {
-  return [...Array(columnCount)].map((el, index) => {
-    const comparedColumn = columns?.find((c) => c.order === index + 1);
-    if (comparedColumn) {
-      return (
-        <ColumnPreview
-          key={comparedColumn?.id || index}
-          {...comparedColumn}
-          updateHandler={updateHandler}
-        />
-      );
-    }
-    return <EmptyColumn key={index} order={index} />;
-  });
-}
 
 function Board() {
   const { boardId } = useParams();
@@ -85,6 +65,33 @@ function Board() {
       request();
     }
     setIsModalActive(false);
+  }
+  const getReplaceCoumn = useCallback(
+    (id: string) => {
+      return board?.columns.find((el) => el.id === id);
+    },
+    [board?.columns]
+  );
+  function generateColumns(
+    columns: TColumn[] | undefined,
+    columnCount = 5,
+    updateHandler: () => void
+  ) {
+    return [...Array(columnCount)].map((el, index) => {
+      const comparedColumn = columns?.find((c) => c.order === index + 1);
+      if (comparedColumn) {
+        return (
+          <ColumnPreview
+            key={comparedColumn?.id || index}
+            currentColumn={comparedColumn}
+            updateHandler={updateHandler}
+            getReplaceCoumn={getReplaceCoumn}
+            allColumns={columns}
+          />
+        );
+      }
+      return <EmptyColumn key={index} order={index} />;
+    });
   }
 
   if (isError) return <p>Ошибка</p>;
