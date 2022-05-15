@@ -6,8 +6,13 @@ import ColumnPreview from '../../Columns/ColumnPreview';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { useDrop } from 'react-dnd';
 import EmptyColumn from '../../Columns/EmptyColumn';
+import { fieldsType } from '../../../models/form';
+import { TColumnCreateSchema } from '../../../models/schemas';
+import { useAxios } from '../../../hooks/useAxios';
+import { TBoard } from '../../../models/board';
+import Loader from '../../../components/loader/loader';
 
-const schema = yup
+const schema: TColumnCreateSchema = yup
   .object()
   .shape({
     title: yup.string().trim().required(),
@@ -30,65 +35,26 @@ const formOptions = {
 };
 
 function Board() {
-  useEffect(() => {
-    //TODO Загрузка  доски /board:id
-  }, []);
+  const { boardId } = useParams();
+  // const nextOrder = columns?.length > 0 ? columns?.length : 1;
 
-  const columns: TColumn[] | undefined = [
-    {
-      id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-      title: 'Done',
-      order: 1,
-      tasks: [
-        {
-          id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-          title: 'Task: pet the cat',
-          order: 1,
-          done: false,
-          description: 'wrwerwerwerweroked gently',
-          userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-          files: [
-            {
-              filename: 'foto.jpg',
-              fileSize: 6105000,
-            },
-          ],
-        },
-        {
-          id: '6e3abe9c-ceb1-40fa-9a04-eb2b12312312184daf9',
-          title: 'Task: pet the cat',
-          order: 2,
-          done: false,
-          description: 'Domestic cat needs to be stroked gently',
-          userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-          files: [
-            {
-              filename: 'foto.jpg',
-              fileSize: 6105000,
-            },
-          ],
-        },
-        {
-          id: '6e3abe9c-ceb1-40fa-9a04-eb2b21841239',
-          title: 'Ta123123123t',
-          order: 3,
-          done: false,
-          description: 'Domwerwerwerwerstroked gently',
-          userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-          files: [
-            {
-              filename: 'foto.jpg',
-              fileSize: 6105000,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  const {
+    isLoading: isBoardLoading,
+    isError: isBoardError,
+    request: boardsRequest,
+  } = useAxios({}, { dontFetchAtMount: true });
+
+  const {
+    data: board,
+    isLoading,
+    isError,
+    request,
+  } = useAxios({
+    url: `/boards/${boardId}`,
+    method: 'get',
+  });
 
   const [isModalActive, setIsModalActive] = useState(false);
-
-  const { boardId } = useParams();
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'column',
@@ -103,18 +69,31 @@ function Board() {
     console.log('delete board', id);
   }
 
-  function createColumnHandler(value: typeof schema) {
-    //TODO ADD API REQuest
-    console.log('create column', value);
+  async function createColumnHandler(
+    boardId: string | undefined,
+    values: fieldsType,
+    order: number
+  ) {
+    const body = { ...values, order } as { title: string; order: number };
+    const columnsRequestOptions = {
+      url: `/boards/${boardId}/columns`,
+      method: 'post',
+      data: body,
+    };
+    if (boardId) {
+      await boardsRequest(columnsRequestOptions);
+      setIsModalActive(false);
+      request();
+    }
   }
 
   function changeOrderHandler(item: HTMLDivElement) {
     console.log('change order', item);
   }
 
-  function generateColumns(columnCount: number, columns: TColumn[]) {
+  function generateColumns(columns: TColumn[] | undefined, columnCount = 5) {
     return [...Array(columnCount)].map((el, index) => {
-      const comparedColumn = columns.find((c) => c.order === index + 1);
+      const comparedColumn = columns?.find((c) => c.order === index + 1);
       if (comparedColumn) {
         return <ColumnPreview key={comparedColumn?.id || index} {...comparedColumn} />;
       }
@@ -122,6 +101,9 @@ function Board() {
     });
   }
 
+  if (isError) return <p>Ошибка</p>;
+  if (isLoading) return <Loader />;
+  const { columns } = board as TBoard;
   return (
     <div className="board">
       <div className="board_menu">
@@ -135,7 +117,9 @@ function Board() {
             }}
             formOptions={{
               ...formOptions,
-              onSubmit: createColumnHandler,
+              onSubmit: (values) => {
+                createColumnHandler(boardId, values, 4);
+              },
               buttonOptions: {},
             }}
           />
@@ -145,13 +129,7 @@ function Board() {
         </>
       </div>
       <div className="columns_wrapper" ref={drop}>
-        {
-          // columns &&
-          // columns.map((col) => {
-          //   return <ColumnPreview key={col.id} {...col} />;
-          // })
-          generateColumns(5, columns)
-        }
+        {generateColumns(columns)}
       </div>
     </div>
   );
