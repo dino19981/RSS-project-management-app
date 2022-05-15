@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ColumnPreview from '../../Columns/ColumnPreview';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -45,6 +45,7 @@ function generateColumns(columns: TColumn[] | undefined, columnCount = 5) {
 
 function Board() {
   const { boardId } = useParams();
+  const navigate = useNavigate();
   // const nextOrder = columns?.length > 0 ? columns?.length : 1;
 
   const {
@@ -66,8 +67,13 @@ function Board() {
   const [isModalActive, setIsModalActive] = useState(false);
 
   async function deleteBoardHandler(id: string | undefined) {
-    //TODO ADD API REQuest
-    console.log('delete board', id);
+    if (id) {
+      await request({
+        url: `/boards/${id}`,
+        method: 'delete',
+      });
+      navigate('/boards');
+    }
   }
 
   async function createColumnHandler(

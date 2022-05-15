@@ -7,7 +7,7 @@ type TProps = {
 function EmptyColumn({ order }: TProps) {
   const id = useId();
 
-  return <div className={`column-preview`}>EmptyColumn</div>;
+  return <div className={`column-preview`}></div>;
 }
 
 export default EmptyColumn;

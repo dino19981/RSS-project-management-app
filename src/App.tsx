@@ -38,7 +38,7 @@ function App() {
             <Route path={AppRoute.BOARDS} element={<Boards />} />
             <Route path={AppRoute.BOARD} element={<Board />} />
             <Route path={AppRoute.COLUMNS} element={<Board />} />
-            <Route path={AppRoute.COLUMN} element={<Column />} />
+            <Route path={AppRoute.COLUMN} element={<Board />} />
             <Route path={AppRoute.TASKS} element={<Column />} />
             <Route path={AppRoute.TASK} element={<Task />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
