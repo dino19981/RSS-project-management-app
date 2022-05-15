@@ -2,13 +2,7 @@ import React from 'react';
 import { modalProps } from '../../models/modal';
 import Button from '../button/Button';
 
-export default function Modal({
-  formId,
-  children,
-  handleCloseModal,
-  submitBtnName,
-  isShowFooter = true,
-}: modalProps) {
+export default function Modal({ formId, children, handleCloseModal, submitBtnName }: modalProps) {
   return (
     <div className="main__container" aria-label="modal">
       <div
@@ -25,14 +19,14 @@ export default function Modal({
           onMouseDown={(e) => e.stopPropagation()}
           onKeyPress={(e) => e.stopPropagation()}
         >
+          <p className="modal__error-text">qweqweqw</p>
+
           {children}
 
-          {isShowFooter && (
-            <div className="modal__footer">
-              <Button handler={handleCloseModal} text="Закрыть" />
-              <Button type="submit" formId={formId} text={submitBtnName} />
-            </div>
-          )}
+          <div className="modal__footer">
+            <Button handler={handleCloseModal} text="Закрыть" />
+            <Button type="submit" formId={formId} text={submitBtnName} />
+          </div>
         </div>
       </div>
     </div>

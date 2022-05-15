@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { TBoard } from '../../../models/board';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
+import { boardPreviewProps } from '../../../models/boardPreview';
+import { useAxios } from '../../../hooks/useAxios';
+import Loader from '../../../components/loader/loader';
 
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
@@ -38,13 +41,20 @@ const formOptions = {
   fields,
 };
 
-function BoardPreview({ id, title, columns }: TBoard) {
-  const taskCount = calculateTask(columns);
-
+function BoardPreview({ id, title, columns, refreshBoards }: boardPreviewProps) {
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
 
-  function deleteBoard() {
-    console.log('delete board');
+  const taskCount = calculateTask(columns);
+
+  async function deleteBoard() {
+    const deleteOptions = {
+      url: `/boards/${id}`,
+      method: 'delete',
+    };
+    await request(deleteOptions);
+    setIsModalActive(false);
+    refreshBoards();
   }
 
   return (
@@ -65,6 +75,7 @@ function BoardPreview({ id, title, columns }: TBoard) {
           }}
         />
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 }
