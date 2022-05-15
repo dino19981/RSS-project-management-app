@@ -90,9 +90,7 @@ function ColumnPreview({ id: columnId, order, title, tasks, updateHandler }: TPr
       onDragLeave={(e) => dragLeaveHandler(e)}
       onDrop={(e) => dropHandler(e, 2)}
     >
-      <Link to={urlToColumn} className="column-preview_link">
-        <div className="column-preview_title">{title}</div>
-      </Link>
+      <div className="column-preview_title">{title}</div>
       {tasks &&
         tasks.map((task) => {
           return <TaskPreview key={task.id} {...task} columnId={columnId} />;

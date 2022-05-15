@@ -22,10 +22,7 @@ const initialValues = {
   title: '',
 };
 
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' },
-];
+const fields = [{ name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' }];
 
 const formOptions = {
   schema,
