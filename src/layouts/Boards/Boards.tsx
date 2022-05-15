@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import { selectBoards } from '../../store/boards/action';
-import { setBoards } from '../../store/boards/actions';
+import { selectBoards } from '../../store/global/action';
+import { setBoards } from '../../store/global/actions';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getBoards } from '../../utils/boards';
 import BoardPreview from './BoardPreview/BoardPreview';
@@ -33,7 +33,6 @@ function Boards() {
   const { boards } = useAppSelector(selectBoards);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    //TODO Загрузка  досок /boards
     (async () => {
       const boardsFromDB = await getBoards();
       dispatch(setBoards(boardsFromDB));
