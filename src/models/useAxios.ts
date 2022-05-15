@@ -2,7 +2,7 @@ import { TBoard } from './board';
 import { TColumn } from './column';
 import { fieldsType } from './form';
 
-export type responses = TBoard[] | TColumn[];
+export type responses = TBoard[] | TColumn[] | TBoard;
 
 export type requestOptions = {
   url?: string;
