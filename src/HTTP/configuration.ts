@@ -19,6 +19,7 @@ instanceAxios.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
+      localStorage.removeItem('token');
       window.location.replace(AppRoute.LOGIN);
     } else {
       throw error;

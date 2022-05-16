@@ -10,8 +10,6 @@ export default function Modal({
   isError,
   errorText,
 }: modalProps) {
-  // console.log(isError, 'isError');
-
   return (
     <div className="main__container" aria-label="modal">
       <div
