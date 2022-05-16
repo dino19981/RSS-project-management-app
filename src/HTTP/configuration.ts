@@ -20,6 +20,8 @@ instanceAxios.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       window.location.replace(AppRoute.LOGIN);
+    } else {
+      throw error;
     }
   }
 );

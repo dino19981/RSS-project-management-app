@@ -22,3 +22,11 @@ export const registrationFields = [
     errorMessage: 'Минимальная длина 5 символов',
   },
 ];
+
+export const deleteBoardfields = [
+  {
+    name: 'title',
+    labelText: 'Действительно удалить доску?',
+    isdisabled: true,
+  },
+];

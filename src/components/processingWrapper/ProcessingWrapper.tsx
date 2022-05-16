@@ -9,7 +9,6 @@ function ProcessingWrapper({ isLoading, isError, errortext, children }: processi
   if (!!isError) {
     return <p>{errortext}</p>;
   }
-  console.log(children, 'children');
 
   return <>{children}</>;
 }

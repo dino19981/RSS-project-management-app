@@ -10,7 +10,7 @@ function Boards() {
       <div className="boards_wrapper">
         <ProcessingWrapper isLoading={isLoading} isError={isError} errortext="error">
           {boards?.map((board) => {
-            return <BoardPreview {...board} key={board.id} refreshBoards={request} />;
+            return <BoardPreview {...board} key={board.id} updateBoards={request} />;
           })}
         </ProcessingWrapper>
       </div>

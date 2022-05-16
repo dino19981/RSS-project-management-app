@@ -2,7 +2,16 @@ import React from 'react';
 import { modalProps } from '../../models/modal';
 import Button from '../button/Button';
 
-export default function Modal({ formId, children, handleCloseModal, submitBtnName }: modalProps) {
+export default function Modal({
+  formId,
+  children,
+  handleCloseModal,
+  submitBtnName,
+  isError,
+  errorText,
+}: modalProps) {
+  // console.log(isError, 'isError');
+
   return (
     <div className="main__container" aria-label="modal">
       <div
@@ -19,7 +28,7 @@ export default function Modal({ formId, children, handleCloseModal, submitBtnNam
           onMouseDown={(e) => e.stopPropagation()}
           onKeyPress={(e) => e.stopPropagation()}
         >
-          <p className="modal__error-text">qweqweqw</p>
+          {isError && <p className="modal__error-text">{errorText}</p>}
 
           {children}
 
