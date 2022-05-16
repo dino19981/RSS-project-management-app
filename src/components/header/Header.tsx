@@ -9,6 +9,7 @@ import { MIN_SCROLL_Y, THROTTLE_DELAY } from './const';
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);
+  const [isOpenNav, setIsOpenNav] = useState(false);
   const authorizeStatus = useAppSelector(selectAuthStatus);
 
   useEffect(() => {
@@ -30,25 +31,36 @@ export default function Header() {
   return (
     <header className={headerClass}>
       <div className="header__container container">
-        <Link className="header__logo header__link" to={AppRoute.MAIN}>
-          Logo
+        <Link className="header__logo" to={AppRoute.MAIN}>
+          <span className="visually-hidden">Логотип</span>
+          <img src="assets/images/app-logo.png" width="40" alt="Логотип приложения" />
         </Link>
 
-        <select className="lang-select" name="lang-select" id="lang-select" defaultValue="ru">
-          <option value="ru">Рус</option>
-          <option value="en">Анг</option>
-        </select>
+        <div className={isOpenNav ? 'menu menu--open' : 'menu'}>
+          {authorizeStatus && (
+            <button className="btn-new-board">
+              <svg className="btn-new-board__icon" width="24" height="24">
+                <use xlinkHref="#create-icon" />
+              </svg>
+              <span className="btn-new-board__text">Создать новую доску</span>
+            </button>
+          )}
+          <select className="lang-select" name="lang-select" id="lang-select" defaultValue="ru">
+            <option value="ru">Рус</option>
+            <option value="en">Анг</option>
+          </select>
 
-        {authorizeStatus && (
-          <button className="btn-new-board">
-            <svg className="btn-new-board__icon" width="24" height="24">
-              <use xlinkHref="#create-icon" />
-            </svg>
-            <span className="btn-new-board__text">Создать новую доску</span>
-          </button>
-        )}
-
-        <UserNav authorizeStatus={authorizeStatus} />
+          <UserNav authorizeStatus={authorizeStatus} />
+        </div>
+        <button
+          className="menu-toggle"
+          type="button"
+          onClick={() => {
+            setIsOpenNav((prev) => !prev);
+          }}
+        >
+          <span className="visually-hidden">Menu toggle</span>
+        </button>
       </div>
     </header>
   );

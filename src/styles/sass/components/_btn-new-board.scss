@@ -16,13 +16,25 @@
 }
 
 .btn-new-board__icon {
-  position: absolute;
-  transition: all 0.5s;
-  top: 50%;
-  transform: translateY(-50%);
-  fill: $accent-color;
+  display: none;
+
+  @media (min-width: $tablet-width) {
+    display: block;
+    position: absolute;
+    transition: all 0.5s;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: $accent-color;
+  }
 }
 
 .btn-new-board__text {
-  margin-left: 30px;
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+  text-align: left;
+  
+  @media (min-width: $tablet-width) {
+    margin-left: 30px;
+  }
 }

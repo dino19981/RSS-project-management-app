@@ -12,12 +12,12 @@
 @mixin nav-link {
   display: block;
 
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   padding-left: 15px;
   padding-right: 15px;
 
-  font-size: 17px;
+  font-size: 16px;
   font-family: $title-font;
   font-weight: 500;
   color: $accent-color;
@@ -29,11 +29,15 @@
   }
   
   @media (min-width: $tablet-width) {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    font-size: 24px;
+    font-size: 16px;
+  }
+
+  @media (min-width: $desktop-width) {
+    font-size: 21px;
   }
 
   &:hover:not(.header__link--active),
@@ -43,14 +47,5 @@
 
   &:active:not(.header__link--active) {
     color: $accent-color;
-  }
-
-  &--about-us {
-    margin-right: -20px;
-  }
-
-  &--active {
-    color: $basic-white;
-    cursor: default;
   }
 }
