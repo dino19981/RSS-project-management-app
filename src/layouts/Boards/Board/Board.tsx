@@ -30,6 +30,27 @@ const formOptions = {
   fields,
 };
 
+function generateColumns(columns: TColumn[], updateHandler: () => void) {
+  const maxColumnCount = 5;
+
+  const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
+
+  return [...Array(maxColumnCount)].map((el, index) => {
+    const comparedColumn = makeColumnOrder[index];
+    if (comparedColumn) {
+      return (
+        <ColumnPreview
+          allColumns={columns}
+          key={comparedColumn?.id || index}
+          currentColumn={comparedColumn}
+          updateHandler={updateHandler}
+        />
+      );
+    }
+    return <EmptyColumn key={index} order={index} />;
+  });
+}
+
 function Board() {
   const { boardId } = useParams();
   const navigate = useNavigate();
@@ -39,7 +60,7 @@ function Board() {
     method: 'get',
   });
   const board = data as TBoard;
-  const nextOrder = board?.columns.length > 0 ? board.columns.length + 1 : 1;
+
   const [isModalActive, setIsModalActive] = useState(false);
 
   async function deleteBoardHandler(id: string | undefined) {
@@ -52,8 +73,11 @@ function Board() {
     }
   }
 
-  async function createColumnHandler(boardId = '', values: fieldsType, order: number) {
-    if (order <= 5) {
+  async function createColumnHandler(values: fieldsType) {
+    const order = board?.columns.length > 0 ? board.columns.length + 1 : 1;
+    const maxColumnCount = 5;
+
+    if (order <= maxColumnCount) {
       const body = { ...values, order } as { title: string; order: number };
       const columnsRequestOptions = {
         url: `/boards/${boardId}/columns`,
@@ -61,42 +85,22 @@ function Board() {
         data: body,
       };
       await request(columnsRequestOptions);
-      setIsModalActive(false);
       request();
     }
+
     setIsModalActive(false);
   }
-  const getReplaceCoumn = useCallback(
-    (id: string) => {
-      return board?.columns.find((el) => el.id === id);
-    },
-    [board?.columns]
-  );
-  function generateColumns(
-    columns: TColumn[] | undefined,
-    columnCount = 5,
-    updateHandler: () => void
-  ) {
-    return [...Array(columnCount)].map((el, index) => {
-      const comparedColumn = columns?.find((c) => c.order === index + 1);
-      if (comparedColumn) {
-        return (
-          <ColumnPreview
-            key={comparedColumn?.id || index}
-            currentColumn={comparedColumn}
-            updateHandler={updateHandler}
-            getReplaceCoumn={getReplaceCoumn}
-            allColumns={columns}
-          />
-        );
-      }
-      return <EmptyColumn key={index} order={index} />;
-    });
+
+  if (isError) {
+    return <p>Не удалось загрузить колонки</p>;
   }
 
-  if (isError) return <p>Ошибка</p>;
-  if (isLoading) return <Loader />;
+  if (isLoading) {
+    return <Loader />;
+  }
+
   const { columns } = board as TBoard;
+
   return (
     <div className="board">
       <div className="board_menu">
@@ -110,9 +114,7 @@ function Board() {
             }}
             formOptions={{
               ...formOptions,
-              onSubmit: (values) => {
-                createColumnHandler(boardId, values, nextOrder);
-              },
+              onSubmit: createColumnHandler,
               buttonOptions: {},
             }}
           />
@@ -121,7 +123,7 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">{generateColumns(columns, 5, request)}</div>
+      <div className="columns_wrapper">{generateColumns(columns, request)}</div>
     </div>
   );
 }
