@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const/routes';
 import { teamMembers } from '../../const/teamData';
-import UserNav from '../userNav/UserNav';
+import UserNav from '../../components/userNav/UserNav';
 import { useAppSelector } from '../../store/hooks';
 import { selectAuthStatus } from '../../store/user/action';
+import Logo from '../../components/logo/Logo';
 
 export default function Footer() {
   const authorizeStatus = useAppSelector(selectAuthStatus);
@@ -12,9 +11,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer__container container">
         <div className="footer__wrapper">
-          <Link to={AppRoute.MAIN} className="footer__link footer__logo logo">
-            Logo
-          </Link>
+          <Logo />
 
           <ul className="footer__gh-list">
             {teamMembers.map(({ id, name }) => (
