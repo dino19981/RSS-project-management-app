@@ -4,7 +4,9 @@ import {
   registrationSchemaType,
   TBoardCreateSchema,
   TColumnCreateSchema,
+  TColumnUpdateSchema,
   TDeleteBoard,
+  TTaskCreateSchema,
 } from './schemas';
 
 export interface formProps {
@@ -33,4 +35,6 @@ export type fieldsType =
   | autorizationSchemaType
   | TBoardCreateSchema
   | TColumnCreateSchema
+  | TColumnUpdateSchema
+  | TTaskCreateSchema
   | TDeleteBoard;

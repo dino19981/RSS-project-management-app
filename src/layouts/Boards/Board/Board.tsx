@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ColumnPreview from '../../Columns/ColumnPreview';
+import ColumnPreview from '../../Column/ColumnPreview';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
+import EmptyColumn from '../../Columns/EmptyColumn';
+import { fieldsType } from '../../../models/form';
+import { TColumnCreateSchema } from '../../../models/schemas';
+import { useAxios } from '../../../hooks/useAxios';
+import { TBoard } from '../../../models/board';
+import Loader from '../../../components/loader/loader';
+import { MAX_COLUMN_COUNT } from '../const';
+import { Methods } from '../../../const/APIMethoods';
+import { AppRoute } from '../../../const/routes';
 
-const schema = yup
+const schema: TColumnCreateSchema = yup
   .object()
   .shape({
     title: yup.string().trim().required(),
@@ -16,10 +25,7 @@ const initialValues = {
   title: '',
 };
 
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' },
-];
+const fields = [{ name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' }];
 
 const formOptions = {
   schema,
@@ -27,48 +33,70 @@ const formOptions = {
   fields,
 };
 
+function generateColumns(columns: TColumn[], updateHandler: () => void) {
+  const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
+
+  return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
+    const comparedColumn = makeColumnOrder[index];
+    if (comparedColumn) {
+      return (
+        <ColumnPreview
+          key={comparedColumn?.id || index}
+          {...comparedColumn}
+          updateHandler={updateHandler}
+        />
+      );
+    }
+    return <EmptyColumn key={index} order={index} />;
+  });
+}
+
 function Board() {
-  useEffect(() => {
-    //TODO Загрузка  доски /board:id
-  }, []);
-
-  const columns: TColumn[] | undefined = [
-    {
-      id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-      title: 'Done',
-      order: 1,
-      tasks: [
-        {
-          id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-          title: 'Task: pet the cat',
-          order: 1,
-          done: false,
-          description: 'Domestic cat needs to be stroked gently',
-          userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-          files: [
-            {
-              filename: 'foto.jpg',
-              fileSize: 6105000,
-            },
-          ],
-        },
-      ],
-    },
-  ];
-
+  const { boardId } = useParams();
+  const navigate = useNavigate();
   const [isModalActive, setIsModalActive] = useState(false);
 
-  const { boardId } = useParams();
+  const { data, isLoading, isError, request } = useAxios({
+    url: `${AppRoute.BOARDS}/${boardId}`,
+    method: 'get',
+  });
+  const board = data as TBoard;
 
   async function deleteBoardHandler(id: string | undefined) {
-    //TODO ADD API REQuest
-    console.log('delete board', id);
+    if (id) {
+      await request({
+        url: `${AppRoute.BOARDS}/${id}`,
+        method: Methods.DELETE,
+      });
+      navigate(AppRoute.BOARDS);
+    }
   }
 
-  function createColumnHandler(value: typeof schema) {
-    //TODO ADD API REQuest
-    console.log('create column', value);
+  async function createColumnHandler(values: fieldsType) {
+    const order = board?.columns.length > 0 ? board.columns.length + 1 : 1;
+    if (order <= MAX_COLUMN_COUNT) {
+      const body = { ...values, order } as { title: string; order: number };
+      const columnsRequestOptions = {
+        url: `${AppRoute.BOARDS}/${boardId}/columns`,
+        method: Methods.POST,
+        data: body,
+      };
+      await request(columnsRequestOptions);
+      request();
+    }
+
+    setIsModalActive(false);
   }
+
+  if (isError) {
+    return <p>Не удалось загрузить колонки</p>;
+  }
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const { columns } = board as TBoard;
 
   return (
     <div className="board">
@@ -92,12 +120,7 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">
-        {columns &&
-          columns.map((col) => {
-            return <ColumnPreview key={col.id} {...col} />;
-          })}
-      </div>
+      <div className="columns_wrapper">{generateColumns(columns, request)}</div>
     </div>
   );
 }

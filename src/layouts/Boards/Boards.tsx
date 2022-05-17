@@ -2,16 +2,16 @@ import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrap
 import { Methods } from '../../const/APIMethoods';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
+import { TBoard } from '../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 
 function Boards() {
-  const {
-    data: boards,
-    isLoading,
-    isError,
-    request,
-  } = useAxios({ url: AppRoute.BOARDS, method: Methods.GET });
+  const { data, isLoading, isError, request } = useAxios({
+    url: AppRoute.BOARDS,
+    method: Methods.GET,
+  });
 
+  const boards = data as TBoard[];
   return (
     <div className="boards">
       <div className="boards_wrapper">

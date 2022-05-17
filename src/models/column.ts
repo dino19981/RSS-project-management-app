@@ -4,5 +4,5 @@ export type TColumn = {
   id: string;
   title: string;
   order: number;
-  tasks?: TTask[];
+  tasks: TTask[];
 };
