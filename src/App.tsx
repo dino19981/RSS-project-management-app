@@ -37,10 +37,6 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path={AppRoute.BOARDS} element={<Boards />} />
             <Route path={AppRoute.BOARD} element={<Board />} />
-            <Route path={AppRoute.COLUMNS} element={<Board />} />
-            <Route path={AppRoute.COLUMN} element={<Board />} />
-            <Route path={AppRoute.TASKS} element={<Column />} />
-            <Route path={AppRoute.TASK} element={<Task />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
             <Route path={AppRoute.LOGIN} element={<Authorization />} />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
