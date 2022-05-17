@@ -7,7 +7,8 @@ export default function Modal({
   children,
   handleCloseModal,
   submitBtnName,
-  isShowFooter = true,
+  isError,
+  errorText,
 }: modalProps) {
   return (
     <div className="main__container" aria-label="modal">
@@ -25,14 +26,14 @@ export default function Modal({
           onMouseDown={(e) => e.stopPropagation()}
           onKeyPress={(e) => e.stopPropagation()}
         >
+          {isError && <p className="modal__error-text">{errorText}</p>}
+
           {children}
 
-          {isShowFooter && (
-            <div className="modal__footer">
-              <Button handler={handleCloseModal} text="Закрыть" />
-              <Button type="submit" formId={formId} text={submitBtnName} />
-            </div>
-          )}
+          <div className="modal__footer">
+            <Button handler={handleCloseModal} text="Закрыть" />
+            <Button type="submit" formId={formId} text={submitBtnName} />
+          </div>
         </div>
       </div>
     </div>

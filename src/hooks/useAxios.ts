@@ -24,7 +24,6 @@ export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: ho
       return response;
     } catch (err) {
       const error = err as AxiosError;
-
       setIsError(error);
     } finally {
       setIsLoading(false);

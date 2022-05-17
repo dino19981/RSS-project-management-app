@@ -11,5 +11,5 @@ input {
 }
 
 .input__invalid {
-  border: 1px solid #cf462d;
+  border: 1px solid $error-text-red;
 }

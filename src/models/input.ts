@@ -12,4 +12,5 @@ export interface inputProps {
   placeholder?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   value?: string | number;
+  isdisabled?: boolean;
 }

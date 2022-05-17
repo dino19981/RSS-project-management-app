@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import * as yup from 'yup';
 import { Link } from 'react-router-dom';
-import { TBoard } from '../../../models/board';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
+import { boardPreviewProps } from '../../../models/boardPreview';
+import { useAxios } from '../../../hooks/useAxios';
+import Loader from '../../../components/loader/loader';
+import { deleteBoardfields } from '../../../components/form/constants/fieldsOptions';
+import { deleteBoardSchema } from '../../../schemas/boards';
+import { Methods } from '../../../const/APIMethoods';
+import { AppRoute } from '../../../const/routes';
 
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
@@ -16,40 +21,37 @@ function calculateTask(columns: TColumn[] | undefined) {
   return tasks;
 }
 
-const schema = yup
-  .object()
-  .shape({
-    confirm: yup.boolean().required(),
-  })
-  .required();
-
-const initialValues = {
-  confirm: true,
-};
-
-const fields = [
-  //TODO разобраться с полями
-  { name: 'confirm', type: 'checkbox', inputClass: 'hidden', labelText: 'are you sure ?' },
-];
-
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: deleteBoardSchema,
+  fields: deleteBoardfields,
 };
 
-function BoardPreview({ id, title, columns }: TBoard) {
-  const taskCount = calculateTask(columns);
-
+function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
 
-  function deleteBoard() {
-    console.log('delete board');
+  const taskCount = calculateTask(columns);
+
+  async function deleteBoard() {
+    const deleteOptions = {
+      url: `${AppRoute.BOARDS}/${id}`,
+      method: Methods.DELETE,
+    };
+    const deleteData = await request(deleteOptions);
+
+    if (deleteData) {
+      setIsModalActive(false);
+      updateBoards();
+    }
   }
+
+  const initialValues = {
+    title,
+  };
 
   return (
     <div className="board_preview">
-      <Link to={`/boards/${id}`} className="board_preview__link">
+      <Link to={`${AppRoute.BOARDS}/${id}`} className="board_preview__link">
         <div className="board_preview_title">{title}</div>
         {taskCount && <div className="board_preview__task-count">Total tasks: {taskCount}</div>}
       </Link>
@@ -60,11 +62,14 @@ function BoardPreview({ id, title, columns }: TBoard) {
           submitBtnName="OK"
           formOptions={{
             ...formOptions,
+            initialValues,
             onSubmit: deleteBoard,
-            buttonOptions: {},
           }}
+          isError={isError}
+          errorText="Произошла ошибка"
         />
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 }

@@ -9,6 +9,8 @@ export default function ButtonWithModalForm({
   buttonOptions,
   modalState,
   submitBtnName,
+  errorText,
+  isError,
 }: buttonWithModalFormProps) {
   const { isModalActive, setIsModalActive } = modalState;
 
@@ -24,7 +26,13 @@ export default function ButtonWithModalForm({
     <>
       <Button handler={openModal} {...buttonOptions} />
       {isModalActive && (
-        <Modal formId="modalForm" handleCloseModal={closeModal} submitBtnName={submitBtnName}>
+        <Modal
+          formId="modalForm"
+          handleCloseModal={closeModal}
+          submitBtnName={submitBtnName}
+          isError={isError}
+          errorText={errorText}
+        >
           <Form formId="modalForm" {...formOptions}></Form>
         </Modal>
       )}
