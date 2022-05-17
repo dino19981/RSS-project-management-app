@@ -1,9 +1,16 @@
 import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
+import { Methods } from '../../const/APIMethoods';
+import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import BoardPreview from './BoardPreview/BoardPreview';
 
 function Boards() {
-  const { data: boards, isLoading, isError, request } = useAxios({ url: '/boards', method: 'get' });
+  const {
+    data: boards,
+    isLoading,
+    isError,
+    request,
+  } = useAxios({ url: AppRoute.BOARDS, method: Methods.GET });
 
   return (
     <div className="boards">

@@ -7,6 +7,8 @@ import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
 import { deleteBoardfields } from '../../../components/form/constants/fieldsOptions';
 import { deleteBoardSchema } from '../../../schemas/boards';
+import { Methods } from '../../../const/APIMethoods';
+import { AppRoute } from '../../../const/routes';
 
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
@@ -32,8 +34,8 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
 
   async function deleteBoard() {
     const deleteOptions = {
-      url: `/boards/${id}`,
-      method: 'delete',
+      url: `${AppRoute.BOARDS}/${id}`,
+      method: Methods.DELETE,
     };
     const deleteData = await request(deleteOptions);
 
@@ -49,7 +51,7 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
 
   return (
     <div className="board_preview">
-      <Link to={`/boards/${id}`} className="board_preview__link">
+      <Link to={`${AppRoute.BOARDS}/${id}`} className="board_preview__link">
         <div className="board_preview_title">{title}</div>
         {taskCount && <div className="board_preview__task-count">Total tasks: {taskCount}</div>}
       </Link>

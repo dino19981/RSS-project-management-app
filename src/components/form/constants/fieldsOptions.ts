@@ -1,25 +1,27 @@
+import { ErrorMessage } from '../../../const/errorMesages';
+
 export const autorizationFields = [
   {
     name: 'login',
     labelText: 'Логин',
-    errorMessage: 'Пробелы недопустимы, минимальная длина 3 символа',
+    errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3,
   },
   {
     name: 'password',
     labelText: 'Пароль',
     type: 'password',
-    errorMessage: 'Минимальная длина 5 символов',
+    errorMessage: ErrorMessage.MIN_LENGTH_5,
   },
 ];
 
 export const registrationFields = [
   { name: 'name', labelText: 'Имя', errorMessage: 'Максимальная длина 15 символов' },
-  { name: 'login', labelText: 'Логин', errorMessage: 'Пробелы недопустимы' },
+  { name: 'login', labelText: 'Логин', errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3 },
   {
     name: 'password',
     labelText: 'Пароль',
     type: 'password',
-    errorMessage: 'Минимальная длина 5 символов',
+    errorMessage: ErrorMessage.MIN_LENGTH_5,
   },
 ];
 
