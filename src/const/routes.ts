@@ -1,9 +1,9 @@
 export const enum AppRoute {
   MAIN = '/',
-  LOGIN = '/login',
+  LOGIN = '/signin',
   LOGOUT = '/logout',
   EDIT_PROFILE = '/edit-profile',
-  REGISTRATION = '/registration',
+  REGISTRATION = '/signup',
   NOT_FOUND_PAGE = '/404',
   BOARDS = '/boards',
   BOARD = '/boards/:boardId',

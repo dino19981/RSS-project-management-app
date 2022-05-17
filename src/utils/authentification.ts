@@ -1,12 +1,13 @@
+import { responseStatus } from '../const/responseStatus';
 import { instanceAxios } from '../HTTP/configuration';
 
 export function getAuthentificationErrorMessage(code: number | undefined) {
   if (!code) return;
   switch (code) {
-    case 409: {
+    case responseStatus.USER_NAME_ALREADY_REGISTERED: {
       return 'Пользователь с данным логином уже зарегистрирован';
     }
-    case 403: {
+    case responseStatus.INVALID_PASS_OR_LOGIN: {
       return 'Неверный логин или пароль';
     }
     default: {
@@ -27,7 +28,6 @@ export const parseJwt = (token: string) => {
 export const getUserData = async (token: string) => {
   const userId = parseJwt(token).userId;
 
-  const userRequestOptions = { url: `/users/${userId}`, method: 'get' };
   const userResponse = await instanceAxios.get(`/users/${userId}`);
 
   return { ...userResponse?.data, authorizeStatus: true };

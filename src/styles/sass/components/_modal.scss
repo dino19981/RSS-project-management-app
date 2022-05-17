@@ -56,3 +56,10 @@
   gap: 1rem;
   margin-top: 2rem;
 }
+
+.modal__error-text {
+  text-align: center;
+  margin: 0;
+  color: $error-text-red;
+  font-size: 18px;
+}

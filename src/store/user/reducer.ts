@@ -19,7 +19,10 @@ const userSlice = createSlice({
       state.name = payload.name;
     },
     deleteUserData: (state) => {
-      state = initialAuthorizationState;
+      state.authorizeStatus = false;
+      state.id = '';
+      state.login = '';
+      state.name = '';
     },
   },
 });

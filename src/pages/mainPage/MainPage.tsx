@@ -1,10 +1,6 @@
 import { teamMembers } from '../../const/teamData';
-import { useAppSelector } from '../../store/hooks';
 
 export default function MainPage() {
-  const authorizeStatus = useAppSelector((state) => state.authorization);
-  console.log(authorizeStatus, 'authorizeStatus');
-
   return (
     <>
       <section>

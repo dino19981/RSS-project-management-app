@@ -1,8 +1,9 @@
 .boards {
   background-color: #ddd;
+  position: relative;
   &_wrapper {
     display: grid;
-    height: 100vh;
+    height: calc(100vh - 98px - 219px);
     grid-template-columns: repeat(auto-fill, 200px);
     grid-template-rows: repeat(auto-fill, 200px);
 

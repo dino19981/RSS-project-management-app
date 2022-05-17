@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { responseStatus } from '../const/responseStatus';
 import { AppRoute } from '../const/routes';
 
 export const instanceAxios = axios.create({
@@ -18,8 +19,11 @@ instanceAxios.interceptors.response.use(
     return config;
   },
   (error) => {
-    if (error.response.status === 401) {
+    if (error.response.status === responseStatus.UNAUTHORIZE) {
+      localStorage.removeItem('token');
       window.location.replace(AppRoute.LOGIN);
+    } else {
+      throw error;
     }
   }
 );
