@@ -1,18 +1,36 @@
 import { teamMembers } from '../../const/teamData';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const/routes';
 
 export default function MainPage() {
   return (
     <>
-      <section>
-        <h1>Приложение для управления проектами</h1>
-        <p>Описание ключевых преимуществ</p>
+      <section className="promo-screen">
+        <div className="promo-screen__text-wrapper">
+          <h1 className="promo-screen__title">Мастерски управляй проектами!</h1>
+          <p className="promo-screen__desc">
+            Бесплатное приложение для командной работы над проектами
+          </p>
+          <Link className="promo-screen__btn" to={AppRoute.REGISTRATION}>
+            Начать
+          </Link>
+        </div>
+        <div className="promo-screen__image-wrapper">
+          <img
+            className="promo-screen__image"
+            width="667"
+            height="644"
+            src="assets/images/image-hero.png"
+            alt=""
+          />
+        </div>
       </section>
 
-      <section>
-        <h2>Преимущества</h2>
-        <ul>
-          <li>
-            <h3>Преимущество 1</h3>
+      <section className="feature">
+        <h2 className="feature__title">Преимущества</h2>
+        <ul className="feature__list">
+          <li className="feature__item">
+            <h3 className="feature__item-title">Преимущество 1</h3>
             <p>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto animi at, cumque
               optio, minima quia officia omnis, ipsam illum nisi sed incidunt? Inventore asperiores
