@@ -25,8 +25,16 @@
   }
 }
 
+.footer .user-nav__list {
+  margin-top: 0;
+  @media (min-width: $tablet-width) {
+    margin-top: auto;
+  }
+}
+
 .user-nav__link {
-  @include nav-link
+  @include nav-link;
+  line-height: 21px;
 }
 
 .user-nav__item {

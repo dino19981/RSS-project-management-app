@@ -8,21 +8,21 @@ export default function MainPage() {
       <section className="promo-screen">
         <div className="promo-screen__text-wrapper">
           <h1 className="promo-screen__title">Мастерски управляй проектами!</h1>
+          <div className="promo-screen__image-wrapper">
+            <img
+              className="promo-screen__image"
+              width="667"
+              height="644"
+              src="assets/images/image-hero.png"
+              alt="Иллюстрация лотка с документами"
+            />
+          </div>
           <p className="promo-screen__desc">
             Бесплатное приложение для командной работы над проектами
           </p>
           <Link className="promo-screen__btn" to={AppRoute.REGISTRATION}>
             Начать
           </Link>
-        </div>
-        <div className="promo-screen__image-wrapper">
-          <img
-            className="promo-screen__image"
-            width="667"
-            height="644"
-            src="assets/images/image-hero.png"
-            alt="Иллюстрация лотка с документами"
-          />
         </div>
       </section>
 
@@ -37,7 +37,7 @@ export default function MainPage() {
               <div className="feature__text-wrapper">
                 <h3 className="feature__title">Преимущество 1</h3>
                 <p className="feature__desc">
-                  Задачи больше не теряются - все записано и отмечено, важные фалы прикреплены
+                  Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены
                 </p>
               </div>
             </article>
@@ -51,7 +51,7 @@ export default function MainPage() {
               <div className="feature__text-wrapper">
                 <h3 className="feature__title">Преимущество 1</h3>
                 <p className="feature__desc">
-                  Задачи больше не теряются - все записано и отмечено, важные фалы прикреплены
+                  Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены
                 </p>
               </div>
             </article>
@@ -65,7 +65,7 @@ export default function MainPage() {
               <div className="feature__text-wrapper">
                 <h3 className="feature__title">Преимущество 1</h3>
                 <p className="feature__desc">
-                  Задачи больше не теряются - все записано и отмечено, важные фалы прикреплены
+                  Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены
                 </p>
               </div>
             </article>
@@ -76,9 +76,12 @@ export default function MainPage() {
       <section className="about-course">
         <h2 className="about-course__title">О курсе</h2>
         <p className="about-course__desc">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto animi at, cumque optio,
-          minima quia officia omnis, ipsam illum nisi sed incidunt? Inventore asperiores nihil
-          suscipit recusandae facilis, aspernatur doloribus!
+          Бесплатное приложение для командной работы над проектом Бесплатное приложение для
+          командной работы над проектом Бесплатное приложение для командной работы над проектом
+        </p>
+        <p className="about-course__desc">
+          Бесплатное приложение для командной работы над проектом Бесплатное приложение для
+          командной работы над проектом Бесплатное приложение для командной работы над проектом
         </p>
       </section>
 
@@ -86,10 +89,17 @@ export default function MainPage() {
         <h2 className="team__title">Наша команда</h2>
         <ul className="team__list">
           {teamMembers.map(({ id, name, role }) => (
-            <li className="team__title" key={id}>
+            <li className="team__item" key={id}>
               <article className="team-member">
-                <h3 className="team-member__title">{name}</h3>
-                <span className="team-member__role">{role}</span>
+                <header className="team-member__base-info">
+                  <div className="team-member__text-wrapper">
+                    <h3 className="team-member__title">{name}</h3>
+                    <span className="team-member__role">{role}</span>
+                  </div>
+                  <div className="team-member__image-wrapper">
+                    <img src="" alt={name} width="60" height="60" />
+                  </div>
+                </header>
                 <p className="team-member__desc">Занимался тем-то и тем-то, делал пятое-десятое</p>
               </article>
             </li>

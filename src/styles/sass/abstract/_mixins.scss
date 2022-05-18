@@ -49,3 +49,40 @@
     color: $accent-color;
   }
 }
+
+@mixin regular-title {
+  margin: 0;
+  margin-bottom: 25px;
+  font-family: $title-font;
+  font-size: 30px;
+}
+
+@mixin regular-subtitle {
+  margin: 0;
+  margin-bottom: 15px;
+  font-family: $title-font;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+@mixin regular-text {
+  margin: 0;
+  margin-bottom: 15px;
+  font-family: $main-font;
+  font-size: 21px;
+}
+
+@mixin basic-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin card-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: $basic-white;
+}

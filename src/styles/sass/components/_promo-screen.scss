@@ -1,6 +1,7 @@
 .promo-screen {
   display: flex;
   flex-direction: column;
+  margin-bottom: 60px;
 }
 
 .promo-screen__text-wrapper {
@@ -19,15 +20,14 @@
 }
 
 .promo-screen__desc {
-  margin: 0;
+  @include regular-text;
+  
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-
+  font-size: 24px;
   max-width: 570px;
-
-  font-family: $main-font;
-  font-size: 18px;
+  text-align: center;
 }
 
 .promo-screen__btn {
@@ -56,12 +56,15 @@
 }
 
 .promo-screen__image-wrapper {
+  display: flex;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   max-width: 460px;
 }
 
 .promo-screen__image {
-  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 80%;
 }
