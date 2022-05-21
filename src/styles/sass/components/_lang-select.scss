@@ -1,0 +1,41 @@
+.lang-select {
+  background-color: transparent;
+  border: none;
+  margin-left: 12px;
+  margin-right: auto; 
+  
+  font-size: 17px;
+  font-family: $title-font;
+  font-weight: 500;
+  color: $accent-color;
+  
+  transition: all 0.5s;
+  
+  @media (min-width: $tablet-width) {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
+  }
+
+  @media (min-width: $desktop-width) {
+    font-size: 21px;
+  }
+
+  &:hover:not(.header__link--active),
+  &:focus:not(.header__link--active) {
+    color: $hover-link-color;
+  }
+
+  &:active:not(.header__link--active) {
+    color: $accent-color;
+  }
+
+  &--about-us {
+    margin-right: -20px;
+  }
+
+  &--active {
+    color: $basic-white;
+    cursor: default;
+  }
+}

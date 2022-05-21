@@ -4,7 +4,7 @@ import { AppRoute } from '../const/routes';
 
 export const instanceAxios = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
-  timeout: 5000,
+  timeout: 10000,
 });
 
 instanceAxios.interceptors.request.use((config) => {

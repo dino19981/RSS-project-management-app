@@ -1,0 +1,13 @@
+.features {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+}
+
+.features__title {
+  @include regular-title;
+}
+
+.features__list {
+  @include basic-list;
+}

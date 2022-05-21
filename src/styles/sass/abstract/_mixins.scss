@@ -12,12 +12,12 @@
 @mixin nav-link {
   display: block;
 
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   padding-left: 15px;
   padding-right: 15px;
 
-  font-size: 17px;
+  font-size: 16px;
   font-family: $title-font;
   font-weight: 500;
   color: $accent-color;
@@ -29,11 +29,15 @@
   }
   
   @media (min-width: $tablet-width) {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    font-size: 24px;
+    font-size: 16px;
+  }
+
+  @media (min-width: $desktop-width) {
+    font-size: 21px;
   }
 
   &:hover:not(.header__link--active),
@@ -44,13 +48,41 @@
   &:active:not(.header__link--active) {
     color: $accent-color;
   }
+}
 
-  &--about-us {
-    margin-right: -20px;
-  }
+@mixin regular-title {
+  margin: 0;
+  margin-bottom: 25px;
+  font-family: $title-font;
+  font-size: 30px;
+}
 
-  &--active {
-    color: $basic-white;
-    cursor: default;
-  }
+@mixin regular-subtitle {
+  margin: 0;
+  margin-bottom: 15px;
+  font-family: $title-font;
+  font-size: 26px;
+  font-weight: 500;
+}
+
+@mixin regular-text {
+  margin: 0;
+  margin-bottom: 15px;
+  font-family: $main-font;
+  font-size: 21px;
+}
+
+@mixin basic-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin card-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: $basic-white;
 }
