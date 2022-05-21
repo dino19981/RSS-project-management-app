@@ -6,14 +6,13 @@ import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import NotFoundPage from './pages/mainPage/NotFoundPage';
 import Boards from './layouts/Boards/Boards';
 import Board from './layouts/Boards/Board/Board';
-import Column from './layouts/Column/Column';
-import Task from './layouts/Task/Task';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
 import { useAppDispatch } from './store/hooks';
 import { useEffect } from 'react';
 import { getUserData } from './utils/authentification';
 import { setUserData } from './store/user/actions';
+import TaskEdit from './layouts/Task/TaskEdit';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,6 +36,9 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path={AppRoute.BOARDS} element={<Boards />} />
             <Route path={AppRoute.BOARD} element={<Board />} />
+            <Route path={`${AppRoute.BOARD}/column/:columnIn/tasks/:taskId`} element={<Board />}>
+              <Route index element={<TaskEdit />} />
+            </Route>
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
             <Route path={AppRoute.LOGIN} element={<Authorization />} />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />

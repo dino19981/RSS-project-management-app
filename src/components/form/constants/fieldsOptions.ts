@@ -32,3 +32,11 @@ export const deleteBoardfields = [
     isdisabled: true,
   },
 ];
+
+export const deleteTaskfields = [
+  {
+    name: 'title',
+    labelText: 'Действительно удалить задачу?',
+    isdisabled: true,
+  },
+];

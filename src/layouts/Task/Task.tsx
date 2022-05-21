@@ -1,55 +1,74 @@
-import React, { useEffect, useState } from 'react';
-import * as yup from 'yup';
+import React, { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import { deleteTaskfields } from '../../components/form/constants/fieldsOptions';
+import Loader from '../../components/loader/loader';
+import { Methods } from '../../const/APIMethoods';
+import { ErrorMessage } from '../../const/errorMesages';
+import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
+import { TTask } from '../../models/task';
+import { deleteBoardSchema } from '../../schemas/boards';
 
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-    description: yup.string().trim().required(),
-  })
-  .required();
+const formOptions = {
+  schema: deleteBoardSchema,
+  fields: deleteTaskfields,
+};
 
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'task title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
-];
+type TProps = TTask & {
+  columnId?: string;
+  updateColumn: ({ url, method }: { url: string; method: string }) => void;
+};
 
-function Task() {
-  const [isModalActive, setIsModalActive] = useState(true);
-  const initialValues = {
-    title: '',
-    description: '',
-  };
-  useEffect(() => {
-    // TODO  FETCH GET /boards/:boardId/columns/:columnId/tasks/:taskId
-    // initialValuess = response
-  }, []);
+function Task({ id, title, description, order, userId, done, columnId, updateColumn }: TProps) {
+  const { boardId } = useParams();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [isModalActive, setIsModalActive] = useState(false);
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
-  const formOptions = {
-    schema,
-    initialValues,
-    fields,
-  };
+  async function deleteTask() {
+    const taskData = await request({
+      url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${id}`,
+      method: Methods.DELETE,
+    });
 
-  function saveTask() {
-    // TODO  FETCH PUT /boards/:boardId/columns/:columnId/tasks/:taskId
-    console.log('save task');
+    if (taskData) {
+      updateColumn({
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        method: Methods.GET,
+      });
+      setIsModalActive(false);
+    }
+  }
+
+  function openEditTask() {
+    navigate(`${pathname}/column/${columnId}/tasks/${id}`);
   }
 
   return (
-    <div className="task">
+    <div className="task" onClick={openEditTask}>
+      <div className="task__link">{title}</div>
       <ButtonWithModalForm
+        submitBtnName="delete"
         modalState={{ isModalActive, setIsModalActive }}
-        buttonOptions={{ btnClass: 'hidden' }}
-        submitBtnName="save task"
+        buttonOptions={{
+          btnClass: 'task__delete_btn',
+          icon: (
+            <svg className="">
+              <use xlinkHref="#delete-icon" />
+            </svg>
+          ),
+        }}
         formOptions={{
           ...formOptions,
-          onSubmit: saveTask,
-          buttonOptions: {},
+          initialValues: { title },
+          onSubmit: deleteTask,
         }}
+        isError={isError}
+        errorText={ErrorMessage.SERVER_ERROR}
       />
+      {isLoading && <Loader />}
     </div>
   );
 }

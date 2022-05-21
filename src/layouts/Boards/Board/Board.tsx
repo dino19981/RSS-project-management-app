@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ColumnPreview from '../../Column/ColumnPreview';
+import ColumnPreview from '../../Column/Column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
-import EmptyColumn from '../../Columns/EmptyColumn';
 import { fieldsType } from '../../../models/form';
 import { TColumnCreateSchema } from '../../../models/schemas';
 import { useAxios } from '../../../hooks/useAxios';
@@ -13,6 +12,8 @@ import Loader from '../../../components/loader/loader';
 import { MAX_COLUMN_COUNT } from '../const';
 import { Methods } from '../../../const/APIMethoods';
 import { AppRoute } from '../../../const/routes';
+import EmptyColumn from '../../Column/EmptyColumn';
+import Column from '../../Column/Column';
 
 const schema: TColumnCreateSchema = yup
   .object()
@@ -39,13 +40,7 @@ function generateColumns(columns: TColumn[], updateHandler: () => void) {
   return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
     const comparedColumn = makeColumnOrder[index];
     if (comparedColumn) {
-      return (
-        <ColumnPreview
-          key={comparedColumn?.id || index}
-          {...comparedColumn}
-          updateHandler={updateHandler}
-        />
-      );
+      return <Column key={comparedColumn.id} {...comparedColumn} updateBoard={updateHandler} />;
     }
     return <EmptyColumn key={index} order={index} />;
   });
@@ -60,6 +55,7 @@ function Board() {
     url: `${AppRoute.BOARDS}/${boardId}`,
     method: 'get',
   });
+
   const board = data as TBoard;
 
   async function deleteBoardHandler(id: string | undefined) {
@@ -74,6 +70,7 @@ function Board() {
 
   async function createColumnHandler(values: fieldsType) {
     const order = board?.columns.length > 0 ? board.columns.length + 1 : 1;
+
     if (order <= MAX_COLUMN_COUNT) {
       const body = { ...values, order } as { title: string; order: number };
       const columnsRequestOptions = {
@@ -95,8 +92,6 @@ function Board() {
   if (isLoading) {
     return <Loader />;
   }
-
-  const { columns } = board as TBoard;
 
   return (
     <div className="board">
@@ -120,7 +115,8 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">{generateColumns(columns, request)}</div>
+      <div className="columns_wrapper">{generateColumns(board.columns, request)}</div>
+      <Outlet />
     </div>
   );
 }
