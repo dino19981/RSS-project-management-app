@@ -12,6 +12,7 @@ export default function Input({
   placeholder,
   onChange,
   value,
+  isdisabled,
 }: inputProps) {
   const inputClassName = isHaveError ? `${inputClass} input__invalid` : inputClass;
   return (
@@ -25,6 +26,7 @@ export default function Input({
         defaultChecked={checked}
         className={inputClassName}
         type={type || 'text'}
+        disabled={isdisabled}
       />
       {isHaveError && <div className="input__error">{errorMessage}</div>}
     </label>

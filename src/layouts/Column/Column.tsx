@@ -2,34 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { TColumn } from '../../models/column';
-import { TTask } from '../../models/task';
 import TaskPreview from '../Task/TaskPreview';
-
-const fakeTasks = [
-  {
-    id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-    title: 'Task: pet the cat',
-    order: 1,
-    done: false,
-    description: 'Domestic cat needs to be stroked gently',
-    userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-    files: [
-      {
-        filename: 'foto.jpg',
-        fileSize: 6105000,
-      },
-    ],
-  },
-  {
-    id: '6e3abe9c-ceb1-40fa-9a04-234234234',
-    title: 'Task:qwqereertert',
-    order: 2,
-    done: false,
-    description: 'D123123123ly',
-    userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-    files: [],
-  },
-];
 
 const schema = yup
   .object()
@@ -53,33 +26,27 @@ const formOptions = {
   fields,
 };
 
+/*
+смена порядка
+1 определить order=X элемента куда ставить 
+2 Если order текущего элемента Y  больше чем order заменяемого элемента Х
+- начиная с конца изменить ордер всех элементов на +1 по X включительно
+- изменить Order Y на Х
+3 Если order текущего элемента Y  меньше чем order заменяемого элемента Х
+- изменить X на последний (columns.length) +1 
+- изменить Y  на х
+- изменить X на Y-1
+
+
+*/
+
 function Column() {
-  let tasks: undefined | TTask[];
-  //fake data
-  const column: undefined | TColumn = {
-    id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-    title: 'Backlog',
+  const column: TColumn = {
+    id: '123123',
     order: 1,
-    tasks: [
-      {
-        id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-        title: 'Task: pet the cat',
-        order: 1,
-        done: false,
-        description: 'Domestic cat needs to be stroked gently',
-        userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-        files: [
-          {
-            filename: 'foto.jpg',
-            fileSize: 6105000,
-          },
-        ],
-      },
-    ],
+    title: 'qwe',
+    tasks: [],
   };
-  useEffect(() => {
-    //TODO Загрузка  колонки /boards/:boardId/columns/:columnId
-  }, []);
 
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -109,11 +76,11 @@ function Column() {
             />
           </div>
         )}
-
-        {fakeTasks &&
-          fakeTasks.map((task) => {
+        {/* 
+        {tasks &&
+          tasks.map((task) => {
             return <TaskPreview key={task.id} {...task} />;
-          })}
+          })} */}
       </div>
     </div>
   );
