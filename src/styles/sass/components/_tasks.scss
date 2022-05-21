@@ -42,3 +42,62 @@
     fill: #787878;
   }
 }
+
+.task__edit.modal__content {
+  background-color: #f4f5f7;
+}
+
+.task__edit {
+  &_title-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+  }
+  &_title {
+    @include regular-subtitle;
+    margin: 0;
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+  &_icon {
+    width: 30px;
+    height: 30px;
+    fill: #787878;
+  }
+  &_description-wrapper {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  &_text {
+    @include regular-text;
+    font-weight: 500;
+    margin: 0;
+  }
+  &_description-input {
+    @include regular-text;
+    font-size: 17px;
+    width: 60%;
+    margin-left: 40px;
+    margin-top: 4px;
+    padding: 5px 10px;
+    background-color: transparent;
+    cursor: pointer;
+
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    &:focus-visible {
+      outline: none;
+      background-color: #ffffff;
+      cursor: text;
+    }
+  }
+
+  &_description-edit {
+    @include regular-text;
+    margin: 0;
+  }
+}

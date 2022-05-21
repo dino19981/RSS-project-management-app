@@ -9,6 +9,8 @@ export default function Modal({
   submitBtnName,
   isError,
   errorText,
+  contentClassName,
+  isDontShowFooter,
 }: modalProps) {
   return (
     <div className="main__container" aria-label="modal">
@@ -22,18 +24,25 @@ export default function Modal({
         <div
           role="textbox"
           tabIndex={0}
-          className="modal__content active"
+          className={`modal__content ${contentClassName} active`}
           onMouseDown={(e) => e.stopPropagation()}
           onKeyPress={(e) => e.stopPropagation()}
         >
+          <div className="modal__header" onClick={handleCloseModal}>
+            <svg className="task__edit_icon">
+              <use xlinkHref="#close-icon" />
+            </svg>
+          </div>
           {isError && <p className="modal__error-text">{errorText}</p>}
 
           {children}
 
-          <div className="modal__footer">
-            <Button handler={handleCloseModal} text="Закрыть" />
-            <Button type="submit" formId={formId} text={submitBtnName} />
-          </div>
+          {!isDontShowFooter && (
+            <div className="modal__footer">
+              <Button handler={handleCloseModal} text="Закрыть" />
+              <Button type="submit" formId={formId} text={submitBtnName} />
+            </div>
+          )}
         </div>
       </div>
     </div>

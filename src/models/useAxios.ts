@@ -3,7 +3,7 @@ import { TColumn } from './column';
 import { fieldsType } from './form';
 import { TTask } from './task';
 
-export type responses = TBoard[] | TColumn[] | TBoard | TColumn;
+export type responses = TBoard[] | TColumn[] | TBoard | TColumn | TTask;
 
 export type requestOptions = {
   url?: string;
