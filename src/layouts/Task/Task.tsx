@@ -43,7 +43,7 @@ function Task({ id, title, description, order, userId, done, columnId, updateCol
   }
 
   function openEditTask() {
-    navigate(`${pathname}/column/${columnId}/tasks/${id}`);
+    navigate(`${pathname}/columns/${columnId}/tasks/${id}`);
   }
 
   return (

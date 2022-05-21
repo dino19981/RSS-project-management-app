@@ -36,7 +36,7 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path={AppRoute.BOARDS} element={<Boards />} />
             <Route path={AppRoute.BOARD} element={<Board />} />
-            <Route path={`${AppRoute.BOARD}/column/:columnIn/tasks/:taskId`} element={<Board />}>
+            <Route path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`} element={<Board />}>
               <Route index element={<TaskEdit />} />
             </Route>
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
