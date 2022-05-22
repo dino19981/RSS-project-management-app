@@ -30,7 +30,11 @@ export default function MainPage() {
           <li className="features__item">
             <article className="feature">
               <div className="feature__image-wrapper">
-                <img className="feature__image" src="" alt="" />
+                <img
+                  className="feature__image feature__image--note"
+                  src="assets/images/note.png"
+                  alt="Планшет с галочкой"
+                />
               </div>
               <div className="feature__text-wrapper">
                 <h3 className="feature__title">Преимущество 1</h3>
@@ -44,7 +48,11 @@ export default function MainPage() {
           <li className="features__item">
             <article className="feature">
               <div className="feature__image-wrapper">
-                <img className="feature__image" src="" alt="" />
+                <img
+                  className="feature__image feature__image--money"
+                  src="assets/images/money.png"
+                  alt="Деньги"
+                />
               </div>
               <div className="feature__text-wrapper">
                 <h3 className="feature__title">Преимущество 1</h3>
@@ -58,7 +66,11 @@ export default function MainPage() {
           <li className="features__item">
             <article className="feature">
               <div className="feature__image-wrapper">
-                <img className="feature__image" src="" alt="" />
+                <img
+                  className="feature__image feature__image--calendar"
+                  src="assets/images/calendar.png"
+                  alt="Календарь"
+                />
               </div>
               <div className="feature__text-wrapper">
                 <h3 className="feature__title">Преимущество 1</h3>

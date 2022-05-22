@@ -3,6 +3,7 @@
 }
 
 .feature__image-wrapper {
+  position: relative;
   margin-left: auto;
   margin-right: auto;
 
@@ -18,4 +19,26 @@
 
 .feature__desc {
   @include regular-text;
+}
+
+.feature__image {
+  position: absolute;
+  top: 0;
+  left: -25px;
+  
+  &--note {
+    left: -30px;
+    width: 80%;
+  }
+  
+  &--money {
+    width: 130%;
+    max-width: 130%;
+    left: -60px;
+    top: -50px;
+  }
+
+  &--calendar {
+    top: -20px;
+  }
 }
