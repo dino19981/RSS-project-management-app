@@ -10,6 +10,7 @@ import { columnValues } from '../../components/form/constants/initialValues';
 import { columnfields } from '../../components/form/constants/fieldsOptions';
 import { AppRoute } from '../../const/routes';
 import { Methods } from '../../const/APIMethoods';
+import EmptyTaskPreview from '../Task/EmptyTaskPreview';
 
 const formOptions = {
   schema: columSchema,
@@ -54,6 +55,7 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
+    console.log('COLUMNdrop');
     const id = e.dataTransfer.getData('columnId');
     const title = e.dataTransfer.getData('columnTitle');
     if (!id || !title) return;
@@ -83,7 +85,12 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
         tasks.map((task) => {
           return <TaskPreview key={task.id} {...task} columnId={columnId} update={updateHandler} />;
         })}
-
+      <EmptyTaskPreview
+        tasks={tasks}
+        boardId={boardId}
+        columnId={columnId}
+        update={updateHandler}
+      />
       <ButtonWithModalForm
         submitBtnName="add task"
         modalState={{ isModalActive, setIsModalActive }}
