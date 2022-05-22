@@ -20,8 +20,12 @@ export default function HeaderMenu() {
         )}
 
         <select className="lang-select" name="lang-select" id="lang-select" defaultValue="ru">
-          <option value="ru">Рус</option>
-          <option value="en">Анг</option>
+          <option className="lang-select__option" value="ru">
+            Рус
+          </option>
+          <option className="lang-select__option" value="en">
+            Анг
+          </option>
         </select>
 
         <UserNav authorizeStatus={authorizeStatus} />
