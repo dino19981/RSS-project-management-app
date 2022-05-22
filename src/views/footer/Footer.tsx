@@ -1,12 +1,6 @@
 import { teamMembers } from '../../const/teamData';
-import UserNav from '../../components/userNav/UserNav';
-import { useAppSelector } from '../../store/hooks';
-import { selectAuthStatus } from '../../store/user/action';
-import Logo from '../../components/logo/Logo';
 
 export default function Footer() {
-  const authorizeStatus = useAppSelector(selectAuthStatus);
-
   return (
     <footer className="footer">
       <div className="footer__container container">
