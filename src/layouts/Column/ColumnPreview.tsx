@@ -38,7 +38,7 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
 
   const { id: userId } = useAppSelector((state) => state.authorization);
   const { request } = useAxios({
-    url: `${AppRoute.BOARD}/${boardId}`,
+    url: `${AppRoute.BOARDS}/${boardId}`,
     method: Methods.GET,
   });
 
@@ -66,8 +66,8 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
           order: currentColumn.order,
         },
       });
+      await updateHandler();
     }
-    await updateHandler();
   }
 
   return (
