@@ -15,7 +15,7 @@
   display: grid;
 
   @media (min-width: 990px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 2fr 1fr;
   }
 }
 
@@ -30,6 +30,8 @@
   transition: all 0.3s;
   font-weight: 400;
   color: $dark-green;
+
+  @include regular-text;
 }
 
 .footer__gh-list {

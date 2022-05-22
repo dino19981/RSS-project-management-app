@@ -54,7 +54,7 @@
   margin: 0;
   margin-bottom: 25px;
   font-family: $title-font;
-  font-size: 30px;
+  font-size: 28px;
 
   @media (min-width: 420px) {
     font-size: 32px;
@@ -80,12 +80,12 @@
   font-weight: 500;
 
   @media (min-width: 420px) {
-    font-size: 27px;
+    font-size: 26px;
     margin-bottom: 20px;
   }
 
   @media (min-width: $tablet-width) {
-    font-size: 31px;
+    font-size: 30px;
     margin-bottom: 25px;
   }
 }
