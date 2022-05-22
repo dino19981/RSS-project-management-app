@@ -1,84 +1,73 @@
 import React, { useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import * as yup from 'yup';
+import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn } from '../../models/column';
 import TaskPreview from '../Task/TaskPreview';
-
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-    description: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-  description: '',
-};
-
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Task Title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
-];
+import { columSchema } from '../../schemas/column';
+import { columnValues } from '../../components/form/constants/initialValues';
+import { columnfields } from '../../components/form/constants/fieldsOptions';
+import { AppRoute } from '../../const/routes';
+import { Methods } from '../../const/APIMethoods';
 
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: columSchema,
+  initialValues: columnValues,
+  fields: columnfields,
 };
+
+function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string) {
+  e.dataTransfer.setData('columnId', id);
+  e.dataTransfer.setData('columnTitle', title);
+}
 
 function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
-  const target = e.target as HTMLDivElement;
-  target.classList.add('drag');
-}
-function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
-  const target = e.target as HTMLDivElement;
-  target.classList.remove('drag');
 }
 
-type TProps = TColumn & {
-  updateHandler: () => void;
+type TProps = {
+  currentColumn: TColumn;
+  updateHandler: () => Promise<void>;
 };
-function ColumnPreview({ id: columnId, order, title, tasks, updateHandler }: TProps) {
-  const { pathname } = useLocation();
+
+function ColumnPreview({ currentColumn, updateHandler }: TProps) {
+  const { id: columnId, title, tasks } = currentColumn;
   const { boardId } = useParams();
   const [isModalActive, setIsModalActive] = useState(false);
 
   const { id: userId } = useAppSelector((state) => state.authorization);
-  const { data, isLoading, isError, request } = useAxios({
-    url: `/boards/${boardId}`,
-    method: 'get',
+  const { request } = useAxios({
+    url: `${AppRoute.BOARDS}/${boardId}`,
+    method: Methods.GET,
   });
 
-  async function createTaskHandler(value: typeof schema) {
+  async function createTaskHandler(value: typeof columSchema) {
     const body = { ...value, order: tasks.length + 1, userId };
     await request({
-      url: `/boards/${boardId}/columns/${columnId}/tasks`,
-      method: 'post',
+      url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${columnId}${AppRoute.TASKS}`,
+      method: Methods.POST,
       data: body,
     });
-    updateHandler();
     setIsModalActive(false);
   }
 
-  async function dropHandler(e: React.DragEvent<HTMLDivElement>, order: number) {
+  async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
-    console.log('drop', columnId);
-    // await request({
-    //   url: `/boards/${boardId}/columns/${columnId}`,
-    //   method: 'put',
-    //   data: {
-    //     title,
-    //     order,
-    //   },
-    // });
-    // await request();
+    const id = e.dataTransfer.getData('columnId');
+    const title = e.dataTransfer.getData('columnTitle');
+    if (!id || !title) return;
+    if (id !== currentColumn.id) {
+      await request({
+        url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${id}`,
+        method: Methods.PUT,
+        data: {
+          title,
+          order: currentColumn.order,
+        },
+      });
+      await updateHandler();
+    }
   }
 
   return (
@@ -86,8 +75,8 @@ function ColumnPreview({ id: columnId, order, title, tasks, updateHandler }: TPr
       className={`column-preview`}
       draggable={true}
       onDragOver={(e) => dragOverHandler(e)}
-      onDragLeave={(e) => dragLeaveHandler(e)}
-      onDrop={(e) => dropHandler(e, 2)}
+      onDragStart={(e) => dragStart(e, columnId, title)}
+      onDrop={(e) => dropHandler(e)}
     >
       <div className="column-preview_title">{title}</div>
       {tasks &&

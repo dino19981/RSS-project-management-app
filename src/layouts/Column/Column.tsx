@@ -1,56 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import * as yup from 'yup';
+import React, { useState } from 'react';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import { columnfields } from '../../components/form/constants/fieldsOptions';
+import { columnValues } from '../../components/form/constants/initialValues';
 import { TColumn } from '../../models/column';
-import TaskPreview from '../Task/TaskPreview';
-
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-};
-
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
-];
+import { columSchema } from '../../schemas/column';
 
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: columSchema,
+  initialValues: columnValues,
+  fields: columnfields,
 };
 
-/*
-смена порядка
-1 определить order=X элемента куда ставить 
-2 Если order текущего элемента Y  больше чем order заменяемого элемента Х
-- начиная с конца изменить ордер всех элементов на +1 по X включительно
-- изменить Order Y на Х
-3 Если order текущего элемента Y  меньше чем order заменяемого элемента Х
-- изменить X на последний (columns.length) +1 
-- изменить Y  на х
-- изменить X на Y-1
-
-
-*/
-
-function Column() {
-  const column: TColumn = {
-    id: '123123',
-    order: 1,
-    title: 'qwe',
-    tasks: [],
-  };
-
+function Column({ title }: TColumn) {
   const [isModalActive, setIsModalActive] = useState(false);
 
-  function editColumnHandler(value: typeof schema) {
+  function editColumnHandler(value: typeof columSchema) {
     //TODO ADD API REQuest
     console.log('edit column', value);
   }
@@ -58,9 +22,9 @@ function Column() {
   return (
     <div className="columns_wrapper">
       <div className="column">
-        {column && (
+        {
           <div className="column_title">
-            {column.title}
+            {title}
             <ButtonWithModalForm
               submitBtnName="save column"
               modalState={{ isModalActive, setIsModalActive }}
@@ -75,7 +39,7 @@ function Column() {
               }}
             />
           </div>
-        )}
+        }
         {/* 
         {tasks &&
           tasks.map((task) => {
