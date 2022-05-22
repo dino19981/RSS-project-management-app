@@ -32,7 +32,7 @@ export default function Autorization() {
       const userData = await getUserData(loginData?.data.token);
       dispatch(setUserData(userData));
 
-      navigate(AppRoute.MAIN);
+      navigate(AppRoute.BOARDS);
     }
   }
 

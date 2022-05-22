@@ -34,13 +34,13 @@ const formOptions = {
   fields,
 };
 
-function generateColumns(columns: TColumn[], updateHandler: () => void) {
+function generateColumns(columns: TColumn[]) {
   const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
 
   return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
     const comparedColumn = makeColumnOrder[index];
     if (comparedColumn) {
-      return <Column key={comparedColumn.id} {...comparedColumn} updateBoard={updateHandler} />;
+      return <Column key={comparedColumn.id} {...comparedColumn} />;
     }
     return <EmptyColumn key={index} order={index} />;
   });
@@ -115,7 +115,7 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">{generateColumns(board.columns, request)}</div>
+      <div className="columns_wrapper">{generateColumns(board.columns)}</div>
       <Outlet />
     </div>
   );

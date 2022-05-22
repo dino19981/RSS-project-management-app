@@ -56,10 +56,7 @@ function getActualTasks(columnData: responses | undefined, tasks: TTask[]) {
   return tasks || [];
 }
 
-type TProps = TColumn & {
-  updateBoard: () => void;
-};
-function Column({ id: columnId, order, title, tasks, updateBoard }: TProps) {
+function Column({ id: columnId, title, tasks }: TColumn) {
   const { pathname } = useLocation();
   const { boardId } = useParams();
   const [isModalActive, setIsModalActive] = useState(false);
@@ -81,7 +78,10 @@ function Column({ id: columnId, order, title, tasks, updateBoard }: TProps) {
     });
 
     if (taskData) {
-      updateBoard();
+      request({
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        method: Methods.GET,
+      });
       setIsModalActive(false);
     }
   }

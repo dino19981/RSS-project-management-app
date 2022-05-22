@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import Button from '../../components/button/Button';
 import { deleteTaskfields } from '../../components/form/constants/fieldsOptions';
+import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
+import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethoods';
 import { ErrorMessage } from '../../const/errorMesages';
 import { AppRoute } from '../../const/routes';
@@ -20,7 +22,7 @@ type TProps = TTask & {
   updateColumn: ({ url, method }: { url: string; method: string }) => void;
 };
 
-function Task({ id, title, description, order, userId, done, columnId, updateColumn }: TProps) {
+function Task({ id, title, description, columnId, updateColumn }: TProps) {
   const { boardId } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -47,29 +49,37 @@ function Task({ id, title, description, order, userId, done, columnId, updateCol
   }
 
   return (
-    <div className="task" onClick={openEditTask}>
-      <div className="task__link">{title}</div>
-      <ButtonWithModalForm
-        submitBtnName="delete"
-        modalState={{ isModalActive, setIsModalActive }}
-        buttonOptions={{
-          btnClass: 'task__delete_btn',
-          icon: (
+    <>
+      <div className="task" onClick={openEditTask}>
+        <div className="task__link">{title}</div>
+        <Button
+          handler={() => setIsModalActive(true)}
+          btnClass="task__delete_btn"
+          icon={
             <svg>
               <use xlinkHref="#delete-icon" />
             </svg>
-          ),
-        }}
-        formOptions={{
-          ...formOptions,
-          initialValues: { title },
-          onSubmit: deleteTask,
-        }}
-        isError={isError}
-        errorText={ErrorMessage.SERVER_ERROR}
-      />
-      {isLoading && <Loader />}
-    </div>
+          }
+        />
+        {isLoading && <Loader />}
+      </div>
+      {isModalActive && (
+        <Modal
+          formId="modalForm"
+          handleCloseModal={() => setIsModalActive(false)}
+          submitBtnName="Удалить"
+          isError={isError}
+          errorText={ErrorMessage.SERVER_ERROR}
+        >
+          <Form
+            formId="modalForm"
+            {...formOptions}
+            initialValues={{ title }}
+            onSubmit={deleteTask}
+          ></Form>
+        </Modal>
+      )}
+    </>
   );
 }
 

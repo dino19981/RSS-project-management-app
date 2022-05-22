@@ -1,27 +1,27 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Button from '../../components/button/Button';
-import Loader from '../../components/loader/loader';
+import Input from '../../components/input/Input';
 import Modal from '../../components/modal/Modal';
 import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
+import { Methods } from '../../const/APIMethoods';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
+import { TColumn } from '../../models/column';
 import { TTask } from '../../models/task';
 import { useAppSelector } from '../../store/hooks';
 
 export default function TaskEdit() {
-  const { boardId, columnId, taskId } = useParams();
-  const { name, login } = useAppSelector((state) => state.authorization);
   const navigate = useNavigate();
+  const { boardId, columnId, taskId } = useParams();
+  const { login } = useAppSelector((state) => state.authorization);
 
   const {
     data: task,
     isLoading: taskLoading,
     isError: taskError,
-    request: updateTask,
   } = useAxios({
     url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${taskId}`,
-    method: 'get',
+    method: Methods.GET,
   });
 
   const {
@@ -30,38 +30,91 @@ export default function TaskEdit() {
     isError: columnError,
   } = useAxios({
     url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
-    method: 'get',
+    method: Methods.GET,
   });
+
+  const { request } = useAxios({}, { dontFetchAtMount: true });
 
   function closeEdit() {
     navigate(`${AppRoute.BOARDS}/${boardId}`);
   }
 
+  function updateTaskElement(
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+    updatedElement: string
+  ) {
+    if (task) {
+      const { id, files, ...dataForRequest } = task as TTask;
+      const newTaskData = { ...dataForRequest, [updatedElement]: e.target.value };
+
+      const updateTaskOptions = {
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${taskId}`,
+        method: Methods.PUT,
+        data: newTaskData,
+      };
+      request(updateTaskOptions);
+    }
+  }
+
+  function uploadFile(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value);
+
+    // if (task) {
+    //   const { id } = task as TTask;
+    //   const newTaskData = { taskId: id, file: e.target.value };
+
+    //   const updateTaskOptions = {
+    //     url: `/file`,
+    //     method: Methods.POST,
+    //     data: newTaskData,
+    //   };
+    //   request(updateTaskOptions);
+    // }
+  }
+
+  const isLoading = taskLoading || columnLoading;
+  const isError = taskError || columnError;
   const taskData = task as TTask;
+  const columnData = column as TColumn;
 
   return (
     <Modal handleCloseModal={closeEdit} contentClassName="task__edit" isDontShowFooter={true}>
-      <ProcessingWrapper isError={taskError} isLoading={taskLoading} errortext="Error">
+      <ProcessingWrapper isError={isError} isLoading={isLoading} errortext="Error">
         <section className="task__edit_inner">
           <div className="task__edit_title-wrapper">
             <svg className="task__edit_icon">
               <use xlinkHref="#task-icon" />
             </svg>
-            <h2 className="task__edit_title">{taskData?.title}</h2>
+            <Input
+              defaultValue={taskData?.title}
+              inputClass="task__edit_title"
+              onBlur={(e) => updateTaskElement(e, 'title')}
+            />
           </div>
-          <h4 className="task__edit_text">{`Создатель: ${login}`}</h4>
+          <h4>
+            В колонке
+            <span>{` ${columnData?.title}`}</span>
+          </h4>
+          <div className="task__edit_description-wrapper">
+            <svg className="task__edit_icon">
+              <use xlinkHref="#user-icon" />
+            </svg>
+            <h4 className="task__edit_text">{`Создатель: ${login}`}</h4>
+          </div>
+
           <div className="task__edit_description-wrapper">
             <svg className="task__edit_icon">
               <use xlinkHref="#description-icon" />
             </svg>
             <h4 className="task__edit_text">Описание</h4>
-            <Button text="Изменить" btnClass="task__edit_description-edit" />
           </div>
+
           <textarea
             className="task__edit_description-input"
-            placeholder={taskData?.description || 'Добавить описание'}
-          ></textarea>
-          <Button text="Сохранить" />
+            onBlur={(e) => updateTaskElement(e, 'description')}
+            defaultValue={taskData?.description || 'Добавить описание'}
+          />
+          <Input type="file" onChange={(e) => uploadFile(e)} />
         </section>
       </ProcessingWrapper>
     </Modal>

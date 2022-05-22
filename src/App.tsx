@@ -8,26 +8,9 @@ import Boards from './layouts/Boards/Boards';
 import Board from './layouts/Boards/Board/Board';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
-import { useAppDispatch } from './store/hooks';
-import { useEffect } from 'react';
-import { getUserData } from './utils/authentification';
-import { setUserData } from './store/user/actions';
 import TaskEdit from './layouts/Task/TaskEdit';
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      (async () => {
-        const userData = await getUserData(token);
-        dispatch(setUserData(userData));
-      })();
-    }
-  }, []);
-
   return (
     <ErrorBoundary>
       <BrowserRouter>

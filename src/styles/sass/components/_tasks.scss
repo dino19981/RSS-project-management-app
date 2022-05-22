@@ -7,6 +7,7 @@
   justify-content: space-between;
   align-items: center;
 
+  cursor: pointer;
   transition: all 0.4s linear;
 
   &:hover {
@@ -37,12 +38,20 @@
 .task__edit {
   &_title-wrapper {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 10px;
   }
   &_title {
     @include regular-subtitle;
     margin: 0;
+    border: none;
+    background-color: transparent;
+    padding: 5px;
+    &:focus-visible {
+      outline: none;
+      background-color: #ffffff;
+      cursor: text;
+    }
     &::first-letter {
       text-transform: uppercase;
     }
@@ -76,6 +85,7 @@
     border: none;
     border-radius: 5px;
     resize: none;
+    transition: all 0.3s linear;
     &:focus-visible {
       outline: none;
       background-color: #ffffff;
@@ -85,6 +95,11 @@
 
   &_description-edit {
     @include regular-text;
+    color: $dark-green;
     margin: 0;
+  }
+
+  &_save {
+    margin-top: 10px;
   }
 }

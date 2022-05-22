@@ -14,8 +14,6 @@ export default function Button({
     if (handler) {
       e.stopPropagation();
       handler();
-
-      console.log('stop');
     }
   }
   return (

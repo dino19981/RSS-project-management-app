@@ -1,6 +1,7 @@
 import React from 'react';
 import { modalProps } from '../../models/modal';
 import Button from '../button/Button';
+import Portal from '../portal/Portal';
 
 export default function Modal({
   formId,
@@ -13,7 +14,7 @@ export default function Modal({
   isDontShowFooter,
 }: modalProps) {
   return (
-    <div className="main__container" aria-label="modal">
+    <Portal>
       <div
         role="textbox"
         tabIndex={0}
@@ -49,6 +50,6 @@ export default function Modal({
           )}
         </div>
       </div>
-    </div>
+    </Portal>
   );
 }

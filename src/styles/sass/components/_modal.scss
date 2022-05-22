@@ -1,7 +1,3 @@
-.main__container {
-  position: absolute;
-}
-
 .modal {
   width: 100%;
   height: 100vh;
@@ -76,4 +72,8 @@
 .task__edit {
   min-height: 50vh;
   padding: 15px;
+}
+
+.window__popover {
+  z-index: 1;
 }

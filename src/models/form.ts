@@ -30,6 +30,11 @@ interface formField {
   placeholder?: string;
 }
 
+interface uploadFile {
+  file: string;
+  taskId: string;
+}
+
 export type fieldsType =
   | registrationSchemaType
   | autorizationSchemaType
@@ -37,4 +42,5 @@ export type fieldsType =
   | TColumnCreateSchema
   | TColumnUpdateSchema
   | TTaskCreateSchema
-  | TDeleteBoard;
+  | TDeleteBoard
+  | uploadFile;
