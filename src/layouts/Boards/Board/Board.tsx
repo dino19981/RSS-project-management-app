@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ColumnPreview from '../../Columns/ColumnPreview';
+import ColumnPreview from '../../Column/ColumnPreview';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
-import EmptyColumn from '../../Columns/EmptyColumn';
 import { fieldsType } from '../../../models/form';
 import { TColumnCreateSchema } from '../../../models/schemas';
 import { useAxios } from '../../../hooks/useAxios';
 import { TBoard } from '../../../models/board';
 import Loader from '../../../components/loader/loader';
+import { MAX_COLUMN_COUNT } from '../const';
+import { Methods } from '../../../const/APIMethoods';
+import { AppRoute } from '../../../const/routes';
+import EmptyColumn from '../../Column/EmptyColumn';
 
 const schema: TColumnCreateSchema = yup
   .object()
@@ -31,11 +34,9 @@ const formOptions = {
 };
 
 function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>) {
-  const maxColumnCount = 5;
-
   const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
 
-  return [...Array(maxColumnCount)].map((el, index) => {
+  return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
     const comparedColumn = makeColumnOrder[index];
     if (comparedColumn) {
       return (
@@ -53,35 +54,33 @@ function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>)
 function Board() {
   const { boardId } = useParams();
   const navigate = useNavigate();
+  const [isModalActive, setIsModalActive] = useState(false);
 
   const { data, isLoading, isError, request } = useAxios({
-    url: `/boards/${boardId}`,
+    url: `${AppRoute.BOARDS}/${boardId}`,
     method: 'get',
   });
   const board = data as TBoard;
 
-  const [isModalActive, setIsModalActive] = useState(false);
-
   async function deleteBoardHandler(id: string | undefined) {
     if (id) {
       await request({
-        url: `/boards/${id}`,
-        method: 'delete',
+        url: `${AppRoute.BOARDS}/${id}`,
+        method: Methods.DELETE,
       });
-      navigate('/boards');
+      navigate(AppRoute.BOARDS);
     }
   }
 
   async function createColumnHandler(values: fieldsType) {
     const body = { ...values };
     const columnsRequestOptions = {
-      url: `/boards/${boardId}/columns`,
-      method: 'post',
+      url: `${AppRoute.BOARDS}/${boardId}/columns`,
+      method: Methods.POST,
       data: body,
     };
     await request(columnsRequestOptions);
     request();
-
     setIsModalActive(false);
   }
 

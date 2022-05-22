@@ -7,13 +7,10 @@ import { useAxios } from '../../hooks/useAxios';
 import { fieldsType } from '../../models/form';
 import { autorizationSchema } from '../../schemas/authentification';
 import { useAppDispatch } from '../../store/hooks';
-import {
-  getAuthentificationErrorMessage,
-  getUserData,
-  parseJwt,
-} from '../../utils/authentification';
+import { getAuthentificationErrorMessage, getUserData } from '../../utils/authentification';
 import Authentification from '../authentification/Authentification';
 import { setUserData } from '../../store/user/actions';
+import { Methods } from '../../const/APIMethoods';
 
 export default function Autorization() {
   const navigate = useNavigate();
@@ -22,8 +19,8 @@ export default function Autorization() {
 
   async function onSubmit(value: fieldsType) {
     const loginRequestOptions = {
-      url: '/signin',
-      method: 'post',
+      url: AppRoute.LOGIN,
+      method: Methods.POST,
       data: value,
     };
 
@@ -33,7 +30,6 @@ export default function Autorization() {
       localStorage.setItem('token', loginData?.data.token);
 
       const userData = await getUserData(loginData?.data.token);
-
       dispatch(setUserData(userData));
 
       navigate(AppRoute.MAIN);
@@ -48,7 +44,6 @@ export default function Autorization() {
     onSubmit,
     formClassName: 'authentification__form',
   };
-  console.log(isError);
 
   return (
     <>

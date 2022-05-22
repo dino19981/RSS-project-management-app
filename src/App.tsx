@@ -6,7 +6,7 @@ import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import NotFoundPage from './pages/mainPage/NotFoundPage';
 import Boards from './layouts/Boards/Boards';
 import Board from './layouts/Boards/Board/Board';
-import Column from './layouts/Columns/Column';
+import Column from './layouts/Column/Column';
 import Task from './layouts/Task/Task';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
@@ -37,10 +37,6 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path={AppRoute.BOARDS} element={<Boards />} />
             <Route path={AppRoute.BOARD} element={<Board />} />
-            <Route path={AppRoute.COLUMNS} element={<Board />} />
-            <Route path={AppRoute.COLUMN} element={<Board />} />
-            <Route path={AppRoute.TASKS} element={<Column />} />
-            <Route path={AppRoute.TASK} element={<Task />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
             <Route path={AppRoute.LOGIN} element={<Authorization />} />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />

@@ -1,0 +1,109 @@
+.menu-toggle {
+  margin-left: auto;
+  
+  cursor: pointer;
+  
+  height: 50px;
+  width: 50px;
+  
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  
+  @media (min-width: $tablet-width) {
+    display: none;
+    height: 55px;
+    width: 55px;
+
+    &::before,
+    &::after {
+      top: 12px;
+    }
+  }
+
+  @media (min-width: $desktop-width) {
+    position: relative;
+
+    height: 60px;
+    width: 60px;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+  }
+
+
+  &:hover::after {
+    background-color: $dark-green;
+    box-shadow: -12px 0 0 0 $dark-green;
+    transition:
+        transform 0.3s ease-in,
+        box-shadow 0.2s ease-in;
+
+    @media (max-width:768px) {
+      box-shadow: -8px 0 0 0 $dark-green;
+    }
+  }
+
+  &::before,
+  &::after {
+    top: 5px;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    right: 35px;
+    width: 2px;
+    height: 33px;
+    background-color: $dark-green;
+    transition:
+        transform 0.3s ease-in,
+        box-shadow 0.2s ease-in;
+
+    @media (min-width: $tablet-width) {
+      position: static;
+    }
+  }
+
+  &::before {
+    height: 32px;
+    transform: rotate(270deg) translateX(6px);
+    transition: transform 0.3s ease-in;
+
+    @media (min-width: $tablet-width) {
+      position: static;
+    }
+  }
+
+  &::after {
+    height: 32px;
+    transform: rotate(270deg) translateX(-2px);
+    box-shadow: -8px 0 0 0 $dark-green;
+    transition:
+        transform 0.3s ease-in,
+        box-shadow 0.2s ease-in;
+
+    @media (min-width: $tablet-width) {
+      position: static;
+    }
+  }
+  
+}
+
+.menu--open+.menu-toggle {
+  &::before {
+    transform: rotate(45deg);
+    transition: transform 0.3s ease-in;
+    background-color: $dark-green;
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+    box-shadow: none;
+    transition:
+        transform 0.3s ease-in,
+        box-shadow 0.2s ease-in;
+  }
+}

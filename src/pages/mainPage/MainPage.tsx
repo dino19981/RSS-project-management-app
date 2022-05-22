@@ -1,65 +1,106 @@
 import { teamMembers } from '../../const/teamData';
-import { useAppSelector } from '../../store/hooks';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const/routes';
 
 export default function MainPage() {
-  const authorizeStatus = useAppSelector((state) => state.authorization);
-  console.log(authorizeStatus, 'authorizeStatus');
-
   return (
     <>
-      <section>
-        <h1>Приложение для управления проектами</h1>
-        <p>Описание ключевых преимуществ</p>
+      <section className="promo-screen">
+        <div className="promo-screen__text-wrapper">
+          <h1 className="promo-screen__title">Мастерски управляй проектами!</h1>
+          <div className="promo-screen__image-wrapper">
+            <img
+              className="promo-screen__image"
+              width="667"
+              height="644"
+              src="assets/images/image-hero.png"
+              alt="Иллюстрация лотка с документами"
+            />
+          </div>
+          <p className="promo-screen__desc">
+            Бесплатное приложение для командной работы над проектами
+          </p>
+          <Link className="promo-screen__btn" to={AppRoute.REGISTRATION}>
+            Начать
+          </Link>
+        </div>
       </section>
 
-      <section>
-        <h2>Преимущества</h2>
-        <ul>
-          <li>
-            <h3>Преимущество 1</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto animi at, cumque
-              optio, minima quia officia omnis, ipsam illum nisi sed incidunt? Inventore asperiores
-              nihil suscipit recusandae facilis, aspernatur doloribus!
-            </p>
+      <section className="features">
+        <h2 className="features__title">Преимущества</h2>
+        <ul className="features__list">
+          <li className="features__item">
+            <article className="feature">
+              <div className="feature__image-wrapper">
+                <img className="feature__image" src="" alt="" />
+              </div>
+              <div className="feature__text-wrapper">
+                <h3 className="feature__title">Преимущество 1</h3>
+                <p className="feature__desc">
+                  Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <h3>Преимущество 2</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto animi at, cumque
-              optio, minima quia officia omnis, ipsam illum nisi sed incidunt? Inventore asperiores
-              nihil suscipit recusandae facilis, aspernatur doloribus!
-            </p>
+
+          <li className="features__item">
+            <article className="feature">
+              <div className="feature__image-wrapper">
+                <img className="feature__image" src="" alt="" />
+              </div>
+              <div className="feature__text-wrapper">
+                <h3 className="feature__title">Преимущество 1</h3>
+                <p className="feature__desc">
+                  Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены
+                </p>
+              </div>
+            </article>
           </li>
-          <li>
-            <h3>Преимущество 3</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto animi at, cumque
-              optio, minima quia officia omnis, ipsam illum nisi sed incidunt? Inventore asperiores
-              nihil suscipit recusandae facilis, aspernatur doloribus!
-            </p>
+
+          <li className="features__item">
+            <article className="feature">
+              <div className="feature__image-wrapper">
+                <img className="feature__image" src="" alt="" />
+              </div>
+              <div className="feature__text-wrapper">
+                <h3 className="feature__title">Преимущество 1</h3>
+                <p className="feature__desc">
+                  Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены
+                </p>
+              </div>
+            </article>
           </li>
         </ul>
       </section>
 
-      <section>
-        <h2>О курсе</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto animi at, cumque optio,
-          minima quia officia omnis, ipsam illum nisi sed incidunt? Inventore asperiores nihil
-          suscipit recusandae facilis, aspernatur doloribus!
+      <section className="about-course">
+        <h2 className="about-course__title">О курсе</h2>
+        <p className="about-course__desc">
+          Бесплатное приложение для командной работы над проектом Бесплатное приложение для
+          командной работы над проектом Бесплатное приложение для командной работы над проектом
+        </p>
+        <p className="about-course__desc">
+          Бесплатное приложение для командной работы над проектом Бесплатное приложение для
+          командной работы над проектом Бесплатное приложение для командной работы над проектом
         </p>
       </section>
 
-      <section>
-        <h2>Наша команда</h2>
-        <ul>
+      <section className="team">
+        <h2 className="team__title">Наша команда</h2>
+        <ul className="team__list">
           {teamMembers.map(({ id, name, role }) => (
-            <li key={id}>
-              <article>
-                <h3>{name}</h3>
-                <span>{role}</span>
-                <p>Занимался тем-то и тем-то, делал пятое-десятое</p>
+            <li className="team__item" key={id}>
+              <article className="team-member">
+                <header className="team-member__base-info">
+                  <div className="team-member__text-wrapper">
+                    <h3 className="team-member__title">{name}</h3>
+                    <span className="team-member__role">{role}</span>
+                  </div>
+                  <div className="team-member__image-wrapper">
+                    <img src="" alt={name} width="60" height="60" />
+                  </div>
+                </header>
+                <p className="team-member__desc">Занимался тем-то и тем-то, делал пятое-десятое</p>
               </article>
             </li>
           ))}

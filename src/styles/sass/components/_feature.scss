@@ -1,0 +1,21 @@
+.feature {
+  @include card-item;
+}
+
+.feature__image-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 200px;
+  height: 200px;
+  background-color: $light-blue;
+  border-radius: 60px;
+  margin-bottom: 20px;
+}
+.feature__title {
+  @include regular-subtitle;
+}
+
+.feature__desc {
+  @include regular-text;
+}

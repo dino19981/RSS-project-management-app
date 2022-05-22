@@ -1,0 +1,14 @@
+.team {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.team__title {
+  @include regular-title;
+  margin-bottom: 30px;
+}
+
+.team__list {
+  @include basic-list;
+}
