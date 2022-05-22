@@ -55,6 +55,21 @@
   margin-bottom: 25px;
   font-family: $title-font;
   font-size: 30px;
+
+  @media (min-width: 420px) {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 36px;
+    margin-bottom: 35px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 38px;
+    margin-bottom: 45px;
+  }
 }
 
 @mixin regular-subtitle {
@@ -63,6 +78,16 @@
   font-family: $title-font;
   font-size: 26px;
   font-weight: 500;
+
+  @media (min-width: 420px) {
+    font-size: 27px;
+    margin-bottom: 20px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 31px;
+    margin-bottom: 25px;
+  }
 }
 
 @mixin regular-text {
@@ -70,6 +95,10 @@
   margin-bottom: 15px;
   font-family: $main-font;
   font-size: 21px;
+
+  @media (min-width: 420px) {
+    font-size: 24px;
+  }
 }
 
 @mixin basic-list {
@@ -78,11 +107,67 @@
   list-style: none;
 }
 
+@mixin card-list {
+  display: grid;
+  grid-row-gap: 25px;
+  
+  @include basic-list;
+  
+  @media (min-width: $tablet-width) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @mixin card-item {
   display: flex;
+  
+  &:last-child {
+    @media (min-width: $tablet-width) {
+      position: relative;
+      transform: translateX(50%);
+    }
+
+    @media (min-width: 1200px) {
+      position: static;
+      transform: none;
+    }
+  }
+}
+
+@mixin card {
+  display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-  padding: 20px;
-  border-radius: 15px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-top: 35px;
+  padding-bottom: 42px;
+  padding-left: 28px;
+  padding-right: 28px;
+
+  box-sizing: border-box;
+  max-width: 360px;
+
   background-color: $basic-white;
+  box-shadow: 
+      0 14px 28px rgb(196 172 40 / 10%),
+      0 10px 10px rgb(0 0 0 / 10%);
+
+  border-radius: 24px;
+
+  @media (min-width: 1200px) {
+    .team__item:nth-child(1) & {
+      margin-right: 0;
+    }
+
+    .team__item:nth-child(3) & {
+      margin-left: 0;
+    }
+  }
 }
