@@ -81,7 +81,7 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
       <div className="column-preview_title">{title}</div>
       {tasks &&
         tasks.map((task) => {
-          return <TaskPreview key={task.id} {...task} columnId={columnId} />;
+          return <TaskPreview key={task.id} {...task} columnId={columnId} update={updateHandler} />;
         })}
 
       <ButtonWithModalForm

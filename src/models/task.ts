@@ -4,8 +4,14 @@ export type TTask = {
   id: string;
   title: string;
   order: number;
-  done: boolean;
   description: string;
   userId: string;
+  boardId: string;
+  columnId: string;
   files: TFile[];
+  done: boolean;
 };
+
+export type TGetBoardTask = Omit<TTask, 'boardId' | 'columnId' | 'done'>;
+
+export type TGetAllTasks = Omit<TTask, 'done'>[];
