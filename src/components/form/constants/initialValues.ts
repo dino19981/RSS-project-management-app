@@ -8,3 +8,7 @@ export const registrationValues = {
   login: '',
   password: '',
 };
+
+export const columnValues = {
+  title: '',
+};

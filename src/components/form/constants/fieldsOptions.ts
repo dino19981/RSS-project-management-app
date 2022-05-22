@@ -32,3 +32,7 @@ export const deleteBoardfields = [
     isdisabled: true,
   },
 ];
+
+export const columnfields = [
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
+];

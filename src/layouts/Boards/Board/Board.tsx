@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ColumnPreview from '../../Column/ColumnPreview';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { fieldsType } from '../../../models/form';
-import { TColumnCreateSchema } from '../../../models/schemas';
 import { useAxios } from '../../../hooks/useAxios';
 import { TBoard } from '../../../models/board';
 import Loader from '../../../components/loader/loader';
@@ -13,24 +11,14 @@ import { MAX_COLUMN_COUNT } from '../const';
 import { Methods } from '../../../const/APIMethoods';
 import { AppRoute } from '../../../const/routes';
 import EmptyColumn from '../../Column/EmptyColumn';
-
-const schema: TColumnCreateSchema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-};
-
-const fields = [{ name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' }];
+import { columSchema } from '../../../schemas/column';
+import { columnValues } from '../../../components/form/constants/initialValues';
+import { columnfields } from '../../../components/form/constants/fieldsOptions';
 
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: columSchema,
+  initialValues: columnValues,
+  fields: columnfields,
 };
 
 function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>) {
@@ -75,7 +63,7 @@ function Board() {
   async function createColumnHandler(values: fieldsType) {
     const body = { ...values };
     const columnsRequestOptions = {
-      url: `${AppRoute.BOARDS}/${boardId}/columns`,
+      url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}`,
       method: Methods.POST,
       data: body,
     };

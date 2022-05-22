@@ -1,35 +1,20 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import * as yup from 'yup';
 import { useAppSelector } from '../../store/hooks';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn } from '../../models/column';
 import TaskPreview from '../Task/TaskPreview';
-
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-    description: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-  description: '',
-};
-
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Task Title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
-];
+import { columSchema } from '../../schemas/column';
+import { columnValues } from '../../components/form/constants/initialValues';
+import { columnfields } from '../../components/form/constants/fieldsOptions';
+import { AppRoute } from '../../const/routes';
+import { Methods } from '../../const/APIMethoods';
 
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: columSchema,
+  initialValues: columnValues,
+  fields: columnfields,
 };
 
 function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string) {
@@ -45,6 +30,7 @@ type TProps = {
   currentColumn: TColumn;
   updateHandler: () => Promise<void>;
 };
+
 function ColumnPreview({ currentColumn, updateHandler }: TProps) {
   const { id: columnId, title, tasks } = currentColumn;
   const { boardId } = useParams();
@@ -52,15 +38,15 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
 
   const { id: userId } = useAppSelector((state) => state.authorization);
   const { request } = useAxios({
-    url: `/boards/${boardId}`,
-    method: 'get',
+    url: `${AppRoute.BOARD}/${boardId}`,
+    method: Methods.GET,
   });
 
-  async function createTaskHandler(value: typeof schema) {
+  async function createTaskHandler(value: typeof columSchema) {
     const body = { ...value, order: tasks.length + 1, userId };
     await request({
-      url: `/boards/${boardId}/columns/${columnId}/tasks`,
-      method: 'post',
+      url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${columnId}${AppRoute.TASKS}`,
+      method: Methods.POST,
       data: body,
     });
     setIsModalActive(false);
@@ -73,8 +59,8 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
     if (!id || !title) return;
     if (id !== currentColumn.id) {
       await request({
-        url: `/boards/${boardId}/columns/${id}`,
-        method: 'put',
+        url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${id}`,
+        method: Methods.PUT,
         data: {
           title,
           order: currentColumn.order,

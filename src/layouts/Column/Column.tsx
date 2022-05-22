@@ -1,41 +1,20 @@
 import React, { useState } from 'react';
-import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import { columnfields } from '../../components/form/constants/fieldsOptions';
+import { columnValues } from '../../components/form/constants/initialValues';
 import { TColumn } from '../../models/column';
-
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-};
-
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
-];
+import { columSchema } from '../../schemas/column';
 
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: columSchema,
+  initialValues: columnValues,
+  fields: columnfields,
 };
 
-function Column() {
-  const column: TColumn = {
-    id: '123123',
-    order: 1,
-    title: 'qwe',
-    tasks: [],
-  };
-
+function Column({ title }: TColumn) {
   const [isModalActive, setIsModalActive] = useState(false);
 
-  function editColumnHandler(value: typeof schema) {
+  function editColumnHandler(value: typeof columSchema) {
     //TODO ADD API REQuest
     console.log('edit column', value);
   }
@@ -43,9 +22,9 @@ function Column() {
   return (
     <div className="columns_wrapper">
       <div className="column">
-        {column && (
+        {
           <div className="column_title">
-            {column.title}
+            {title}
             <ButtonWithModalForm
               submitBtnName="save column"
               modalState={{ isModalActive, setIsModalActive }}
@@ -60,7 +39,7 @@ function Column() {
               }}
             />
           </div>
-        )}
+        }
         {/* 
         {tasks &&
           tasks.map((task) => {
