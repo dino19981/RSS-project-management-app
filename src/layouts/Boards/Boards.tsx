@@ -10,16 +10,23 @@ const schema = yup
   .object()
   .shape({
     title: yup.string().trim().required(),
+    description: yup.string().trim().required(),
   })
   .required();
 
 const initialValues = {
   title: '',
+  description: '',
 };
 
 const fields = [
   //TODO разобраться с полями
   { name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' },
+  {
+    name: 'description',
+    errorMessage: 'Description is required',
+    placeholder: 'Board description',
+  },
 ];
 
 const formOptions = {

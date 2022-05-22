@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { TColumn } from '../../models/column';
-import { TColumnUpdateSchema } from '../../models/schemas';
-import { TTask } from '../../models/task';
-import TaskPreview from '../Task/TaskPreview';
 
 const schema = yup
   .object()

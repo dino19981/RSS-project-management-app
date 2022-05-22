@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import * as yup from 'yup';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
@@ -30,7 +30,7 @@ const formOptions = {
   fields,
 };
 
-function generateColumns(columns: TColumn[], updateHandler: () => void) {
+function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>) {
   const maxColumnCount = 5;
 
   const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
@@ -40,14 +40,13 @@ function generateColumns(columns: TColumn[], updateHandler: () => void) {
     if (comparedColumn) {
       return (
         <ColumnPreview
-          allColumns={columns}
-          key={comparedColumn?.id || index}
+          key={comparedColumn.id || index}
           currentColumn={comparedColumn}
           updateHandler={updateHandler}
         />
       );
     }
-    return <EmptyColumn key={index} order={index} />;
+    return <EmptyColumn key={index} />;
   });
 }
 
@@ -74,21 +73,20 @@ function Board() {
   }
 
   async function createColumnHandler(values: fieldsType) {
-    const order = board?.columns.length > 0 ? board.columns.length + 1 : 1;
-    const maxColumnCount = 5;
-
-    if (order <= maxColumnCount) {
-      const body = { ...values, order } as { title: string; order: number };
-      const columnsRequestOptions = {
-        url: `/boards/${boardId}/columns`,
-        method: 'post',
-        data: body,
-      };
-      await request(columnsRequestOptions);
-      request();
-    }
+    const body = { ...values };
+    const columnsRequestOptions = {
+      url: `/boards/${boardId}/columns`,
+      method: 'post',
+      data: body,
+    };
+    await request(columnsRequestOptions);
+    request();
 
     setIsModalActive(false);
+  }
+
+  async function putRequest() {
+    await request();
   }
 
   if (isError) {
@@ -123,7 +121,7 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">{generateColumns(columns, request)}</div>
+      <div className="columns_wrapper">{generateColumns(columns, putRequest)}</div>
     </div>
   );
 }
