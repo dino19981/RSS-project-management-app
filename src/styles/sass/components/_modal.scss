@@ -17,6 +17,12 @@
   transition: 0.5s;
   opacity: 0;
   pointer-events: none;
+  &__close {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    fill: #787878;
+  }
 }
 
 .modal.active {
@@ -48,7 +54,6 @@
   z-index: 100;
 
   transition: all 0.4s linear;
-  cursor: pointer;
   &:hover {
     transform: rotate(-90deg);
   }

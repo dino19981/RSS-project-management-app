@@ -55,7 +55,7 @@ function Task({ id, title, description, order, userId, done, columnId, updateCol
         buttonOptions={{
           btnClass: 'task__delete_btn',
           icon: (
-            <svg className="">
+            <svg>
               <use xlinkHref="#delete-icon" />
             </svg>
           ),

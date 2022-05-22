@@ -24,12 +24,16 @@ export default function Modal({
         <div
           role="textbox"
           tabIndex={0}
-          className={`modal__content ${contentClassName} active`}
+          className={`modal__content ${contentClassName || ''} active`}
           onMouseDown={(e) => e.stopPropagation()}
           onKeyPress={(e) => e.stopPropagation()}
         >
-          <div className="modal__header" onClick={handleCloseModal}>
-            <svg className="task__edit_icon">
+          <div className="modal__header">
+            <svg
+              onClick={handleCloseModal}
+              onKeyPress={(e) => e.stopPropagation()}
+              className="modal__close"
+            >
               <use xlinkHref="#close-icon" />
             </svg>
           </div>

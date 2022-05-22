@@ -73,7 +73,7 @@ function Column({ id: columnId, order, title, tasks, updateBoard }: TProps) {
   } = useAxios({}, { dontFetchAtMount: true });
 
   async function createTask(value: typeof schema) {
-    const body = { ...value, order: tasks.length + 1, userId };
+    const body = { ...value, userId };
     const taskData = await request({
       url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks`,
       method: Methods.POST,
@@ -100,7 +100,7 @@ function Column({ id: columnId, order, title, tasks, updateBoard }: TProps) {
     // await request();
   }
 
-  const realData = getActualTasks(columnData, tasks);
+  const actualTasks = getActualTasks(columnData, tasks);
 
   return (
     <div
@@ -111,7 +111,7 @@ function Column({ id: columnId, order, title, tasks, updateBoard }: TProps) {
       onDrop={(e) => dropHandler(e, 2)}
     >
       <div className="column-preview_title">{title}</div>
-      {realData.map((task) => {
+      {actualTasks.map((task) => {
         return <Task key={task.id} {...task} columnId={columnId} updateColumn={request} />;
       })}
 
@@ -134,4 +134,4 @@ function Column({ id: columnId, order, title, tasks, updateBoard }: TProps) {
   );
 }
 
-export default memo(Column);
+export default Column;
