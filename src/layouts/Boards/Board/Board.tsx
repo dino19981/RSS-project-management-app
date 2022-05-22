@@ -48,6 +48,7 @@ function Board() {
     url: `${AppRoute.BOARDS}/${boardId}`,
     method: 'get',
   });
+
   const board = data as TBoard;
 
   async function deleteBoardHandler(id: string | undefined) {
@@ -80,12 +81,6 @@ function Board() {
     return <p>Не удалось загрузить колонки</p>;
   }
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  const { columns } = board as TBoard;
-
   return (
     <div className="board">
       <div className="board_menu">
@@ -108,7 +103,8 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">{generateColumns(columns, putRequest)}</div>
+      {board && <div className="columns_wrapper">{generateColumns(board.columns, putRequest)}</div>}
+      {isLoading && <Loader />}
     </div>
   );
 }
