@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ColumnPreview from '../../Column/ColumnPreview';
+import Column from '../../Column/Column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { fieldsType } from '../../../models/form';
 import { useAxios } from '../../../hooks/useAxios';
@@ -28,7 +28,7 @@ function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>)
     const comparedColumn = makeColumnOrder[index];
     if (comparedColumn) {
       return (
-        <ColumnPreview
+        <Column
           key={comparedColumn.id || index}
           currentColumn={comparedColumn}
           updateHandler={updateHandler}

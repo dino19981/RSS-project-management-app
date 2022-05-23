@@ -1,57 +1,96 @@
-import React, { useEffect, useState } from 'react';
-import * as yup from 'yup';
-import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import React from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { Methods } from '../../const/APIMethoods';
+import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
+import { TGetBoardTask } from '../../models/task';
+import { generateTaskBody, generateTaskURL } from '../../utils/dragAndDrop';
 
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-    description: yup.string().trim().required(),
-  })
-  .required();
+function dragStart(
+  e: React.DragEvent<HTMLDivElement>,
+  taskId: string,
+  title: string,
+  description: string,
+  columnId: string,
+  userId: string
+) {
+  e.dataTransfer.setData('taskId', taskId);
+  e.dataTransfer.setData('taskTitle', title);
+  e.dataTransfer.setData('taskDescription', description);
+  e.dataTransfer.setData('columnId', columnId);
+  e.dataTransfer.setData('userId', userId);
+}
 
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'task title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
-];
+function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+  e.preventDefault();
+}
 
-function Task() {
-  const [isModalActive, setIsModalActive] = useState(true);
-  const initialValues = {
-    title: '',
-    description: '',
-  };
-  useEffect(() => {
-    // TODO  FETCH GET /boards/:boardId/columns/:columnId/tasks/:taskId
-    // initialValuess = response
-  }, []);
+type TProps = TGetBoardTask & {
+  columnId: string;
+  update: () => Promise<void>;
+};
 
-  const formOptions = {
-    schema,
-    initialValues,
-    fields,
-  };
+function TaskPreview({ id: taskId, title, description, order, userId, columnId, update }: TProps) {
+  const { pathname } = useLocation();
 
-  function saveTask() {
-    // TODO  FETCH PUT /boards/:boardId/columns/:columnId/tasks/:taskId
-    console.log('save task');
+  const { request } = useAxios({});
+  const { boardId } = useParams();
+
+  const urlToTask = columnId
+    ? pathname + `${AppRoute.COLUMNS}/${columnId}${AppRoute.TASKS}/${taskId}`
+    : pathname + `${AppRoute.TASKS}/${taskId}`;
+
+  async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('taskdrop');
+    const dropTaskId = e.dataTransfer.getData('taskId');
+    const dropTaskTitle = e.dataTransfer.getData('taskTitle');
+    const dropTaskDescription = e.dataTransfer.getData('taskDescription');
+    const dropColumnId = e.dataTransfer.getData('columnId');
+    if (columnId === dropColumnId) {
+      const url = generateTaskURL(boardId, columnId, dropTaskId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+      await request({
+        url,
+        method: Methods.PUT,
+        data: {
+          ...data,
+          userId,
+          order,
+          boardId,
+        },
+      });
+    } else {
+      const url = generateTaskURL(boardId, dropColumnId, dropTaskId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+      await request({
+        url,
+        method: Methods.PUT,
+        data: {
+          ...data,
+          userId,
+          order,
+          boardId,
+        },
+      });
+    }
+    await update();
   }
 
   return (
-    <div className="task">
-      <ButtonWithModalForm
-        modalState={{ isModalActive, setIsModalActive }}
-        buttonOptions={{ btnClass: 'hidden' }}
-        submitBtnName="save task"
-        formOptions={{
-          ...formOptions,
-          onSubmit: saveTask,
-          buttonOptions: {},
-        }}
-      />
+    <div
+      className="task-preview"
+      draggable={true}
+      onDragOver={(e) => dragOverHandler(e)}
+      onDragStart={(e) => dragStart(e, taskId, title, description, columnId, userId)}
+      onDrop={(e) => dropHandler(e)}
+    >
+      <Link to={urlToTask} className="task_link">
+        {title}
+      </Link>
     </div>
   );
 }
 
-export default Task;
+export default TaskPreview;
