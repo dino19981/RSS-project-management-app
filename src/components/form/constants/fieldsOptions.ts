@@ -36,3 +36,12 @@ export const deleteBoardfields = [
 export const columnfields = [
   { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
 ];
+
+export const newBoardFields = [
+  { name: 'title', errorMessage: 'Название обязательно', placeholder: 'Введите название доски' },
+  {
+    name: 'description',
+    errorMessage: 'Описание обязательно',
+    placeholder: 'Введите описание доски',
+  },
+];
