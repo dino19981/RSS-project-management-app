@@ -6,8 +6,6 @@ import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import NotFoundPage from './pages/mainPage/NotFoundPage';
 import Boards from './layouts/Boards/Boards';
 import Board from './layouts/Boards/Board/Board';
-import Column from './layouts/Column/Column';
-import Task from './layouts/Task/Task';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
 import { useAppDispatch } from './store/hooks';
