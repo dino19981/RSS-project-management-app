@@ -1,4 +1,3 @@
-import React from 'react';
 import { buttonWithModalFormProps } from '../../models/buttonWithModalForm';
 import Button from '../button/Button';
 import Form from '../form/Form';
