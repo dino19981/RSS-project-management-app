@@ -18,13 +18,18 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     e.stopPropagation();
-    console.log(' empty task Rdop');
+
     const dropTaskId = e.dataTransfer.getData('taskId');
     const dropTaskTitle = e.dataTransfer.getData('taskTitle');
     const dropTaskDescription = e.dataTransfer.getData('taskDescription');
     const dropColumnId = e.dataTransfer.getData('columnId');
     const dropUserId = e.dataTransfer.getData('userId');
     if (columnId === dropColumnId) {
+      if (tasks.length === 1) return;
+      const draggedTask = tasks.find((task) => task.id === dropTaskId);
+      if (tasks.length + 1 === draggedTask!.order) {
+        return;
+      }
       const url = generateTaskURL(boardId, columnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId, tasks.length + 1);
       await request({

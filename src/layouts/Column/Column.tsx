@@ -55,7 +55,6 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
-    console.log('COLUMNdrop');
     const id = e.dataTransfer.getData('columnId');
     const title = e.dataTransfer.getData('columnTitle');
     if (!id || !title) return;
