@@ -35,6 +35,7 @@
 .user-nav__link {
   @include nav-link;
   line-height: 21px;
+  background-color: transparent;
 }
 
 .user-nav__item {
