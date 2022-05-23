@@ -6,7 +6,6 @@
   background-color: #ddd;
   width: 100%;
   padding: 0.5rem;
-  z-index: 3;
 }
 .task-preview {
   display: flex;
@@ -27,8 +26,5 @@
   }
   &_link {
     width: 100%;
-  }
-  &-empty {
-    height: 100px;
   }
 }

@@ -23,17 +23,5 @@ export type TTaskCreateSchema = {
   order: number;
   description: string;
   userId: string;
-  boardId: string;
-  columnId: string;
-  id: string;
-};
-
-export type TTaskUpdateSchema = {
-  title: string;
-  order: number;
-  description: string;
-  userId: string;
-  boardId: string;
-  columnId: string;
 };
 export type TDeleteBoard = { confirm: boolean };
