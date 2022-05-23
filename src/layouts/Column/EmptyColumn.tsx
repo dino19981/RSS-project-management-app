@@ -1,12 +1,6 @@
-import React, { useId } from 'react';
+import React from 'react';
 
-type TProps = {
-  order: number;
-};
-
-function EmptyColumn({ order }: TProps) {
-  const id = useId();
-
+function EmptyColumn() {
   return <div className={`column-preview`}></div>;
 }
 

@@ -40,3 +40,12 @@ export const deleteTaskfields = [
     isdisabled: true,
   },
 ];
+
+export const columnfields = [
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
+];
+
+export const createTaskFields = [
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Task Title' },
+  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
+];

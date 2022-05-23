@@ -1,51 +1,33 @@
-import React, { memo, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import * as yup from 'yup';
-import { useAppSelector } from '../../store/hooks';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import { useAxios } from '../../hooks/useAxios';
-import { TColumn } from '../../models/column';
-import { AppRoute } from '../../const/routes';
-import { Methods } from '../../const/APIMethoods';
+import { createTaskFields } from '../../components/form/constants/fieldsOptions';
+import { createTaskValues } from '../../components/form/constants/initialValues';
 import Loader from '../../components/loader/loader';
+import { Methods } from '../../const/APIMethoods';
 import { ErrorMessage } from '../../const/errorMesages';
-import Task from '../Task/Task';
+import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
+import { TColumn, TColumnProps } from '../../models/column';
 import { TTask } from '../../models/task';
 import { responses } from '../../models/useAxios';
-
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-    description: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-  description: '',
-};
-
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Task Title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
-];
+import { createTaskSchema } from '../../schemas/task';
+import { useAppSelector } from '../../store/hooks';
+import Task from '../Task/Task';
 
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: createTaskSchema,
+  initialValues: createTaskValues,
+  fields: createTaskFields,
 };
+
+function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string) {
+  e.dataTransfer.setData('columnId', id);
+  e.dataTransfer.setData('columnTitle', title);
+}
 
 function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
-  const target = e.target as HTMLDivElement;
-  target.classList.add('drag');
-}
-function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
-  const target = e.target as HTMLDivElement;
-  target.classList.remove('drag');
 }
 
 function getActualTasks(columnData: responses | undefined, tasks: TTask[]) {
@@ -56,8 +38,7 @@ function getActualTasks(columnData: responses | undefined, tasks: TTask[]) {
   return tasks || [];
 }
 
-function Column({ id: columnId, title, tasks }: TColumn) {
-  const { pathname } = useLocation();
+function Column({ id: columnId, title, tasks, order, updateHandler }: TColumnProps) {
   const { boardId } = useParams();
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -69,7 +50,7 @@ function Column({ id: columnId, title, tasks }: TColumn) {
     request,
   } = useAxios({}, { dontFetchAtMount: true });
 
-  async function createTask(value: typeof schema) {
+  async function createTask(value: typeof createTaskSchema) {
     const body = { ...value, userId };
     const taskData = await request({
       url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks`,
@@ -86,18 +67,26 @@ function Column({ id: columnId, title, tasks }: TColumn) {
     }
   }
 
-  async function dropHandler(e: React.DragEvent<HTMLDivElement>, order: number) {
+  async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
-    console.log('drop', columnId);
-    // await request({
-    //   url: `/boards/${boardId}/columns/${columnId}`,
-    //   method: 'put',
-    //   data: {
-    //     title,
-    //     order,
-    //   },
-    // });
-    // await request();
+    const id = e.dataTransfer.getData('columnId');
+    const title = e.dataTransfer.getData('columnTitle');
+    if (!id || !title) return;
+    if (id !== columnId) {
+      await request({
+        url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${id}`,
+        method: Methods.PUT,
+        data: {
+          title,
+          order,
+        },
+      });
+      request({
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        method: Methods.GET,
+      });
+      updateHandler();
+    }
   }
 
   const actualTasks = getActualTasks(columnData, tasks);
@@ -107,8 +96,8 @@ function Column({ id: columnId, title, tasks }: TColumn) {
       className="column-preview"
       draggable={true}
       onDragOver={(e) => dragOverHandler(e)}
-      onDragLeave={(e) => dragLeaveHandler(e)}
-      onDrop={(e) => dropHandler(e, 2)}
+      onDragStart={(e) => dragStart(e, columnId, title)}
+      onDrop={(e) => dropHandler(e)}
     >
       <div className="column-preview_title">{title}</div>
       {actualTasks.map((task) => {

@@ -8,3 +8,12 @@ export const registrationValues = {
   login: '',
   password: '',
 };
+
+export const columnValues = {
+  title: '',
+};
+
+export const createTaskValues = {
+  title: '',
+  description: '',
+};

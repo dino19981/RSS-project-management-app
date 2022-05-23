@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import * as yup from 'yup';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ColumnPreview from '../../Column/Column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { fieldsType } from '../../../models/form';
-import { TColumnCreateSchema } from '../../../models/schemas';
 import { useAxios } from '../../../hooks/useAxios';
 import { TBoard } from '../../../models/board';
 import Loader from '../../../components/loader/loader';
@@ -13,36 +10,26 @@ import { MAX_COLUMN_COUNT } from '../const';
 import { Methods } from '../../../const/APIMethoods';
 import { AppRoute } from '../../../const/routes';
 import EmptyColumn from '../../Column/EmptyColumn';
+import { columSchema } from '../../../schemas/column';
+import { columnValues } from '../../../components/form/constants/initialValues';
+import { columnfields } from '../../../components/form/constants/fieldsOptions';
 import Column from '../../Column/Column';
 
-const schema: TColumnCreateSchema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-};
-
-const fields = [{ name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' }];
-
 const formOptions = {
-  schema,
-  initialValues,
-  fields,
+  schema: columSchema,
+  initialValues: columnValues,
+  fields: columnfields,
 };
 
-function generateColumns(columns: TColumn[]) {
+function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>) {
   const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
 
   return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
     const comparedColumn = makeColumnOrder[index];
     if (comparedColumn) {
-      return <Column key={comparedColumn.id} {...comparedColumn} />;
+      return <Column key={comparedColumn.id} {...comparedColumn} updateHandler={updateHandler} />;
     }
-    return <EmptyColumn key={index} order={index} />;
+    return <EmptyColumn key={index} />;
   });
 }
 
@@ -69,28 +56,23 @@ function Board() {
   }
 
   async function createColumnHandler(values: fieldsType) {
-    const order = board?.columns.length > 0 ? board.columns.length + 1 : 1;
-
-    if (order <= MAX_COLUMN_COUNT) {
-      const body = { ...values, order } as { title: string; order: number };
-      const columnsRequestOptions = {
-        url: `${AppRoute.BOARDS}/${boardId}/columns`,
-        method: Methods.POST,
-        data: body,
-      };
-      await request(columnsRequestOptions);
-      request();
-    }
-
+    const body = { ...values };
+    const columnsRequestOptions = {
+      url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}`,
+      method: Methods.POST,
+      data: body,
+    };
+    await request(columnsRequestOptions);
+    request();
     setIsModalActive(false);
+  }
+
+  async function putRequest() {
+    await request();
   }
 
   if (isError) {
     return <p>Не удалось загрузить колонки</p>;
-  }
-
-  if (isLoading) {
-    return <Loader />;
   }
 
   return (
@@ -115,7 +97,8 @@ function Board() {
           </button>
         </>
       </div>
-      <div className="columns_wrapper">{generateColumns(board.columns)}</div>
+      {board && <div className="columns_wrapper">{generateColumns(board.columns, putRequest)}</div>}
+      {isLoading && <Loader />}
       <Outlet />
     </div>
   );
