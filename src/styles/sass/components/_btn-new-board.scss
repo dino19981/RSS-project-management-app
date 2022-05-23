@@ -10,7 +10,9 @@
     background-color: transparent;
   }
 
-  &:hover .btn-new-board__icon {
+  &:hover .btn-new-board__icon,
+  &:active .btn-new-board__icon,
+  &:focus .btn-new-board__icon {
     fill: $hover-link-color;
   }
 }
