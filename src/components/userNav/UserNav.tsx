@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { navData } from './navData';
 import { useAppDispatch } from './../../store/hooks';
 import { deleteUserData } from '../../store/user/actions';
 import { AppRoute } from '../../const/routes';
-import { useNavigate } from 'react-router-dom';
 
 interface UserNavComponent {
   authorizeStatus: boolean;
