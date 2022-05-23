@@ -13,7 +13,7 @@ type TProps = {
 };
 
 export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: TProps) {
-  const { request } = useAxios({});
+  const { request } = useAxios({}, { dontFetchAtMount: true });
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
