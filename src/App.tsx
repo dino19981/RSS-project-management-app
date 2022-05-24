@@ -9,8 +9,8 @@ import Board from './layouts/Boards/Board/Board';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
 import TaskEdit from './layouts/Task/TaskEdit';
-import AuthRequired from './hoc/AuthNotRequired';
-import AuthNotRequired from './hoc/AuthNotRequired';
+import AuthRequired from './hocs/AuthRequired';
+import AuthNotRequired from './hocs/AuthNotRequired';
 
 function App() {
   return (
@@ -21,37 +21,58 @@ function App() {
             <Route
               index
               element={
-                <AuthRequired>
+                <AuthNotRequired>
                   <MainPage />
-                </AuthRequired>
+                </AuthNotRequired>
               }
             />
             <Route
               path={AppRoute.BOARDS}
               element={
-                <AuthNotRequired>
+                <AuthRequired>
                   <Boards />
-                </AuthNotRequired>
+                </AuthRequired>
               }
             />
-            <Route path={AppRoute.BOARD} element={<Board />} />
-            <Route path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`} element={<Board />}>
-              <Route index element={<TaskEdit />} />
+            <Route
+              path={AppRoute.BOARD}
+              element={
+                <AuthRequired>
+                  <Board />
+                </AuthRequired>
+              }
+            />
+            <Route
+              path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`}
+              element={
+                <AuthRequired>
+                  <Board />
+                </AuthRequired>
+              }
+            >
+              <Route
+                index
+                element={
+                  <AuthRequired>
+                    <TaskEdit />
+                  </AuthRequired>
+                }
+              />
             </Route>
             <Route
               path={AppRoute.REGISTRATION}
               element={
-                <AuthRequired>
+                <AuthNotRequired>
                   <Registration />
-                </AuthRequired>
+                </AuthNotRequired>
               }
             />
             <Route
               path={AppRoute.LOGIN}
               element={
-                <AuthRequired>
+                <AuthNotRequired>
                   <Authorization />
-                </AuthRequired>
+                </AuthNotRequired>
               }
             />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
