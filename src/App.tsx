@@ -9,8 +9,6 @@ import Board from './layouts/Boards/Board/Board';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
 import TaskEdit from './layouts/Task/TaskEdit';
-import AuthRequired from './hoc/AuthRequired';
-import AuthNotRequired from './hoc/AuthNotRequired';
 
 function App() {
   return (
@@ -18,42 +16,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.MAIN} element={<MainLayout />}>
-            <Route
-              index
-              element={
-                <AuthRequired>
-                  <MainPage />
-                </AuthRequired>
-              }
-            />
-            <Route
-              path={AppRoute.BOARDS}
-              element={
-                <AuthNotRequired>
-                  <Boards />
-                </AuthNotRequired>
-              }
-            />
+            <Route index element={<MainPage />} />
+            <Route path={AppRoute.BOARDS} element={<Boards />} />
             <Route path={AppRoute.BOARD} element={<Board />} />
             <Route path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`} element={<Board />}>
               <Route index element={<TaskEdit />} />
             </Route>
-            <Route
-              path={AppRoute.REGISTRATION}
-              element={
-                <AuthRequired>
-                  <Registration />
-                </AuthRequired>
-              }
-            />
-            <Route
-              path={AppRoute.LOGIN}
-              element={
-                <AuthRequired>
-                  <Authorization />
-                </AuthRequired>
-              }
-            />
+            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+            <Route path={AppRoute.LOGIN} element={<Authorization />} />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
             <Route path="*" element={<Navigate replace to={AppRoute.NOT_FOUND_PAGE} />} />
           </Route>
