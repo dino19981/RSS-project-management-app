@@ -11,7 +11,6 @@ import { getAuthentificationErrorMessage, getUserData } from '../../utils/authen
 import Authentification from '../authentification/Authentification';
 import { setUserData } from '../../store/user/actions';
 import { Methods } from '../../const/APIMethoods';
-
 export default function Autorization() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
