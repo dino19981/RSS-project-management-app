@@ -14,11 +14,7 @@ export default function ClickOutside({ refference, onClickOutside, children }: P
     console.log(e.target, refference);
   }
   return (
-    <div
-      className="window__wrapper"
-      // style={{ width: '100%', height: '100vh', position: 'absolute', zIndex: 1 }}
-      onClick={(e) => onClick(e)}
-    >
+    <div className="window__wrapper" onClick={(e) => onClick(e)}>
       {children}
     </div>
   );

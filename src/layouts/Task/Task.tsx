@@ -9,7 +9,7 @@ import { Methods } from '../../const/APIMethoods';
 import { ErrorMessage } from '../../const/errorMesages';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
-import { TTask } from '../../models/task';
+import { taskProps } from '../../models/task';
 import { deleteBoardSchema } from '../../schemas/boards';
 
 const formOptions = {
@@ -17,12 +17,7 @@ const formOptions = {
   fields: deleteTaskfields,
 };
 
-type TProps = TTask & {
-  columnId?: string;
-  updateColumn: ({ url, method }: { url: string; method: string }) => void;
-};
-
-function Task({ id, title, description, columnId, updateColumn }: TProps) {
+function Task({ id, title, description, columnId, updateColumn }: taskProps) {
   const { boardId } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -48,12 +43,21 @@ function Task({ id, title, description, columnId, updateColumn }: TProps) {
     navigate(`${pathname}/columns/${columnId}/tasks/${id}`);
   }
 
+  function openDeleteModal(e: React.MouseEvent<HTMLElement> | undefined) {
+    e?.stopPropagation();
+    setIsModalActive(true);
+  }
+
+  function closeDeleteModal() {
+    setIsModalActive(false);
+  }
+
   return (
     <>
       <div className="task" onClick={openEditTask}>
         <div className="task__link">{title}</div>
         <Button
-          handler={() => setIsModalActive(true)}
+          handler={openDeleteModal}
           btnClass="task__delete_btn"
           icon={
             <svg>
@@ -66,7 +70,7 @@ function Task({ id, title, description, columnId, updateColumn }: TProps) {
       {isModalActive && (
         <Modal
           formId="modalForm"
-          handleCloseModal={() => setIsModalActive(false)}
+          handleCloseModal={closeDeleteModal}
           submitBtnName="Удалить"
           isError={isError}
           errorText={ErrorMessage.SERVER_ERROR}
@@ -76,7 +80,7 @@ function Task({ id, title, description, columnId, updateColumn }: TProps) {
             {...formOptions}
             initialValues={{ title }}
             onSubmit={deleteTask}
-          ></Form>
+          />
         </Modal>
       )}
     </>

@@ -78,11 +78,15 @@ export default function TaskEdit() {
   const columnData = column as TColumn;
 
   return (
-    <Modal handleCloseModal={closeEdit} contentClassName="task__edit" isDontShowFooter={true}>
+    <Modal
+      handleCloseModal={closeEdit}
+      contentWrapperClassName="task__edit"
+      isDontShowFooter={true}
+    >
       <ProcessingWrapper isError={isError} isLoading={isLoading} errortext="Error">
         <section className="task__edit_inner">
           <div className="task__edit_title-wrapper">
-            <svg className="task__edit_icon">
+            <svg className="task__edit_icon" style={{ width: '20px', height: '20px' }}>
               <use xlinkHref="#task-icon" />
             </svg>
             <Input
@@ -96,14 +100,14 @@ export default function TaskEdit() {
             <span>{` ${columnData?.title}`}</span>
           </h4>
           <div className="task__edit_description-wrapper">
-            <svg className="task__edit_icon">
+            <svg className="task__edit_icon" style={{ width: '20px', height: '20px' }}>
               <use xlinkHref="#user-icon" />
             </svg>
             <h4 className="task__edit_text">{`Создатель: ${login}`}</h4>
           </div>
 
           <div className="task__edit_description-wrapper">
-            <svg className="task__edit_icon">
+            <svg className="task__edit_icon" style={{ width: '20px', height: '20px' }}>
               <use xlinkHref="#description-icon" />
             </svg>
             <h4 className="task__edit_text">Описание</h4>

@@ -9,3 +9,8 @@ export type TTask = {
   userId: string;
   files: TFile[];
 };
+
+export type taskProps = TTask & {
+  columnId?: string;
+  updateColumn: ({ url, method }: { url: string; method: string }) => void;
+};

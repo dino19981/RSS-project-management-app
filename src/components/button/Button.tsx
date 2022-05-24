@@ -10,16 +10,10 @@ export default function Button({
   btnClass,
   isDisabled,
 }: buttonProps) {
-  function onClick(e: MouseEvent<HTMLButtonElement>) {
-    if (handler) {
-      e.stopPropagation();
-      handler();
-    }
-  }
   return (
     <button
       className={btnClass}
-      onClick={(e) => onClick(e)}
+      onClick={handler}
       form={formId}
       type={type || 'button'}
       disabled={isDisabled}

@@ -10,7 +10,7 @@ export default function Modal({
   submitBtnName,
   isError,
   errorText,
-  contentClassName,
+  contentWrapperClassName,
   isDontShowFooter,
 }: modalProps) {
   return (
@@ -25,7 +25,7 @@ export default function Modal({
         <div
           role="textbox"
           tabIndex={0}
-          className={`modal__content ${contentClassName || ''} active`}
+          className={`modal__content ${contentWrapperClassName || ''} active`}
           onMouseDown={(e) => e.stopPropagation()}
           onKeyPress={(e) => e.stopPropagation()}
         >
