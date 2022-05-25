@@ -9,8 +9,8 @@ import Board from './layouts/Boards/Board/Board';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
 import TaskEdit from './layouts/Task/TaskEdit';
-import AuthRequired from './hocs/AuthRequired';
-import AuthNotRequired from './hocs/AuthNotRequired';
+import AuthUser from './hocs/AuthUser';
+import UnknownUser from './hocs/UnknownUser';
 
 function App() {
   return (
@@ -21,58 +21,58 @@ function App() {
             <Route
               index
               element={
-                <AuthNotRequired>
+                <UnknownUser>
                   <MainPage />
-                </AuthNotRequired>
+                </UnknownUser>
               }
             />
             <Route
               path={AppRoute.BOARDS}
               element={
-                <AuthRequired>
+                <AuthUser>
                   <Boards />
-                </AuthRequired>
+                </AuthUser>
               }
             />
             <Route
               path={AppRoute.BOARD}
               element={
-                <AuthRequired>
+                <AuthUser>
                   <Board />
-                </AuthRequired>
+                </AuthUser>
               }
             />
             <Route
               path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`}
               element={
-                <AuthRequired>
+                <AuthUser>
                   <Board />
-                </AuthRequired>
+                </AuthUser>
               }
             >
               <Route
                 index
                 element={
-                  <AuthRequired>
+                  <AuthUser>
                     <TaskEdit />
-                  </AuthRequired>
+                  </AuthUser>
                 }
               />
             </Route>
             <Route
               path={AppRoute.REGISTRATION}
               element={
-                <AuthNotRequired>
+                <UnknownUser>
                   <Registration />
-                </AuthNotRequired>
+                </UnknownUser>
               }
             />
             <Route
               path={AppRoute.LOGIN}
               element={
-                <AuthNotRequired>
+                <UnknownUser>
                   <Authorization />
-                </AuthNotRequired>
+                </UnknownUser>
               }
             />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
