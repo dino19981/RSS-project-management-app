@@ -9,7 +9,7 @@ import { ErrorMessage } from '../../const/errorMesages';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn, TColumnProps } from '../../models/column';
-import { TTask } from '../../models/task';
+import { TGetBoardTask } from '../../models/task';
 import { responses } from '../../models/useAxios';
 import { createTaskSchema } from '../../schemas/task';
 import { useAppSelector } from '../../store/hooks';
@@ -31,7 +31,7 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function getActualTasks(columnData: responses | undefined, tasks: TTask[]) {
+function getActualTasks(columnData: responses | undefined, tasks: TGetBoardTask[]) {
   if (columnData) {
     const { tasks } = columnData as TColumn;
     return tasks;
