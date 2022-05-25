@@ -62,7 +62,7 @@ function App() {
             <Route
               path={AppRoute.REGISTRATION}
               element={
-                <UnknownUser>
+                <UnknownUser redirectTo={AppRoute.BOARDS}>
                   <Registration />
                 </UnknownUser>
               }
@@ -70,7 +70,7 @@ function App() {
             <Route
               path={AppRoute.LOGIN}
               element={
-                <UnknownUser>
+                <UnknownUser redirectTo={AppRoute.BOARDS}>
                   <Authorization />
                 </UnknownUser>
               }
