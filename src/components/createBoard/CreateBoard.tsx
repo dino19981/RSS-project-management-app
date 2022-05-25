@@ -5,6 +5,8 @@ import { AppRoute } from '../../const/routes';
 import { newBoardSchema } from '../../schemas/newBoard';
 import { newBoardValues } from '../../components/form/constants/initialValues';
 import { newBoardFields } from '../../components/form/constants/fieldsOptions';
+import { Methods } from '../../const/APIMethoods';
+import { useNavigate } from 'react-router-dom';
 
 const formOptions = {
   schema: newBoardSchema,
@@ -20,24 +22,28 @@ const icon = (
 
 export default function CreateBoard() {
   const [isModalActive, setIsModalActive] = useState(false);
-  // const { request } = useAxios({
-  //   url: `${AppRoute.BOARDS}/${boardId}`,
-  //   method: Methods.GET,
-  // });
+  const navigate = useNavigate();
+  const { request } = useAxios({}, { dontFetchAtMount: true });
 
-  async function createBoardHandler(value: typeof newBoardSchema) {
-    // const body = { ...value, order: tasks.length + 1, userId };
-    // await request({
-    //   url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${columnId}${AppRoute.TASKS}`,
-    //   method: Methods.POST,
-    //   data: body,
-    // });
-    // setIsModalActive(false);
+  async function createBoardHandler(values: typeof newBoardSchema) {
+    const requestOptions = {
+      url: AppRoute.BOARDS,
+      method: Methods.POST,
+      data: values,
+    };
+    const data = await request(requestOptions);
+    if (data) {
+      const {
+        data: { id },
+      } = data;
+      setIsModalActive(false);
+      navigate(`${AppRoute.BOARDS}/${id}`);
+    }
   }
 
   return (
     <ButtonWithModalForm
-      submitBtnName="add task"
+      submitBtnName="Создать доску"
       modalState={{ isModalActive, setIsModalActive }}
       buttonOptions={{
         btnClass: 'btn-new-board',
