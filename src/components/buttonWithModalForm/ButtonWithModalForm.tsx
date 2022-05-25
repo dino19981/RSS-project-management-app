@@ -2,6 +2,7 @@ import { buttonWithModalFormProps } from '../../models/buttonWithModalForm';
 import Button from '../button/Button';
 import Form from '../form/Form';
 import Modal from '../modal/Modal';
+import Portal from '../portal/Portal';
 
 export default function ButtonWithModalForm({
   formOptions,

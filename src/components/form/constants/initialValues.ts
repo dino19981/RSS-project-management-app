@@ -17,3 +17,8 @@ export const newBoardValues = {
   title: '',
   description: '',
 };
+
+export const createTaskValues = {
+  title: '',
+  description: '',
+};

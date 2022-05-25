@@ -11,6 +11,8 @@ export interface inputProps {
   name?: string;
   placeholder?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
   value?: string | number;
   isdisabled?: boolean;
+  defaultValue?: string;
 }

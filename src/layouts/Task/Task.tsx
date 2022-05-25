@@ -1,56 +1,157 @@
-import React, { useEffect, useState } from 'react';
-import * as yup from 'yup';
-import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import React, { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Button from '../../components/button/Button';
+import { deleteTaskfields } from '../../components/form/constants/fieldsOptions';
+import Form from '../../components/form/Form';
+import Loader from '../../components/loader/loader';
+import Modal from '../../components/modal/Modal';
+import { Methods } from '../../const/APIMethoods';
+import { ErrorMessage } from '../../const/errorMesages';
+import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
+import { taskProps } from '../../models/task';
+import { deleteBoardSchema } from '../../schemas/boards';
+import { generateTaskBody, generateTaskURL } from '../../utils/dragAndDrop';
 
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-    description: yup.string().trim().required(),
-  })
-  .required();
+const formOptions = {
+  schema: deleteBoardSchema,
+  fields: deleteTaskfields,
+};
 
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'task title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
-];
+function dragStart(
+  e: React.DragEvent<HTMLDivElement>,
+  taskId: string,
+  title: string,
+  description: string,
+  columnId: string,
+  userId: string
+) {
+  e.dataTransfer.setData('taskId', taskId);
+  e.dataTransfer.setData('taskTitle', title);
+  e.dataTransfer.setData('taskDescription', description);
+  e.dataTransfer.setData('columnId', columnId);
+  e.dataTransfer.setData('userId', userId);
+}
 
-function Task() {
-  const [isModalActive, setIsModalActive] = useState(true);
-  const initialValues = {
-    title: '',
-    description: '',
-  };
-  useEffect(() => {
-    // TODO  FETCH GET /boards/:boardId/columns/:columnId/tasks/:taskId
-    // initialValuess = response
-  }, []);
+function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+  e.preventDefault();
+}
 
-  const formOptions = {
-    schema,
-    initialValues,
-    fields,
-  };
+function Task({ id, title, description, columnId, updateColumn, userId, order }: taskProps) {
+  const { boardId } = useParams();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [isModalActive, setIsModalActive] = useState(false);
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
-  function saveTask() {
-    // TODO  FETCH PUT /boards/:boardId/columns/:columnId/tasks/:taskId
-    console.log('save task');
+  async function deleteTask() {
+    const taskData = await request({
+      url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${id}`,
+      method: Methods.DELETE,
+    });
+
+    if (taskData) {
+      updateColumn({
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        method: Methods.GET,
+      });
+      setIsModalActive(false);
+    }
+  }
+
+  function openEditTask() {
+    navigate(`${pathname}/columns/${columnId}/tasks/${id}`);
+  }
+
+  function openDeleteModal(e: React.MouseEvent<HTMLElement> | undefined) {
+    e?.stopPropagation();
+    setIsModalActive(true);
+  }
+
+  function closeDeleteModal() {
+    setIsModalActive(false);
+  }
+
+  async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('taskdrop');
+    const dropTaskId = e.dataTransfer.getData('taskId');
+    const dropTaskTitle = e.dataTransfer.getData('taskTitle');
+    const dropTaskDescription = e.dataTransfer.getData('taskDescription');
+    const dropColumnId = e.dataTransfer.getData('columnId');
+    if (columnId === dropColumnId) {
+      const url = generateTaskURL(boardId, columnId, dropTaskId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+      await request({
+        url,
+        method: Methods.PUT,
+        data: {
+          ...data,
+          userId,
+          order,
+          boardId,
+        },
+      });
+    } else {
+      const url = generateTaskURL(boardId, dropColumnId, dropTaskId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+      await request({
+        url,
+        method: Methods.PUT,
+        data: {
+          ...data,
+          userId,
+          order,
+          boardId,
+        },
+      });
+    }
+    updateColumn({
+      url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+      method: Methods.GET,
+    });
   }
 
   return (
-    <div className="task">
-      <ButtonWithModalForm
-        modalState={{ isModalActive, setIsModalActive }}
-        buttonOptions={{ btnClass: 'hidden' }}
-        submitBtnName="save task"
-        formOptions={{
-          ...formOptions,
-          onSubmit: saveTask,
-          buttonOptions: {},
-        }}
-      />
-    </div>
+    <>
+      <div
+        className="task"
+        onClick={openEditTask}
+        draggable={true}
+        onDragOver={(e) => dragOverHandler(e)}
+        onDragStart={(e) => dragStart(e, id, title, description, columnId, userId)}
+        onDrop={(e) => dropHandler(e)}
+      >
+        <div className="task__link">{title}</div>
+        <Button
+          handler={openDeleteModal}
+          btnClass="task__delete_btn"
+          icon={
+            <svg>
+              <use xlinkHref="#delete-icon" />
+            </svg>
+          }
+        />
+        {isLoading && <Loader />}
+      </div>
+      {isModalActive && (
+        <Modal
+          formId="modalForm"
+          handleCloseModal={closeDeleteModal}
+          submitBtnName="Удалить"
+          isError={isError}
+          errorText={ErrorMessage.SERVER_ERROR}
+        >
+          <Form
+            formId="modalForm"
+            {...formOptions}
+            initialValues={{ title }}
+            onSubmit={deleteTask}
+          />
+        </Modal>
+      )}
+    </>
   );
 }
 
