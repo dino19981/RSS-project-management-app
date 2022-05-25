@@ -40,7 +40,7 @@ function Board() {
 
   const { data, isLoading, isError, request } = useAxios({
     url: `${AppRoute.BOARDS}/${boardId}`,
-    method: 'get',
+    method: Methods.GET,
   });
 
   const board = data as TBoard;
@@ -72,35 +72,34 @@ function Board() {
   }
 
   if (isError) {
-    return <p>Не удалось загрузить колонки</p>;
+    return <p className="board__error">Не удалось загрузить колонки</p>;
   }
 
   return (
-    <div className="board">
-      <div className="board_menu">
-        <>
-          <ButtonWithModalForm
-            submitBtnName="Create column"
-            modalState={{ isModalActive, setIsModalActive }}
-            buttonOptions={{
-              btnClass: 'column_create__btn',
-              text: 'Add column',
-            }}
-            formOptions={{
-              ...formOptions,
-              onSubmit: createColumnHandler,
-              buttonOptions: {},
-            }}
-          />
-          <button type="button" onClick={() => deleteBoardHandler(boardId)}>
-            delete board
-          </button>
-        </>
+    <section className="board">
+      <h1 className="board__title">{board && board.title}</h1>
+      <div className="board__menu">
+        <ButtonWithModalForm
+          submitBtnName="Создать колонку"
+          modalState={{ isModalActive, setIsModalActive }}
+          buttonOptions={{
+            btnClass: 'column_create__btn',
+            text: 'Создать колонку',
+          }}
+          formOptions={{
+            ...formOptions,
+            onSubmit: createColumnHandler,
+            buttonOptions: {},
+          }}
+        />
+        <button type="button" onClick={() => deleteBoardHandler(boardId)}>
+          Удалить доску
+        </button>
       </div>
-      {board && <div className="columns_wrapper">{generateColumns(board.columns, putRequest)}</div>}
+      {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
       {isLoading && <Loader />}
       <Outlet />
-    </div>
+    </section>
   );
 }
 
