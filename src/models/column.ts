@@ -1,15 +1,12 @@
-import { TGetBoardTask, TTask } from './task';
+import { TTask } from './task';
 
 export type TColumn = {
   id: string;
   title: string;
   order: number;
-  tasks: TGetBoardTask[];
+  tasks: TTask[];
 };
 
-export type TGetColumn = {
-  id: string;
-  title: string;
-  order: number;
-  tasks: Omit<TTask, 'boardId'>[];
+export type TColumnProps = TColumn & {
+  updateHandler: () => Promise<void>;
 };

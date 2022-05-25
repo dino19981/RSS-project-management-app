@@ -33,6 +33,19 @@ export const deleteBoardfields = [
   },
 ];
 
+export const deleteTaskfields = [
+  {
+    name: 'title',
+    labelText: 'Действительно удалить задачу?',
+    isdisabled: true,
+  },
+];
+
 export const columnfields = [
   { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
+];
+
+export const createTaskFields = [
+  { name: 'title', errorMessage: 'Title is required', placeholder: 'Task Title' },
+  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
 ];

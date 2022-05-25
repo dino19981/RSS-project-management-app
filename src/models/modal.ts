@@ -8,4 +8,6 @@ export interface modalProps {
   handleCloseModal?: () => void;
   isError?: false | AxiosError;
   errorText?: string;
+  contentWrapperClassName?: string;
+  isDontShowFooter?: boolean;
 }

@@ -13,12 +13,19 @@
   transition: 0.5s;
   opacity: 0;
   pointer-events: none;
+  &__close {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    fill: #787878;
+  }
 }
 
 .modal.active {
   opacity: 1;
   transform: scale(1);
   pointer-events: all;
+  cursor: pointer;
 }
 
 .modal__content {
@@ -35,6 +42,7 @@
 
 .modal__content.active {
   transform: scale(1);
+  cursor: auto;
 }
 
 .modal__header {
@@ -62,4 +70,13 @@
   margin: 0;
   color: $error-text-red;
   font-size: 18px;
+}
+
+.task__edit {
+  min-height: 50vh;
+  padding: 15px;
+}
+
+.window__popover {
+  z-index: 1;
 }

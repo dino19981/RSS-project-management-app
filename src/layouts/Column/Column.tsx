@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import { useAxios } from '../../hooks/useAxios';
-import { TColumn } from '../../models/column';
-import Task from '../Task/Task';
-import { columSchema } from '../../schemas/column';
-import { columnValues } from '../../components/form/constants/initialValues';
-import { columnfields } from '../../components/form/constants/fieldsOptions';
-import { AppRoute } from '../../const/routes';
+import { createTaskFields } from '../../components/form/constants/fieldsOptions';
+import { createTaskValues } from '../../components/form/constants/initialValues';
+import Loader from '../../components/loader/loader';
 import { Methods } from '../../const/APIMethoods';
+import { ErrorMessage } from '../../const/errorMesages';
+import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
+import { TColumn, TColumnProps } from '../../models/column';
+import { TTask } from '../../models/task';
+import { responses } from '../../models/useAxios';
+import { createTaskSchema } from '../../schemas/task';
+import { useAppSelector } from '../../store/hooks';
 import EmptyTaskPreview from '../Task/EmptyTaskPreview';
+import Task from '../Task/Task';
 
 const formOptions = {
-  schema: columSchema,
-  initialValues: columnValues,
-  fields: columnfields,
+  schema: createTaskSchema,
+  initialValues: createTaskValues,
+  fields: createTaskFields,
 };
 
 function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string) {
@@ -27,30 +31,41 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-type TProps = {
-  currentColumn: TColumn;
-  updateHandler: () => Promise<void>;
-};
+function getActualTasks(columnData: responses | undefined, tasks: TTask[]) {
+  if (columnData) {
+    const { tasks } = columnData as TColumn;
+    return tasks;
+  }
+  return tasks || [];
+}
 
-function ColumnPreview({ currentColumn, updateHandler }: TProps) {
-  const { id: columnId, title, tasks } = currentColumn;
+function Column({ id: columnId, title, tasks, order, updateHandler }: TColumnProps) {
   const { boardId } = useParams();
   const [isModalActive, setIsModalActive] = useState(false);
 
   const { id: userId } = useAppSelector((state) => state.authorization);
-  const { request } = useAxios({
-    url: `${AppRoute.BOARDS}/${boardId}`,
-    method: Methods.GET,
-  });
+  const {
+    data: columnData,
+    isLoading,
+    isError,
+    request,
+  } = useAxios({}, { dontFetchAtMount: true });
 
-  async function createTaskHandler(value: typeof columSchema) {
-    const body = { ...value, order: tasks.length + 1, userId };
-    await request({
-      url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${columnId}${AppRoute.TASKS}`,
+  async function createTask(value: typeof createTaskSchema) {
+    const body = { ...value, userId };
+    const taskData = await request({
+      url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks`,
       method: Methods.POST,
       data: body,
     });
-    setIsModalActive(false);
+
+    if (taskData) {
+      request({
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        method: Methods.GET,
+      });
+      setIsModalActive(false);
+    }
   }
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
@@ -58,32 +73,37 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
     const id = e.dataTransfer.getData('columnId');
     const title = e.dataTransfer.getData('columnTitle');
     if (!id || !title) return;
-    if (id !== currentColumn.id) {
+    if (id !== columnId) {
       await request({
         url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${id}`,
         method: Methods.PUT,
         data: {
           title,
-          order: currentColumn.order,
+          order,
         },
       });
-      await updateHandler();
+      request({
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        method: Methods.GET,
+      });
+      updateHandler();
     }
   }
 
+  const actualTasks = getActualTasks(columnData, tasks);
+
   return (
     <div
-      className={`column-preview`}
+      className="column-preview"
       draggable={true}
       onDragOver={(e) => dragOverHandler(e)}
       onDragStart={(e) => dragStart(e, columnId, title)}
       onDrop={(e) => dropHandler(e)}
     >
       <div className="column-preview_title">{title}</div>
-      {tasks &&
-        tasks.map((task) => {
-          return <Task key={task.id} {...task} columnId={columnId} update={updateHandler} />;
-        })}
+      {actualTasks.map((task) => {
+        return <Task key={task.id} {...task} columnId={columnId} updateColumn={request} />;
+      })}
       <EmptyTaskPreview
         tasks={tasks}
         boardId={boardId}
@@ -99,12 +119,14 @@ function ColumnPreview({ currentColumn, updateHandler }: TProps) {
         }}
         formOptions={{
           ...formOptions,
-          onSubmit: createTaskHandler,
-          buttonOptions: {},
+          onSubmit: createTask,
         }}
+        isError={isError}
+        errorText={ErrorMessage.SERVER_ERROR}
       />
+      {isLoading && <Loader />}
     </div>
   );
 }
 
-export default ColumnPreview;
+export default Column;

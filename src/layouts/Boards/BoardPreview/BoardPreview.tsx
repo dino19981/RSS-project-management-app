@@ -9,6 +9,7 @@ import { deleteBoardfields } from '../../../components/form/constants/fieldsOpti
 import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
 import { AppRoute } from '../../../const/routes';
+import { ErrorMessage } from '../../../const/errorMesages';
 
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
@@ -66,7 +67,7 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
             onSubmit: deleteBoard,
           }}
           isError={isError}
-          errorText="Произошла ошибка"
+          errorText={ErrorMessage.SERVER_ERROR}
         />
       </div>
       {isLoading && <Loader />}
