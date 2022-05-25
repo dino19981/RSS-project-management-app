@@ -14,6 +14,7 @@ import { useAppDispatch } from './store/hooks';
 import { useEffect } from 'react';
 import { getUserData } from './utils/authentification';
 import { setUserData } from './store/user/actions';
+import EditUserProfile from './views/editUserProfile/EditUserProfile';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -39,6 +40,7 @@ function App() {
             <Route path={AppRoute.BOARD} element={<Board />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
             <Route path={AppRoute.LOGIN} element={<Authorization />} />
+            <Route path={AppRoute.EDIT_PROFILE} element={<EditUserProfile />} />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
             <Route path="*" element={<Navigate replace to={AppRoute.NOT_FOUND_PAGE} />} />
           </Route>

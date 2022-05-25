@@ -29,6 +29,7 @@ export const getUserData = async (token: string) => {
   const userId = parseJwt(token).userId;
 
   const userResponse = await instanceAxios.get(`/users/${userId}`);
+  console.log(userResponse);
 
   return { ...userResponse?.data, authorizeStatus: true };
 };

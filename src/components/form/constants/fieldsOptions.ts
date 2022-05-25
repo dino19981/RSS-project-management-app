@@ -25,6 +25,8 @@ export const registrationFields = [
   },
 ];
 
+export const editProfileFields = registrationFields;
+
 export const deleteBoardfields = [
   {
     name: 'title',

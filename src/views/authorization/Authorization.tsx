@@ -46,7 +46,7 @@ export default function Autorization() {
   };
 
   return (
-    <>
+    <div className="authentification">
       <Authentification
         formOptions={formOptions}
         buttonText="Войти"
@@ -57,6 +57,6 @@ export default function Autorization() {
         loadingStatus={isLoading}
       />
       {isLoading && <Loader />}
-    </>
+    </div>
   );
 }

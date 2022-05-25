@@ -9,4 +9,5 @@ export const enum AppRoute {
   BOARD = '/boards/:boardId',
   COLUMNS = '/columns',
   TASKS = '/tasks',
+  USER = '/users',
 }

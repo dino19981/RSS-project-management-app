@@ -1,4 +1,5 @@
 import { buttonProps } from './button';
+import { updatedUserInfo } from './editUserProfile';
 import {
   autorizationSchemaType,
   registrationSchemaType,
@@ -37,4 +38,5 @@ export type fieldsType =
   | TColumnCreateSchema
   | TColumnUpdateSchema
   | TTaskCreateSchema
-  | TDeleteBoard;
+  | TDeleteBoard
+  | updatedUserInfo;

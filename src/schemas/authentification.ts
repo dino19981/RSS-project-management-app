@@ -14,3 +14,5 @@ export const registrationSchema = autorizationSchema.concat(
     })
     .required()
 );
+
+export const editProfileSchema = registrationSchema;

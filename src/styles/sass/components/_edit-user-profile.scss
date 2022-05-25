@@ -1,0 +1,18 @@
+.edit-profile {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 75px - 120px);
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+
+  &__save-message {
+    margin: 0;
+    color: green;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+}
