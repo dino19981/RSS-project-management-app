@@ -11,7 +11,6 @@ import { getAuthentificationErrorMessage, getUserData } from '../../utils/authen
 import Authentification from '../authentification/Authentification';
 import { setUserData } from '../../store/user/actions';
 import { Methods } from '../../const/APIMethoods';
-
 export default function Autorization() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -32,7 +31,7 @@ export default function Autorization() {
       const userData = await getUserData(loginData?.data.token);
       dispatch(setUserData(userData));
 
-      navigate(AppRoute.MAIN);
+      navigate(AppRoute.BOARDS);
     }
   }
 

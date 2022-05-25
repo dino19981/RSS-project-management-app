@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { buttonProps } from '../../models/button';
 
 export default function Button({

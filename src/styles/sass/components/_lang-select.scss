@@ -2,15 +2,13 @@
   background-color: transparent;
   border: none;
   margin-left: 12px;
-  margin-right: auto; 
-  
+  margin-right: auto;
   font-size: 17px;
   font-family: $title-font;
   font-weight: 500;
   color: $accent-color;
-  
   transition: all 0.5s;
-  
+
   @media (min-width: $tablet-width) {
     margin-left: auto;
     margin-right: auto;
