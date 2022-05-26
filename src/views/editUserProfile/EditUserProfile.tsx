@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
-import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import {
-  deleteUserProfile,
-  editProfileFields,
-} from '../../components/form/constants/fieldsOptions';
+import { editProfileFields } from '../../components/form/constants/fieldsOptions';
 import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
 import { Methods } from '../../const/APIMethoods';
@@ -14,7 +10,7 @@ import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { updatedUserInfo } from '../../models/user';
 import { fieldsType, formProps } from '../../models/form';
-import { deleteUserSchema, editProfileSchema } from '../../schemas/user';
+import { editProfileSchema } from '../../schemas/user';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { deleteUserData, updateUserData } from '../../store/user/actions';
 import Modal from '../../components/modal/Modal';
@@ -42,7 +38,7 @@ export default function EditUserProfile() {
     const userData = await request(editUserRequestOptions);
 
     if (userData) {
-      const updatedData = userData as unknown as updatedUserInfo;
+      const updatedData = userData.data as updatedUserInfo;
 
       dispatch(updateUserData(updatedData));
       setIsShowSaveMessage(true);
