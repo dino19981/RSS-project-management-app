@@ -171,6 +171,29 @@
 }
 
 @mixin submit-button {
+  background-color: $accent-color;
+  padding: 10px 30px;
+  color: #ffffff;
+
+  &:hover {
+    border-color: #20567d;
+    background-color: #348bc9;
+  }
+  @media (max-width: $tablet-width) {
+    padding: 5px 15px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+}
+
+@mixin cancel-button {
   color: $accent-color;
   background-color: transparent;
   border: 1px solid $accent-color;
@@ -192,28 +215,5 @@
   @media (max-width: 450px) {
     font-size: 16px;
     padding: 2px 5px;
-  }
-}
-
-@mixin cancel-button {
-  background-color: $accent-color;
-  padding: 10px 30px;
-  color: #ffffff;
-
-  &:hover {
-    border-color: #20567d;
-    background-color: #348bc9;
-  }
-  @media (max-width: $tablet-width) {
-    padding: 5px 15px;
-  }
-
-  @media (max-width: 600px) {
-    font-size: 18px;
-  }
-
-  @media (max-width: 450px) {
-    font-size: 16px;
-    padding: 5px 10px;
   }
 }

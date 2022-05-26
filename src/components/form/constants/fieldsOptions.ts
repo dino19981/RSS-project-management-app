@@ -31,7 +31,6 @@ export const deleteUserProfile = [
   {
     name: 'login',
     labelText: 'Действительно удалить пользователя?',
-    errorMessage: 'Действительно удалить пользователя',
     isdisabled: true,
   },
 ];
