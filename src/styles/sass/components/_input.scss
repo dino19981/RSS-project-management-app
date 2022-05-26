@@ -8,6 +8,14 @@ input {
   &:focus-visible {
     outline: none;
   }
+
+  &:disabled {
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    @include regular-text;
+    margin-bottom: 0;
+  }
 }
 
 .input__invalid {

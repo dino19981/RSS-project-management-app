@@ -25,6 +25,16 @@ export const registrationFields = [
   },
 ];
 
+export const editProfileFields = registrationFields;
+
+export const deleteUserProfile = [
+  {
+    name: 'login',
+    labelText: 'Действительно удалить пользователя?',
+    isdisabled: true,
+  },
+];
+
 export const deleteBoardfields = [
   {
     name: 'title',

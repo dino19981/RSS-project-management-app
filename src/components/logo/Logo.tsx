@@ -5,7 +5,7 @@ import { useAppSelector } from '../../store/hooks';
 export default function Logo() {
   const { authorizeStatus } = useAppSelector((state) => state.authorization);
 
-  const logoLink = authorizeStatus ? AppRoute.BOARDS : AppRoute.MAIN;
+  const logoLink = authorizeStatus ? AppRoute.MAIN : AppRoute.WELCOME_PAGE;
   return (
     <Link className="logo" to={logoLink}>
       <span className="visually-hidden">Логотип</span>

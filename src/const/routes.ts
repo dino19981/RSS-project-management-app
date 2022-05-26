@@ -1,12 +1,13 @@
 export const enum AppRoute {
   MAIN = '/',
+  WELCOME_PAGE = '/welcome',
   LOGIN = '/signin',
-  LOGOUT = '/logout',
   EDIT_PROFILE = '/edit-profile',
   REGISTRATION = '/signup',
   NOT_FOUND_PAGE = '/404',
   BOARDS = '/boards',
   BOARD = '/boards/:boardId',
-  COLUMNS = '/columns',
-  TASKS = '/tasks',
+  COLUMNS = '/columns', //
+  TASKS = '/tasks', //
+  USER = '/users', //
 }

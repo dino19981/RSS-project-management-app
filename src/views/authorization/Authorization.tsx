@@ -17,7 +17,7 @@ export default function Autorization() {
   const dispatch = useAppDispatch();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
-  async function onSubmit(value: fieldsType) {
+  async function signIn(value: fieldsType) {
     const loginRequestOptions = {
       url: AppRoute.LOGIN,
       method: Methods.POST,
@@ -32,7 +32,7 @@ export default function Autorization() {
       const userData = await getUserData(loginData?.data.token);
       dispatch(setUserData(userData));
 
-      navigate(AppRoute.BOARDS);
+      navigate(AppRoute.MAIN);
     }
   }
 
@@ -41,12 +41,12 @@ export default function Autorization() {
     initialValues: autorizationValues,
     fields: autorizationFields,
     formId: 'autorization',
-    onSubmit,
+    onSubmit: signIn,
     formClassName: 'authentification__form',
   };
 
   return (
-    <>
+    <div className="authentification">
       <Authentification
         formOptions={formOptions}
         buttonText="Войти"
@@ -57,6 +57,6 @@ export default function Autorization() {
         loadingStatus={isLoading}
       />
       {isLoading && <Loader />}
-    </>
+    </div>
   );
 }

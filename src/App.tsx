@@ -11,6 +11,7 @@ import Registration from './views/registration/Registration';
 import TaskEdit from './layouts/Task/TaskEdit';
 import AuthUser from './hocs/AuthUser';
 import UnknownUser from './hocs/UnknownUser';
+import EditUserProfile from './views/editUserProfile/EditUserProfile';
 
 function App() {
   return (
@@ -21,17 +22,17 @@ function App() {
             <Route
               index
               element={
-                <UnknownUser>
-                  <MainPage />
-                </UnknownUser>
-              }
-            />
-            <Route
-              path={AppRoute.BOARDS}
-              element={
                 <AuthUser>
                   <Boards />
                 </AuthUser>
+              }
+            />
+            <Route
+              path={AppRoute.WELCOME_PAGE}
+              element={
+                <UnknownUser>
+                  <MainPage />
+                </UnknownUser>
               }
             />
             <Route
@@ -62,7 +63,7 @@ function App() {
             <Route
               path={AppRoute.REGISTRATION}
               element={
-                <UnknownUser redirectTo={AppRoute.BOARDS}>
+                <UnknownUser redirectTo={AppRoute.MAIN}>
                   <Registration />
                 </UnknownUser>
               }
@@ -70,9 +71,17 @@ function App() {
             <Route
               path={AppRoute.LOGIN}
               element={
-                <UnknownUser redirectTo={AppRoute.BOARDS}>
+                <UnknownUser redirectTo={AppRoute.MAIN}>
                   <Authorization />
                 </UnknownUser>
+              }
+            />
+            <Route
+              path={AppRoute.EDIT_PROFILE}
+              element={
+                <AuthUser>
+                  <EditUserProfile />
+                </AuthUser>
               }
             />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />

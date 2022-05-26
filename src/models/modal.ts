@@ -3,9 +3,10 @@ import React from 'react';
 
 export interface modalProps {
   formId?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   submitBtnName?: string;
   handleCloseModal?: () => void;
+  submitHandler?: () => void;
   isError?: false | AxiosError;
   errorText?: string;
   contentWrapperClassName?: string;

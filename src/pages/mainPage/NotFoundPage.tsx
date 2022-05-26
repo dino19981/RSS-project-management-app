@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function NotFoundPage() {
   const token = localStorage.getItem('token');
-  const navigateTo = token ? AppRoute.BOARDS : AppRoute.MAIN;
+  const navigateTo = token ? AppRoute.MAIN : AppRoute.WELCOME_PAGE;
   return (
     <>
       <h1 className="glitch" data-text="404">

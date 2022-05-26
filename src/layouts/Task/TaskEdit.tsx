@@ -4,7 +4,7 @@ import Input from '../../components/input/Input';
 import Modal from '../../components/modal/Modal';
 import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
 import { Methods } from '../../const/APIMethoods';
-import { AppRoute } from '../../const/routes';
+import { boardURL, columnURL, taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn } from '../../models/column';
 import { TTask } from '../../models/task';
@@ -20,7 +20,7 @@ export default function TaskEdit() {
     isLoading: taskLoading,
     isError: taskError,
   } = useAxios({
-    url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${taskId}`,
+    url: taskURL(boardId, columnId, taskId),
     method: Methods.GET,
   });
 
@@ -29,14 +29,14 @@ export default function TaskEdit() {
     isLoading: columnLoading,
     isError: columnError,
   } = useAxios({
-    url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+    url: columnURL(boardId, columnId),
     method: Methods.GET,
   });
 
   const { request } = useAxios({}, { dontFetchAtMount: true });
 
   function closeEdit() {
-    navigate(`${AppRoute.BOARDS}/${boardId}`);
+    navigate(boardURL(boardId));
   }
 
   function updateTaskElement(
@@ -48,7 +48,7 @@ export default function TaskEdit() {
       const newTaskData = { ...dataForRequest, [updatedElement]: e.target.value };
 
       const updateTaskOptions = {
-        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${taskId}`,
+        url: taskURL(boardId, columnId, taskId),
         method: Methods.PUT,
         data: newTaskData,
       };

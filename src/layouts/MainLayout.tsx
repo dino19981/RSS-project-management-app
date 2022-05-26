@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../store/hooks';
 import { getUserData } from '../utils/authentification';
-import { setUserData } from '../store/user/actions';
+import { setAuthorizeUser, setUserData } from '../store/user/actions';
 
 export default function MainLayout() {
   const dispatch = useAppDispatch();
@@ -13,6 +13,7 @@ export default function MainLayout() {
     const token = localStorage.getItem('token');
 
     if (token) {
+      dispatch(setAuthorizeUser());
       (async () => {
         const userData = await getUserData(token);
         dispatch(setUserData(userData));

@@ -8,6 +8,7 @@ import Portal from '../portal/Portal';
 export default function ButtonWithModalForm({
   formOptions,
   buttonOptions,
+  modalOptions,
   modalState,
   submitBtnName,
   errorText,
@@ -28,6 +29,7 @@ export default function ButtonWithModalForm({
       <Button handler={openModal} {...buttonOptions} />
       {isModalActive && (
         <Modal
+          {...modalOptions}
           formId="modalForm"
           handleCloseModal={closeModal}
           submitBtnName={submitBtnName}
