@@ -1,9 +1,15 @@
 .boards {
   background-color: #ddd;
   position: relative;
-  &_wrapper {
+  height: $main-height-mobile;
+
+  @media (min-width: $desktop-width) {
+    height: $main-height-desktop;
+  }
+  
+  &__list {
+    overflow-y: auto;
     display: grid;
-    height: calc(100vh - 98px - 219px);
     grid-template-columns: repeat(auto-fill, 200px);
     grid-template-rows: repeat(auto-fill, 200px);
 
@@ -20,6 +26,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    background-color: $basic-white;
   }
   &_preview__link {
     flex-grow: 1;

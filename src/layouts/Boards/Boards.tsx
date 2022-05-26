@@ -14,7 +14,7 @@ function Boards() {
   const boards = data as TBoard[];
   return (
     <div className="boards">
-      <div className="boards_wrapper">
+      <div className="boards__list">
         <ProcessingWrapper isLoading={isLoading} isError={isError} errortext="error">
           {boards?.map((board) => {
             return <BoardPreview {...board} key={board.id} updateBoards={request} />;

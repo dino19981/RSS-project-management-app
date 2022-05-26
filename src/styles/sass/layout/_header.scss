@@ -17,6 +17,7 @@
   flex-direction: row;
   max-width: 100%;
   transition: 0.6s all;
+  max-height: $header-height-mobile;
   
   @media (min-width: $tablet-width) {
     margin-bottom: 10px;
