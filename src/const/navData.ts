@@ -2,22 +2,22 @@ import { AppRoute } from './routes';
 
 export const navData = [
   {
-    title: 'Войти',
+    title: 'buttons.sign_in',
     path: AppRoute.LOGIN,
     isAuthorize: false,
   },
   {
-    title: 'Регистрация',
+    title: 'buttons.sign_up',
     path: AppRoute.REGISTRATION,
     isAuthorize: false,
   },
   {
-    title: 'Редактировать профиль',
+    title: 'header.edit_profile',
     path: AppRoute.EDIT_PROFILE,
     isAuthorize: true,
   },
   {
-    title: 'Выйти',
+    title: 'buttons.sign_out',
     path: '',
     isAuthorize: true,
   },

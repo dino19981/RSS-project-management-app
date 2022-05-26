@@ -1,14 +1,16 @@
+import { useTranslation } from 'react-i18next';
 import { teamMembers } from '../../const/teamData';
 
 export default function Team() {
+  const { t } = useTranslation();
   return (
     <section className="team">
-      <h2 className="team__title">Наша команда</h2>
+      <h2 className="team__title">{t('welcome.team')}</h2>
       <ul className="team__list">
         {teamMembers.map(({ id, name, role, ghLink }) => (
           <li className="team__item" key={id}>
             <article className="team__card">
-              <h3 className="team__name">{name}</h3>
+              <h3 className="team__name">{t(`welcome.${name}`)}</h3>
               <span className="team__role">{role}</span>
 
               <div>

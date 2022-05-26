@@ -1,10 +1,12 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const/routes';
 
 export default function PromoScreen() {
+  const { t } = useTranslation();
   return (
     <section className="promo-screen">
-      <h1 className="promo-screen__title">Мастерски управляй проектами!</h1>
+      <h1 className="promo-screen__title">{t('welcome.head_title')}</h1>
       <div className="promo-screen__image-wrapper">
         <img
           className="promo-screen__image"
@@ -14,9 +16,9 @@ export default function PromoScreen() {
           alt="Иллюстрация лотка с документами"
         />
       </div>
-      <p className="promo-screen__desc">Бесплатное приложение для командной работы над проектами</p>
+      <p className="promo-screen__desc">{t('welcome.head_text')}</p>
       <Link className="promo-screen__btn" to={AppRoute.REGISTRATION}>
-        Начать
+        {t('welcome.start')}
       </Link>
     </section>
   );

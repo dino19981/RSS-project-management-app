@@ -5,6 +5,8 @@ import './styles/sass/main.scss';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 
+import './i18n';
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
