@@ -53,7 +53,6 @@ export default function CreateBoard() {
       formOptions={{
         ...formOptions,
         onSubmit: createBoardHandler,
-        buttonOptions: {},
       }}
     />
   );
