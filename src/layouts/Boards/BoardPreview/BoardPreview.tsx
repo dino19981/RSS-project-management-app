@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -14,6 +14,7 @@ import { ErrorMessage } from '../../../const/errorMesages';
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
   let tasks = 0;
+  console.log('columns:');
   columns.map((col) => {
     if (col.tasks) {
       tasks += col.tasks.length;
@@ -27,7 +28,7 @@ const formOptions = {
   fields: deleteBoardfields,
 };
 
-function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
+function BoardPreview({ id, title, columns, description, updateBoards }: boardPreviewProps) {
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -50,28 +51,29 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
     title,
   };
 
+  console.log('taskcount:', taskCount);
+
   return (
-    <div className="board_preview">
-      <Link to={`${AppRoute.BOARDS}/${id}`} className="board_preview__link">
-        <div className="board_preview_title">{title}</div>
-        {taskCount && <div className="board_preview__task-count">Total tasks: {taskCount}</div>}
+    <article className="board-preview">
+      <Link to={`${AppRoute.BOARDS}/${id}`} className="board-preview__link">
+        <h2 className="board-preview__title">{title}</h2>
+        {taskCount && <div className="board-preview__task-count">Total tasks: {taskCount}</div>}
       </Link>
-      <div className="board_preview_footer">
-        <ButtonWithModalForm
-          modalState={{ isModalActive, setIsModalActive }}
-          buttonOptions={{ text: 'delete' }}
-          submitBtnName="OK"
-          formOptions={{
-            ...formOptions,
-            initialValues,
-            onSubmit: deleteBoard,
-          }}
-          isError={isError}
-          errorText={ErrorMessage.SERVER_ERROR}
-        />
-      </div>
+      <p className="board-preview__description">{description}</p>
+      <ButtonWithModalForm
+        modalState={{ isModalActive, setIsModalActive }}
+        buttonOptions={{ text: 'delete' }}
+        submitBtnName="OK"
+        formOptions={{
+          ...formOptions,
+          initialValues,
+          onSubmit: deleteBoard,
+        }}
+        isError={isError}
+        errorText={ErrorMessage.SERVER_ERROR}
+      />
       {isLoading && <Loader />}
-    </div>
+    </article>
   );
 }
 
