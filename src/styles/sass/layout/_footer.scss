@@ -1,8 +1,7 @@
 .footer {
   display: flex;
   background-color: $basic-white;
-
-  
+  z-index: 100;
 }
 
 .footer__container {

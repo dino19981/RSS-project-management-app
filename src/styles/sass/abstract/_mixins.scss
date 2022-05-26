@@ -171,3 +171,13 @@
     }
   }
 }
+
+@mixin fix-main {
+  height: $main-height-mobile;
+  max-height: $main-height-mobile;
+
+  @media (min-width: $desktop-width) {
+    height: $main-height-desktop;
+    max-height: $main-height-desktop;
+  }
+}
