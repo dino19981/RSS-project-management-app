@@ -1,17 +1,21 @@
 import React from 'react';
 import { modalProps } from '../../models/modal';
 import Button from '../button/Button';
+import Portal from '../portal/Portal';
 
 export default function Modal({
   formId,
   children,
   handleCloseModal,
+  submitHandler,
   submitBtnName,
   isError,
   errorText,
+  contentWrapperClassName,
+  isDontShowFooter,
 }: modalProps) {
   return (
-    <div className="main__container" aria-label="modal">
+    <Portal>
       <div
         role="textbox"
         tabIndex={0}
@@ -22,20 +26,37 @@ export default function Modal({
         <div
           role="textbox"
           tabIndex={0}
-          className="modal__content active"
+          className={`modal__content ${contentWrapperClassName || ''} active`}
           onMouseDown={(e) => e.stopPropagation()}
           onKeyPress={(e) => e.stopPropagation()}
         >
+          <div className="modal__header">
+            <svg
+              onClick={handleCloseModal}
+              onKeyPress={(e) => e.stopPropagation()}
+              className="modal__close"
+            >
+              <use xlinkHref="#close-icon" />
+            </svg>
+          </div>
           {isError && <p className="modal__error-text">{errorText}</p>}
 
           {children}
 
-          <div className="modal__footer">
-            <Button handler={handleCloseModal} text="Закрыть" />
-            <Button type="submit" formId={formId} text={submitBtnName} />
-          </div>
+          {!isDontShowFooter && (
+            <div className="modal__footer">
+              <Button btnClass="button__cancel" handler={handleCloseModal} text="Закрыть" />
+              <Button
+                handler={submitHandler}
+                btnClass="button__submit"
+                type="submit"
+                formId={formId}
+                text={submitBtnName}
+              />
+            </div>
+          )}
         </div>
       </div>
-    </div>
+    </Portal>
   );
 }

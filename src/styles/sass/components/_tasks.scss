@@ -1,30 +1,105 @@
-.tasks_wrapper {
+.task {
   display: flex;
-  flex-wrap: nowrap;
-  row-gap: 0.5rem;
-  height: 100vh;
-  background-color: #ddd;
-  width: 100%;
-  padding: 0.5rem;
-}
-.task-preview {
-  display: flex;
-  border: 1px solid #000;
+  background-color: #ffffff;
   border-radius: 5px;
-  &_link {
-    width: 100%;
-    height: 100%;
+  margin: 5px;
+  padding: 5px 2px 5px 10px;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+  transition: all 0.4s linear;
+
+  &:hover {
+    background-color: #f4f5f7;
+    .task__delete_btn {
+      opacity: 1;
+    }
+  }
+  &__delete_btn {
+    opacity: 0;
+    background-color: transparent;
+    transition: all 0.2s linear;
+    &:hover {
+      background-color: #e6e7e9;
+    }
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: #787878;
+    }
   }
 }
 
-.task {
-  &_title {
-    text-align: center;
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 0.5rem;
+.task__edit.modal__content {
+  background-color: #f4f5f7;
+}
+
+.task__edit {
+  &_title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  &_link {
-    width: 100%;
+  &_title {
+    @include regular-subtitle;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    padding: 5px;
+    &:focus-visible {
+      outline: none;
+      background-color: #ffffff;
+      cursor: text;
+    }
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+  &_icon {
+    width: 30px;
+    height: 30px;
+    fill: #787878;
+  }
+  &_description-wrapper {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  &_text {
+    @include regular-text;
+    font-weight: 500;
+    margin: 0;
+  }
+  &_description-input {
+    @include regular-text;
+    font-size: 17px;
+    width: 60%;
+    margin-left: 40px;
+    margin-top: 4px;
+    padding: 5px 10px;
+    background-color: transparent;
+    cursor: pointer;
+
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    transition: all 0.3s linear;
+    &:focus-visible {
+      outline: none;
+      background-color: #ffffff;
+      cursor: text;
+    }
+  }
+
+  &_description-edit {
+    @include regular-text;
+    color: $dark-green;
+    margin: 0;
+  }
+
+  &_save {
+    margin-top: 10px;
   }
 }

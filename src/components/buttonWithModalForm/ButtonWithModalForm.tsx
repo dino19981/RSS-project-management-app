@@ -3,10 +3,12 @@ import { buttonWithModalFormProps } from '../../models/buttonWithModalForm';
 import Button from '../button/Button';
 import Form from '../form/Form';
 import Modal from '../modal/Modal';
+import Portal from '../portal/Portal';
 
 export default function ButtonWithModalForm({
   formOptions,
   buttonOptions,
+  modalOptions,
   modalState,
   submitBtnName,
   errorText,
@@ -27,6 +29,7 @@ export default function ButtonWithModalForm({
       <Button handler={openModal} {...buttonOptions} />
       {isModalActive && (
         <Modal
+          {...modalOptions}
           formId="modalForm"
           handleCloseModal={closeModal}
           submitBtnName={submitBtnName}

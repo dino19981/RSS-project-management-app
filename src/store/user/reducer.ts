@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { updatedUserInfo } from '../../models/editUserProfile';
+import { updatedUserInfo } from '../../models/user';
 import { AuthorizationState } from '../../models/store';
 
 const initialAuthorizationState: AuthorizationState = {
@@ -22,6 +22,7 @@ const userSlice = createSlice({
       state.isLoadingUserData = false;
     },
     deleteUserData: (state) => {
+      localStorage.removeItem('token');
       state.authorizeStatus = false;
       state.id = '';
       state.login = '';

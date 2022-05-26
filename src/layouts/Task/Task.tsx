@@ -1,56 +1,89 @@
-import React, { useEffect, useState } from 'react';
-import * as yup from 'yup';
-import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import React, { useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import Button from '../../components/button/Button';
+import { deleteTaskfields } from '../../components/form/constants/fieldsOptions';
+import Form from '../../components/form/Form';
+import Loader from '../../components/loader/loader';
+import Modal from '../../components/modal/Modal';
+import { Methods } from '../../const/APIMethoods';
+import { ErrorMessage } from '../../const/errorMesages';
+import { AppRoute } from '../../const/routes';
+import { useAxios } from '../../hooks/useAxios';
+import { taskProps } from '../../models/task';
+import { deleteBoardSchema } from '../../schemas/boards';
 
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-    description: yup.string().trim().required(),
-  })
-  .required();
+const formOptions = {
+  schema: deleteBoardSchema,
+  fields: deleteTaskfields,
+};
 
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'task title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
-];
+function Task({ id, title, description, columnId, updateColumn }: taskProps) {
+  const { boardId } = useParams();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [isModalActive, setIsModalActive] = useState(false);
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
-function Task() {
-  const [isModalActive, setIsModalActive] = useState(true);
-  const initialValues = {
-    title: '',
-    description: '',
-  };
-  useEffect(() => {
-    // TODO  FETCH GET /boards/:boardId/columns/:columnId/tasks/:taskId
-    // initialValuess = response
-  }, []);
+  async function deleteTask() {
+    const taskData = await request({
+      url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${id}`,
+      method: Methods.DELETE,
+    });
 
-  const formOptions = {
-    schema,
-    initialValues,
-    fields,
-  };
+    if (taskData) {
+      updateColumn({
+        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        method: Methods.GET,
+      });
+      setIsModalActive(false);
+    }
+  }
 
-  function saveTask() {
-    // TODO  FETCH PUT /boards/:boardId/columns/:columnId/tasks/:taskId
-    console.log('save task');
+  function openEditTask() {
+    navigate(`${pathname}/columns/${columnId}/tasks/${id}`);
+  }
+
+  function openDeleteModal(e: React.MouseEvent<HTMLElement> | undefined) {
+    e?.stopPropagation();
+    setIsModalActive(true);
+  }
+
+  function closeDeleteModal() {
+    setIsModalActive(false);
   }
 
   return (
-    <div className="task">
-      <ButtonWithModalForm
-        modalState={{ isModalActive, setIsModalActive }}
-        buttonOptions={{ btnClass: 'hidden' }}
-        submitBtnName="save task"
-        formOptions={{
-          ...formOptions,
-          onSubmit: saveTask,
-          buttonOptions: {},
-        }}
-      />
-    </div>
+    <>
+      <div className="task" onClick={openEditTask}>
+        <div className="task__link">{title}</div>
+        <Button
+          handler={openDeleteModal}
+          btnClass="task__delete_btn"
+          icon={
+            <svg>
+              <use xlinkHref="#delete-icon" />
+            </svg>
+          }
+        />
+        {isLoading && <Loader />}
+      </div>
+      {isModalActive && (
+        <Modal
+          formId="modalForm"
+          handleCloseModal={closeDeleteModal}
+          submitBtnName="Удалить"
+          isError={isError}
+          errorText={ErrorMessage.SERVER_ERROR}
+        >
+          <Form
+            formId="modalForm"
+            {...formOptions}
+            initialValues={{ title }}
+            onSubmit={deleteTask}
+          />
+        </Modal>
+      )}
+    </>
   );
 }
 

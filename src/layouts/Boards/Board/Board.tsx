@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ColumnPreview from '../../Column/ColumnPreview';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { fieldsType } from '../../../models/form';
 import { useAxios } from '../../../hooks/useAxios';
@@ -14,6 +13,7 @@ import EmptyColumn from '../../Column/EmptyColumn';
 import { columSchema } from '../../../schemas/column';
 import { columnValues } from '../../../components/form/constants/initialValues';
 import { columnfields } from '../../../components/form/constants/fieldsOptions';
+import Column from '../../Column/Column';
 
 const formOptions = {
   schema: columSchema,
@@ -27,13 +27,7 @@ function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>)
   return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
     const comparedColumn = makeColumnOrder[index];
     if (comparedColumn) {
-      return (
-        <ColumnPreview
-          key={comparedColumn.id || index}
-          currentColumn={comparedColumn}
-          updateHandler={updateHandler}
-        />
-      );
+      return <Column key={comparedColumn.id} {...comparedColumn} updateHandler={updateHandler} />;
     }
     return <EmptyColumn key={index} />;
   });
@@ -105,6 +99,7 @@ function Board() {
       </div>
       {board && <div className="columns_wrapper">{generateColumns(board.columns, putRequest)}</div>}
       {isLoading && <Loader />}
+      <Outlet />
     </div>
   );
 }

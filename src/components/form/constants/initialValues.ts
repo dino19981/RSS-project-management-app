@@ -12,3 +12,8 @@ export const registrationValues = {
 export const columnValues = {
   title: '',
 };
+
+export const createTaskValues = {
+  title: '',
+  description: '',
+};

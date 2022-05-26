@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
-import { editProfileFields } from '../../components/form/constants/fieldsOptions';
+import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import {
+  deleteUserProfile,
+  editProfileFields,
+} from '../../components/form/constants/fieldsOptions';
 import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
 import { Methods } from '../../const/APIMethoods';
+import { ErrorMessage } from '../../const/errorMesages';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
-import { updatedUserInfo } from '../../models/editUserProfile';
+import { updatedUserInfo } from '../../models/user';
 import { fieldsType, formProps } from '../../models/form';
-import { editProfileSchema } from '../../schemas/authentification';
+import { deleteUserSchema, editProfileSchema } from '../../schemas/user';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { updateUserData } from '../../store/user/actions';
-import { getAuthentificationErrorMessage } from '../../utils/authentification';
+import { deleteUserData, updateUserData } from '../../store/user/actions';
+import Modal from '../../components/modal/Modal';
 
 export default function EditUserProfile() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isShowSaveMessage, setIsShowSaveMessage] = useState(false);
+  const [isModalActive, setIsModalActive] = useState(false);
   const {
     name,
     login,
@@ -46,7 +52,7 @@ export default function EditUserProfile() {
     }
   }
 
-  async function deleteUser(value: fieldsType) {
+  async function deleteUser() {
     const editUserRequestOptions = {
       url: `${AppRoute.USER}/${userId}`,
       method: Methods.DELETE,
@@ -55,21 +61,24 @@ export default function EditUserProfile() {
     const userData = await request(editUserRequestOptions);
 
     if (userData) {
-      const updatedData = userData as unknown as updatedUserInfo;
-
-      dispatch(updateUserData(updatedData));
-      setIsShowSaveMessage(true);
-      setTimeout(() => {
-        navigate(AppRoute.BOARDS);
-      }, 2000);
+      dispatch(deleteUserData());
+      navigate(AppRoute.MAIN);
     }
+  }
+
+  function openModal() {
+    setIsModalActive(true);
+  }
+
+  function closeModal() {
+    setIsModalActive(false);
   }
 
   if (isLoadingUserData) {
     return <Loader />;
   }
 
-  const formOptions: formProps = {
+  const updateUserFormOptions: formProps = {
     schema: editProfileSchema,
     initialValues: { name, login, password: '' },
     fields: editProfileFields,
@@ -80,30 +89,39 @@ export default function EditUserProfile() {
 
   return (
     <div className="edit-profile">
-      <div className="authentification__inner">
-        {isError && (
-          <p className="authentification__error">
-            {getAuthentificationErrorMessage(isError.response?.status)}
-          </p>
-        )}
-        <div className="edit-profile__header">
-          <Button text="Удалить аккаунт" />
-        </div>
+      <div className="edit-profile__inner">
+        {isError && <p className="authentification__error">{ErrorMessage.SERVER_ERROR}</p>}
+        <h4 className="edit-profile__title">Редактирвоание профиля</h4>
+        <Form {...updateUserFormOptions} />
 
-        <Form {...formOptions} />
         {isShowSaveMessage && (
           <p className="edit-profile__save-message">Данные успешно сохранены!</p>
         )}
-        <div className="authentification__footer">
+
+        <div className="edit-profile__footer">
           <Button
             isDisabled={isLoading}
             type="submit"
             text="Сохранить"
-            formId={formOptions.formId}
-            btnClass="authentification__button"
+            formId={updateUserFormOptions.formId}
+            btnClass="edit-profile__save-button"
           />
+          <Button
+            btnClass="edit-profile__delete-button"
+            text="Удалить профиль"
+            handler={openModal}
+          ></Button>
         </div>
-
+        {isModalActive && (
+          <Modal
+            submitBtnName="Удалить"
+            contentWrapperClassName="modal__delete"
+            handleCloseModal={closeModal}
+            submitHandler={deleteUser}
+          >
+            <p className="edit-profile__delete-text">{`Действительно хотите удалить профиль ${login}?`}</p>
+          </Modal>
+        )}
         {isLoading && <Loader />}
       </div>
     </div>

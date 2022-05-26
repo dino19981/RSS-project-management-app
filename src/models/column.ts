@@ -6,3 +6,7 @@ export type TColumn = {
   order: number;
   tasks: TTask[];
 };
+
+export type TColumnProps = TColumn & {
+  updateHandler: () => Promise<void>;
+};

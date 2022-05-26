@@ -6,30 +6,12 @@ import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import NotFoundPage from './pages/mainPage/NotFoundPage';
 import Boards from './layouts/Boards/Boards';
 import Board from './layouts/Boards/Board/Board';
-import Column from './layouts/Column/Column';
-import Task from './layouts/Task/Task';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
-import { useAppDispatch } from './store/hooks';
-import { useEffect } from 'react';
-import { getUserData } from './utils/authentification';
-import { setUserData } from './store/user/actions';
+import TaskEdit from './layouts/Task/TaskEdit';
 import EditUserProfile from './views/editUserProfile/EditUserProfile';
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (token) {
-      (async () => {
-        const userData = await getUserData(token);
-        dispatch(setUserData(userData));
-      })();
-    }
-  }, []);
-
   return (
     <ErrorBoundary>
       <BrowserRouter>
@@ -38,6 +20,9 @@ function App() {
             <Route index element={<MainPage />} />
             <Route path={AppRoute.BOARDS} element={<Boards />} />
             <Route path={AppRoute.BOARD} element={<Board />} />
+            <Route path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`} element={<Board />}>
+              <Route index element={<TaskEdit />} />
+            </Route>
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
             <Route path={AppRoute.LOGIN} element={<Authorization />} />
             <Route path={AppRoute.EDIT_PROFILE} element={<EditUserProfile />} />
