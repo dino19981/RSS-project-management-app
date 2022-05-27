@@ -15,5 +15,5 @@ export default function UnknownUser({
     return <Navigate to={redirectTo || AppRoute.NOT_FOUND_PAGE} />;
   }
 
-  return <>{children}</>;
+  return { children };
 }
