@@ -9,6 +9,7 @@ import { Methods } from '../../const/APIMethoods';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../loader/loader';
 import { ErrorMessage } from '../../const/errorMesages';
+import { useTranslation } from 'react-i18next';
 
 const formOptions = {
   schema: newBoardSchema,
@@ -23,6 +24,7 @@ const icon = (
 );
 
 export default function CreateBoard() {
+  const { t } = useTranslation();
   const [isModalActive, setIsModalActive] = useState(false);
   const navigate = useNavigate();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
@@ -51,7 +53,7 @@ export default function CreateBoard() {
       modalState={{ isModalActive, setIsModalActive }}
       buttonOptions={{
         btnClass: 'btn-new-board',
-        text: 'Создать новую доску',
+        text: t('header.create_new_board'),
         icon,
         isDisabled: isLoading,
       }}

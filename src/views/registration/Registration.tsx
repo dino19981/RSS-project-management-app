@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { registrationFields } from '../../components/form/constants/fieldsOptions';
 import { registrationValues } from '../../components/form/constants/initialValues';
@@ -11,6 +12,7 @@ import { getAuthentificationErrorMessage } from '../../utils/authentification';
 import Authentification from '../authentification/Authentification';
 
 export default function Registration() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
@@ -39,10 +41,10 @@ export default function Registration() {
     <div className="authentification">
       <Authentification
         formOptions={formOptions}
-        buttonText="Зарегистрироваться"
+        buttonText={t('buttons.sign_up')}
         link={AppRoute.LOGIN}
-        linkText="Войти"
-        questionText="Уже зарегистрированы?"
+        linkText={t('buttons.sign_in')}
+        questionText={t('sign_up.is_have_login_text')}
         errorMessage={isError && getAuthentificationErrorMessage(isError.response?.status)}
         loadingStatus={isLoading}
       />

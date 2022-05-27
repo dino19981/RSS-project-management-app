@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import { editProfileFields } from '../../components/form/constants/fieldsOptions';
@@ -26,7 +26,17 @@ export default function EditUserProfile() {
     isLoadingUserData,
     id: userId,
   } = useAppSelector((state) => state.authorization);
+  const timeoutRef: { current: NodeJS.Timeout | null } = useRef(null);
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+
+  useEffect(
+    () => () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    },
+    []
+  );
 
   async function onSubmit(value: fieldsType) {
     const editUserRequestOptions = {
@@ -42,9 +52,10 @@ export default function EditUserProfile() {
 
       dispatch(updateUserData(updatedData));
       setIsShowSaveMessage(true);
-      setTimeout(() => {
-        navigate(AppRoute.MAIN);
-      }, 2000);
+
+      timeoutRef.current = setTimeout(() => {
+        setIsShowSaveMessage(false);
+      }, 3000);
     }
   }
 

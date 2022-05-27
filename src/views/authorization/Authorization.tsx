@@ -11,8 +11,10 @@ import { getAuthentificationErrorMessage, getUserData } from '../../utils/authen
 import Authentification from '../authentification/Authentification';
 import { setUserData } from '../../store/user/actions';
 import { Methods } from '../../const/APIMethoods';
+import { useTranslation } from 'react-i18next';
 
 export default function Autorization() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
@@ -49,10 +51,10 @@ export default function Autorization() {
     <div className="authentification">
       <Authentification
         formOptions={formOptions}
-        buttonText="Войти"
+        buttonText={t('buttons.sign_in')}
         link={AppRoute.REGISTRATION}
-        linkText="Создать аккаунт"
-        questionText="Еще не зарегистрированы?"
+        linkText={t('sign_in.create_account')}
+        questionText={t('sign_in.no_register_text')}
         errorMessage={isError && getAuthentificationErrorMessage(isError.response?.status)}
         loadingStatus={isLoading}
       />

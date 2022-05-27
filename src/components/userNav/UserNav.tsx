@@ -1,3 +1,4 @@
+import { TFunction, useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { navData } from './navData';
 import { useAppDispatch } from './../../store/hooks';
@@ -6,13 +7,17 @@ import { AppRoute } from '../../const/routes';
 import { NavItem } from '../../models/userNav';
 import { UserNavComponent } from '../../models/userNav';
 
-const getNav = (renderNavData: NavItem[], logout: () => void) => {
+const getNav = (
+  renderNavData: NavItem[],
+  logout: () => void,
+  t: TFunction<'translation', undefined>
+) => {
   return renderNavData.map(({ title, path, type }) => {
     if (type !== 'button') {
       return (
         <li key={path} className="user-nav__item">
           <Link className="user-nav__link" to={path}>
-            {title}
+            {t(title)}
           </Link>
         </li>
       );
@@ -20,7 +25,7 @@ const getNav = (renderNavData: NavItem[], logout: () => void) => {
     return (
       <li key={path} className="user-nav__item">
         <button className="user-nav__link" onClick={logout}>
-          {title}
+          {t(title)}
         </button>
       </li>
     );
@@ -28,6 +33,7 @@ const getNav = (renderNavData: NavItem[], logout: () => void) => {
 };
 
 export default function UserNav({ authorizeStatus }: UserNavComponent) {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const renderNavData = navData.filter(({ isAuthorize }) => isAuthorize === authorizeStatus);
@@ -39,7 +45,7 @@ export default function UserNav({ authorizeStatus }: UserNavComponent) {
 
   return (
     <nav className="user-nav">
-      <ul className="user-nav__list">{getNav(renderNavData, logout)}</ul>
+      <ul className="user-nav__list">{getNav(renderNavData, logout, t)}</ul>
     </nav>
   );
 }
