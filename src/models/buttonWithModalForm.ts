@@ -11,6 +11,7 @@ export interface buttonWithModalFormProps {
     icon?: JSX.Element;
     handler?: () => void;
     formId?: string;
+    isDisabled?: boolean;
   };
   modalOptions?: modalProps;
   modalState: { isModalActive: boolean; setIsModalActive: (state: boolean) => void };

@@ -1,6 +1,8 @@
 .btn-new-board {
   @include nav-link;
-
+  
+  display: flex;
+  align-items: center;
   position: relative;
   background-color: transparent;
   border: none;
@@ -10,7 +12,9 @@
     background-color: transparent;
   }
 
-  &:hover .btn-new-board__icon {
+  &:hover .btn-new-board__icon,
+  &:active .btn-new-board__icon,
+  &:focus .btn-new-board__icon {
     fill: $hover-link-color;
   }
 }
@@ -20,10 +24,9 @@
 
   @media (min-width: $tablet-width) {
     display: block;
-    position: absolute;
+    position: relative;
     transition: all 0.5s;
-    top: 50%;
-    transform: translateY(-50%);
+    margin-right: 5px;
     fill: $accent-color;
   }
 }
