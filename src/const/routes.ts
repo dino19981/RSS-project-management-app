@@ -7,7 +7,5 @@ export const enum AppRoute {
   NOT_FOUND_PAGE = '/404',
   BOARDS = '/boards',
   BOARD = '/boards/:boardId',
-  COLUMNS = '/columns', //
-  TASKS = '/tasks', //
-  USER = '/users', //
+  USER = '/users',
 }
