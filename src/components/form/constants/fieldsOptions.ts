@@ -25,7 +25,7 @@ export const registrationFields = [
   },
 ];
 
-export const deleteBoardfields = [
+export const deleteBoardFields = [
   {
     name: 'title',
     labelText: 'Действительно удалить доску?',

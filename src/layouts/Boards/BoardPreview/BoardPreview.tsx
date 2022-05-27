@@ -4,7 +4,7 @@ import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonW
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
-import { deleteBoardfields } from '../../../components/form/constants/fieldsOptions';
+import { deleteBoardFields } from '../../../components/form/constants/fieldsOptions';
 import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
 import { AppRoute } from '../../../const/routes';
@@ -12,7 +12,7 @@ import { ErrorMessage } from '../../../const/errorMesages';
 
 const formOptions = {
   schema: deleteBoardSchema,
-  fields: deleteBoardfields,
+  fields: deleteBoardFields,
 };
 
 function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
