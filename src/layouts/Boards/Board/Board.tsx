@@ -96,7 +96,6 @@ function Board() {
           formOptions={{
             ...formOptions,
             onSubmit: createColumnHandler,
-            buttonOptions: {},
           }}
         />
         <button type="button" onClick={() => deleteBoardHandler(boardId)}>

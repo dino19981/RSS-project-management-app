@@ -6,12 +6,28 @@
     "delete_profile": "Удалить профиль",
     "save": "Сохранить",
     "delete": "Удалить",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "create_board": "Создать доску"
   },
   "labels": {
     "login": "Логин",
     "password": "Пароль",
     "name": "Имя"
+  },
+  "placeholders": {
+    "column_title": "Название колонки",
+    "board_name": "Название доски",
+    "board_description": "Описание доски",
+    "task_title": "Название задачи",
+    "task_description": "Описание задачи"
+  },
+  "error_messages": {
+    "min_length_5": "Минимальная длина 5 символов",
+    "no_white_spaces_and_min_length_3": "Пробелы недопустимы, минимальная длина 3 символа",
+    "max_length_15": "Максимальная длина 15 символов",
+    "server_error": "Произошла ошибка, попробуйте выполнить действие позднее",
+    "description_required": "Заполните описание",
+    "title_required": "Заполните название"
   },
   "header": {
     "create_new_board": "Создать новую доску",

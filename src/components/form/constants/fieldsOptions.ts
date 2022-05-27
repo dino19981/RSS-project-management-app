@@ -4,7 +4,7 @@ export const autorizationFields = [
   {
     name: 'login',
     labelText: 'labels.login',
-    errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3,
+    errorMessage: ErrorMessage.NO_WHITE_SPACES_AND_MIN_LENGTH_3,
   },
   {
     name: 'password',
@@ -15,11 +15,11 @@ export const autorizationFields = [
 ];
 
 export const registrationFields = [
-  { name: 'name', labelText: 'labels.name', errorMessage: 'Максимальная длина 15 символов' },
+  { name: 'name', labelText: 'labels.name', errorMessage: ErrorMessage.MAX_LENGTH_15 },
   {
     name: 'login',
     labelText: 'labels.login',
-    errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3,
+    errorMessage: ErrorMessage.NO_WHITE_SPACES_AND_MIN_LENGTH_3,
   },
   {
     name: 'password',
@@ -32,19 +32,35 @@ export const registrationFields = [
 export const editProfileFields = registrationFields;
 
 export const columnfields = [
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.column_title',
+  },
 ];
 
 export const newBoardFields = [
-  { name: 'title', errorMessage: 'Название обязательно', placeholder: 'Введите название доски' },
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.board_name',
+  },
   {
     name: 'description',
-    errorMessage: 'Описание обязательно',
-    placeholder: 'Введите описание доски',
+    errorMessage: 'error_messages.description_required',
+    placeholder: 'placeholders.board_description',
   },
 ];
 
 export const createTaskFields = [
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Task Title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.task_title',
+  },
+  {
+    name: 'description',
+    errorMessage: 'error_messages.description_required',
+    placeholder: 'placeholders.task_description',
+  },
 ];

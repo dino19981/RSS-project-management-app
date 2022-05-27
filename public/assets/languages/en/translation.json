@@ -6,12 +6,28 @@
     "delete_profile": "Delete profile",
     "save": "Save",
     "delete": "Delete",
-    "close": "Close"
+    "close": "Close",
+    "create_board": "Create board"
   },
   "labels": {
     "login": "Login",
     "password": "Password",
     "name": "Name"
+  },
+  "placeholders": {
+    "column_title": "Column title",
+    "board_name": "Board name",
+    "board_description": "Board description",
+    "task_title": "Task title",
+    "task_description": "Task description"
+  },
+  "error_messages": {
+    "min_length_5": "The minimum length is 5 characters",
+    "no_white_spaces_and_min_length_3": "Spaces are not allowed, the minimum length is 3 characters",
+    "max_length_15": "The maximum length is 15 characters",
+    "server_error": "An error has occurred, try to perform the action later",
+    "description_required": "Description is required",
+    "title_required": "Title is required"
   },
   "header": {
     "create_new_board": "Create new board",
