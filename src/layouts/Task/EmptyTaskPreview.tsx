@@ -1,9 +1,9 @@
 import React from 'react';
 import { Methods } from '../../const/APIMethoods';
-import { AppRoute } from '../../const/routes';
+import { tasksURL, taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TGetBoardTask } from '../../models/task';
-import { generateTaskBody, generateTaskURL } from '../../utils/dragAndDrop';
+import { generateTaskBody } from '../../utils/dragAndDrop';
 
 type TProps = {
   boardId: string | undefined;
@@ -30,7 +30,7 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
       if (tasks.length + 1 === draggedTask!.order) {
         return;
       }
-      const url = generateTaskURL(boardId, columnId, dropTaskId);
+      const url = taskURL(boardId, columnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId, tasks.length + 1);
       await request({
         url,
@@ -43,7 +43,7 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
       });
     } else {
       if (tasks.length === 0) {
-        const url = generateTaskURL(boardId, dropColumnId, dropTaskId);
+        const url = taskURL(boardId, dropColumnId, dropTaskId);
         const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
         await request({
           url,
@@ -55,13 +55,13 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
           },
         });
       } else {
-        const url = generateTaskURL(boardId, dropColumnId, dropTaskId);
+        const url = taskURL(boardId, dropColumnId, dropTaskId);
         await request({
           url,
           method: Methods.DELETE,
         });
         await request({
-          url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}/${columnId}${AppRoute.TASKS}`,
+          url: tasksURL(boardId, columnId),
           method: Methods.POST,
           data: {
             title: dropTaskTitle,

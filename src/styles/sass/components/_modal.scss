@@ -80,3 +80,11 @@
 .window__popover {
   z-index: 1;
 }
+
+.modal__close {
+  fill: $accent-color;
+}
+
+.modal__delete {
+  max-width: fit-content;
+}

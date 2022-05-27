@@ -7,11 +7,12 @@ import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethoods';
 import { ErrorMessage } from '../../const/errorMesages';
+import { columnURL, taskURL } from '../../const/requestUrls';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { taskProps } from '../../models/task';
 import { deleteBoardSchema } from '../../schemas/boards';
-import { generateTaskBody, generateTaskURL } from '../../utils/dragAndDrop';
+import { generateTaskBody } from '../../utils/dragAndDrop';
 
 const formOptions = {
   schema: deleteBoardSchema,
@@ -46,13 +47,13 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
 
   async function deleteTask() {
     const taskData = await request({
-      url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}/tasks/${id}`,
+      url: taskURL(boardId, columnId, id),
       method: Methods.DELETE,
     });
 
     if (taskData) {
       updateColumn({
-        url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+        url: columnURL(boardId, columnId),
         method: Methods.GET,
       });
       setIsModalActive(false);
@@ -81,7 +82,7 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
     const dropTaskDescription = e.dataTransfer.getData('taskDescription');
     const dropColumnId = e.dataTransfer.getData('columnId');
     if (columnId === dropColumnId) {
-      const url = generateTaskURL(boardId, columnId, dropTaskId);
+      const url = taskURL(boardId, columnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
       await request({
         url,
@@ -94,7 +95,7 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
         },
       });
     } else {
-      const url = generateTaskURL(boardId, dropColumnId, dropTaskId);
+      const url = taskURL(boardId, dropColumnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
       await request({
         url,
@@ -108,7 +109,7 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
       });
     }
     updateColumn({
-      url: `${AppRoute.BOARDS}/${boardId}/columns/${columnId}`,
+      url: columnURL(boardId, columnId),
       method: Methods.GET,
     });
   }

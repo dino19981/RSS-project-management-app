@@ -36,7 +36,7 @@ export default function Registration() {
   };
 
   return (
-    <>
+    <div className="authentification">
       <Authentification
         formOptions={formOptions}
         buttonText="Зарегистрироваться"
@@ -47,6 +47,6 @@ export default function Registration() {
         loadingStatus={isLoading}
       />
       {isLoading && <Loader />}
-    </>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { formProps } from './form';
+import { modalProps } from './modal';
 
 export interface buttonWithModalFormProps {
   formOptions: formProps;
@@ -12,6 +13,7 @@ export interface buttonWithModalFormProps {
     formId?: string;
     isDisabled?: boolean;
   };
+  modalOptions?: modalProps;
   modalState: { isModalActive: boolean; setIsModalActive: (state: boolean) => void };
   submitBtnName: string;
   isError?: false | AxiosError;

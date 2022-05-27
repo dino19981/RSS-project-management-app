@@ -34,7 +34,7 @@ export default function UserNav({ authorizeStatus }: UserNavComponent) {
 
   const logout = () => {
     dispatch(deleteUserData());
-    navigate(AppRoute.MAIN);
+    navigate(AppRoute.WELCOME_PAGE);
   };
 
   return (

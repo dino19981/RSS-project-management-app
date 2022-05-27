@@ -21,7 +21,7 @@ export const navData = [
   },
   {
     title: 'Выйти',
-    path: AppRoute.LOGOUT,
+    path: '',
     isAuthorize: true,
     type: 'button',
   },

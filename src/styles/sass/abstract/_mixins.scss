@@ -21,13 +21,13 @@
   font-family: $title-font;
   font-weight: 500;
   color: $accent-color;
-  
+
   transition: all 0.5s;
 
   @media (min-width: 420px) {
     font-size: 18px;
   }
-  
+
   @media (min-width: $tablet-width) {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -110,9 +110,9 @@
 @mixin card-list {
   display: grid;
   grid-row-gap: 25px;
-  
+
   @include basic-list;
-  
+
   @media (min-width: $tablet-width) {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 20px;
@@ -125,7 +125,7 @@
 
 @mixin card-item {
   display: flex;
-  
+
   &:last-child {
     @media (min-width: $tablet-width) {
       position: relative;
@@ -155,9 +155,7 @@
   max-width: 360px;
 
   background-color: $basic-white;
-  box-shadow: 
-      0 14px 28px rgb(196 172 40 / 10%),
-      0 10px 10px rgb(0 0 0 / 10%);
+  box-shadow: 0 14px 28px rgb(196 172 40 / 10%), 0 10px 10px rgb(0 0 0 / 10%);
 
   border-radius: 24px;
 
@@ -169,5 +167,53 @@
     .team__item:nth-child(3) & {
       margin-left: 0;
     }
+  }
+}
+
+@mixin submit-button {
+  background-color: $accent-color;
+  padding: 10px 30px;
+  color: #ffffff;
+
+  &:hover {
+    border-color: #20567d;
+    background-color: #348bc9;
+  }
+  @media (max-width: $tablet-width) {
+    padding: 5px 15px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+}
+
+@mixin cancel-button {
+  color: $accent-color;
+  background-color: transparent;
+  border: 1px solid $accent-color;
+  padding: 10px 30px;
+
+  &:hover {
+    border-color: #20567d;
+    background-color: #8ecffd;
+    color: #20567d;
+  }
+  @media (max-width: $tablet-width) {
+    padding: 5px 15px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 16px;
+    padding: 2px 5px;
   }
 }

@@ -14,6 +14,7 @@ import { columSchema } from '../../../schemas/column';
 import { columnValues } from '../../../components/form/constants/initialValues';
 import { columnfields } from '../../../components/form/constants/fieldsOptions';
 import Column from '../../Column/Column';
+import { boardURL, columnsURL } from '../../../const/requestUrls';
 
 const formOptions = {
   schema: columSchema,
@@ -39,8 +40,8 @@ function Board() {
   const [isModalActive, setIsModalActive] = useState(false);
 
   const { data, isLoading, isError, request } = useAxios({
-    url: `${AppRoute.BOARDS}/${boardId}`,
-    method: Methods.GET,
+    url: boardURL(boardId),
+    method: 'get',
   });
 
   const board = data as TBoard;
@@ -54,17 +55,17 @@ function Board() {
   async function deleteBoardHandler(id: string | undefined) {
     if (id) {
       await request({
-        url: `${AppRoute.BOARDS}/${id}`,
+        url: boardURL(id),
         method: Methods.DELETE,
       });
-      navigate(AppRoute.BOARDS);
+      navigate(AppRoute.MAIN);
     }
   }
 
   async function createColumnHandler(values: fieldsType) {
     const body = { ...values };
     const columnsRequestOptions = {
-      url: `${AppRoute.BOARDS}/${boardId}${AppRoute.COLUMNS}`,
+      url: columnsURL(boardId),
       method: Methods.POST,
       data: body,
     };

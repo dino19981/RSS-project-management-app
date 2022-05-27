@@ -1,14 +1,9 @@
 .footer {
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 10px;
 
   display: flex;
   background-color: $basic-white;
-
-  @media (min-width: $tablet-width) {
-    padding-top: 40px;
-    padding-bottom: 30px;
-  }
 }
 
 .footer__container {
@@ -36,23 +31,22 @@
 
 .footer__gh-list {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
   margin: 0;
   margin-bottom: 10px;
-  
+
   width: auto;
   margin-left: auto;
   margin-right: auto;
-  
+
   padding: 0;
   list-style: none;
-  
+
   @media (min-width: $tablet-width) {
-    flex-direction: row;
     margin-bottom: 20px;
     margin-top: 20px;
-}
+  }
 
   @media (min-width: 990px) {
     grid-column-start: 2;
@@ -67,7 +61,7 @@
   margin-right: 25px;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 2px;
     top: 50%;
@@ -88,7 +82,7 @@
   position: relative;
   margin-right: 10px;
   z-index: 11;
-  
+
   .footer__author-link:hover & {
     fill: $dark-green;
   }
@@ -101,7 +95,7 @@
   padding-bottom: 10px;
 
   font-size: 21px;
-  
+
   transition: all 0.3s;
 
   &:hover .footer__member-name {
@@ -132,7 +126,7 @@
 }
 
 .footer__link {
-  @include nav-link
+  @include nav-link;
 }
 
 .footer__link--rss {
@@ -147,4 +141,3 @@
     margin-left: 0;
   }
 }
-

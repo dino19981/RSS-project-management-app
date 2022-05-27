@@ -9,6 +9,9 @@ import Board from './layouts/Boards/Board/Board';
 import Authorization from './views/authorization/Authorization';
 import Registration from './views/registration/Registration';
 import TaskEdit from './layouts/Task/TaskEdit';
+import AuthUser from './hocs/AuthUser';
+import UnknownUser from './hocs/UnknownUser';
+import EditUserProfile from './views/editUserProfile/EditUserProfile';
 
 function App() {
   return (
@@ -16,14 +19,71 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.MAIN} element={<MainLayout />}>
-            <Route index element={<MainPage />} />
-            <Route path={AppRoute.BOARDS} element={<Boards />} />
-            <Route path={AppRoute.BOARD} element={<Board />} />
-            <Route path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`} element={<Board />}>
-              <Route index element={<TaskEdit />} />
+            <Route
+              index
+              element={
+                <AuthUser>
+                  <Boards />
+                </AuthUser>
+              }
+            />
+            <Route
+              path={AppRoute.WELCOME_PAGE}
+              element={
+                <UnknownUser>
+                  <MainPage />
+                </UnknownUser>
+              }
+            />
+            <Route
+              path={AppRoute.BOARD}
+              element={
+                <AuthUser>
+                  <Board />
+                </AuthUser>
+              }
+            />
+            <Route
+              path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`}
+              element={
+                <AuthUser>
+                  <Board />
+                </AuthUser>
+              }
+            >
+              <Route
+                index
+                element={
+                  <AuthUser>
+                    <TaskEdit />
+                  </AuthUser>
+                }
+              />
             </Route>
-            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-            <Route path={AppRoute.LOGIN} element={<Authorization />} />
+            <Route
+              path={AppRoute.REGISTRATION}
+              element={
+                <UnknownUser redirectTo={AppRoute.MAIN}>
+                  <Registration />
+                </UnknownUser>
+              }
+            />
+            <Route
+              path={AppRoute.LOGIN}
+              element={
+                <UnknownUser redirectTo={AppRoute.MAIN}>
+                  <Authorization />
+                </UnknownUser>
+              }
+            />
+            <Route
+              path={AppRoute.EDIT_PROFILE}
+              element={
+                <AuthUser>
+                  <EditUserProfile />
+                </AuthUser>
+              }
+            />
             <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
             <Route path="*" element={<Navigate replace to={AppRoute.NOT_FOUND_PAGE} />} />
           </Route>

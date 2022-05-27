@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -8,8 +8,8 @@ import Loader from '../../../components/loader/loader';
 import { deleteBoardfields } from '../../../components/form/constants/fieldsOptions';
 import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
-import { AppRoute } from '../../../const/routes';
 import { ErrorMessage } from '../../../const/errorMesages';
+import { boardURL } from '../../../const/requestUrls';
 
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
@@ -35,7 +35,7 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
 
   async function deleteBoard() {
     const deleteOptions = {
-      url: `${AppRoute.BOARDS}/${id}`,
+      url: boardURL(id),
       method: Methods.DELETE,
     };
     const deleteData = await request(deleteOptions);
@@ -52,7 +52,7 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
 
   return (
     <div className="board_preview">
-      <Link to={`${AppRoute.BOARDS}/${id}`} className="board_preview__link">
+      <Link to={boardURL(id)} className="board_preview__link">
         <div className="board_preview_title">{title}</div>
         {taskCount && <div className="board_preview__task-count">Total tasks: {taskCount}</div>}
       </Link>
