@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
@@ -11,28 +10,14 @@ import { Methods } from '../../../const/APIMethoods';
 import { AppRoute } from '../../../const/routes';
 import { ErrorMessage } from '../../../const/errorMesages';
 
-function calculateTask(columns: TColumn[] | undefined) {
-  if (columns === undefined) return null;
-  let tasks = 0;
-  console.log('columns:');
-  columns.map((col) => {
-    if (col.tasks) {
-      tasks += col.tasks.length;
-    }
-  });
-  return tasks;
-}
-
 const formOptions = {
   schema: deleteBoardSchema,
   fields: deleteBoardfields,
 };
 
-function BoardPreview({ id, title, columns, description, updateBoards }: boardPreviewProps) {
+function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
-
-  const taskCount = calculateTask(columns);
 
   async function deleteBoard() {
     const deleteOptions = {
@@ -51,18 +36,15 @@ function BoardPreview({ id, title, columns, description, updateBoards }: boardPr
     title,
   };
 
-  console.log('taskcount:', taskCount);
-
   return (
     <article className="board-preview">
       <Link to={`${AppRoute.BOARDS}/${id}`} className="board-preview__link">
         <h2 className="board-preview__title">{title}</h2>
-        {taskCount && <div className="board-preview__task-count">Total tasks: {taskCount}</div>}
       </Link>
       <p className="board-preview__description">{description}</p>
       <ButtonWithModalForm
         modalState={{ isModalActive, setIsModalActive }}
-        buttonOptions={{ text: 'delete' }}
+        buttonOptions={{ btnClass: 'board-preview__delete-btn', text: 'Удалить' }}
         submitBtnName="OK"
         formOptions={{
           ...formOptions,
