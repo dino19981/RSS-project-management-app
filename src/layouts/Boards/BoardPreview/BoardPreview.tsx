@@ -5,11 +5,10 @@ import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonW
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
-import { deleteBoardfields } from '../../../components/form/constants/fieldsOptions';
-import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
 import { ErrorMessage } from '../../../const/errorMesages';
 import { boardURL } from '../../../const/requestUrls';
+import { useTranslation } from 'react-i18next';
 
 function calculateTask(columns: TColumn[] | undefined) {
   if (columns === undefined) return null;
@@ -22,12 +21,8 @@ function calculateTask(columns: TColumn[] | undefined) {
   return tasks;
 }
 
-const formOptions = {
-  schema: deleteBoardSchema,
-  fields: deleteBoardfields,
-};
-
 function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
+  const { t } = useTranslation();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -46,10 +41,6 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
     }
   }
 
-  const initialValues = {
-    title,
-  };
-
   return (
     <div className="board_preview">
       <Link to={boardURL(id)} className="board_preview__link">
@@ -59,13 +50,10 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
       <div className="board_preview_footer">
         <ButtonWithModalForm
           modalState={{ isModalActive, setIsModalActive }}
+          modalOptions={{ submitHandler: deleteBoard, contentWrapperClassName: 'modal__delete' }}
           buttonOptions={{ text: 'delete' }}
-          submitBtnName="OK"
-          formOptions={{
-            ...formOptions,
-            initialValues,
-            onSubmit: deleteBoard,
-          }}
+          submitBtnName={t('buttons.delete')}
+          questionText={`${t('board.delete_board_message')} ${title}?`}
           isError={isError}
           errorText={ErrorMessage.SERVER_ERROR}
         />

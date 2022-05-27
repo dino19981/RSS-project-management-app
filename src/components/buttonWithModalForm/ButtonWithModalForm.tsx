@@ -12,6 +12,7 @@ export default function ButtonWithModalForm({
   submitBtnName,
   errorText,
   isError,
+  questionText,
 }: buttonWithModalFormProps) {
   const { isModalActive, setIsModalActive } = modalState;
 
@@ -35,7 +36,8 @@ export default function ButtonWithModalForm({
           isError={isError}
           errorText={errorText}
         >
-          <Form formId="modalForm" {...formOptions}></Form>
+          {questionText && <p className="confirmation__text">{questionText}</p>}
+          {formOptions && <Form formId="modalForm" {...formOptions} />}
         </Modal>
       )}
     </>

@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
-import { deleteTaskfields } from '../../components/form/constants/fieldsOptions';
-import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethoods';
 import { ErrorMessage } from '../../const/errorMesages';
 import { columnURL, taskURL } from '../../const/requestUrls';
-import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { taskProps } from '../../models/task';
-import { deleteBoardSchema } from '../../schemas/boards';
 import { generateTaskBody } from '../../utils/dragAndDrop';
-
-const formOptions = {
-  schema: deleteBoardSchema,
-  fields: deleteTaskfields,
-};
 
 function dragStart(
   e: React.DragEvent<HTMLDivElement>,
@@ -39,6 +31,7 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
 }
 
 function Task({ id, title, description, columnId, updateColumn, userId, order }: taskProps) {
+  const { t } = useTranslation();
   const { boardId } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -140,16 +133,13 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
         <Modal
           formId="modalForm"
           handleCloseModal={closeDeleteModal}
-          submitBtnName="Удалить"
+          contentWrapperClassName="modal__delete"
+          submitBtnName={t('buttons.delete')}
+          submitHandler={deleteTask}
           isError={isError}
           errorText={ErrorMessage.SERVER_ERROR}
         >
-          <Form
-            formId="modalForm"
-            {...formOptions}
-            initialValues={{ title }}
-            onSubmit={deleteTask}
-          />
+          <p className="confirmation__text">{`${t('task.delete_task_message')} ${title}?`}</p>
         </Modal>
       )}
     </>

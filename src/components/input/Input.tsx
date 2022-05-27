@@ -21,7 +21,7 @@ export default function Input({
   const inputClassName = isHaveError ? `${inputClass} input__invalid` : inputClass;
   return (
     <label className={labelClass}>
-      {t(`${labelText}`) || ''}
+      {t(`${labelText || ''}`)}
       <input
         onChange={onChange}
         onBlur={onBlur}

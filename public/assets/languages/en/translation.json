@@ -2,7 +2,11 @@
   "buttons": {
     "sign_out": "Sign out",
     "sign_in": "Sign in",
-    "sign_up": "Sign up"
+    "sign_up": "Sign up",
+    "delete_profile": "Delete profile",
+    "save": "Save",
+    "delete": "Delete",
+    "close": "Close"
   },
   "labels": {
     "login": "Login",
@@ -31,5 +35,16 @@
   },
   "sign_up": {
     "is_have_login_text": "Already registered?"
+  },
+  "edit_profile": {
+    "title": "Editing a profile",
+    "saved_data": "The data has been saved successfully!",
+    "delete_profile_message": "Do you really want to delete a profile"
+  },
+  "board": {
+    "delete_board_message": "Do you really want to delete a board"
+  },
+  "task": {
+    "delete_task_message": "Do you really want to delete a task"
   }
 }

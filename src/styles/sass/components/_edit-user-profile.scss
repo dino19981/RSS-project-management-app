@@ -116,9 +116,4 @@
   &__save-button {
     @include submit-button;
   }
-
-  &__delete-text {
-    text-align: center;
-    margin-bottom: 50px;
-  }
 }
