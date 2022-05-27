@@ -7,6 +7,8 @@ import { newBoardValues } from '../../components/form/constants/initialValues';
 import { newBoardFields } from '../../components/form/constants/fieldsOptions';
 import { Methods } from '../../const/APIMethoods';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../loader/loader';
+import { ErrorMessage } from '../../const/errorMesages';
 
 const formOptions = {
   schema: newBoardSchema,
@@ -23,7 +25,7 @@ const icon = (
 export default function CreateBoard() {
   const [isModalActive, setIsModalActive] = useState(false);
   const navigate = useNavigate();
-  const { request } = useAxios({}, { dontFetchAtMount: true });
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
   async function createBoardHandler(values: typeof newBoardSchema) {
     const requestOptions = {
@@ -36,6 +38,8 @@ export default function CreateBoard() {
       const {
         data: { id },
       } = data;
+      console.log(id);
+
       setIsModalActive(false);
       navigate(`${AppRoute.BOARDS}/${id}`);
     }
@@ -49,11 +53,14 @@ export default function CreateBoard() {
         btnClass: 'btn-new-board',
         text: 'Создать новую доску',
         icon,
+        isDisabled: isLoading,
       }}
       formOptions={{
         ...formOptions,
         onSubmit: createBoardHandler,
       }}
+      isError={isError}
+      errorText={ErrorMessage.SERVER_ERROR}
     />
   );
 }

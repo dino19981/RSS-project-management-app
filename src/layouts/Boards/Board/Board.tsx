@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -44,6 +44,12 @@ function Board() {
   });
 
   const board = data as TBoard;
+
+  useEffect(() => {
+    if (data) {
+      request();
+    }
+  }, [boardId]);
 
   async function deleteBoardHandler(id: string | undefined) {
     if (id) {
