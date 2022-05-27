@@ -33,8 +33,8 @@ export default function UserNav({ authorizeStatus }: UserNavComponent) {
   const renderNavData = navData.filter(({ isAuthorize }) => isAuthorize === authorizeStatus);
 
   const logout = () => {
-    navigate(AppRoute.MAIN);
     dispatch(deleteUserData());
+    navigate(AppRoute.MAIN);
   };
 
   return (
