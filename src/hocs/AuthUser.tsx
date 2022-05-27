@@ -9,5 +9,5 @@ export default function AuthRequired({ children }: { children: React.ReactNode }
     return <Navigate to={AppRoute.NOT_FOUND_PAGE} />;
   }
 
-  return { children };
+  return <>{children}</>;
 }
