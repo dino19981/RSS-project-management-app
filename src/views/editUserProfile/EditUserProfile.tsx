@@ -98,7 +98,7 @@ export default function EditUserProfile() {
     <div className="edit-profile">
       <div className="edit-profile__inner">
         {isError && <p className="authentification__error">{ErrorMessage.SERVER_ERROR}</p>}
-        <h4 className="edit-profile__title">Редактирвоание профиля</h4>
+        <h4 className="edit-profile__title">Редактирование профиля</h4>
         <Form {...updateUserFormOptions} />
 
         {isShowSaveMessage && (

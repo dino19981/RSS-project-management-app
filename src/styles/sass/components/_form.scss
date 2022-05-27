@@ -1,9 +1,45 @@
-form {
-  ul {
-    padding: 0;
-    margin: 0;
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form__list {
+  @include basic-list;
+}
+
+.form__item {
+  position: relative;
+  padding-bottom: 15px;
+  margin-bottom: 5px;
+
+  &:last-child {
+    margin-bottom: 0;
   }
-  li {
-    list-style-type: none;
+
+  @media (min-width: $tablet-width) {
+    padding-bottom: 18px;
+  }
+}
+
+.form__label {
+  @include regular-text;
+}
+
+.form__input {
+  @include regular-text;
+}
+
+.form__error-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  font-family: $main-font;
+  font-size: 14px;
+  font-weight: 300;
+  color: tomato;
+
+  @media (min-width: $tablet-width) {
+    font-size: 18px;
   }
 }
