@@ -1,13 +1,13 @@
 import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
 import { Methods } from '../../const/APIMethoods';
-import { AppRoute } from '../../const/routes';
+import { boardsURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TBoard } from '../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 
 function Boards() {
   const { data, isLoading, isError, request } = useAxios({
-    url: AppRoute.BOARDS,
+    url: boardsURL(),
     method: Methods.GET,
   });
 

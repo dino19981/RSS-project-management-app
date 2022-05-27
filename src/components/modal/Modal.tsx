@@ -7,6 +7,7 @@ export default function Modal({
   formId,
   children,
   handleCloseModal,
+  submitHandler,
   submitBtnName,
   isError,
   errorText,
@@ -44,8 +45,14 @@ export default function Modal({
 
           {!isDontShowFooter && (
             <div className="modal__footer">
-              <Button handler={handleCloseModal} text="Закрыть" />
-              <Button type="submit" formId={formId} text={submitBtnName} />
+              <Button btnClass="button__cancel" handler={handleCloseModal} text="Закрыть" />
+              <Button
+                handler={submitHandler}
+                btnClass="button__submit"
+                type="submit"
+                formId={formId}
+                text={submitBtnName}
+              />
             </div>
           )}
         </div>

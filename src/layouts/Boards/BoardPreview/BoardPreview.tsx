@@ -7,8 +7,8 @@ import Loader from '../../../components/loader/loader';
 import { deleteBoardFields } from '../../../components/form/constants/fieldsOptions';
 import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
-import { AppRoute } from '../../../const/routes';
 import { ErrorMessage } from '../../../const/errorMesages';
+import { boardURL } from '../../../const/requestUrls';
 
 const formOptions = {
   schema: deleteBoardSchema,
@@ -21,7 +21,7 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
 
   async function deleteBoard() {
     const deleteOptions = {
-      url: `${AppRoute.BOARDS}/${id}`,
+      url: boardURL(id),
       method: Methods.DELETE,
     };
     const deleteData = await request(deleteOptions);
@@ -38,7 +38,7 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
 
   return (
     <article className="board-preview">
-      <Link to={`${AppRoute.BOARDS}/${id}`} className="board-preview__link">
+      <Link to={boardURL(id)} className="board-preview__link">
         <h2 className="board-preview__title">{title}</h2>
       </Link>
       <p className="board-preview__description">{description}</p>

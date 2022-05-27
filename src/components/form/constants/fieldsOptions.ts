@@ -3,27 +3,33 @@ import { ErrorMessage } from '../../../const/errorMesages';
 export const autorizationFields = [
   {
     name: 'login',
-    labelText: 'Логин',
+    labelText: 'labels.login',
     errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3,
   },
   {
     name: 'password',
-    labelText: 'Пароль',
+    labelText: 'labels.password',
     type: 'password',
     errorMessage: ErrorMessage.MIN_LENGTH_5,
   },
 ];
 
 export const registrationFields = [
-  { name: 'name', labelText: 'Имя', errorMessage: 'Максимальная длина 15 символов' },
-  { name: 'login', labelText: 'Логин', errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3 },
+  { name: 'name', labelText: 'labels.name', errorMessage: 'Максимальная длина 15 символов' },
+  {
+    name: 'login',
+    labelText: 'labels.login',
+    errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3,
+  },
   {
     name: 'password',
-    labelText: 'Пароль',
+    labelText: 'labels.password',
     type: 'password',
     errorMessage: ErrorMessage.MIN_LENGTH_5,
   },
 ];
+
+export const editProfileFields = registrationFields;
 
 export const deleteBoardFields = [
   {
@@ -43,6 +49,15 @@ export const deleteTaskfields = [
 
 export const columnfields = [
   { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
+];
+
+export const newBoardFields = [
+  { name: 'title', errorMessage: 'Название обязательно', placeholder: 'Введите название доски' },
+  {
+    name: 'description',
+    errorMessage: 'Описание обязательно',
+    placeholder: 'Введите описание доски',
+  },
 ];
 
 export const createTaskFields = [

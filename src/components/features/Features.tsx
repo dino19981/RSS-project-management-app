@@ -1,7 +1,10 @@
+import { useTranslation } from 'react-i18next';
+
 export default function Features() {
+  const { t } = useTranslation();
   return (
     <section className="features">
-      <h2 className="features__title">Преимущества</h2>
+      <h2 className="features__title">{t('welcome.advantages')}</h2>
       <ul className="features__list">
         <li className="features__item">
           <article className="feature">

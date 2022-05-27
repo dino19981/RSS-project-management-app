@@ -54,10 +54,10 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  
+
   padding: 0;
   list-style: none;
-  
+
   @media (min-width: $tablet-width) {
     flex-direction: row;
   }
@@ -75,7 +75,7 @@
   margin-right: 25px;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     left: 2px;
     top: 50%;
@@ -96,7 +96,7 @@
   position: relative;
   margin-right: 10px;
   z-index: 11;
-  
+
   .footer__author-link:hover & {
     fill: $dark-green;
   }
@@ -109,7 +109,7 @@
   padding-bottom: 10px;
 
   font-size: 21px;
-  
+
   transition: all 0.3s;
 
   &:hover .footer__member-name {
@@ -141,7 +141,7 @@
 }
 
 .footer__link {
-  @include nav-link
+  @include nav-link;
 }
 
 .footer__link--rss {
@@ -167,4 +167,3 @@
     height: auto;
   }
 }
-

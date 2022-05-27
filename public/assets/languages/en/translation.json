@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "sign_out": "Sign out",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up"
+  },
+  "labels": {
+    "login": "Login",
+    "password": "Password",
+    "name": "Name"
+  },
+  "header": {
+    "create_new_board": "Create new board",
+    "en": "Eng",
+    "ru": "Rus",
+    "edit_profile": "Edit profile"
+  },
+  "welcome": {
+    "head_title": "Masterfully manage projects!",
+    "head_text": "Free application for teamwork on projects",
+    "start": "Start",
+    "advantages": "Advantages",
+    "Artem": "Artem",
+    "Roman": "Roman",
+    "Dmitry": "Dmitry",
+    "team": "Our team"
+  },
+  "sign_in": {
+    "no_register_text": "Not registered yet?",
+    "create_account": "Create account"
+  },
+  "sign_up": {
+    "is_have_login_text": "Already registered?"
+  }
+}

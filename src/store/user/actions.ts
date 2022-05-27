@@ -1,3 +1,3 @@
 import userSlice from './reducer';
 
-export const { setUserData, deleteUserData } = userSlice.actions;
+export const { setUserData, deleteUserData, updateUserData, setAuthorizeUser } = userSlice.actions;

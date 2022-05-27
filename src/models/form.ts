@@ -1,4 +1,5 @@
 import { buttonProps } from './button';
+import { updatedUserInfo, userIdType } from './user';
 import {
   autorizationSchemaType,
   registrationSchemaType,
@@ -8,6 +9,7 @@ import {
   TDeleteBoard,
   TTaskCreateSchema,
 } from './schemas';
+import { modalProps } from './modal';
 
 export interface formProps {
   schema: fieldsType;
@@ -43,4 +45,6 @@ export type fieldsType =
   | TColumnUpdateSchema
   | TTaskCreateSchema
   | TDeleteBoard
-  | uploadFile;
+  | updatedUserInfo
+  | uploadFile
+  | userIdType;
