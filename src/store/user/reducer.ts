@@ -19,6 +19,7 @@ const userSlice = createSlice({
       state.name = payload.name;
     },
     deleteUserData: (state) => {
+      localStorage.removeItem('token');
       state.authorizeStatus = false;
       state.id = '';
       state.login = '';
