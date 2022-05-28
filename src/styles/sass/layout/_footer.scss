@@ -25,15 +25,14 @@
 .footer__member-name {
   color: $basic-white;
   transition: all 0.3s;
+  font-family: $main-font;
   font-weight: 400;
   color: $dark-green;
-  
-  @include regular-text;
 
-  font-size: 14px;
+  font-size: 16px;
 
   @media (min-width: $tablet-width) {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   @media (min-width: $desktop-width) {
@@ -62,7 +61,7 @@
     flex-direction: row;
   }
 
-  @media (min-width: 990px) {
+  @media (min-width: $desktop-width) {
     grid-column-start: 2;
     grid-column-end: 3;
     margin-bottom: auto;
@@ -131,7 +130,7 @@
   margin-right: 0;
   margin-bottom: 15px;
 
-  @media (min-width: 990px) {
+  @media (min-width: $desktop-width) {
     grid-column-start: 3;
     grid-column-end: 4;
     margin-bottom: auto;
