@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { createTaskFields } from '../../components/form/constants/fieldsOptions';
 import { createTaskValues } from '../../components/form/constants/initialValues';
+import Input from '../../components/input/Input';
 import Loader from '../../components/loader/loader';
 import { Methods } from '../../const/APIMethoods';
 import { ErrorMessage } from '../../const/errorMesages';
 import { columnURL, tasksURL } from '../../const/requestUrls';
-import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn, TColumnProps } from '../../models/column';
 import { TGetBoardTask } from '../../models/task';
@@ -16,6 +16,7 @@ import { createTaskSchema } from '../../schemas/task';
 import { useAppSelector } from '../../store/hooks';
 import EmptyTaskPreview from '../Task/EmptyTaskPreview';
 import Task from '../Task/Task';
+import { string } from 'yup';
 
 const formOptions = {
   schema: createTaskSchema,
@@ -92,7 +93,7 @@ function Column({ id: columnId, title, tasks, order, updateHandler }: TColumnPro
   }
 
   const actualTasks = getActualTasks(columnData, tasks);
-
+  const pattern: string = string().min(2).required();
   return (
     <div
       className="column-preview"
@@ -101,7 +102,8 @@ function Column({ id: columnId, title, tasks, order, updateHandler }: TColumnPro
       onDragStart={(e) => dragStart(e, columnId, title)}
       onDrop={(e) => dropHandler(e)}
     >
-      <div className="column-preview_title">{title}</div>
+      {/* <Input className="column-preview_title">{title}</Input> */}
+      <input pattern={pattern} defaultValue={title}></input>
       {actualTasks.map((task) => {
         return <Task key={task.id} {...task} columnId={columnId} updateColumn={request} />;
       })}
