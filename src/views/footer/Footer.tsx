@@ -1,3 +1,4 @@
+import { githubIcon } from '../../components/icons/Icons';
 import { teamMembers } from '../../const/teamData';
 
 export default function Footer() {
@@ -8,9 +9,7 @@ export default function Footer() {
           {teamMembers.map(({ id, name }) => (
             <li key={id} className="footer__gh-item">
               <a className="footer__author-link" href="https://github.com/Romnasi">
-                <svg className="footer__gh-icon" width="20" height="20">
-                  <use xlinkHref="#github-icon" />
-                </svg>
+                {githubIcon}
                 <span className="footer__member-name">{name}</span>
               </a>
             </li>

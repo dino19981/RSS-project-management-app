@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import { deleteTaskfields } from '../../components/form/constants/fieldsOptions';
 import Form from '../../components/form/Form';
+import { deleteIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethoods';
@@ -125,15 +126,7 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
         onDrop={(e) => dropHandler(e)}
       >
         <div className="task__link">{title}</div>
-        <Button
-          handler={openDeleteModal}
-          btnClass="task__delete_btn"
-          icon={
-            <svg>
-              <use xlinkHref="#delete-icon" />
-            </svg>
-          }
-        />
+        <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
         {isLoading && <Loader />}
       </div>
       {isModalActive && (

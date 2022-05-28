@@ -10,7 +10,7 @@ export default function Popover({ reference, placement, children, onClose }: pop
 
   return (
     <Portal>
-      <ClickOutside refference={popper} onClickOutside={onClose}>
+      <ClickOutside onClickOutside={onClose}>
         <div
           className="window__popover"
           ref={setPopper}

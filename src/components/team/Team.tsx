@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { teamMembers } from '../../const/teamData';
+import { logoIcon } from '../icons/Icons';
 
 export default function Team() {
   const { t } = useTranslation();
@@ -27,15 +28,7 @@ export default function Team() {
 
               <a className="team__member-link" href={ghLink} title="Посмотреть Github аккаунт">
                 <span className="visually-hidden">Ссылка на гитхаб</span>
-                <svg
-                  className="team__gh-icon"
-                  width="40"
-                  height="40"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1024 1024"
-                >
-                  <use xlinkHref="#github-icon" />
-                </svg>
+                {logoIcon}
               </a>
             </article>
           </li>

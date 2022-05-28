@@ -10,18 +10,13 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../loader/loader';
 import { ErrorMessage } from '../../const/errorMesages';
 import { useTranslation } from 'react-i18next';
+import { newBoardIcon } from '../icons/Icons';
 
 const formOptions = {
   schema: newBoardSchema,
   initialValues: newBoardValues,
   fields: newBoardFields,
 };
-
-const icon = (
-  <svg className="btn-new-board__icon" width="24" height="24">
-    <use xlinkHref="#create-icon" />
-  </svg>
-);
 
 export default function CreateBoard() {
   const { t } = useTranslation();
@@ -54,7 +49,7 @@ export default function CreateBoard() {
       buttonOptions={{
         btnClass: 'btn-new-board',
         text: t('header.create_new_board'),
-        icon,
+        icon: newBoardIcon,
         isDisabled: isLoading,
       }}
       formOptions={{
