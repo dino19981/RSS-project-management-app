@@ -95,8 +95,8 @@ export default function EditUserProfile() {
   };
 
   return (
-    <div className="edit-profile">
-      <div className="edit-profile__inner">
+    <section className="edit-profile">
+      <div className="edit-profile__wrapper">
         {isError && <p className="authentification__error">{ErrorMessage.SERVER_ERROR}</p>}
         <h4 className="edit-profile__title">Редактирование профиля</h4>
         <Form {...updateUserFormOptions} />
@@ -131,6 +131,6 @@ export default function EditUserProfile() {
         )}
         {isLoading && <Loader />}
       </div>
-    </div>
+    </section>
   );
 }
