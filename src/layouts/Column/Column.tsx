@@ -5,7 +5,7 @@ import { createTaskFields } from '../../components/form/constants/fieldsOptions'
 import { createTaskValues } from '../../components/form/constants/initialValues';
 import Loader from '../../components/loader/loader';
 import { Methods } from '../../const/APIMethoods';
-import { ErrorMessage } from '../../const/errorMesages';
+import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, tasksURL } from '../../const/requestUrls';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';

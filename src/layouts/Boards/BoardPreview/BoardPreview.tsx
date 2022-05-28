@@ -7,7 +7,7 @@ import Loader from '../../../components/loader/loader';
 import { deleteBoardFields } from '../../../components/form/constants/fieldsOptions';
 import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
-import { ErrorMessage } from '../../../const/errorMesages';
+import { ErrorMessage } from '../../../const/errorMessage';
 import { boardURL } from '../../../const/requestUrls';
 
 const formOptions = {

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { autorizationFields } from '../../components/form/constants/fieldsOptions';
+import { authorizationFields } from '../../components/form/constants/fieldsOptions';
 import { autorizationValues } from '../../components/form/constants/initialValues';
 import Loader from '../../components/loader/loader';
 import { AppRoute } from '../../const/routes';
@@ -41,7 +41,7 @@ export default function Autorization() {
   const formOptions = {
     schema: autorizationSchema,
     initialValues: autorizationValues,
-    fields: autorizationFields,
+    fields: authorizationFields,
     formId: 'autorization',
     onSubmit: signIn,
     formClassName: 'authentification__form',

@@ -1,6 +1,6 @@
-import { ErrorMessage } from '../../../const/errorMesages';
+import { ErrorMessage } from '../../../const/errorMessage';
 
-export const autorizationFields = [
+export const authorizationFields = [
   {
     name: 'login',
     labelText: 'labels.login',
@@ -30,6 +30,14 @@ export const registrationFields = [
 ];
 
 export const editProfileFields = registrationFields;
+
+export const deleteUserProfile = [
+  {
+    name: 'login',
+    labelText: 'Действительно удалить пользователя?',
+    isdisabled: true,
+  },
+];
 
 export const deleteBoardFields = [
   {
