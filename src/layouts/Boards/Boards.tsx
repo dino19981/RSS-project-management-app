@@ -17,7 +17,6 @@ function Boards() {
       <ul className="boards__list">
         <ProcessingWrapper isLoading={isLoading} isError={isError} errortext="error">
           {boards?.map((board) => {
-            console.log('board', board);
             return (
               <li className="boards__item" key={board.id}>
                 <BoardPreview {...board} updateBoards={request} />

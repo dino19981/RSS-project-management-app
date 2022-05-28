@@ -31,7 +31,7 @@ export default function Input({
         name={name}
         defaultChecked={checked}
         placeholder={placeholder}
-        className={`form__input ${inputClassName}`}
+        className={`form__input ${inputClassName || ''}`}
         type={type || 'text'}
         disabled={isdisabled}
         defaultValue={defaultValue}
