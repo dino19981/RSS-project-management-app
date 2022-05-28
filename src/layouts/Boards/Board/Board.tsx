@@ -92,43 +92,38 @@ function Board() {
     return <p className="board__error">Не удалось загрузить колонки</p>;
   }
 
+  const createColumnOptions = {
+    submitBtnName: 'Создать колонку',
+    modalState: {
+      isModalActive: isCreateColumnModalActive,
+      setIsModalActive: setCreateColumnIsModalActive,
+    },
+    modalOptions: { contentWrapperClassName: 'board__create-column' },
+    buttonOptions: { btnClass: 'column_create__btn', text: 'Создать колонку' },
+    formOptions: { ...formOptions, onSubmit: createColumnHandler },
+    isError: maxColumnCountError,
+    errorText: t('error_messages.max_columns_count'),
+  };
+
+  const deleteBoardOptions = {
+    modalState: {
+      isModalActive: isDeleteBoardModalActive,
+      setIsModalActive: setDeleteBoardIsModalActive,
+    },
+    modalOptions: { submitHandler: deleteBoardHandler, contentWrapperClassName: 'modal__delete' },
+    buttonOptions: { text: t('buttons.delete_board') },
+    submitBtnName: t('buttons.delete'),
+    questionText: `$t('board.delete_board_message'), $board?.title,?`,
+    isError: isError,
+    errorText: ErrorMessage.SERVER_ERROR,
+  };
+
   return (
     <section className="board">
       <h1 className="board__title">{board && board.title}</h1>
       <div className="board__menu">
-        <ButtonWithModalForm
-          submitBtnName="Создать колонку"
-          modalState={{
-            isModalActive: isCreateColumnModalActive,
-            setIsModalActive: setCreateColumnIsModalActive,
-          }}
-          modalOptions={{ contentWrapperClassName: 'board__create-column' }}
-          buttonOptions={{
-            btnClass: 'column_create__btn',
-            text: 'Создать колонку',
-          }}
-          formOptions={{
-            ...formOptions,
-            onSubmit: createColumnHandler,
-          }}
-          isError={maxColumnCountError}
-          errorText={t('error_messages.max_columns_count')}
-        />
-        <ButtonWithModalForm
-          modalState={{
-            isModalActive: isDeleteBoardModalActive,
-            setIsModalActive: setDeleteBoardIsModalActive,
-          }}
-          modalOptions={{
-            submitHandler: deleteBoardHandler,
-            contentWrapperClassName: 'modal__delete',
-          }}
-          buttonOptions={{ text: t('buttons.delete_board') }}
-          submitBtnName={t('buttons.delete')}
-          questionText={`${t('board.delete_board_message')} ${board?.title}?`}
-          isError={isError}
-          errorText={ErrorMessage.SERVER_ERROR}
-        />
+        <ButtonWithModalForm {...createColumnOptions} />
+        <ButtonWithModalForm {...deleteBoardOptions} />
       </div>
       {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
       {isLoading && <Loader />}

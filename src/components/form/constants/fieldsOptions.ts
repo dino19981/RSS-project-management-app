@@ -39,6 +39,13 @@ export const columnfields = [
   },
 ];
 
+export const editColumnFields = [
+  {
+    name: 'title',
+    placeholder: 'placeholders.column_title',
+  },
+];
+
 export const newBoardFields = [
   {
     name: 'title',

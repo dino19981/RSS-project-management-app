@@ -51,7 +51,6 @@
 
     input {
       margin: 0;
-      border: none;
     }
   }
 
@@ -65,8 +64,4 @@
   .loading-screen__spinner {
     max-width: 20px;
   }
-}
-
-.column__form-wrapper {
-  border-right: 1px solid #0000001a;
 }

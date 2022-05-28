@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import { columnfields, createTaskFields } from '../../components/form/constants/fieldsOptions';
+import {
+  columnfields,
+  createTaskFields,
+  editColumnFields,
+} from '../../components/form/constants/fieldsOptions';
 import { createTaskValues } from '../../components/form/constants/initialValues';
 import Form from '../../components/form/Form';
 import { checkIcon, closeIcon, deleteIcon } from '../../components/icons/Icons';
@@ -207,7 +211,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
               <Form
                 schema={columSchema}
                 initialValues={{ title }}
-                fields={columnfields}
+                fields={editColumnFields}
                 formId="editTitle"
                 onSubmit={updateTitle}
               />
