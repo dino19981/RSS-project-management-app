@@ -11,6 +11,9 @@
     "password": "Password",
     "name": "Name"
   },
+  "error_messages": {
+    "max_columns_count": "Maximum number of columns created"
+  },
   "header": {
     "create_new_board": "Create new board",
     "en": "Eng",

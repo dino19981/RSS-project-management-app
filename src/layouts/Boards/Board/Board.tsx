@@ -15,6 +15,7 @@ import { columnValues } from '../../../components/form/constants/initialValues';
 import { columnfields } from '../../../components/form/constants/fieldsOptions';
 import Column from '../../Column/Column';
 import { boardURL, columnsURL } from '../../../const/requestUrls';
+import { useTranslation } from 'react-i18next';
 
 const formOptions = {
   schema: columSchema,
@@ -35,9 +36,11 @@ function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>)
 }
 
 function Board() {
+  const { t } = useTranslation();
   const { boardId } = useParams();
   const navigate = useNavigate();
   const [isModalActive, setIsModalActive] = useState(false);
+  const [maxColumnCountError, setMaxColumnCountError] = useState(false);
 
   const { data, isLoading, isError, request } = useAxios({
     url: boardURL(boardId),
@@ -63,6 +66,10 @@ function Board() {
   }
 
   async function createColumnHandler(values: fieldsType) {
+    if (board.columns.length === 5) {
+      setMaxColumnCountError(true);
+      return;
+    }
     const body = { ...values };
     const columnsRequestOptions = {
       url: columnsURL(boardId),
@@ -89,6 +96,7 @@ function Board() {
         <ButtonWithModalForm
           submitBtnName="Создать колонку"
           modalState={{ isModalActive, setIsModalActive }}
+          modalOptions={{ contentWrapperClassName: 'board__create-column' }}
           buttonOptions={{
             btnClass: 'column_create__btn',
             text: 'Создать колонку',
@@ -96,8 +104,9 @@ function Board() {
           formOptions={{
             ...formOptions,
             onSubmit: createColumnHandler,
-            buttonOptions: {},
           }}
+          isError={maxColumnCountError}
+          errorText={t('error_messages.max_columns_count')}
         />
         <button type="button" onClick={() => deleteBoardHandler(boardId)}>
           Удалить доску

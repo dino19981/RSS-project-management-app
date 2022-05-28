@@ -11,6 +11,9 @@
     "password": "Пароль",
     "name": "Имя"
   },
+  "error_messages": {
+    "max_columns_count": "Создано максимальное количество столбцов"
+  },
   "header": {
     "create_new_board": "Создать новую доску",
     "en": "Анг",

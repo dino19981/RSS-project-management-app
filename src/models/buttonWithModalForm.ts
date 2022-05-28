@@ -16,6 +16,6 @@ export interface buttonWithModalFormProps {
   modalOptions?: modalProps;
   modalState: { isModalActive: boolean; setIsModalActive: (state: boolean) => void };
   submitBtnName: string;
-  isError?: false | AxiosError;
+  isError?: false | AxiosError | boolean;
   errorText?: string;
 }
