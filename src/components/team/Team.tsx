@@ -23,6 +23,7 @@ export default function Team() {
                 />
               </div>
 
+              <span className="team__work-title">Роль в проекте</span>
               <p className="team__work">{work}</p>
 
               <a className="team__member-link" href={ghLink} title="Посмотреть Github аккаунт">
