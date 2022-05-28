@@ -7,7 +7,8 @@
     "save": "Save",
     "delete": "Delete",
     "close": "Close",
-    "create_board": "Create board"
+    "create_board": "Create board",
+    "delete_board": "Delete board"
   },
   "labels": {
     "login": "Login",

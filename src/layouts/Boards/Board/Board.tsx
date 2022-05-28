@@ -15,6 +15,8 @@ import { columnValues } from '../../../components/form/constants/initialValues';
 import { columnfields } from '../../../components/form/constants/fieldsOptions';
 import Column from '../../Column/Column';
 import { boardURL, columnsURL } from '../../../const/requestUrls';
+import { ErrorMessage } from '../../../const/errorMesages';
+import { useTranslation } from 'react-i18next';
 
 const formOptions = {
   schema: columSchema,
@@ -35,9 +37,11 @@ function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>)
 }
 
 function Board() {
+  const { t } = useTranslation();
   const { boardId } = useParams();
   const navigate = useNavigate();
-  const [isModalActive, setIsModalActive] = useState(false);
+  const [isCreateColumnModalActive, setCreateColumnIsModalActive] = useState(false);
+  const [isDeleteBoardModalActive, setDeleteBoardIsModalActive] = useState(false);
 
   const { data, isLoading, isError, request } = useAxios({
     url: boardURL(boardId),
@@ -52,12 +56,13 @@ function Board() {
     }
   }, [boardId]);
 
-  async function deleteBoardHandler(id: string | undefined) {
-    if (id) {
-      await request({
-        url: boardURL(id),
-        method: Methods.DELETE,
-      });
+  async function deleteBoardHandler() {
+    const deleteBoard = await request({
+      url: boardURL(board.id),
+      method: Methods.DELETE,
+    });
+
+    if (deleteBoard) {
       navigate(AppRoute.MAIN);
     }
   }
@@ -71,7 +76,7 @@ function Board() {
     };
     await request(columnsRequestOptions);
     request();
-    setIsModalActive(false);
+    setCreateColumnIsModalActive(false);
   }
 
   async function putRequest() {
@@ -88,7 +93,10 @@ function Board() {
       <div className="board__menu">
         <ButtonWithModalForm
           submitBtnName="Создать колонку"
-          modalState={{ isModalActive, setIsModalActive }}
+          modalState={{
+            isModalActive: isCreateColumnModalActive,
+            setIsModalActive: setCreateColumnIsModalActive,
+          }}
           buttonOptions={{
             btnClass: 'column_create__btn',
             text: 'Создать колонку',
@@ -98,9 +106,21 @@ function Board() {
             onSubmit: createColumnHandler,
           }}
         />
-        <button type="button" onClick={() => deleteBoardHandler(boardId)}>
-          Удалить доску
-        </button>
+        <ButtonWithModalForm
+          modalState={{
+            isModalActive: isDeleteBoardModalActive,
+            setIsModalActive: setDeleteBoardIsModalActive,
+          }}
+          modalOptions={{
+            submitHandler: deleteBoardHandler,
+            contentWrapperClassName: 'modal__delete',
+          }}
+          buttonOptions={{ text: t('buttons.delete_board') }}
+          submitBtnName={t('buttons.delete')}
+          questionText={`${t('board.delete_board_message')} ${board?.title}?`}
+          isError={isError}
+          errorText={ErrorMessage.SERVER_ERROR}
+        />
       </div>
       {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
       {isLoading && <Loader />}
