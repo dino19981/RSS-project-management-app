@@ -5,7 +5,7 @@ import Button from '../../components/button/Button';
 import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethoods';
-import { ErrorMessage } from '../../const/errorMesages';
+import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { taskProps } from '../../models/task';

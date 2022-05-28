@@ -15,8 +15,8 @@ import { columnValues } from '../../../components/form/constants/initialValues';
 import { columnfields } from '../../../components/form/constants/fieldsOptions';
 import Column from '../../Column/Column';
 import { boardURL, columnsURL } from '../../../const/requestUrls';
-import { ErrorMessage } from '../../../const/errorMesages';
 import { useTranslation } from 'react-i18next';
+import { ErrorMessage } from '../../../const/errorMessage';
 
 const formOptions = {
   schema: columSchema,

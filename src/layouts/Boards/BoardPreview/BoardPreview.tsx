@@ -1,32 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
 import { Methods } from '../../../const/APIMethoods';
-import { ErrorMessage } from '../../../const/errorMesages';
+import { ErrorMessage } from '../../../const/errorMessage';
 import { boardURL } from '../../../const/requestUrls';
 import { useTranslation } from 'react-i18next';
 
-function calculateTask(columns: TColumn[] | undefined) {
-  if (columns === undefined) return null;
-  let tasks = 0;
-  columns.map((col) => {
-    if (col.tasks) {
-      tasks += col.tasks.length;
-    }
-  });
-  return tasks;
-}
-
-function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
+function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { t } = useTranslation();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
-
-  const taskCount = calculateTask(columns);
 
   async function deleteBoard() {
     const deleteOptions = {
@@ -42,10 +28,9 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
   }
 
   return (
-    <div className="board_preview">
-      <Link to={boardURL(id)} className="board_preview__link">
-        <div className="board_preview_title">{title}</div>
-        {taskCount && <div className="board_preview__task-count">Total tasks: {taskCount}</div>}
+    <article className="board-preview">
+      <Link to={boardURL(id)} className="board-preview__link">
+        <h2 className="board-preview__title">{title}</h2>
       </Link>
       <div className="board_preview_footer">
         <ButtonWithModalForm
@@ -59,7 +44,7 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
         />
       </div>
       {isLoading && <Loader />}
-    </div>
+    </article>
   );
 }
 

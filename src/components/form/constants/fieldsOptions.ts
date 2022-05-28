@@ -1,6 +1,6 @@
-import { ErrorMessage } from '../../../const/errorMesages';
+import { ErrorMessage } from '../../../const/errorMessage';
 
-export const autorizationFields = [
+export const authorizationFields = [
   {
     name: 'login',
     labelText: 'labels.login',

@@ -170,6 +170,16 @@
   }
 }
 
+@mixin fix-main {
+  height: $main-height-mobile;
+  max-height: $main-height-mobile;
+
+  @media (min-width: $desktop-width) {
+    height: $main-height-desktop;
+    max-height: $main-height-desktop;
+  }
+}
+
 @mixin submit-button {
   background-color: $accent-color;
   padding: 10px 30px;

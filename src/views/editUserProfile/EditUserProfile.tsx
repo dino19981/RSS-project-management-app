@@ -5,7 +5,7 @@ import { editProfileFields } from '../../components/form/constants/fieldsOptions
 import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
 import { Methods } from '../../const/APIMethoods';
-import { ErrorMessage } from '../../const/errorMesages';
+import { ErrorMessage } from '../../const/errorMessage';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { updatedUserInfo } from '../../models/user';
@@ -75,14 +75,6 @@ export default function EditUserProfile() {
     }
   }
 
-  function openModal() {
-    setIsModalActive(true);
-  }
-
-  function closeModal() {
-    setIsModalActive(false);
-  }
-
   if (isLoadingUserData) {
     return <Loader />;
   }
@@ -108,8 +100,8 @@ export default function EditUserProfile() {
   };
 
   return (
-    <div className="edit-profile">
-      <div className="edit-profile__inner">
+    <section className="edit-profile">
+      <div className="edit-profile__wrapper">
         {isError && <p className="authentification__error">{ErrorMessage.SERVER_ERROR}</p>}
         <h4 className="edit-profile__title">{t('edit_profile.title')}</h4>
         <Form {...updateUserFormOptions} />
@@ -130,6 +122,6 @@ export default function EditUserProfile() {
         </div>
         {isLoading && <Loader />}
       </div>
-    </div>
+    </section>
   );
 }

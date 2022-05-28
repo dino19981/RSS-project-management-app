@@ -8,7 +8,7 @@ import { newBoardFields } from '../../components/form/constants/fieldsOptions';
 import { Methods } from '../../const/APIMethoods';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../loader/loader';
-import { ErrorMessage } from '../../const/errorMesages';
+import { ErrorMessage } from '../../const/errorMessage';
 import { useTranslation } from 'react-i18next';
 
 const formOptions = {
