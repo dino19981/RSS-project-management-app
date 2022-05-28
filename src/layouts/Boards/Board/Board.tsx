@@ -63,13 +63,19 @@ function Board() {
   }
 
   async function createColumnHandler(values: fieldsType) {
-    const body = { ...values };
-    const columnsRequestOptions = {
+    const columns = await request({
       url: columnsURL(boardId),
-      method: Methods.POST,
-      data: body,
-    };
-    await request(columnsRequestOptions);
+      method: Methods.GET,
+    });
+    if (columns?.data.length < MAX_COLUMN_COUNT) {
+      const body = { ...values };
+      const columnsRequestOptions = {
+        url: columnsURL(boardId),
+        method: Methods.POST,
+        data: body,
+      };
+      await request(columnsRequestOptions);
+    }
     request();
     setIsModalActive(false);
   }
@@ -92,6 +98,7 @@ function Board() {
           buttonOptions={{
             btnClass: 'column_create__btn',
             text: 'Создать колонку',
+            isDisabled: board && board.columns?.length >= MAX_COLUMN_COUNT,
           }}
           formOptions={{
             ...formOptions,
@@ -103,7 +110,9 @@ function Board() {
           Удалить доску
         </button>
       </div>
-      {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
+      {board && board?.columns && (
+        <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>
+      )}
       {isLoading && <Loader />}
       <Outlet />
     </section>
