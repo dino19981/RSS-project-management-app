@@ -1,0 +1,20 @@
+.board-preview {
+  @include card;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  max-width: none;
+}
+
+.board-preview__link {
+  flex-grow: 1;
+}
+
+.board-preview__title {
+  @include regular-subtitle;
+  color: $dark-green;
+}
+
+.board-preview__description {
+  @include regular-text;
+}

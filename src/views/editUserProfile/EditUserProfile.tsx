@@ -5,7 +5,7 @@ import { editProfileFields } from '../../components/form/constants/fieldsOptions
 import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
 import { Methods } from '../../const/APIMethoods';
-import { ErrorMessage } from '../../const/errorMesages';
+import { ErrorMessage } from '../../const/errorMessage';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { updatedUserInfo } from '../../models/user';
@@ -95,10 +95,10 @@ export default function EditUserProfile() {
   };
 
   return (
-    <div className="edit-profile">
-      <div className="edit-profile__inner">
+    <section className="edit-profile">
+      <div className="edit-profile__wrapper">
         {isError && <p className="authentification__error">{ErrorMessage.SERVER_ERROR}</p>}
-        <h4 className="edit-profile__title">Редактирвоание профиля</h4>
+        <h4 className="edit-profile__title">Редактирование профиля</h4>
         <Form {...updateUserFormOptions} />
 
         {isShowSaveMessage && (
@@ -131,6 +131,6 @@ export default function EditUserProfile() {
         )}
         {isLoading && <Loader />}
       </div>
-    </div>
+    </section>
   );
 }

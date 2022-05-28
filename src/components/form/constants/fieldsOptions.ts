@@ -1,6 +1,6 @@
-import { ErrorMessage } from '../../../const/errorMesages';
+import { ErrorMessage } from '../../../const/errorMessage';
 
-export const autorizationFields = [
+export const authorizationFields = [
   {
     name: 'login',
     labelText: 'labels.login',
@@ -39,7 +39,7 @@ export const deleteUserProfile = [
   },
 ];
 
-export const deleteBoardfields = [
+export const deleteBoardFields = [
   {
     name: 'title',
     labelText: 'Действительно удалить доску?',
@@ -60,11 +60,17 @@ export const columnfields = [
 ];
 
 export const newBoardFields = [
-  { name: 'title', errorMessage: 'Название обязательно', placeholder: 'Введите название доски' },
+  {
+    name: 'title',
+    labelText: 'Название доски',
+    errorMessage: 'Название обязательно',
+    placeholder: 'Введите название доски',
+  },
   {
     name: 'description',
+    labelText: 'Описание',
     errorMessage: 'Описание обязательно',
-    placeholder: 'Введите описание доски',
+    placeholder: 'Введите краткое описание',
   },
 ];
 

@@ -6,7 +6,7 @@ import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethoods';
-import { ErrorMessage } from '../../const/errorMesages';
+import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, taskURL } from '../../const/requestUrls';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';

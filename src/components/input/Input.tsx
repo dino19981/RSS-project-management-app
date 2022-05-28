@@ -19,9 +19,11 @@ export default function Input({
 }: inputProps) {
   const { t } = useTranslation();
   const inputClassName = isHaveError ? `${inputClass} input__invalid` : inputClass;
+  const labelClassName = labelClass ? `form__label ${labelClass}` : 'form__label';
+
   return (
-    <label className={labelClass}>
-      {t(`${labelText}`) || ''}
+    <label className={labelClassName}>
+      {t(`${labelText || ''}`)}
       <input
         onChange={onChange}
         onBlur={onBlur}
@@ -29,12 +31,12 @@ export default function Input({
         name={name}
         defaultChecked={checked}
         placeholder={placeholder}
-        className={inputClassName}
+        className={`form__input ${inputClassName || ''}`}
         type={type || 'text'}
         disabled={isdisabled}
         defaultValue={defaultValue}
       />
-      {isHaveError && <div className="input__error">{errorMessage}</div>}
+      {isHaveError && <span className="form__error-text">{errorMessage}</span>}
     </label>
   );
 }

@@ -1,16 +1,19 @@
 .footer {
-  padding-top: 10px;
-  padding-bottom: 10px;
-
   display: flex;
   background-color: $basic-white;
+  z-index: 100;
 }
 
 .footer__container {
   display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  max-height: $footer-height-mobile;
+  height: $footer-height-mobile;
 
-  @media (min-width: 990px) {
+  @media (min-width: $desktop-width) {
     grid-template-columns: 1fr 2fr 1fr;
+    max-height: $footer-height-desktop;
+    height: $footer-height-desktop;
   }
 }
 
@@ -20,23 +23,34 @@
 }
 
 .footer__member-name {
-  font-size: 16px;
   color: $basic-white;
   transition: all 0.3s;
+  font-family: $main-font;
   font-weight: 400;
   color: $dark-green;
 
-  @include regular-text;
+  font-size: 16px;
+
+  @media (min-width: $tablet-width) {
+    font-size: 18px;
+  }
+
+  @media (min-width: $desktop-width) {
+    font-size: 18px;
+  }
 }
 
 .footer__gh-list {
+  grid-column-start: 1;
+  grid-column-end: 3;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
 
   margin: 0;
   margin-bottom: 10px;
-
-  width: auto;
+  
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 
@@ -44,11 +58,10 @@
   list-style: none;
 
   @media (min-width: $tablet-width) {
-    margin-bottom: 20px;
-    margin-top: 20px;
+    flex-direction: row;
   }
 
-  @media (min-width: 990px) {
+  @media (min-width: $desktop-width) {
     grid-column-start: 2;
     grid-column-end: 3;
     margin-bottom: auto;
@@ -108,15 +121,16 @@
 }
 
 .footer__year {
+  grid-column-start: 2;
   display: block;
   color: $dark-green;
   font-size: 16px;
   margin-top: auto;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 0;
   margin-bottom: 15px;
 
-  @media (min-width: 990px) {
+  @media (min-width: $desktop-width) {
     grid-column-start: 3;
     grid-column-end: 4;
     margin-bottom: auto;
@@ -130,14 +144,25 @@
 }
 
 .footer__link--rss {
-  padding: 0;
-  margin-left: auto;
-  margin-right: auto;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
 
-  @media (min-width: 990px) {
+  padding: 0;
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+
+  @media (min-width: $desktop-width) {
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 1;
     margin-left: 0;
+  }
+
+  & img {
+    width: 90px;
+    height: auto;
   }
 }

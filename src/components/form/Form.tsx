@@ -31,11 +31,11 @@ export default function Form({
   type fieldName = keyof typeof schema;
 
   return (
-    <form onSubmit={handleSubmit} id={formId} className={formClassName}>
-      <fieldset>
-        <ul>
+    <form onSubmit={handleSubmit} id={formId} className={`form ${formClassName}`}>
+      <fieldset className="form__fieldset">
+        <ul className="form__list">
           {fields.map((field) => (
-            <li key={field.name}>
+            <li className="form__item" key={field.name}>
               <Input
                 onChange={handleChange}
                 value={values[field.name as fieldName]}
