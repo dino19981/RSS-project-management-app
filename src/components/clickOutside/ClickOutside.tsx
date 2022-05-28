@@ -15,7 +15,7 @@ export default function ClickOutside({ onClickOutside, children }: Props) {
     }
   }
   return (
-    <div ref={wrapperRef} className="popover__wrapper" onClick={onClick}>
+    <div ref={wrapperRef} className="popover__wrapper" onMouseDown={onClick}>
       {children}
     </div>
   );

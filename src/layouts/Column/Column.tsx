@@ -9,7 +9,7 @@ import { checkIcon, closeIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
 import Popover from '../../components/popover/Popover';
 import { Methods } from '../../const/APIMethoods';
-import { ErrorMessage } from '../../const/errorMesages';
+import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, tasksURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn, TColumnProps } from '../../models/column';

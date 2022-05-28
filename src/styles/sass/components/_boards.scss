@@ -1,27 +1,22 @@
 .boards {
-  background-color: #ddd;
   position: relative;
-  &_wrapper {
-    display: grid;
-    height: calc(100vh - 98px - 219px);
-    grid-template-columns: repeat(auto-fill, 200px);
-    grid-template-rows: repeat(auto-fill, 200px);
-
-    gap: 1rem;
-    padding: 0.5rem;
-  }
+  
+  @include fix-main;  
 }
 
-.board {
-  &_preview {
-    border: 1px solid #000;
-    border-radius: 5px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  &_preview__link {
-    flex-grow: 1;
+.boards__list {
+  @include basic-list;
+  @include card-list;
+  @include fix-main;
+  
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 30px;
+  overflow-y: auto;
+  
+   @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+    height: auto;
   }
 }

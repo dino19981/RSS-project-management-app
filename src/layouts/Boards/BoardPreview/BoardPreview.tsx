@@ -1,37 +1,23 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
-import { deleteBoardfields } from '../../../components/form/constants/fieldsOptions';
+import { deleteBoardFields } from '../../../components/form/constants/fieldsOptions';
 import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
-import { ErrorMessage } from '../../../const/errorMesages';
+import { ErrorMessage } from '../../../const/errorMessage';
 import { boardURL } from '../../../const/requestUrls';
-
-function calculateTask(columns: TColumn[] | undefined) {
-  if (columns === undefined) return null;
-  let tasks = 0;
-  columns.map((col) => {
-    if (col.tasks) {
-      tasks += col.tasks.length;
-    }
-  });
-  return tasks;
-}
 
 const formOptions = {
   schema: deleteBoardSchema,
-  fields: deleteBoardfields,
+  fields: deleteBoardFields,
 };
 
-function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
+function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
-
-  const taskCount = calculateTask(columns);
 
   async function deleteBoard() {
     const deleteOptions = {
@@ -51,27 +37,25 @@ function BoardPreview({ id, title, columns, updateBoards }: boardPreviewProps) {
   };
 
   return (
-    <div className="board_preview">
-      <Link to={boardURL(id)} className="board_preview__link">
-        <div className="board_preview_title">{title}</div>
-        {taskCount && <div className="board_preview__task-count">Total tasks: {taskCount}</div>}
+    <article className="board-preview">
+      <Link to={boardURL(id)} className="board-preview__link">
+        <h2 className="board-preview__title">{title}</h2>
       </Link>
-      <div className="board_preview_footer">
-        <ButtonWithModalForm
-          modalState={{ isModalActive, setIsModalActive }}
-          buttonOptions={{ text: 'delete' }}
-          submitBtnName="OK"
-          formOptions={{
-            ...formOptions,
-            initialValues,
-            onSubmit: deleteBoard,
-          }}
-          isError={isError}
-          errorText={ErrorMessage.SERVER_ERROR}
-        />
-      </div>
+      <p className="board-preview__description">{description}</p>
+      <ButtonWithModalForm
+        modalState={{ isModalActive, setIsModalActive }}
+        buttonOptions={{ btnClass: 'board-preview__delete-btn', text: 'Удалить' }}
+        submitBtnName="OK"
+        formOptions={{
+          ...formOptions,
+          initialValues,
+          onSubmit: deleteBoard,
+        }}
+        isError={isError}
+        errorText={ErrorMessage.SERVER_ERROR}
+      />
       {isLoading && <Loader />}
-    </div>
+    </article>
   );
 }
 
