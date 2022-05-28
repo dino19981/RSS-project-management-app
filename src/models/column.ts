@@ -8,7 +8,7 @@ export type TColumn = {
 };
 
 export type TColumnProps = TColumn & {
-  updateHandler: () => Promise<void>;
+  updateBoard: () => Promise<void>;
 };
 
 export type TGetColumn = {

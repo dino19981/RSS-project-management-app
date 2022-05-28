@@ -13,9 +13,11 @@ import { fieldsType, formProps } from '../../models/form';
 import { editProfileSchema } from '../../schemas/user';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { deleteUserData, updateUserData } from '../../store/user/actions';
-import Modal from '../../components/modal/Modal';
+import { useTranslation } from 'react-i18next';
+import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 
 export default function EditUserProfile() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isShowSaveMessage, setIsShowSaveMessage] = useState(false);
@@ -73,14 +75,6 @@ export default function EditUserProfile() {
     }
   }
 
-  function openModal() {
-    setIsModalActive(true);
-  }
-
-  function closeModal() {
-    setIsModalActive(false);
-  }
-
   if (isLoadingUserData) {
     return <Loader />;
   }
@@ -94,41 +88,38 @@ export default function EditUserProfile() {
     formClassName: 'authentification__form',
   };
 
+  const deleteUserOptions = {
+    modalOptions: { submitHandler: deleteUser, contentWrapperClassName: 'modal__delete' },
+    buttonOptions: {
+      btnClass: 'edit-profile__delete-button',
+      text: t('buttons.delete_profile'),
+    },
+    modalState: { isModalActive, setIsModalActive },
+    submitBtnName: t('buttons.delete'),
+    questionText: `${t('edit_profile.delete_profile_message')} ${login}?`,
+  };
+
   return (
     <section className="edit-profile">
       <div className="edit-profile__wrapper">
         {isError && <p className="authentification__error">{ErrorMessage.SERVER_ERROR}</p>}
-        <h4 className="edit-profile__title">Редактирование профиля</h4>
+        <h4 className="edit-profile__title">{t('edit_profile.title')}</h4>
         <Form {...updateUserFormOptions} />
 
         {isShowSaveMessage && (
-          <p className="edit-profile__save-message">Данные успешно сохранены!</p>
+          <p className="edit-profile__save-message">{t('edit_profile.saved_data')}</p>
         )}
 
         <div className="edit-profile__footer">
           <Button
             isDisabled={isLoading}
             type="submit"
-            text="Сохранить"
+            text={t('buttons.save')}
             formId={updateUserFormOptions.formId}
             btnClass="edit-profile__save-button"
           />
-          <Button
-            btnClass="edit-profile__delete-button"
-            text="Удалить профиль"
-            handler={openModal}
-          ></Button>
+          <ButtonWithModalForm {...deleteUserOptions} />
         </div>
-        {isModalActive && (
-          <Modal
-            submitBtnName="Удалить"
-            contentWrapperClassName="modal__delete"
-            handleCloseModal={closeModal}
-            submitHandler={deleteUser}
-          >
-            <p className="edit-profile__delete-text">{`Действительно хотите удалить профиль ${login}?`}</p>
-          </Modal>
-        )}
         {isLoading && <Loader />}
       </div>
     </section>

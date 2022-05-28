@@ -3,22 +3,40 @@
     "sign_out": "Sign out",
     "sign_in": "Sign in",
     "sign_up": "Sign up",
+    "delete_profile": "Delete profile",
     "save": "Save",
-    "close": "Cancel"
+    "delete": "Delete",
+    "close": "Close",
+    "create_board": "Create board",
+    "delete_board": "Delete board"
   },
   "labels": {
     "login": "Login",
     "password": "Password",
     "name": "Name"
   },
+  "placeholders": {
+    "column_title": "Column title",
+    "board_name": "Board name",
+    "board_description": "Board description",
+    "task_title": "Task title",
+    "task_description": "Task description"
+  },
   "error_messages": {
+    "min_length_5": "The minimum length is 5 characters",
+    "no_white_spaces_and_min_length_3": "Spaces are not allowed, the minimum length is 3 characters",
+    "max_length_15": "The maximum length is 15 characters",
+    "server_error": "An error has occurred, try to perform the action later",
+    "description_required": "Description is required",
+    "title_required": "Title is required",
     "max_columns_count": "Maximum number of columns created"
   },
   "header": {
     "create_new_board": "Create new board",
     "en": "Eng",
     "ru": "Rus",
-    "edit_profile": "Edit profile"
+    "edit_profile": "Edit profile",
+    "about_us": "About us"
   },
   "welcome": {
     "head_title": "Masterfully manage projects!",
@@ -28,7 +46,8 @@
     "Artem": "Artem",
     "Roman": "Roman",
     "Dmitry": "Dmitry",
-    "team": "Our team"
+    "team": "Our team",
+    "go_to_main_page": "Main Page"
   },
   "sign_in": {
     "no_register_text": "Not registered yet?",
@@ -36,5 +55,19 @@
   },
   "sign_up": {
     "is_have_login_text": "Already registered?"
+  },
+  "edit_profile": {
+    "title": "Editing a profile",
+    "saved_data": "The data has been saved successfully!",
+    "delete_profile_message": "Do you really want to delete a profile"
+  },
+  "board": {
+    "delete_board_message": "Do you really want to delete a board"
+  },
+  "task": {
+    "delete_task_message": "Do you really want to delete a task"
+  },
+  "column": {
+    "delete_column_message": "Do you really want to delete a column"
   }
 }

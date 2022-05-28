@@ -44,7 +44,7 @@ export default function CreateBoard() {
 
   return (
     <ButtonWithModalForm
-      submitBtnName="Создать доску"
+      submitBtnName={t('buttons.create_board')}
       modalState={{ isModalActive, setIsModalActive }}
       buttonOptions={{
         btnClass: 'btn-new-board',

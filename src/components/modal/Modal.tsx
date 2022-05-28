@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { modalProps } from '../../models/modal';
 import Button from '../button/Button';
 import Portal from '../portal/Portal';
@@ -14,6 +15,7 @@ export default function Modal({
   contentWrapperClassName,
   isDontShowFooter,
 }: modalProps) {
+  const { t } = useTranslation();
   return (
     <Portal>
       <div
@@ -45,7 +47,11 @@ export default function Modal({
 
           {!isDontShowFooter && (
             <div className="modal__footer">
-              <Button btnClass="button__cancel" handler={handleCloseModal} text="Закрыть" />
+              <Button
+                btnClass="button__cancel"
+                handler={handleCloseModal}
+                text={t('buttons.close')}
+              />
               <Button
                 handler={submitHandler}
                 btnClass="button__submit"

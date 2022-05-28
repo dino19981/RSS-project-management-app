@@ -3,22 +3,40 @@
     "sign_out": "Выйти",
     "sign_in": "Войти",
     "sign_up": "Зарегистрироваться",
+    "delete_profile": "Удалить профиль",
     "save": "Сохранить",
-    "close": "Закрыть"
+    "delete": "Удалить",
+    "close": "Закрыть",
+    "create_board": "Создать доску",
+    "delete_board": "Удалить доску"
   },
   "labels": {
     "login": "Логин",
     "password": "Пароль",
     "name": "Имя"
   },
+  "placeholders": {
+    "column_title": "Название колонки",
+    "board_name": "Название доски",
+    "board_description": "Описание доски",
+    "task_title": "Название задачи",
+    "task_description": "Описание задачи"
+  },
   "error_messages": {
+    "min_length_5": "Минимальная длина 5 символов",
+    "no_white_spaces_and_min_length_3": "Пробелы недопустимы, минимальная длина 3 символа",
+    "max_length_15": "Максимальная длина 15 символов",
+    "server_error": "Произошла ошибка, попробуйте выполнить действие позднее",
+    "description_required": "Заполните описание",
+    "title_required": "Заполните название",
     "max_columns_count": "Создано максимальное количество столбцов"
   },
   "header": {
     "create_new_board": "Создать новую доску",
     "en": "Анг",
     "ru": "Рус",
-    "edit_profile": "Редактировать профиль"
+    "edit_profile": "Редактировать профиль",
+    "about_us": "О нас"
   },
   "welcome": {
     "head_title": "Мастерски управляй проектами!",
@@ -28,7 +46,8 @@
     "Artem": "Артём",
     "Roman": "Роман",
     "Dmitry": "Дмитрий",
-    "team": "Наша команда"
+    "team": "Наша команда",
+    "go_to_main_page": "Главная страница"
   },
   "sign_in": {
     "no_register_text": "Еще не зарегистрированы?",
@@ -36,5 +55,19 @@
   },
   "sign_up": {
     "is_have_login_text": "Уже зарегистрированы?"
+  },
+  "edit_profile": {
+    "title": "Редактирвоание профиля",
+    "saved_data": "Данные успешно сохранены!",
+    "delete_profile_message": "Вы действительно хотите удалить профиль"
+  },
+  "board": {
+    "delete_board_message": "Вы действительно хотите удалить доску"
+  },
+  "task": {
+    "delete_task_message": "Вы действительно хотите удалить задачу"
+  },
+  "column": {
+    "delete_column_message": "Вы действительно хотите удалить колонку"
   }
 }

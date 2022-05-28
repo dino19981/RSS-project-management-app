@@ -7,6 +7,7 @@
   font-family: $title-font;
   color: $accent-color;
   transition: all 0.5s;
+  cursor: pointer;
 
   @media (min-width: $tablet-width) {
     margin-left: auto;
@@ -20,6 +21,10 @@
   &:hover:not(.header__link--active),
   &:focus:not(.header__link--active) {
     color: $hover-link-color;
+  }
+
+  &:focus-visible {
+    outline: none;
   }
 
   &:active:not(.header__link--active) {

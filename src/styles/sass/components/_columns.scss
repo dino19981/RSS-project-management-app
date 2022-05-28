@@ -7,7 +7,7 @@
   width: 100%;
   padding: 0.5rem;
 }
-.column-preview,
+
 .column {
   display: flex;
   height: 100%;
@@ -19,12 +19,25 @@
   &_link {
     width: 100%;
   }
-  &_title {
+  &__title-wrapper {
+    display: flex;
+    justify-content: space-between;
     text-align: center;
     border: 1px solid #000;
     border-radius: 5px;
     padding: 0.5rem;
     cursor: pointer;
+
+    &:hover {
+      background-color: #f4f5f7;
+      .task__delete_btn {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__title {
+    margin: 0;
   }
 }
 
