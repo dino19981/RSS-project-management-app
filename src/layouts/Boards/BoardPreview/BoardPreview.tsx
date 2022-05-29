@@ -4,18 +4,13 @@ import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonW
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
-import { deleteBoardFields } from '../../../components/form/constants/fieldsOptions';
-import { deleteBoardSchema } from '../../../schemas/boards';
 import { Methods } from '../../../const/APIMethoods';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { boardURL } from '../../../const/requestUrls';
-
-const formOptions = {
-  schema: deleteBoardSchema,
-  fields: deleteBoardFields,
-};
+import { useTranslation } from 'react-i18next';
 
 function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
+  const { t } = useTranslation();
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
   const [isModalActive, setIsModalActive] = useState(false);
 
@@ -32,28 +27,22 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
     }
   }
 
-  const initialValues = {
-    title,
-  };
-
   return (
     <article className="board-preview">
       <Link to={boardURL(id)} className="board-preview__link">
         <h2 className="board-preview__title">{title}</h2>
       </Link>
-      <p className="board-preview__description">{description}</p>
-      <ButtonWithModalForm
-        modalState={{ isModalActive, setIsModalActive }}
-        buttonOptions={{ btnClass: 'board-preview__delete-btn', text: 'Удалить' }}
-        submitBtnName="OK"
-        formOptions={{
-          ...formOptions,
-          initialValues,
-          onSubmit: deleteBoard,
-        }}
-        isError={isError}
-        errorText={ErrorMessage.SERVER_ERROR}
-      />
+      <div className="board_preview_footer">
+        <ButtonWithModalForm
+          modalState={{ isModalActive, setIsModalActive }}
+          modalOptions={{ submitHandler: deleteBoard, contentWrapperClassName: 'modal__delete' }}
+          buttonOptions={{ text: 'delete' }}
+          submitBtnName={t('buttons.delete')}
+          questionText={`${t('board.delete_board_message')} ${title}?`}
+          isError={isError}
+          errorText={ErrorMessage.SERVER_ERROR}
+        />
+      </div>
       {isLoading && <Loader />}
     </article>
   );

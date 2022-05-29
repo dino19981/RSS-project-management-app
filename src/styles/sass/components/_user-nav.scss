@@ -6,19 +6,20 @@
   }
 }
 
-.user-nav__list, .header__menu {
+.user-nav__list,
+.header__menu {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
+
   margin: 0;
   margin-top: auto;
   margin-bottom: auto;
   padding: 0;
   width: 100%;
-  
+
   list-style: none;
-  
+
   @media (min-width: $tablet-width) {
     flex-direction: row;
     justify-content: start;

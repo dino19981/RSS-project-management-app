@@ -3,7 +3,7 @@ import { formProps } from './form';
 import { modalProps } from './modal';
 
 export interface buttonWithModalFormProps {
-  formOptions: formProps;
+  formOptions?: formProps;
   buttonOptions: {
     btnClass?: string;
     type?: 'button' | 'submit' | 'reset' | undefined;
@@ -16,6 +16,7 @@ export interface buttonWithModalFormProps {
   modalOptions?: modalProps;
   modalState: { isModalActive: boolean; setIsModalActive: (state: boolean) => void };
   submitBtnName: string;
-  isError?: false | AxiosError;
+  isError?: false | AxiosError | boolean;
   errorText?: string;
+  questionText?: string;
 }

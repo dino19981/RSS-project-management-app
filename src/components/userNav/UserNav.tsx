@@ -45,7 +45,14 @@ export default function UserNav({ authorizeStatus }: UserNavComponent) {
 
   return (
     <nav className="user-nav">
-      <ul className="user-nav__list">{getNav(renderNavData, logout, t)}</ul>
+      <ul className="user-nav__list">
+        <li className="user-nav__item">
+          <Link className="user-nav__link" to={AppRoute.WELCOME_PAGE}>
+            {t('header.about_us')}
+          </Link>
+        </li>
+        {getNav(renderNavData, logout, t)}
+      </ul>
     </nav>
   );
 }

@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 type Props = {
-  refference: HTMLDivElement | null;
   onClickOutside: () => void;
   children: React.ReactNode;
 };
 
-export default function ClickOutside({ refference, onClickOutside, children }: Props) {
+export default function ClickOutside({ onClickOutside, children }: Props) {
+  const wrapperRef = useRef(null);
+
   function onClick(e: React.SyntheticEvent) {
-    if (e.target != refference) {
-      console.log('click outside');
+    e.stopPropagation();
+    if (e.target === wrapperRef.current) {
+      onClickOutside();
     }
-    console.log(e.target, refference);
   }
   return (
-    <div className="window__wrapper" onClick={(e) => onClick(e)}>
+    <div ref={wrapperRef} className="popover__wrapper" onMouseDown={onClick}>
       {children}
     </div>
   );

@@ -30,14 +30,7 @@ function App() {
                   </AuthUser>
                 }
               />
-              <Route
-                path={AppRoute.WELCOME_PAGE}
-                element={
-                  <UnknownUser>
-                    <MainPage />
-                  </UnknownUser>
-                }
-              />
+              <Route path={AppRoute.WELCOME_PAGE} element={<MainPage />} />
               <Route
                 path={AppRoute.BOARD}
                 element={
