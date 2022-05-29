@@ -11,10 +11,10 @@
 
   border-bottom: 1px solid rgb(233, 237, 195);
   
-  width: 25%;
   border-radius: 5px;
   max-width: 270px;
   width: 270px;
+  min-width: 270px;
   background-color: $light-green;
   box-shadow: 0 14px 28px rgb(196 172 40 / 10%), 0 10px 10px rgb(0 0 0 / 10%);
 }
@@ -98,6 +98,7 @@
   
   padding-right: 7px;
   overflow-y: auto;
+  max-height: calc($main-height-mobile - 230px);
 
   @media (min-width: $tablet-width) {
     max-height: calc($main-height-desktop - 240px);

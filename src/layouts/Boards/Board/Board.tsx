@@ -17,6 +17,7 @@ import Column from '../../Column/Column';
 import { boardURL, columnsURL } from '../../../const/requestUrls';
 import { useTranslation } from 'react-i18next';
 import { ErrorMessage } from '../../../const/errorMessage';
+import { plusIcon, deleteIcon } from '../../../components/icons/Icons';
 
 const formOptions = {
   schema: columSchema,
@@ -99,7 +100,11 @@ function Board() {
       setIsModalActive: setCreateColumnIsModalActive,
     },
     modalOptions: { contentWrapperClassName: 'board__create-column' },
-    buttonOptions: { btnClass: 'column_create__btn', text: 'Создать колонку' },
+    buttonOptions: {
+      btnClass: 'board__create-column-btn',
+      text: 'Создать колонку',
+      icon: plusIcon,
+    },
     formOptions: { ...formOptions, onSubmit: createColumnHandler },
     isError: maxColumnCountError,
     errorText: t('error_messages.max_columns_count'),
@@ -111,9 +116,13 @@ function Board() {
       setIsModalActive: setDeleteBoardIsModalActive,
     },
     modalOptions: { submitHandler: deleteBoardHandler, contentWrapperClassName: 'modal__delete' },
-    buttonOptions: { text: t('buttons.delete_board') },
+    buttonOptions: {
+      btnClass: 'board__delete-column-btn',
+      text: t('buttons.delete_board'),
+      icon: deleteIcon,
+    },
     submitBtnName: t('buttons.delete'),
-    questionText: `$t('board.delete_board_message'), $board?.title,?`,
+    questionText: `${t('board.delete_board_message')}, ${board?.title}?`,
     isError: isError,
     errorText: ErrorMessage.SERVER_ERROR,
   };

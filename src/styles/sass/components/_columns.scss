@@ -1,13 +1,11 @@
 .columns-wrapper {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto;
-  flex-wrap: nowrap;
+  display: flex;
+  justify-content: space-between;
   overflow-y: hidden;
   margin-bottom: 5px;
 
   &::-webkit-scrollbar {
-    height: 6px;
+    height: 10px;
   }
 
   &::-webkit-scrollbar-track {
