@@ -12,10 +12,12 @@ export default function Input({
   name,
   placeholder,
   onChange,
+  onFocus,
   onBlur,
   value,
   isdisabled,
   defaultValue,
+  elementRef,
 }: inputProps) {
   const { t } = useTranslation();
   const inputClassName = isHaveError ? `${inputClass} input__invalid` : inputClass;
@@ -23,9 +25,11 @@ export default function Input({
 
   return (
     <label className={labelClassName}>
-      <span className="form__label-text">{t(`${labelText || ''}`)}</span>
+      {labelText && <span className="form__label-text">{t(`${labelText || ''}`)}</span>}
       <input
+        ref={elementRef}
         onChange={onChange}
+        onFocus={onFocus}
         onBlur={onBlur}
         value={value}
         name={name}

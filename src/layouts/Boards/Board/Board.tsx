@@ -7,7 +7,7 @@ import { useAxios } from '../../../hooks/useAxios';
 import { TBoard } from '../../../models/board';
 import Loader from '../../../components/loader/loader';
 import { MAX_COLUMN_COUNT } from '../const';
-import { Methods } from '../../../const/APIMethoods';
+import { Methods } from '../../../const/APIMethod';
 import { AppRoute } from '../../../const/routes';
 import EmptyColumn from '../../Column/EmptyColumn';
 import { columSchema } from '../../../schemas/column';
@@ -52,12 +52,6 @@ function Board() {
 
   const board = data as TBoard;
 
-  useEffect(() => {
-    if (data) {
-      request();
-    }
-  }, [boardId]);
-
   async function deleteBoardHandler() {
     const deleteBoard = await request({
       url: boardURL(board.id),
@@ -86,7 +80,7 @@ function Board() {
   }
 
   async function putRequest() {
-    await request();
+    request();
   }
 
   if (isError) {
@@ -122,7 +116,7 @@ function Board() {
       icon: deleteIcon,
     },
     submitBtnName: t('buttons.delete'),
-    questionText: `${t('board.delete_board_message')}, ${board?.title}?`,
+    questionText: `${t('board.delete_board_message')} ${board?.title}?`,
     isError: isError,
     errorText: ErrorMessage.SERVER_ERROR,
   };

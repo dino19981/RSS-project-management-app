@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import {
-  columnfields,
-  createTaskFields,
-  editColumnFields,
-} from '../../components/form/constants/fieldsOptions';
+import { createTaskFields, editColumnFields } from '../../components/form/constants/fieldsOptions';
 import { createTaskValues } from '../../components/form/constants/initialValues';
 import Form from '../../components/form/Form';
 import { checkIcon, closeIcon, deleteIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import Popover from '../../components/popover/Popover';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, tasksURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
@@ -35,6 +31,7 @@ const formOptions = {
 };
 
 function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string) {
+  e.stopPropagation();
   e.dataTransfer.setData('columnId', id);
   e.dataTransfer.setData('columnTitle', title);
 }
@@ -46,9 +43,9 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
 function getActualTasks(columnData: responses | undefined, tasks: TGetBoardTask[]) {
   if (columnData) {
     const { tasks } = columnData as TColumn;
-    return tasks;
+    return tasks.sort((a, b) => a.order - b.order);
   }
-  return tasks || [];
+  return tasks.sort((a, b) => a.order - b.order) || [];
 }
 
 function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps) {
@@ -102,12 +99,8 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
           order,
         },
       });
-      request({
-        url: columnURL(boardId, columnId),
-        method: Methods.GET,
-      });
-      updateBoard();
     }
+    updateBoard();
   }
 
   function openEditTitle() {
@@ -134,7 +127,10 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (columnData) {
-      updateBoard();
+      request({
+        url: columnURL(boardId, columnId),
+        method: Methods.GET,
+      });
     }
   }
 
@@ -180,7 +176,10 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     errorText: ErrorMessage.SERVER_ERROR,
   };
 
-  const actualTasks = getActualTasks(columnData, tasks);
+  const actualTasks = useMemo(
+    () => getActualTasks(columnData, tasks),
+    [JSON.stringify(columnData), JSON.stringify(tasks)]
+  );
 
   return (
     <div
@@ -197,7 +196,15 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
 
       <ul className="column__task-list">
         {actualTasks.map((task) => {
-          return <Task key={task.id} {...task} columnId={columnId} updateColumn={request} />;
+          return (
+            <Task
+              key={task.id}
+              {...task}
+              columnId={columnId}
+              updateColumn={request}
+              updateBoard={updateBoard}
+            />
+          );
         })}
       </ul>
 
@@ -205,7 +212,12 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
       <ButtonWithModalForm {...addTaskOptions} />
 
       {isPopoverActive && (
-        <Popover placement="bottom-start" onClose={closeEditTitle} reference={columnTitleElement}>
+        <Popover
+          placement="bottom-start"
+          onClose={closeEditTitle}
+          reference={columnTitleElement}
+          popoverWrapperClass="popover__gray-wrapper"
+        >
           <div className="column__title-edit">
             <div
               className="column__form-wrapper"

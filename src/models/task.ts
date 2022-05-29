@@ -9,12 +9,12 @@ export type TTask = {
   files: TFile[];
   boardId: string;
   columnId: string;
-  done: boolean;
 };
 
 export type taskProps = TGetBoardTask & {
   columnId: string;
   updateColumn: ({ url, method }: { url: string; method: string }) => void;
+  updateBoard: () => void;
 };
 
 export type TGetBoardTask = Omit<TTask, 'boardId' | 'columnId' | 'done'>;

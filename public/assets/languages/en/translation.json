@@ -20,7 +20,8 @@
     "board_name": "Board name",
     "board_description": "Board description",
     "task_title": "Task title",
-    "task_description": "Task description"
+    "task_description": "Task description",
+    "search_tasks": "Enter the name of the task"
   },
   "error_messages": {
     "min_length_5": "The minimum length is 5 characters",
@@ -62,7 +63,8 @@
     "delete_profile_message": "Do you really want to delete a profile"
   },
   "board": {
-    "delete_board_message": "Do you really want to delete a board"
+    "delete_board_message": "Do you really want to delete a board",
+    "search_tasks_no_results": "Couldn't find anything"
   },
   "task": {
     "delete_task_message": "Do you really want to delete a task"
