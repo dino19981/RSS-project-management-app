@@ -15,7 +15,8 @@ export const featuresData = [
   },
   {
     title: 'Экономь время',
-    description: 'Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены',
+    description:
+      'Приложение использует канбан подход к распределению задач, что существенно экономит время',
     imgSrc: 'assets/images/calendar.png',
     featureName: 'calendar',
     altText: 'Календарь',
