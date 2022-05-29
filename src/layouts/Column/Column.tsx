@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
@@ -42,9 +42,9 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
 function getActualTasks(columnData: responses | undefined, tasks: TGetBoardTask[]) {
   if (columnData) {
     const { tasks } = columnData as TColumn;
-    return tasks;
+    return tasks.sort((a, b) => a.order - b.order);
   }
-  return tasks || [];
+  return tasks.sort((a, b) => a.order - b.order) || [];
 }
 
 function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps) {
@@ -85,8 +85,6 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
   }
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
-    console.log('drop column');
-
     e.preventDefault();
     const id = e.dataTransfer.getData('columnId');
     const title = e.dataTransfer.getData('columnTitle');
@@ -177,7 +175,10 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     errorText: ErrorMessage.SERVER_ERROR,
   };
 
-  const actualTasks = getActualTasks(columnData, tasks);
+  const actualTasks = useMemo(
+    () => getActualTasks(columnData, tasks),
+    [JSON.stringify(columnData), JSON.stringify(tasks)]
+  );
 
   return (
     <div
@@ -192,19 +193,17 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
         <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
       </div>
 
-      {actualTasks
-        .sort((a, b) => a.order - b.order)
-        .map((task) => {
-          return (
-            <Task
-              key={task.id}
-              {...task}
-              columnId={columnId}
-              updateColumn={request}
-              updateBoard={updateBoard}
-            />
-          );
-        })}
+      {actualTasks.map((task) => {
+        return (
+          <Task
+            key={task.id}
+            {...task}
+            columnId={columnId}
+            updateColumn={request}
+            updateBoard={updateBoard}
+          />
+        );
+      })}
 
       <EmptyTaskPreview tasks={tasks} boardId={boardId} columnId={columnId} update={updateBoard} />
       <ButtonWithModalForm {...addTaskOptions} />
