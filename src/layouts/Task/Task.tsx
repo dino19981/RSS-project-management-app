@@ -76,7 +76,6 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
     if (columnId === dropColumnId) {
       const url = taskURL(boardId, columnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, dropColumnId);
-      console.log(order, dropTaskTitle);
       await request({
         url,
         method: Methods.PUT,
