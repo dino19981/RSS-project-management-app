@@ -13,11 +13,14 @@ export default function Authentification({
   loadingStatus,
 }: authentificationProps) {
   return (
-    <div className="authentification__inner">
+    <section className="authentification__inner">
       {errorMessage && <p className="authentification__error">{errorMessage}</p>}
       <Form {...formOptions}></Form>
       <p className="authentification__text">
-        {questionText} <Link to={link}>{linkText}</Link>
+        {questionText}{' '}
+        <Link className="authentification__link" to={link}>
+          {linkText}
+        </Link>
       </p>
       <div className="authentification__footer">
         <Button
@@ -28,6 +31,6 @@ export default function Authentification({
           btnClass="authentification__button"
         />
       </div>
-    </div>
+    </section>
   );
 }
