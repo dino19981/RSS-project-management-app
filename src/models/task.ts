@@ -14,7 +14,8 @@ export type TTask = {
 
 export type taskProps = TGetBoardTask & {
   columnId: string;
-  updateColumn: () => Promise<void>;
+  updateColumn: ({ url, method }: { url: string; method: string }) => void;
+  updateBoard: () => void;
 };
 
 export type TGetBoardTask = Omit<TTask, 'boardId' | 'columnId' | 'done'>;

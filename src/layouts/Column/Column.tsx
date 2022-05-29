@@ -30,6 +30,7 @@ const formOptions = {
 };
 
 function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string) {
+  e.stopPropagation();
   e.dataTransfer.setData('columnId', id);
   e.dataTransfer.setData('columnTitle', title);
 }
@@ -84,6 +85,8 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
   }
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
+    console.log('drop column');
+
     e.preventDefault();
     const id = e.dataTransfer.getData('columnId');
     const title = e.dataTransfer.getData('columnTitle');
@@ -97,12 +100,8 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
           order,
         },
       });
-      await request({
-        url: columnURL(boardId, columnId),
-        method: Methods.GET,
-      });
     }
-    await updateBoard();
+    updateBoard();
   }
 
   function openEditTitle() {
@@ -129,7 +128,10 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (columnData) {
-      await updateBoard();
+      request({
+        url: columnURL(boardId, columnId),
+        method: Methods.GET,
+      });
     }
   }
 
@@ -140,7 +142,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (columnData) {
-      await updateBoard();
+      updateBoard();
     }
   }
 
@@ -193,7 +195,15 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
       {actualTasks
         .sort((a, b) => a.order - b.order)
         .map((task) => {
-          return <Task key={task.id} {...task} columnId={columnId} updateColumn={updateBoard} />;
+          return (
+            <Task
+              key={task.id}
+              {...task}
+              columnId={columnId}
+              updateColumn={request}
+              updateBoard={updateBoard}
+            />
+          );
         })}
 
       <EmptyTaskPreview tasks={tasks} boardId={boardId} columnId={columnId} update={updateBoard} />

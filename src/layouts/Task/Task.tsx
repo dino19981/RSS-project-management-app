@@ -20,6 +20,7 @@ function dragStart(
   columnId: string,
   userId: string
 ) {
+  e.stopPropagation();
   e.dataTransfer.setData('taskId', taskId);
   e.dataTransfer.setData('taskTitle', title);
   e.dataTransfer.setData('taskDescription', description);
@@ -31,13 +32,23 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Task({ id, title, description, columnId, updateColumn, userId, order }: taskProps) {
+function Task({
+  id,
+  title,
+  description,
+  columnId,
+  updateColumn,
+  updateBoard,
+  userId,
+  order,
+}: taskProps) {
   const { t } = useTranslation();
   const { boardId } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const [isModalActive, setIsModalActive] = useState(false);
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+
   async function deleteTask() {
     const taskData = await request({
       url: taskURL(boardId, columnId, id),
@@ -86,9 +97,15 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
           boardId,
         },
       });
+
+      updateColumn({
+        url: columnURL(boardId, columnId),
+        method: Methods.GET,
+      });
     } else {
       const url = taskURL(boardId, dropColumnId, dropTaskId);
-      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, dropColumnId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+
       await request({
         url,
         method: Methods.PUT,
@@ -99,8 +116,9 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
           boardId,
         },
       });
+
+      updateBoard();
     }
-    await updateColumn();
   }
 
   return (

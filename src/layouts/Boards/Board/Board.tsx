@@ -79,7 +79,7 @@ function Board() {
   }
 
   async function putRequest() {
-    await request();
+    request();
   }
 
   if (isError) {
