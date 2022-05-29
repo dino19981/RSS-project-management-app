@@ -4,7 +4,7 @@ import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonW
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
-import { Methods } from '../../../const/APIMethoods';
+import { Methods } from '../../../const/APIMethod';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { boardURL } from '../../../const/requestUrls';
 import { useTranslation } from 'react-i18next';

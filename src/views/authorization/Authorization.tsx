@@ -10,7 +10,7 @@ import { useAppDispatch } from '../../store/hooks';
 import { getAuthentificationErrorMessage, getUserData } from '../../utils/authentification';
 import Authentification from '../authentification/Authentification';
 import { setUserData } from '../../store/user/actions';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { useTranslation } from 'react-i18next';
 
 export default function Autorization() {

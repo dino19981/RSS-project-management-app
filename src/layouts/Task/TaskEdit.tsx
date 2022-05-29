@@ -4,7 +4,7 @@ import { descriptionIcon, editIcon, userIcon } from '../../components/icons/Icon
 import Input from '../../components/input/Input';
 import Modal from '../../components/modal/Modal';
 import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { boardURL, columnURL, taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn } from '../../models/column';

@@ -5,7 +5,7 @@ import { AppRoute } from '../../const/routes';
 import { newBoardSchema } from '../../schemas/newBoard';
 import { newBoardValues } from '../../components/form/constants/initialValues';
 import { newBoardFields } from '../../components/form/constants/fieldsOptions';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../loader/loader';
 import { ErrorMessage } from '../../const/errorMessage';

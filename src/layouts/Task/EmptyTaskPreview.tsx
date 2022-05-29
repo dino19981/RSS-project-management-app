@@ -1,5 +1,5 @@
 import React from 'react';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { tasksURL, taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TGetBoardTask } from '../../models/task';

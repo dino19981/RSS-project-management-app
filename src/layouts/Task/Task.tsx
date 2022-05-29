@@ -5,7 +5,7 @@ import Button from '../../components/button/Button';
 import { deleteIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
