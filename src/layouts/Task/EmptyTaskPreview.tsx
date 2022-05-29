@@ -31,7 +31,7 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
         return;
       }
       const url = taskURL(boardId, columnId, dropTaskId);
-      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId, tasks.length + 1);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId, tasks.length);
       await request({
         url,
         method: Methods.PUT,
