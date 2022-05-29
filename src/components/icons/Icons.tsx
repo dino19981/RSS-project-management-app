@@ -11,7 +11,7 @@ export const closeIcon = (
 );
 
 export const deleteIcon = (
-  <svg width="28" height="28">
+  <svg className="delete-icon" width="28" height="28">
     <use xlinkHref="#delete-icon" />
   </svg>
 );

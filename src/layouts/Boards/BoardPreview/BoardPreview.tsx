@@ -34,11 +34,16 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
         <h2 className="board-preview__title">{title}</h2>
         <p className="board-preview__description">{description}</p>
       </Link>
-      <div className="board_preview_footer">
+      <div className="board-preview__delete-wrapper">
         <ButtonWithModalForm
           modalState={{ isModalActive, setIsModalActive }}
           modalOptions={{ submitHandler: deleteBoard, contentWrapperClassName: 'modal__delete' }}
-          buttonOptions={{ text: 'delete', icon: deleteIcon, isVisuallyHiddenText: true }}
+          buttonOptions={{
+            text: 'delete',
+            icon: deleteIcon,
+            isVisuallyHiddenText: true,
+            btnClass: 'board-preview__delete-btn',
+          }}
           submitBtnName={t('buttons.delete')}
           questionText={`${t('board.delete_board_message')} ${title}?`}
           isError={isError}
