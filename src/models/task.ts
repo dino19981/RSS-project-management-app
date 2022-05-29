@@ -9,7 +9,6 @@ export type TTask = {
   files: TFile[];
   boardId: string;
   columnId: string;
-  done: boolean;
 };
 
 export type taskProps = TGetBoardTask & {

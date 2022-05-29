@@ -21,6 +21,8 @@ instanceAxios.interceptors.response.use(
   (error) => {
     if (error.response.status === responseStatus.UNAUTHORIZE) {
       localStorage.removeItem('token');
+      console.log('qwe');
+
       window.location.replace(AppRoute.WELCOME_PAGE);
     } else {
       throw error;

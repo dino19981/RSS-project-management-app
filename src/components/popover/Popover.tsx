@@ -4,13 +4,19 @@ import { usePopper } from 'react-popper';
 import ClickOutside from '../clickOutside/ClickOutside';
 import { popoverProps } from '../../models/popover';
 
-export default function Popover({ reference, placement, children, onClose }: popoverProps) {
+export default function Popover({
+  reference,
+  placement,
+  children,
+  onClose,
+  popoverWrapperClass,
+}: popoverProps) {
   const [popper, setPopper] = useState<HTMLDivElement | null>(null);
   const { styles, attributes } = usePopper(reference, popper, { placement });
 
   return (
     <Portal>
-      <ClickOutside onClickOutside={onClose}>
+      <ClickOutside popoverWrapperClass={popoverWrapperClass} onClickOutside={onClose}>
         <div
           className="window__popover"
           ref={setPopper}

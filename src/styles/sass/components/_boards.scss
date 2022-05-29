@@ -1,22 +1,85 @@
 .boards {
   position: relative;
-  
-  @include fix-main;  
+
+  @include fix-main;
+
+  &__search.form__input {
+    margin-top: 20px;
+    max-width: 400px;
+  }
 }
 
 .boards__list {
   @include basic-list;
   @include card-list;
   @include fix-main;
-  
+
   padding-top: 20px;
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 30px;
   overflow-y: auto;
-  
-   @media (min-width: 1200px) {
+
+  @media (min-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
     height: auto;
   }
+}
+
+.search {
+  &__list {
+    list-style-type: none;
+    padding-inline: 5px;
+    background-color: $accent-color;
+    border-radius: 5px;
+    margin: 0;
+    padding: 5px;
+    max-height: 50vh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      height: 14px;
+      background: #f9f9f9;
+    }
+
+    scrollbar-width: thin;
+
+    scrollbar-color: #00000099 #f9f9f9;
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 40px;
+      border: 4px solid #f9f9f9;
+    }
+
+    svg {
+      height: 15px;
+      width: 15px;
+    }
+  }
+
+  &__list-item {
+    padding: 3px 10px;
+    margin: 5px;
+    min-width: 380px;
+    background-color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;
+
+    transition: all 0.4s linear;
+    &:hover {
+      background-color: #dbe5ed;
+    }
+  }
+
+  &__task-title {
+    margin: 0;
+  }
+}
+
+.search__dont-find {
+  margin: 0;
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
 }
