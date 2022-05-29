@@ -5,8 +5,6 @@ import { TBoard } from '../models/board';
 import { TColumn } from '../models/column';
 
 export const findMatches = (arrayItems: tasks[], findedText: string): tasks[] => {
-  console.log('search');
-
   return arrayItems.filter(({ title }) => {
     const searchInputValue = findedText.toLowerCase();
     return title.toLowerCase().slice(0, findedText.length) === searchInputValue;

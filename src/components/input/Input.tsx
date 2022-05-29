@@ -25,7 +25,7 @@ export default function Input({
 
   return (
     <label className={labelClassName}>
-      <span className="form__label-text">{t(`${labelText || ''}`)}</span>
+      {labelText && <span className="form__label-text">{t(`${labelText || ''}`)}</span>}
       <input
         ref={elementRef}
         onChange={onChange}
