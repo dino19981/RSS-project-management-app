@@ -98,14 +98,14 @@
   
   padding-right: 7px;
   overflow-y: auto;
-  max-height: calc($main-height-mobile - 230px);
+  max-height: calc($main-height-mobile - 270px);
 
   @media (min-width: $tablet-width) {
-    max-height: calc($main-height-desktop - 240px);
+    max-height: calc($main-height-desktop - 270px);
   }
   
   @media (min-width: $desktop-width) {
-    max-height: calc($main-height-desktop - 180px);
+    max-height: calc($main-height-desktop - 240px);
   }
 }
 

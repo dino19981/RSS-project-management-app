@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { fieldsType } from '../../../models/form';
@@ -47,7 +47,7 @@ function Board() {
 
   const { data, isLoading, isError, request } = useAxios({
     url: boardURL(boardId),
-    method: 'get',
+    method: Methods.GET,
   });
 
   const board = data as TBoard;
@@ -126,6 +126,9 @@ function Board() {
       <div className="board__menu">
         <h1 className="board__title">{board && board.title}</h1>
         <div className="board__btn-wrapper">
+          <Link className="board__back-home" to={AppRoute.MAIN}>
+            ↩ На главную
+          </Link>
           <ButtonWithModalForm {...createColumnOptions} />
           <ButtonWithModalForm {...deleteBoardOptions} />
         </div>

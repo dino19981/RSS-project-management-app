@@ -120,3 +120,14 @@
     margin-right: 5px;
   }
 }
+
+.board__back-home {
+  @include nav-link;
+
+  display: none;
+  font-weight: 400;
+
+  @media (min-width: $tablet-width) {
+    display: block;
+  }
+}

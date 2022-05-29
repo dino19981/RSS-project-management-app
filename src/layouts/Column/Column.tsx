@@ -206,9 +206,14 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
             />
           );
         })}
+        <EmptyTaskPreview
+          tasks={tasks}
+          boardId={boardId}
+          columnId={columnId}
+          update={updateBoard}
+        />
       </ul>
 
-      <EmptyTaskPreview tasks={tasks} boardId={boardId} columnId={columnId} update={updateBoard} />
       <ButtonWithModalForm {...addTaskOptions} />
 
       {isPopoverActive && (

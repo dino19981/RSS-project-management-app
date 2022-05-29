@@ -73,5 +73,5 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
     }
     await update();
   }
-  return <div className="task-empty" draggable={true} onDrop={(e) => dropHandler(e)}></div>;
+  return <div className="task-empty" onDrop={(e) => dropHandler(e)}></div>;
 }
