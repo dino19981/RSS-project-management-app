@@ -1,4 +1,4 @@
-import { buttonProps } from './button';
+import { ButtonProps } from './button';
 import { updatedUserInfo, userIdType } from './user';
 import {
   autorizationSchemaType,
@@ -9,7 +9,6 @@ import {
   TDeleteBoard,
   TTaskCreateSchema,
 } from './schemas';
-import { modalProps } from './modal';
 
 export interface formProps {
   schema: fieldsType;
@@ -18,7 +17,7 @@ export interface formProps {
   isHaveButton?: boolean;
   formId?: string;
   onSubmit: (values: fieldsType) => void;
-  buttonOptions?: buttonProps;
+  buttonOptions?: ButtonProps;
   formClassName?: string;
 }
 

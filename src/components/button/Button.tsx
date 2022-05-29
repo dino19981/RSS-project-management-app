@@ -1,5 +1,4 @@
-import { MouseEvent } from 'react';
-import { buttonProps } from '../../models/button';
+import { ButtonProps } from '../../models/button';
 
 export default function Button({
   text,
@@ -9,17 +8,19 @@ export default function Button({
   handler,
   btnClass,
   isDisabled,
-}: buttonProps) {
+  isVisuallyHiddenText,
+}: ButtonProps) {
+  const btnClassName = isVisuallyHiddenText ? 'visually-hidden' : 'modal-button__text';
   return (
     <button
-      className={btnClass}
+      className={`modal-button ${btnClass}`}
       onClick={handler}
       form={formId}
       type={type || 'button'}
       disabled={isDisabled}
     >
       {icon}
-      {text}
+      <span className={btnClassName}>{text}</span>
     </button>
   );
 }

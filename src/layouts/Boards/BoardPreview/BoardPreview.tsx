@@ -8,6 +8,7 @@ import { Methods } from '../../../const/APIMethoods';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { boardURL } from '../../../const/requestUrls';
 import { useTranslation } from 'react-i18next';
+import { deleteIcon } from '../../../components/icons/Icons';
 
 function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { t } = useTranslation();
@@ -31,12 +32,13 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
     <article className="board-preview">
       <Link to={boardURL(id)} className="board-preview__link">
         <h2 className="board-preview__title">{title}</h2>
+        <p className="board-preview__description">{description}</p>
       </Link>
       <div className="board_preview_footer">
         <ButtonWithModalForm
           modalState={{ isModalActive, setIsModalActive }}
           modalOptions={{ submitHandler: deleteBoard, contentWrapperClassName: 'modal__delete' }}
-          buttonOptions={{ text: 'delete' }}
+          buttonOptions={{ text: 'delete', icon: deleteIcon, isVisuallyHiddenText: true }}
           submitBtnName={t('buttons.delete')}
           questionText={`${t('board.delete_board_message')} ${title}?`}
           isError={isError}
