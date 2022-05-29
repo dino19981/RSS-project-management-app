@@ -51,12 +51,6 @@ function Board() {
 
   const board = data as TBoard;
 
-  useEffect(() => {
-    if (data) {
-      request();
-    }
-  }, [boardId]);
-
   async function deleteBoardHandler() {
     const deleteBoard = await request({
       url: boardURL(board.id),

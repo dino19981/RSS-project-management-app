@@ -38,7 +38,6 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
   const navigate = useNavigate();
   const [isModalActive, setIsModalActive] = useState(false);
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
-
   async function deleteTask() {
     const taskData = await request({
       url: taskURL(boardId, columnId, id),
@@ -76,7 +75,8 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
     const dropColumnId = e.dataTransfer.getData('columnId');
     if (columnId === dropColumnId) {
       const url = taskURL(boardId, columnId, dropTaskId);
-      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, dropColumnId);
+      console.log(order, dropTaskTitle);
       await request({
         url,
         method: Methods.PUT,
@@ -89,7 +89,7 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
       });
     } else {
       const url = taskURL(boardId, dropColumnId, dropTaskId);
-      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, dropColumnId);
       await request({
         url,
         method: Methods.PUT,
@@ -101,10 +101,6 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
         },
       });
     }
-    await request({
-      url: columnURL(boardId, columnId),
-      method: Methods.GET,
-    });
     await updateColumn();
   }
 

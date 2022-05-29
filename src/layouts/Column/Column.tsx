@@ -97,7 +97,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
           order,
         },
       });
-      request({
+      await request({
         url: columnURL(boardId, columnId),
         method: Methods.GET,
       });
@@ -190,9 +190,11 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
         <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
       </div>
 
-      {actualTasks.map((task) => {
-        return <Task key={task.id} {...task} columnId={columnId} updateColumn={updateBoard} />;
-      })}
+      {actualTasks
+        .sort((a, b) => a.order - b.order)
+        .map((task) => {
+          return <Task key={task.id} {...task} columnId={columnId} updateColumn={updateBoard} />;
+        })}
 
       <EmptyTaskPreview tasks={tasks} boardId={boardId} columnId={columnId} update={updateBoard} />
       <ButtonWithModalForm {...addTaskOptions} />
