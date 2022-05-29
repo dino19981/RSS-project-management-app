@@ -107,7 +107,7 @@ function Board() {
     modalOptions: { submitHandler: deleteBoardHandler, contentWrapperClassName: 'modal__delete' },
     buttonOptions: { text: t('buttons.delete_board') },
     submitBtnName: t('buttons.delete'),
-    questionText: `$t('board.delete_board_message'), $board?.title,?`,
+    questionText: `${t('board.delete_board_message')} ${board?.title}?`,
     isError: isError,
     errorText: ErrorMessage.SERVER_ERROR,
   };

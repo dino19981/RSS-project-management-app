@@ -4,7 +4,8 @@ import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../store/hooks';
 import { getUserData } from '../utils/authentification';
-import { setAuthorizeUser, setUserData } from '../store/user/actions';
+import { setAuthorizeUser, setLoadingUserData, setUserData } from '../store/user/actions';
+import { AppRoute } from '../const/routes';
 
 export default function MainLayout() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,8 @@ export default function MainLayout() {
         const userData = await getUserData(token);
         dispatch(setUserData(userData));
       })();
+    } else {
+      dispatch(setLoadingUserData(false));
     }
   }, []);
 

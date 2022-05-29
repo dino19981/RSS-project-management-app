@@ -20,7 +20,8 @@
     "board_name": "Название доски",
     "board_description": "Описание доски",
     "task_title": "Название задачи",
-    "task_description": "Описание задачи"
+    "task_description": "Описание задачи",
+    "search_tasks": "Введите название задания"
   },
   "error_messages": {
     "min_length_5": "Минимальная длина 5 символов",
@@ -62,10 +63,11 @@
     "delete_profile_message": "Вы действительно хотите удалить профиль"
   },
   "board": {
-    "delete_board_message": "Вы действительно хотите удалить доску"
+    "delete_board_message": "Вы действительно хотите удалить доску",
+    "search_tasks_no_results": "Не удалось ничего найти"
   },
   "task": {
-    "delete_task_message": "Вы действительно хотите удалить задачу"
+    "delete_task_message": "Не удалось ничего найти"
   },
   "column": {
     "delete_column_message": "Вы действительно хотите удалить колонку"

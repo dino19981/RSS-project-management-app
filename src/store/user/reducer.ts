@@ -24,6 +24,9 @@ const userSlice = createSlice({
     setAuthorizeUser: (state) => {
       state.authorizeStatus = true;
     },
+    setLoadingUserData: (state, { payload }: PayloadAction<boolean>) => {
+      state.isLoadingUserData = payload;
+    },
     deleteUserData: (state) => {
       localStorage.removeItem('token');
       state.authorizeStatus = false;

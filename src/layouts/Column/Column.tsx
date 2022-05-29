@@ -209,7 +209,12 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
       <ButtonWithModalForm {...addTaskOptions} />
 
       {isPopoverActive && (
-        <Popover placement="bottom-start" onClose={closeEditTitle} reference={columnTitleElement}>
+        <Popover
+          placement="bottom-start"
+          onClose={closeEditTitle}
+          reference={columnTitleElement}
+          popoverWrapperClass="popover__gray-wrapper"
+        >
           <div className="column__title-edit">
             <div
               className="column__form-wrapper"

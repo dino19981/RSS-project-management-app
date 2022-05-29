@@ -25,7 +25,7 @@ function App() {
               <Route
                 index
                 element={
-                  <AuthUser>
+                  <AuthUser redirectTo={AppRoute.WELCOME_PAGE}>
                     <Boards />
                   </AuthUser>
                 }

@@ -18,4 +18,5 @@ export type popoverProps = {
     | 'left-end';
   onClose: () => void;
   children: React.ReactNode;
+  popoverWrapperClass?: string;
 };
