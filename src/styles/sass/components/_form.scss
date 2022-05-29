@@ -9,8 +9,8 @@
 
 .form__item {
   position: relative;
-  padding-bottom: 15px;
-  margin-bottom: 5px;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
 
   &:last-child {
     margin-bottom: 0;
@@ -25,21 +25,30 @@
   @include regular-text;
 }
 
+.form__label-text {
+  display: block;
+  margin-bottom: 4px;
+}
+
 .form__input {
   @include regular-text;
+  
+  margin-bottom: 0;
+  border-radius: 5px;
 }
 
 .form__error-text {
-  position: absolute;
   bottom: 0;
   left: 0;
-
+  
   font-family: $main-font;
   font-size: 14px;
+  line-height: 1px;
   font-weight: 300;
   color: tomato;
-
-  @media (min-width: $tablet-width) {
-    font-size: 18px;
+  
+  @media (min-width: 560px) {
+    position: absolute;
+    position: absolute;
   }
 }
