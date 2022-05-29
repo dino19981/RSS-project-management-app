@@ -2,12 +2,33 @@
   "buttons": {
     "sign_out": "Выйти",
     "sign_in": "Войти",
-    "sign_up": "Зарегистрироваться"
+    "sign_up": "Зарегистрироваться",
+    "delete_profile": "Удалить профиль",
+    "save": "Сохранить",
+    "delete": "Удалить",
+    "close": "Закрыть",
+    "create_board": "Создать доску",
+    "delete_board": "Удалить доску"
   },
   "labels": {
     "login": "Логин",
     "password": "Пароль",
     "name": "Имя"
+  },
+  "placeholders": {
+    "column_title": "Название колонки",
+    "board_name": "Название доски",
+    "board_description": "Описание доски",
+    "task_title": "Название задачи",
+    "task_description": "Описание задачи"
+  },
+  "error_messages": {
+    "min_length_5": "Минимальная длина 5 символов",
+    "no_white_spaces_and_min_length_3": "Пробелы недопустимы, минимальная длина 3 символа",
+    "max_length_15": "Максимальная длина 15 символов",
+    "server_error": "Произошла ошибка, попробуйте выполнить действие позднее",
+    "description_required": "Заполните описание",
+    "title_required": "Заполните название"
   },
   "header": {
     "create_new_board": "Создать новую доску",
@@ -31,5 +52,16 @@
   },
   "sign_up": {
     "is_have_login_text": "Уже зарегистрированы?"
+  },
+  "edit_profile": {
+    "title": "Редактирвоание профиля",
+    "saved_data": "Данные успешно сохранены!",
+    "delete_profile_message": "Вы действительно хотите удалить профиль"
+  },
+  "board": {
+    "delete_board_message": "Вы действительно хотите удалить доску"
+  },
+  "task": {
+    "delete_task_message": "Вы действительно хотите удалить задачу"
   }
 }

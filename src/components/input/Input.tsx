@@ -30,13 +30,13 @@ export default function Input({
         value={value}
         name={name}
         defaultChecked={checked}
-        placeholder={placeholder}
+        placeholder={t(`${placeholder || ''}`)}
         className={`form__input ${inputClassName || ''}`}
         type={type || 'text'}
         disabled={isdisabled}
         defaultValue={defaultValue}
       />
-      {isHaveError && <span className="form__error-text">{errorMessage}</span>}
+      {isHaveError && <span className="form__error-text">{t(`${errorMessage || ''}`)}</span>}
     </label>
   );
 }

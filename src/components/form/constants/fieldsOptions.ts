@@ -4,7 +4,7 @@ export const authorizationFields = [
   {
     name: 'login',
     labelText: 'labels.login',
-    errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3,
+    errorMessage: ErrorMessage.NO_WHITE_SPACES_AND_MIN_LENGTH_3,
   },
   {
     name: 'password',
@@ -15,11 +15,11 @@ export const authorizationFields = [
 ];
 
 export const registrationFields = [
-  { name: 'name', labelText: 'labels.name', errorMessage: 'Максимальная длина 15 символов' },
+  { name: 'name', labelText: 'labels.name', errorMessage: ErrorMessage.MAX_LENGTH_15 },
   {
     name: 'login',
     labelText: 'labels.login',
-    errorMessage: ErrorMessage.NO_WHITESPACES_AND_MIN_LENGTH_3,
+    errorMessage: ErrorMessage.NO_WHITE_SPACES_AND_MIN_LENGTH_3,
   },
   {
     name: 'password',
@@ -31,50 +31,36 @@ export const registrationFields = [
 
 export const editProfileFields = registrationFields;
 
-export const deleteUserProfile = [
-  {
-    name: 'login',
-    labelText: 'Действительно удалить пользователя?',
-    isdisabled: true,
-  },
-];
-
-export const deleteBoardFields = [
-  {
-    name: 'title',
-    labelText: 'Действительно удалить доску?',
-    isdisabled: true,
-  },
-];
-
-export const deleteTaskfields = [
-  {
-    name: 'title',
-    labelText: 'Действительно удалить задачу?',
-    isdisabled: true,
-  },
-];
-
 export const columnfields = [
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Column Title' },
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.column_title',
+  },
 ];
 
 export const newBoardFields = [
   {
     name: 'title',
-    labelText: 'Название доски',
-    errorMessage: 'Название обязательно',
-    placeholder: 'Введите название доски',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.board_name',
   },
   {
     name: 'description',
-    labelText: 'Описание',
-    errorMessage: 'Описание обязательно',
-    placeholder: 'Введите краткое описание',
+    errorMessage: 'error_messages.description_required',
+    placeholder: 'placeholders.board_description',
   },
 ];
 
 export const createTaskFields = [
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Task Title' },
-  { name: 'description', errorMessage: 'description is required', placeholder: 'description' },
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.task_title',
+  },
+  {
+    name: 'description',
+    errorMessage: 'error_messages.description_required',
+    placeholder: 'placeholders.task_description',
+  },
 ];
