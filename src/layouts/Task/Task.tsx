@@ -46,7 +46,7 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
     });
 
     if (taskData) {
-      updateColumn({
+      request({
         url: columnURL(boardId, columnId),
         method: Methods.GET,
       });
@@ -70,7 +70,6 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     e.stopPropagation();
-    console.log('taskdrop');
     const dropTaskId = e.dataTransfer.getData('taskId');
     const dropTaskTitle = e.dataTransfer.getData('taskTitle');
     const dropTaskDescription = e.dataTransfer.getData('taskDescription');
@@ -102,10 +101,11 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
         },
       });
     }
-    updateColumn({
+    await request({
       url: columnURL(boardId, columnId),
       method: Methods.GET,
     });
+    await updateColumn();
   }
 
   return (

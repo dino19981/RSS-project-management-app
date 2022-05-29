@@ -3,11 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import {
-  columnfields,
-  createTaskFields,
-  editColumnFields,
-} from '../../components/form/constants/fieldsOptions';
+import { createTaskFields, editColumnFields } from '../../components/form/constants/fieldsOptions';
 import { createTaskValues } from '../../components/form/constants/initialValues';
 import Form from '../../components/form/Form';
 import { checkIcon, closeIcon, deleteIcon } from '../../components/icons/Icons';
@@ -105,8 +101,8 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
         url: columnURL(boardId, columnId),
         method: Methods.GET,
       });
-      updateBoard();
     }
+    await updateBoard();
   }
 
   function openEditTitle() {
@@ -133,7 +129,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (columnData) {
-      updateBoard();
+      await updateBoard();
     }
   }
 
@@ -144,7 +140,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (columnData) {
-      updateBoard();
+      await updateBoard();
     }
   }
 
@@ -195,7 +191,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
       </div>
 
       {actualTasks.map((task) => {
-        return <Task key={task.id} {...task} columnId={columnId} updateColumn={request} />;
+        return <Task key={task.id} {...task} columnId={columnId} updateColumn={updateBoard} />;
       })}
 
       <EmptyTaskPreview tasks={tasks} boardId={boardId} columnId={columnId} update={updateBoard} />
