@@ -29,7 +29,7 @@
 }
 
 .authentification__button {
-  padding: 10px 20px;
+  @include submit-button;
 }
 
 .authentification__error {

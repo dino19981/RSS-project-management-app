@@ -28,13 +28,15 @@
     "max_length_15": "The maximum length is 15 characters",
     "server_error": "An error has occurred, try to perform the action later",
     "description_required": "Description is required",
-    "title_required": "Title is required"
+    "title_required": "Title is required",
+    "max_columns_count": "Maximum number of columns created"
   },
   "header": {
     "create_new_board": "Create new board",
     "en": "Eng",
     "ru": "Rus",
-    "edit_profile": "Edit profile"
+    "edit_profile": "Edit profile",
+    "about_us": "About us"
   },
   "welcome": {
     "head_title": "Masterfully manage projects!",
@@ -44,7 +46,8 @@
     "Artem": "Artem",
     "Roman": "Roman",
     "Dmitry": "Dmitry",
-    "team": "Our team"
+    "team": "Our team",
+    "go_to_main_page": "Main Page"
   },
   "sign_in": {
     "no_register_text": "Not registered yet?",
@@ -63,5 +66,8 @@
   },
   "task": {
     "delete_task_message": "Do you really want to delete a task"
+  },
+  "column": {
+    "delete_column_message": "Do you really want to delete a column"
   }
 }

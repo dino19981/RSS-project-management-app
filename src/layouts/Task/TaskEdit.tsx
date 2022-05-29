@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { descriptionIcon, editIcon, userIcon } from '../../components/icons/Icons';
 import Input from '../../components/input/Input';
 import Modal from '../../components/modal/Modal';
 import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
@@ -86,9 +87,7 @@ export default function TaskEdit() {
       <ProcessingWrapper isError={isError} isLoading={isLoading} errortext="Error">
         <section className="task__edit_inner">
           <div className="task__edit_title-wrapper">
-            <svg className="task__edit_icon" style={{ width: '20px', height: '20px' }}>
-              <use xlinkHref="#task-icon" />
-            </svg>
+            {editIcon}
             <Input
               defaultValue={taskData?.title}
               inputClass="task__edit_title"
@@ -100,16 +99,12 @@ export default function TaskEdit() {
             <span>{` ${columnData?.title}`}</span>
           </h4>
           <div className="task__edit_description-wrapper">
-            <svg className="task__edit_icon" style={{ width: '20px', height: '20px' }}>
-              <use xlinkHref="#user-icon" />
-            </svg>
+            {userIcon}
             <h4 className="task__edit_text">{`Создатель: ${login}`}</h4>
           </div>
 
           <div className="task__edit_description-wrapper">
-            <svg className="task__edit_icon" style={{ width: '20px', height: '20px' }}>
-              <use xlinkHref="#description-icon" />
-            </svg>
+            {descriptionIcon}
             <h4 className="task__edit_text">Описание</h4>
           </div>
 
