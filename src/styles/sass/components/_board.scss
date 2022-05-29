@@ -1,3 +1,52 @@
+.board {
+  @include fix-main;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.board__menu {
+  display: grid;
+  grid-template-columns: 2fr auto;
+  height: 53px;
+  max-height: 53px;
+}
+
+.board__btn-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $tablet-width) {
+    flex-direction: row;
+  }
+}
+
+.board__title {
+  display: block;
+
+  margin: 0;
+  padding-top: 3px;
+  padding-bottom: 10px;
+
+  font-family: $title-font;
+  font-size: 28px;
+
+  @media (min-width: 420px) {
+    font-size: 32px;
+    line-height: 34px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 36px;
+    line-height: 38px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 38px;
+    line-height: 40px;
+  }
+}
+
 .board__create-column {
   max-width: fit-content;
 }

@@ -1,0 +1,144 @@
+.column {
+  display: inline-block;
+  flex-direction: column;
+  cursor: grab;
+
+  margin-bottom: auto;
+  margin-right: 15px;
+  padding-top: 5px;
+  padding-left: 8px;
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid rgb(233, 237, 195);
+  
+  width: 25%;
+  border-radius: 5px;
+  max-width: 270px;
+  width: 270px;
+  background-color: $light-green;
+  box-shadow: 0 14px 28px rgb(196 172 40 / 10%), 0 10px 10px rgb(0 0 0 / 10%);
+}
+
+.column_link {
+  width: 100%;
+}
+
+.column__title-wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 3px;
+  margin-bottom: 10px;
+
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    .task__delete_btn {
+      opacity: 1;
+    }
+  }
+}
+
+.column__title {
+  @include regular-text;
+  
+  font-weight: 500;
+  font-family: $title-font;
+  margin: 0;
+  
+  @media (min-width: 420px) {
+    margin-bottom: 0;
+  }
+}
+
+.column__title {
+  &-edit {
+    display: flex;
+
+    li {
+      padding: 0;
+    }
+
+    input {
+      margin: 0;
+    }
+  }
+
+  &-buttons {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .loading-screen__spinner {
+    max-width: 20px;
+  }
+}
+
+.column__task-list {
+  @include basic-list;
+
+  scrollbar-width: thin;
+  margin-right: 3px;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgb(233, 233, 233);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(193, 193, 193);
+  }
+  
+  padding-right: 7px;
+  overflow-y: auto;
+
+  @media (min-width: $tablet-width) {
+    max-height: calc($main-height-desktop - 240px);
+  }
+  
+  @media (min-width: $desktop-width) {
+    max-height: calc($main-height-desktop - 180px);
+  }
+}
+
+.column__create-task-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  margin-top: 15px;
+  
+  background-color: transparent;
+  color: $dark-green;
+  min-width: 130px;
+  
+  transition: all 0.3s;
+
+  & svg {
+    transition: all 0.3s;
+    fill: $dark-green;
+  }
+
+  &:hover, &:focus {
+    color: gray;
+
+    & svg {
+      fill: gray;
+    }
+  }
+
+  &:active {
+    color: $basic-black;
+
+    & svg {
+      fill: $basic-black;
+    }
+  }
+}

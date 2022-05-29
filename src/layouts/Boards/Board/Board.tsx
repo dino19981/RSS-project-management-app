@@ -120,10 +120,12 @@ function Board() {
 
   return (
     <section className="board">
-      <h1 className="board__title">{board && board.title}</h1>
       <div className="board__menu">
-        <ButtonWithModalForm {...createColumnOptions} />
-        <ButtonWithModalForm {...deleteBoardOptions} />
+        <h1 className="board__title">{board && board.title}</h1>
+        <div className="board__btn-wrapper">
+          <ButtonWithModalForm {...createColumnOptions} />
+          <ButtonWithModalForm {...deleteBoardOptions} />
+        </div>
       </div>
       {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
       {isLoading && <Loader />}

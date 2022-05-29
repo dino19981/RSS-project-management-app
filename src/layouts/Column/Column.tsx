@@ -26,6 +26,7 @@ import { createTaskSchema } from '../../schemas/task';
 import { useAppSelector } from '../../store/hooks';
 import EmptyTaskPreview from '../Task/EmptyTaskPreview';
 import Task from '../Task/Task';
+import { plusIcon } from '../../components/icons/Icons';
 
 const formOptions = {
   schema: createTaskSchema,
@@ -163,7 +164,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
       isModalActive: isCreateTaskModalActive,
       setIsModalActive: setIsCreateTaskModalActive,
     },
-    buttonOptions: { btnClass: 'task_create__btn', text: 'Add task' },
+    buttonOptions: { btnClass: 'column__create-task-btn', text: 'Add task', icon: plusIcon },
     formOptions: { ...formOptions, onSubmit: createTask },
     isError: isError,
     errorText: ErrorMessage.SERVER_ERROR,
@@ -194,9 +195,11 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
         <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
       </div>
 
-      {actualTasks.map((task) => {
-        return <Task key={task.id} {...task} columnId={columnId} updateColumn={request} />;
-      })}
+      <ul className="column__task-list">
+        {actualTasks.map((task) => {
+          return <Task key={task.id} {...task} columnId={columnId} updateColumn={request} />;
+        })}
+      </ul>
 
       <EmptyTaskPreview tasks={tasks} boardId={boardId} columnId={columnId} update={updateBoard} />
       <ButtonWithModalForm {...addTaskOptions} />
