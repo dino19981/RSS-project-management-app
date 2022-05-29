@@ -20,6 +20,7 @@ function dragStart(
   columnId: string,
   userId: string
 ) {
+  e.stopPropagation();
   e.dataTransfer.setData('taskId', taskId);
   e.dataTransfer.setData('taskTitle', title);
   e.dataTransfer.setData('taskDescription', description);
@@ -31,7 +32,16 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Task({ id, title, description, columnId, updateColumn, userId, order }: taskProps) {
+function Task({
+  id,
+  title,
+  description,
+  columnId,
+  updateColumn,
+  updateBoard,
+  userId,
+  order,
+}: taskProps) {
   const { t } = useTranslation();
   const { boardId } = useParams();
   const { pathname } = useLocation();
@@ -46,7 +56,7 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
     });
 
     if (taskData) {
-      updateColumn({
+      request({
         url: columnURL(boardId, columnId),
         method: Methods.GET,
       });
@@ -70,14 +80,13 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     e.stopPropagation();
-    console.log('taskdrop');
     const dropTaskId = e.dataTransfer.getData('taskId');
     const dropTaskTitle = e.dataTransfer.getData('taskTitle');
     const dropTaskDescription = e.dataTransfer.getData('taskDescription');
     const dropColumnId = e.dataTransfer.getData('columnId');
     if (columnId === dropColumnId) {
       const url = taskURL(boardId, columnId, dropTaskId);
-      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, dropColumnId);
       await request({
         url,
         method: Methods.PUT,
@@ -87,10 +96,16 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
           order,
           boardId,
         },
+      });
+
+      updateColumn({
+        url: columnURL(boardId, columnId),
+        method: Methods.GET,
       });
     } else {
       const url = taskURL(boardId, dropColumnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+
       await request({
         url,
         method: Methods.PUT,
@@ -101,11 +116,9 @@ function Task({ id, title, description, columnId, updateColumn, userId, order }:
           boardId,
         },
       });
+
+      updateBoard();
     }
-    updateColumn({
-      url: columnURL(boardId, columnId),
-      method: Methods.GET,
-    });
   }
 
   return (
