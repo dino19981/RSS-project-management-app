@@ -57,3 +57,9 @@ export const githubIcon = (
     <use xlinkHref="#github-icon" />
   </svg>
 );
+
+export const plusIcon = (
+  <svg className="plus-icon" width="18" height="18">
+    <use xlinkHref="#plus-icon" />
+  </svg>
+);
