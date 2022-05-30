@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { registrationFields } from '../../components/form/constants/fieldsOptions';
 import { registrationValues } from '../../components/form/constants/initialValues';
 import Loader from '../../components/loader/loader';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
 import { fieldsType } from '../../models/form';

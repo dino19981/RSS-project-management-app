@@ -1,5 +1,5 @@
 import React from 'react';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { tasksURL, taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TGetBoardTask } from '../../models/task';
@@ -73,5 +73,5 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
     }
     await update();
   }
-  return <div className="task-empty" draggable={true} onDrop={(e) => dropHandler(e)}></div>;
+  return <div className="task-empty" onDrop={(e) => dropHandler(e)}></div>;
 }

@@ -11,7 +11,7 @@ export const closeIcon = (
 );
 
 export const deleteIcon = (
-  <svg>
+  <svg className="delete-icon" width="28" height="28">
     <use xlinkHref="#delete-icon" />
   </svg>
 );
@@ -55,5 +55,11 @@ export const descriptionIcon = (
 export const githubIcon = (
   <svg className="footer__gh-icon" width="20" height="20">
     <use xlinkHref="#github-icon" />
+  </svg>
+);
+
+export const plusIcon = (
+  <svg className="plus-icon" width="18" height="18">
+    <use xlinkHref="#plus-icon" />
   </svg>
 );

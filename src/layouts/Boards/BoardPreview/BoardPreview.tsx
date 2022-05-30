@@ -4,10 +4,11 @@ import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonW
 import { boardPreviewProps } from '../../../models/boardPreview';
 import { useAxios } from '../../../hooks/useAxios';
 import Loader from '../../../components/loader/loader';
-import { Methods } from '../../../const/APIMethoods';
+import { Methods } from '../../../const/APIMethod';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { boardURL } from '../../../const/requestUrls';
 import { useTranslation } from 'react-i18next';
+import { deleteIcon } from '../../../components/icons/Icons';
 
 function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { t } = useTranslation();
@@ -31,12 +32,18 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
     <article className="board-preview">
       <Link to={boardURL(id)} className="board-preview__link">
         <h2 className="board-preview__title">{title}</h2>
+        <p className="board-preview__description">{description}</p>
       </Link>
-      <div className="board_preview_footer">
+      <div className="board-preview__delete-wrapper">
         <ButtonWithModalForm
           modalState={{ isModalActive, setIsModalActive }}
           modalOptions={{ submitHandler: deleteBoard, contentWrapperClassName: 'modal__delete' }}
-          buttonOptions={{ text: 'delete' }}
+          buttonOptions={{
+            text: 'delete',
+            icon: deleteIcon,
+            isVisuallyHiddenText: true,
+            btnClass: 'board-preview__delete-btn',
+          }}
           submitBtnName={t('buttons.delete')}
           questionText={`${t('board.delete_board_message')} ${title}?`}
           isError={isError}

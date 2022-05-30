@@ -4,7 +4,7 @@ import Button from '../../components/button/Button';
 import { editProfileFields } from '../../components/form/constants/fieldsOptions';
 import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';

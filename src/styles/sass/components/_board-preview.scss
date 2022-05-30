@@ -1,5 +1,10 @@
 .board-preview {
   @include card;
+
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 0;
+
   margin-left: 0;
   margin-right: 0;
   width: 100%;
@@ -7,7 +12,12 @@
 }
 
 .board-preview__link {
-  flex-grow: 1;
+  display: block;
+  padding-top: 35px;
+  padding-bottom: 42px;
+  padding-left: 28px;
+  padding-right: 28px;  
+  color: $dark-green;
 }
 
 .board-preview__title {
@@ -17,4 +27,28 @@
 
 .board-preview__description {
   @include regular-text;
+  margin-bottom: 0;
+}
+
+.board-preview__delete-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-preview__delete-btn {
+  display: flex;
+  margin-top: 20px;
+  margin-right: 13px;
+  padding: 15px;
+  border-radius: 50%;
+  background-color: transparent;
+
+  &:hover, &:focus {
+    background-color: rgb(237, 235, 235);
+  } 
+}
+
+.delete-icon {
+  margin-bottom: auto;
+  fill: $dark-green;
 }

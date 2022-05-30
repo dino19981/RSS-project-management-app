@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import Input from '../../components/input/Input';
 import Popover from '../../components/popover/Popover';
 import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
-import { Methods } from '../../const/APIMethoods';
+import { Methods } from '../../const/APIMethod';
 import { boardsURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TBoard } from '../../models/board';

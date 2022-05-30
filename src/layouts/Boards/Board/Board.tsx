@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { fieldsType } from '../../../models/form';
@@ -7,7 +7,7 @@ import { useAxios } from '../../../hooks/useAxios';
 import { TBoard } from '../../../models/board';
 import Loader from '../../../components/loader/loader';
 import { MAX_COLUMN_COUNT } from '../const';
-import { Methods } from '../../../const/APIMethoods';
+import { Methods } from '../../../const/APIMethod';
 import { AppRoute } from '../../../const/routes';
 import EmptyColumn from '../../Column/EmptyColumn';
 import { columSchema } from '../../../schemas/column';
@@ -17,6 +17,7 @@ import Column from '../../Column/Column';
 import { boardURL, columnsURL } from '../../../const/requestUrls';
 import { useTranslation } from 'react-i18next';
 import { ErrorMessage } from '../../../const/errorMessage';
+import { plusIcon, deleteIcon } from '../../../components/icons/Icons';
 
 const formOptions = {
   schema: columSchema,
@@ -46,7 +47,7 @@ function Board() {
 
   const { data, isLoading, isError, request } = useAxios({
     url: boardURL(boardId),
-    method: 'get',
+    method: Methods.GET,
   });
 
   const board = data as TBoard;
@@ -93,7 +94,11 @@ function Board() {
       setIsModalActive: setCreateColumnIsModalActive,
     },
     modalOptions: { contentWrapperClassName: 'board__create-column' },
-    buttonOptions: { btnClass: 'column_create__btn', text: 'Создать колонку' },
+    buttonOptions: {
+      btnClass: 'board__create-column-btn',
+      text: 'Создать колонку',
+      icon: plusIcon,
+    },
     formOptions: { ...formOptions, onSubmit: createColumnHandler },
     isError: maxColumnCountError,
     errorText: t('error_messages.max_columns_count'),
@@ -105,7 +110,11 @@ function Board() {
       setIsModalActive: setDeleteBoardIsModalActive,
     },
     modalOptions: { submitHandler: deleteBoardHandler, contentWrapperClassName: 'modal__delete' },
-    buttonOptions: { text: t('buttons.delete_board') },
+    buttonOptions: {
+      btnClass: 'board__delete-column-btn',
+      text: t('buttons.delete_board'),
+      icon: deleteIcon,
+    },
     submitBtnName: t('buttons.delete'),
     questionText: `${t('board.delete_board_message')} ${board?.title}?`,
     isError: isError,
@@ -114,10 +123,15 @@ function Board() {
 
   return (
     <section className="board">
-      <h1 className="board__title">{board && board.title}</h1>
       <div className="board__menu">
-        <ButtonWithModalForm {...createColumnOptions} />
-        <ButtonWithModalForm {...deleteBoardOptions} />
+        <h1 className="board__title">{board && board.title}</h1>
+        <div className="board__btn-wrapper">
+          <Link className="board__back-home" to={AppRoute.MAIN}>
+            ↩ На главную
+          </Link>
+          <ButtonWithModalForm {...createColumnOptions} />
+          <ButtonWithModalForm {...deleteBoardOptions} />
+        </div>
       </div>
       {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
       {isLoading && <Loader />}

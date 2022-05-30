@@ -1,3 +1,133 @@
+.board {
+  @include fix-main;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.board__menu {
+  display: grid;
+
+  @media (min-width: $tablet-width) {
+    grid-template-columns: 2fr auto;
+    height: 53px;
+    max-height: 53px;
+  }
+}
+
+.board__title {
+  display: block;
+
+  margin: 0;
+  padding-top: 3px;
+  padding-bottom: 10px;
+
+  font-family: $title-font;
+  font-size: 28px;
+  font-weight: 500;
+
+  @media (min-width: 420px) {
+    font-size: 32px;
+    line-height: 34px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 36px;
+    line-height: 38px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 38px;
+    line-height: 40px;
+  }
+}
+
 .board__create-column {
   max-width: fit-content;
+}
+
+.board__btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+
+  @media (min-width: $tablet-width) {
+    flex-direction: row;
+    margin-bottom: 0;
+  }
+}
+
+.board__create-column-btn,
+.board__delete-column-btn {
+  position: relative;
+  display: block;
+
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 5px 15px;
+
+  color: $dark-green;
+
+  font-family: $main-font;
+  font-size: 19px;
+  background-color: $basic-white;
+  border-radius: 5px;
+  transition: all 0.3s;
+  text-align: center;
+
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
+
+  & svg { 
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  & .modal-button__text {
+    display: block;
+    padding-left: 15px;
+
+    @media (min-width: $tablet-width) {
+      padding-left: 20px;
+    }
+  }
+}
+
+.board__create-column-btn {
+  margin-right: 12px;;
+
+  & svg {
+    fill: $dark-green;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+
+  @media (min-width: $tablet-width) {
+    margin-right: 15px;;
+  }
+}
+
+.board__delete-column-btn {
+  position: relative;
+  & svg {
+    fill: $dark-green;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+}
+
+.board__back-home {
+  @include nav-link;
+
+  display: none;
+  font-weight: 400;
+
+  @media (min-width: $tablet-width) {
+    display: block;
+  }
 }
