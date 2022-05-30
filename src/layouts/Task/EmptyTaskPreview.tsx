@@ -16,8 +16,11 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
   const { request } = useAxios({}, { dontFetchAtMount: true });
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
-    e.preventDefault();
+    if (e.dataTransfer.getData('element') === 'column') {
+      return;
+    }
     e.stopPropagation();
+    e.preventDefault();
 
     const dropTaskId = e.dataTransfer.getData('taskId');
     const dropTaskTitle = e.dataTransfer.getData('taskTitle');

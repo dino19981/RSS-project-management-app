@@ -32,6 +32,7 @@ function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string
   e.stopPropagation();
   e.dataTransfer.setData('columnId', id);
   e.dataTransfer.setData('columnTitle', title);
+  e.dataTransfer.setData('element', 'column');
 }
 
 function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {

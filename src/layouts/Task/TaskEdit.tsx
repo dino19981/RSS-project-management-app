@@ -93,6 +93,7 @@ export default function TaskEdit() {
             <Input
               defaultValue={taskData?.title}
               inputClass="task__edit_title"
+              labelClass="task__edit_label"
               onBlur={(e) => updateTaskElement(e, 'title')}
             />
           </div>

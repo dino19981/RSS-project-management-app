@@ -4,19 +4,22 @@
   cursor: grab;
 
   margin-bottom: auto;
-  margin-right: 15px;
+  margin-right: 1rem;
   padding-top: 5px;
   padding-left: 8px;
   padding-bottom: 10px;
 
   border-bottom: 1px solid rgb(233, 237, 195);
-  
+
   border-radius: 5px;
-  max-width: 270px;
-  width: 270px;
+  width: 20%;
   min-width: 270px;
   background-color: $light-green;
   box-shadow: 0 14px 28px rgb(196 172 40 / 10%), 0 10px 10px rgb(0 0 0 / 10%);
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .column_link {
@@ -43,11 +46,11 @@
 
 .column__title {
   @include regular-text;
-  
+
   font-weight: 500;
   font-family: $title-font;
   margin: 0;
-  
+
   @media (min-width: 420px) {
     margin-bottom: 0;
   }
@@ -95,7 +98,7 @@
   &::-webkit-scrollbar-thumb {
     background-color: rgb(193, 193, 193);
   }
-  
+
   padding-right: 7px;
   overflow-y: auto;
   max-height: calc($main-height-mobile - 270px);
@@ -103,7 +106,7 @@
   @media (min-width: $tablet-width) {
     max-height: calc($main-height-desktop - 270px);
   }
-  
+
   @media (min-width: $desktop-width) {
     max-height: calc($main-height-desktop - 240px);
   }
@@ -115,11 +118,11 @@
   align-items: baseline;
 
   margin-top: 15px;
-  
+
   background-color: transparent;
   color: $dark-green;
   min-width: 130px;
-  
+
   transition: all 0.3s;
 
   & svg {
@@ -127,7 +130,8 @@
     fill: $dark-green;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: gray;
 
     & svg {

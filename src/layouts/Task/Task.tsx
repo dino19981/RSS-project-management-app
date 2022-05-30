@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
-import { deleteIcon } from '../../components/icons/Icons';
+import { deleteIcon, descriptionIcon, paperClipIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethod';
@@ -26,13 +26,14 @@ function dragStart(
   e.dataTransfer.setData('taskDescription', description);
   e.dataTransfer.setData('columnId', columnId);
   e.dataTransfer.setData('userId', userId);
+  e.dataTransfer.setData('element', 'task');
 }
 
 function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Task({ id, title, description, columnId, updateBoard, userId, order }: taskProps) {
+function Task({ id, title, description, columnId, updateBoard, userId, order, files }: taskProps) {
   const { t } = useTranslation();
   const { boardId } = useParams();
   const { pathname } = useLocation();
@@ -66,6 +67,9 @@ function Task({ id, title, description, columnId, updateBoard, userId, order }: 
   }
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
+    if (e.dataTransfer.getData('element') === 'column') {
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
     const dropTaskId = e.dataTransfer.getData('taskId');
@@ -113,10 +117,17 @@ function Task({ id, title, description, columnId, updateBoard, userId, order }: 
         onDragStart={(e) => dragStart(e, id, title, description, columnId, userId)}
         onDrop={(e) => dropHandler(e)}
       >
-        <div className="task__link">{title}</div>
-        <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
-        {isLoading && <Loader />}
+        <div className="task__title-wrapper">
+          <div className="task__link">{title}</div>
+          <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
+        </div>
+
+        <div className="task__icons-wrapper">
+          <div>{descriptionIcon}</div>
+          {!!files.length && <div>{paperClipIcon}</div>}
+        </div>
       </div>
+      {isLoading && <Loader />}
       {isModalActive && (
         <Modal
           formId="modalForm"
