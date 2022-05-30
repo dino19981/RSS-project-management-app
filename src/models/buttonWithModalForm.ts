@@ -1,0 +1,15 @@
+import { AxiosError } from 'axios';
+import { formProps } from './form';
+import { modalProps } from './modal';
+import { ButtonProps } from './button';
+
+export interface buttonWithModalFormProps {
+  formOptions?: formProps;
+  buttonOptions: ButtonProps;
+  modalOptions?: modalProps;
+  modalState: { isModalActive: boolean; setIsModalActive: (state: boolean) => void };
+  submitBtnName: string;
+  isError?: false | AxiosError | boolean;
+  errorText?: string;
+  questionText?: string;
+}

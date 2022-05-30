@@ -1,0 +1,18 @@
+.columns-wrapper {
+  display: flex;
+  overflow-y: hidden;
+  margin-bottom: 5px;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: rgb(233, 233, 233);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(193, 193, 193);
+    cursor: grab;
+  }
+}
