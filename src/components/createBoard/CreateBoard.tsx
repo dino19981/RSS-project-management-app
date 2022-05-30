@@ -35,8 +35,6 @@ export default function CreateBoard() {
       const {
         data: { id },
       } = data;
-      console.log(id, 'created');
-
       setIsModalActive(false);
       navigate(`${AppRoute.BOARDS}/${id}`);
     }
