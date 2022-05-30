@@ -88,7 +88,7 @@ function Board() {
   }
 
   const createColumnOptions = {
-    submitBtnName: 'Создать колонку',
+    submitBtnName: t('buttons.create_column'),
     modalState: {
       isModalActive: isCreateColumnModalActive,
       setIsModalActive: setCreateColumnIsModalActive,
@@ -96,7 +96,7 @@ function Board() {
     modalOptions: { contentWrapperClassName: 'board__create-column' },
     buttonOptions: {
       btnClass: 'board__create-column-btn',
-      text: 'Создать колонку',
+      text: t('buttons.create_column'),
       icon: plusIcon,
     },
     formOptions: { ...formOptions, onSubmit: createColumnHandler },
@@ -127,7 +127,7 @@ function Board() {
         <h1 className="board__title">{board && board.title}</h1>
         <div className="board__btn-wrapper">
           <Link className="board__back-home" to={AppRoute.MAIN}>
-            ↩ На главную
+            ↩{t('buttons.to_main_page')}
           </Link>
           <ButtonWithModalForm {...createColumnOptions} />
           <ButtonWithModalForm {...deleteBoardOptions} />
