@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -25,16 +25,14 @@ const formOptions = {
   fields: columnfields,
 };
 
-function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>) {
+function generateColumns(columns: TColumn[], updateHandler: () => void) {
+  console.log('generate', columns);
+
   const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
 
-  return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
-    const comparedColumn = makeColumnOrder[index];
-    if (comparedColumn) {
-      return <Column key={comparedColumn.id} {...comparedColumn} updateBoard={updateHandler} />;
-    }
-    return <EmptyColumn key={index} />;
-  });
+  return makeColumnOrder.map((column) => (
+    <Column key={column.id} {...column} updateBoard={updateHandler} />
+  ));
 }
 
 function Board() {
@@ -51,6 +49,12 @@ function Board() {
   });
 
   const board = data as TBoard;
+
+  useEffect(() => {
+    if (data) {
+      request();
+    }
+  }, [boardId]);
 
   async function deleteBoardHandler() {
     const deleteBoard = await request({
@@ -79,9 +83,10 @@ function Board() {
     setCreateColumnIsModalActive(false);
   }
 
-  async function putRequest() {
-    request();
-  }
+  // async function putRequest() {
+  //   const data = await request();
+  //   console.log(data);
+  // }
 
   if (isError) {
     return <p className="board__error">Не удалось загрузить колонки</p>;
@@ -133,9 +138,9 @@ function Board() {
           <ButtonWithModalForm {...deleteBoardOptions} />
         </div>
       </div>
-      {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
+      {board && <div className="columns-wrapper">{generateColumns(board.columns, request)}</div>}
       {isLoading && <Loader />}
-      <Outlet />
+      <Outlet context={{ updateBoard: request }} />
     </section>
   );
 }

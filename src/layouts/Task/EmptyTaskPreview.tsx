@@ -8,7 +8,7 @@ import { generateTaskBody } from '../../utils/dragAndDrop';
 type TProps = {
   boardId: string | undefined;
   columnId: string;
-  update: () => Promise<void>;
+  update: () => void;
   tasks: TGetBoardTask[];
 };
 
@@ -27,7 +27,7 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
     if (columnId === dropColumnId) {
       if (tasks.length === 1) return;
       const draggedTask = tasks.find((task) => task.id === dropTaskId);
-      if (tasks.length + 1 === draggedTask!.order) {
+      if (tasks.length === draggedTask!.order) {
         return;
       }
       const url = taskURL(boardId, columnId, dropTaskId);
@@ -45,6 +45,7 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
       if (tasks.length === 0) {
         const url = taskURL(boardId, dropColumnId, dropTaskId);
         const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+
         await request({
           url,
           method: Methods.PUT,
@@ -71,7 +72,7 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
         });
       }
     }
-    await update();
+    update();
   }
   return <div className="task-empty" onDrop={(e) => dropHandler(e)}></div>;
 }

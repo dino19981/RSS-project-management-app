@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { descriptionIcon, editIcon, userIcon } from '../../components/icons/Icons';
 import Input from '../../components/input/Input';
 import Modal from '../../components/modal/Modal';
@@ -12,6 +12,7 @@ import { TTask } from '../../models/task';
 import { useAppSelector } from '../../store/hooks';
 
 export default function TaskEdit() {
+  const { updateBoard } = useOutletContext<{ updateBoard: () => void }>();
   const navigate = useNavigate();
   const { boardId, columnId, taskId } = useParams();
   const { login } = useAppSelector((state) => state.authorization);
@@ -40,7 +41,7 @@ export default function TaskEdit() {
     navigate(boardURL(boardId));
   }
 
-  function updateTaskElement(
+  async function updateTaskElement(
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     updatedElement: string
   ) {
@@ -53,7 +54,8 @@ export default function TaskEdit() {
         method: Methods.PUT,
         data: newTaskData,
       };
-      request(updateTaskOptions);
+      await request(updateTaskOptions);
+      updateBoard();
     }
   }
 

@@ -7,7 +7,7 @@ import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
-import { columnURL, taskURL } from '../../const/requestUrls';
+import { taskURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { taskProps } from '../../models/task';
 import { generateTaskBody } from '../../utils/dragAndDrop';
@@ -32,16 +32,7 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Task({
-  id,
-  title,
-  description,
-  columnId,
-  updateColumn,
-  updateBoard,
-  userId,
-  order,
-}: taskProps) {
+function Task({ id, title, description, columnId, updateBoard, userId, order }: taskProps) {
   const { t } = useTranslation();
   const { boardId } = useParams();
   const { pathname } = useLocation();
@@ -56,10 +47,7 @@ function Task({
     });
 
     if (taskData) {
-      request({
-        url: columnURL(boardId, columnId),
-        method: Methods.GET,
-      });
+      updateBoard();
       setIsModalActive(false);
     }
   }
@@ -97,11 +85,6 @@ function Task({
           boardId,
         },
       });
-
-      updateColumn({
-        url: columnURL(boardId, columnId),
-        method: Methods.GET,
-      });
     } else {
       const url = taskURL(boardId, dropColumnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
@@ -116,9 +99,8 @@ function Task({
           boardId,
         },
       });
-
-      updateBoard();
     }
+    updateBoard();
   }
 
   return (
