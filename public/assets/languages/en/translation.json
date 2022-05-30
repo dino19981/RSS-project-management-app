@@ -70,10 +70,14 @@
     "add_column_message": "Create your first column."
   },
   "task": {
-    "delete_task_message": "Do you really want to delete a task"
+    "delete_task_message": "Do you really want to delete a task",
+    "in_column": "In column",
+    "task_creator": "Creator",
+    "task_description": "Description"
   },
   "column": {
-    "delete_column_message": "Do you really want to delete a column"
+    "delete_column_message": "Do you really want to delete a column",
+    "add_task": "Add task"
   },
   "feature1": {
     "title": "Work smarter",

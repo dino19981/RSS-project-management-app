@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import { descriptionIcon, editIcon, userIcon } from '../../components/icons/Icons';
 import Input from '../../components/input/Input';
@@ -12,6 +13,7 @@ import { TTask } from '../../models/task';
 import { useAppSelector } from '../../store/hooks';
 
 export default function TaskEdit() {
+  const { t } = useTranslation();
   const { updateBoard } = useOutletContext<{ updateBoard: () => void }>();
   const navigate = useNavigate();
   const { boardId, columnId, taskId } = useParams();
@@ -59,20 +61,22 @@ export default function TaskEdit() {
     }
   }
 
-  function uploadFile(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
-
-    // if (task) {
-    //   const { id } = task as TTask;
-    //   const newTaskData = { taskId: id, file: e.target.value };
-
-    //   const updateTaskOptions = {
-    //     url: `/file`,
-    //     method: Methods.POST,
-    //     data: newTaskData,
-    //   };
-    //   request(updateTaskOptions);
-    // }
+  async function uploadFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const target = e.target as HTMLInputElement;
+    const file = target.files![0];
+    if (task) {
+      const { id } = task as TTask;
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('taskId', id);
+      const updateTaskOptions = {
+        url: `/file`,
+        method: Methods.POST,
+        data: formData,
+      };
+      await request(updateTaskOptions);
+      updateBoard();
+    }
   }
 
   const isLoading = taskLoading || columnLoading;
@@ -98,23 +102,23 @@ export default function TaskEdit() {
             />
           </div>
           <h4>
-            В колонке
+            {t('task.in_column')}
             <span>{` ${columnData?.title}`}</span>
           </h4>
           <div className="task__edit_description-wrapper">
             {userIcon}
-            <h4 className="task__edit_text">{`Создатель: ${login}`}</h4>
+            <h4 className="task__edit_text">{`${t('task.task_creator')}: ${login}`}</h4>
           </div>
 
           <div className="task__edit_description-wrapper">
             {descriptionIcon}
-            <h4 className="task__edit_text">Описание</h4>
+            <h4 className="task__edit_text">{t('task.task_description')}</h4>
           </div>
 
           <textarea
             className="task__edit_description-input"
             onBlur={(e) => updateTaskElement(e, 'description')}
-            defaultValue={taskData?.description || 'Добавить описание'}
+            defaultValue={taskData?.description}
           />
           <Input type="file" onChange={(e) => uploadFile(e)} />
         </section>

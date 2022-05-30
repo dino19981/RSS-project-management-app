@@ -46,4 +46,5 @@ export type fieldsType =
   | TDeleteBoard
   | updatedUserInfo
   | uploadFile
-  | userIdType;
+  | userIdType
+  | FormData;

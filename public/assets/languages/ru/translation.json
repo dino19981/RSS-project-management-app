@@ -10,7 +10,7 @@
     "create_board": "Создать доску",
     "delete_board": "Удалить доску",
     "create_column": "Создать колонку",
-    "to_main_page": "To main page"
+    "to_main_page": "На главную"
   },
   "labels": {
     "login": "Логин",
@@ -70,10 +70,14 @@
     "add_column_message": "Создайте свою первую колонку."
   },
   "task": {
-    "delete_task_message": "Не удалось ничего найти"
+    "delete_task_message": "Не удалось ничего найти",
+    "in_column": "В колонке",
+    "task_creator": "Создатель",
+    "task_description": "Описание"
   },
   "column": {
-    "delete_column_message": "Вы действительно хотите удалить колонку"
+    "delete_column_message": "Вы действительно хотите удалить колонку",
+    "add_task": "Добавить задачу"
   },
   "feature1": {
     "title": "Работай эффективней",
