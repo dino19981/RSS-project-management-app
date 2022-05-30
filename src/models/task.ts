@@ -13,7 +13,6 @@ export type TTask = {
 
 export type taskProps = TGetBoardTask & {
   columnId: string;
-  updateColumn: ({ url, method }: { url: string; method: string }) => void;
   updateBoard: () => void;
 };
 

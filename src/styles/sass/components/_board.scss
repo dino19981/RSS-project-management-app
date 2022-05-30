@@ -79,7 +79,7 @@
     background-color: rgb(240, 240, 240);
   }
 
-  & svg { 
+  & svg {
     position: absolute;
     left: 11px;
     top: 50%;
@@ -97,7 +97,7 @@
 }
 
 .board__create-column-btn {
-  margin-right: 12px;;
+  margin-right: 12px;
 
   & svg {
     fill: $dark-green;
@@ -107,7 +107,7 @@
   }
 
   @media (min-width: $tablet-width) {
-    margin-right: 15px;;
+    margin-right: 15px;
   }
 }
 
@@ -130,4 +130,9 @@
   @media (min-width: $tablet-width) {
     display: block;
   }
+}
+
+.board__add-column {
+  @include regular-title;
+  margin-top: 20px;
 }

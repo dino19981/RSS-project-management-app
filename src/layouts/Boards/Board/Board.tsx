@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
@@ -9,13 +9,12 @@ import Loader from '../../../components/loader/loader';
 import { MAX_COLUMN_COUNT } from '../const';
 import { Methods } from '../../../const/APIMethod';
 import { AppRoute } from '../../../const/routes';
-import EmptyColumn from '../../Column/EmptyColumn';
 import { columSchema } from '../../../schemas/column';
 import { columnValues } from '../../../components/form/constants/initialValues';
 import { columnfields } from '../../../components/form/constants/fieldsOptions';
 import Column from '../../Column/Column';
 import { boardURL, columnsURL } from '../../../const/requestUrls';
-import { useTranslation } from 'react-i18next';
+import { TFunction, useTranslation } from 'react-i18next';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { plusIcon, deleteIcon } from '../../../components/icons/Icons';
 
@@ -25,16 +24,17 @@ const formOptions = {
   fields: columnfields,
 };
 
-function generateColumns(columns: TColumn[], updateHandler: () => Promise<void>) {
+function generateColumns(
+  columns: TColumn[],
+  updateHandler: () => void,
+  t: TFunction<'translation', undefined>
+) {
+  if (!columns.length) return <p className="board__add-column">{t('board.add_column_message')}</p>;
   const makeColumnOrder = columns?.sort((a, b) => a.order - b.order);
 
-  return [...Array(MAX_COLUMN_COUNT)].map((_, index) => {
-    const comparedColumn = makeColumnOrder[index];
-    if (comparedColumn) {
-      return <Column key={comparedColumn.id} {...comparedColumn} updateBoard={updateHandler} />;
-    }
-    return <EmptyColumn key={index} />;
-  });
+  return makeColumnOrder.map((column) => (
+    <Column key={column.id} {...column} updateBoard={updateHandler} />
+  ));
 }
 
 function Board() {
@@ -52,6 +52,12 @@ function Board() {
 
   const board = data as TBoard;
 
+  useEffect(() => {
+    if (data) {
+      request();
+    }
+  }, [boardId]);
+
   async function deleteBoardHandler() {
     const deleteBoard = await request({
       url: boardURL(board.id),
@@ -64,7 +70,7 @@ function Board() {
   }
 
   async function createColumnHandler(values: fieldsType) {
-    if (board.columns.length === 5) {
+    if (board.columns.length === MAX_COLUMN_COUNT) {
       setMaxColumnCountError(true);
       return;
     }
@@ -77,10 +83,6 @@ function Board() {
     await request(columnsRequestOptions);
     request();
     setCreateColumnIsModalActive(false);
-  }
-
-  async function putRequest() {
-    request();
   }
 
   if (isError) {
@@ -133,9 +135,9 @@ function Board() {
           <ButtonWithModalForm {...deleteBoardOptions} />
         </div>
       </div>
-      {board && <div className="columns-wrapper">{generateColumns(board.columns, putRequest)}</div>}
+      {board && <div className="columns-wrapper">{generateColumns(board.columns, request, t)}</div>}
       {isLoading && <Loader />}
-      <Outlet />
+      <Outlet context={{ updateBoard: request }} />
     </section>
   );
 }
