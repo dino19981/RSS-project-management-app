@@ -66,7 +66,8 @@
   },
   "board": {
     "delete_board_message": "Do you really want to delete a board",
-    "search_tasks_no_results": "Couldn't find anything"
+    "search_tasks_no_results": "Couldn't find anything",
+    "add_column_message": "Create your first column."
   },
   "task": {
     "delete_task_message": "Do you really want to delete a task"

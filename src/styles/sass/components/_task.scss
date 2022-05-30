@@ -1,5 +1,6 @@
 .task {
   display: flex;
+  flex-direction: column;
   margin-bottom: 8px;
 
   background-color: $basic-white;
@@ -35,6 +36,12 @@
   &-empty {
     height: 50px;
   }
+
+  &__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
 }
 
 .task__edit.modal__content {
@@ -47,6 +54,7 @@
     align-items: center;
     gap: 10px;
   }
+
   &_title {
     @include regular-subtitle;
     margin: 0;
@@ -107,5 +115,28 @@
 
   &_save {
     margin-top: 10px;
+  }
+}
+
+.form__label.task__edit_label {
+  margin-bottom: 0;
+}
+
+.paperClip-icon {
+  width: 18px;
+  height: 18px;
+  transform: rotate(50deg);
+  fill: #787878;
+}
+
+.task__icons-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+
+  .task__edit_icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
   }
 }

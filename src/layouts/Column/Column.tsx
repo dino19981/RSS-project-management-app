@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
@@ -7,22 +7,20 @@ import { createTaskFields, editColumnFields } from '../../components/form/consta
 import { createTaskValues } from '../../components/form/constants/initialValues';
 import Form from '../../components/form/Form';
 import { checkIcon, closeIcon, deleteIcon } from '../../components/icons/Icons';
-import Loader from '../../components/loader/loader';
 import Modal from '../../components/modal/Modal';
 import Popover from '../../components/popover/Popover';
 import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, tasksURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
-import { TColumn, TColumnProps } from '../../models/column';
-import { TGetBoardTask } from '../../models/task';
-import { responses } from '../../models/useAxios';
+import { TColumnProps } from '../../models/column';
 import { columSchema } from '../../schemas/column';
 import { createTaskSchema } from '../../schemas/task';
 import { useAppSelector } from '../../store/hooks';
 import EmptyTaskPreview from '../Task/EmptyTaskPreview';
 import Task from '../Task/Task';
 import { plusIcon } from '../../components/icons/Icons';
+import Loader from '../../components/loader/loader';
 
 const formOptions = {
   schema: createTaskSchema,
@@ -34,18 +32,11 @@ function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string
   e.stopPropagation();
   e.dataTransfer.setData('columnId', id);
   e.dataTransfer.setData('columnTitle', title);
+  e.dataTransfer.setData('element', 'column');
 }
 
 function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
-}
-
-function getActualTasks(columnData: responses | undefined, tasks: TGetBoardTask[]) {
-  if (columnData) {
-    const { tasks } = columnData as TColumn;
-    return tasks.sort((a, b) => a.order - b.order);
-  }
-  return tasks.sort((a, b) => a.order - b.order) || [];
 }
 
 function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps) {
@@ -57,16 +48,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
   const [columnTitleElement, setColumnTitleElement] = useState<HTMLDivElement | null>(null);
 
   const { id: userId } = useAppSelector((state) => state.authorization);
-  const { isError: isUpdateTitleError, request: updateTitleRequest } = useAxios(
-    {},
-    { dontFetchAtMount: true }
-  );
-  const {
-    data: columnData,
-    isLoading,
-    isError,
-    request,
-  } = useAxios({}, { dontFetchAtMount: true });
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
 
   async function createTask(value: typeof createTaskSchema) {
     const body = { ...value, userId };
@@ -77,10 +59,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (taskData) {
-      request({
-        url: columnURL(boardId, columnId),
-        method: Methods.GET,
-      });
+      updateBoard();
       setIsCreateTaskModalActive(false);
     }
   }
@@ -120,17 +99,14 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     const body = { order, ...value };
     setIsPopoverActive(false);
 
-    const columnData = await updateTitleRequest({
+    const columnData = await request({
       url: columnURL(boardId, columnId),
       method: Methods.PUT,
       data: body,
     });
 
     if (columnData) {
-      request({
-        url: columnURL(boardId, columnId),
-        method: Methods.GET,
-      });
+      updateBoard();
     }
   }
 
@@ -176,11 +152,6 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     errorText: ErrorMessage.SERVER_ERROR,
   };
 
-  const actualTasks = useMemo(
-    () => getActualTasks(columnData, tasks),
-    [JSON.stringify(columnData), JSON.stringify(tasks)]
-  );
-
   return (
     <div
       className="column"
@@ -195,16 +166,8 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
       </div>
 
       <ul className="column__task-list">
-        {actualTasks.map((task) => {
-          return (
-            <Task
-              key={task.id}
-              {...task}
-              columnId={columnId}
-              updateColumn={request}
-              updateBoard={updateBoard}
-            />
-          );
+        {tasks.map((task) => {
+          return <Task key={task.id} {...task} columnId={columnId} updateBoard={updateBoard} />;
         })}
         <EmptyTaskPreview
           tasks={tasks}
@@ -246,8 +209,6 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
               <Button icon={closeIcon} btnClass="button__cancel-icon" handler={closeEditTitle} />
             </div>
           </div>
-
-          {isUpdateTitleError && <p className="input__error">Error</p>}
         </Popover>
       )}
       {isDeleteColumnModalActive && (

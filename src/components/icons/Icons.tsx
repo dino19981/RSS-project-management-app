@@ -63,3 +63,8 @@ export const plusIcon = (
     <use xlinkHref="#plus-icon" />
   </svg>
 );
+export const paperClipIcon = (
+  <svg className="paperClip-icon">
+    <use xlinkHref="#paper-clip-icon" />
+  </svg>
+);

@@ -1,5 +1,7 @@
 .boards {
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   @include fix-main;
 
@@ -14,7 +16,6 @@
 .boards__list {
   @include basic-list;
   @include card-list;
-  @include fix-main;
 
   padding-top: 20px;
   padding-left: 10px;
@@ -58,6 +59,10 @@
       height: 15px;
       width: 15px;
     }
+
+    @media (max-width: 430px) {
+      width: calc(100vw - 32px);
+    }
   }
 
   &__list-item {
@@ -71,6 +76,10 @@
     transition: all 0.4s linear;
     &:hover {
       background-color: #dbe5ed;
+    }
+
+    @media (max-width: 430px) {
+      min-width: 0;
     }
   }
 
