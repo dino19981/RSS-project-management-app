@@ -1,24 +1,14 @@
 export const featuresData = [
   {
-    title: 'Работай эффективней',
-    description: 'Задачи больше не теряются - все записано и отмечено, важные файлы прикреплены',
     imgSrc: 'assets/images/note.png',
-    featureName: 'note',
-    altText: 'Блокнот с галочкой',
+    featureName: 'Note',
   },
   {
-    title: 'Используй бесплатно',
-    description: 'Приложение доступно абсолютно бесплатно. Без смс, после регистрации.',
     imgSrc: 'assets/images/money.png',
-    featureName: 'money',
-    altText: 'Деньги',
+    featureName: 'Money',
   },
   {
-    title: 'Экономь время',
-    description:
-      'Приложение использует канбан подход к распределению задач, что существенно экономит время',
     imgSrc: 'assets/images/calendar.png',
-    featureName: 'calendar',
-    altText: 'Календарь',
+    featureName: 'Calendar',
   },
 ];

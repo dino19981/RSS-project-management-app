@@ -1,19 +1,18 @@
+import { useTranslation } from 'react-i18next';
+
 export default function AboutCourse() {
+  const { t } = useTranslation();
   return (
     <section className="about-course">
-      <h2 className="about-course__title">О курсе</h2>
+      <h2 className="about-course__title">{t('about_course.title')}</h2>
       <p className="about-course__desc">
-        Приложение разработано в рамках 3 этапа (React 2022Q1) обучения на бесплатном курсе{' '}
+        {t('about_course.desc1')}{' '}
         <a className="about-course__link" href="https://rs.school/js/">
           «JavaScript/Front-end»
         </a>{' '}
-        от RS School.
+        {t('about_course.from')} RS School.
       </p>
-      <p className="about-course__desc">
-        Бесплатный курс от сообщества The Rolling Scopes для тех, кто хочет получить знания и опыт,
-        достаточные для трудоустройства на позицию Junior Software Engineer в области
-        JavaScript/Front-end.
-      </p>
+      <p className="about-course__desc">{t('about_course.desc2')}</p>
     </section>
   );
 }

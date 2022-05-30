@@ -131,12 +131,16 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
   }
 
   const addTaskOptions = {
-    submitBtnName: 'add task',
+    submitBtnName: t('column.add_task'),
     modalState: {
       isModalActive: isCreateTaskModalActive,
       setIsModalActive: setIsCreateTaskModalActive,
     },
-    buttonOptions: { btnClass: 'column__create-task-btn', text: 'Add task', icon: plusIcon },
+    buttonOptions: {
+      btnClass: 'column__create-task-btn',
+      text: t('column.add_task'),
+      icon: plusIcon,
+    },
     formOptions: { ...formOptions, onSubmit: createTask },
     isError: isError,
     errorText: ErrorMessage.SERVER_ERROR,

@@ -7,19 +7,19 @@ export default function Features() {
     <section className="features">
       <h2 className="features__title">{t('welcome.advantages')}</h2>
       <ul className="features__list">
-        {featuresData.map(({ featureName, altText, title, description }) => (
-          <li className="features__item" key={featureName}>
+        {featuresData.map(({ imgSrc, featureName }, index) => (
+          <li className="features__item" key={t(`feature${index + 1}`)}>
             <article className="feature">
               <div className="feature__image-wrapper">
                 <img
                   className={`feature__image feature__image--${featureName}`}
-                  src={`assets/images/${featureName}.png`}
-                  alt={altText}
+                  src={imgSrc}
+                  alt={t(`feature1${index + 1}.altText`)}
                 />
               </div>
               <div className="feature__text-wrapper">
-                <h3 className="feature__title">{title}</h3>
-                <p className="feature__desc">{description}</p>
+                <h3 className="feature__title">{t(`feature${index + 1}.title`)}</h3>
+                <p className="feature__desc">{t(`feature${index + 1}.description`)}</p>
               </div>
             </article>
           </li>
