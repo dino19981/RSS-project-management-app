@@ -1,0 +1,124 @@
+{
+  "buttons": {
+    "sign_out": "Sign out",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up",
+    "delete_profile": "Delete profile",
+    "save": "Save",
+    "delete": "Delete",
+    "close": "Close",
+    "create_board": "Create board",
+    "delete_board": "Delete board",
+    "create_column": "Create column",
+    "to_main_page": "To main page"
+  },
+  "labels": {
+    "login": "Login",
+    "password": "Password",
+    "name": "Name"
+  },
+  "placeholders": {
+    "column_title": "Column title",
+    "board_name": "Board name",
+    "board_description": "Board description",
+    "task_title": "Task title",
+    "task_description": "Task description",
+    "search_tasks": "Enter the name of the task"
+  },
+  "error_messages": {
+    "min_length_5": "The minimum length is 5 characters",
+    "no_white_spaces_and_min_length_3": "Spaces are not allowed, the minimum length is 3 characters",
+    "max_length_15": "The maximum length is 15 characters",
+    "server_error": "An error has occurred, try to perform the action later",
+    "description_required": "Description is required",
+    "title_required": "Title is required",
+    "max_columns_count": "Maximum number of columns created"
+  },
+  "header": {
+    "create_new_board": "Create new board",
+    "en": "Eng",
+    "ru": "Rus",
+    "edit_profile": "Edit profile",
+    "about_us": "About us"
+  },
+  "welcome": {
+    "head_title": "Masterfully manage projects!",
+    "head_text": "Free application for teamwork on projects",
+    "start": "Start",
+    "advantages": "Advantages",
+    "Artem": "Artem",
+    "Roman": "Roman",
+    "Dmitry": "Dmitry",
+    "team": "Our team",
+    "go_to_main_page": "Main Page"
+  },
+  "sign_in": {
+    "no_register_text": "Not registered yet?",
+    "create_account": "Create account"
+  },
+  "sign_up": {
+    "is_have_login_text": "Already registered?"
+  },
+  "edit_profile": {
+    "title": "Editing a profile",
+    "saved_data": "The data has been saved successfully!",
+    "delete_profile_message": "Do you really want to delete a profile"
+  },
+  "board": {
+    "delete_board_message": "Do you really want to delete a board",
+    "search_tasks_no_results": "Couldn't find anything",
+    "add_column_message": "Create your first column."
+  },
+  "task": {
+    "delete_task_message": "Do you really want to delete a task",
+    "in_column": "In column",
+    "task_creator": "Creator",
+    "task_description": "Description"
+  },
+  "column": {
+    "delete_column_message": "Do you really want to delete a column",
+    "add_task": "Add task"
+  },
+  "feature1": {
+    "title": "Work smarter",
+    "description": "Tasks are no longer lost - everything is recorded and marked, important files are attached",
+    "featureName": "Note",
+    "altText": "Notepad with check mark"
+  },
+  "feature2": {
+    "title": "Use free",
+    "description": "The app is available absolutely free. Without SMS, after registration",
+    "featureName": "Money",
+    "altText": "Money"
+  },
+  "feature3": {
+    "title": "Save time",
+    "description": "The application uses a kanban approach to the distribution of tasks, which significantly saves time",
+    "featureName": "Calendar",
+    "altText": "calendar"
+  },
+  "about_course": {
+    "title": "About course",
+    "desc1": "The application was developed as part of the 3rd stage (React 2022Q1) of training on a free course",
+    "desc2": "Free course from The Rolling Scopes community for those who want to gain knowledge and experience, sufficient for employment in the position of Junior Software Engineer in the field",
+    "from": "from"
+  },
+  "about_team": {
+    "Roman": {
+      "name": "Roman",
+      "work": "Wireframe and application design. Welcome page, content for it. Redux Toolkit implementation. Editing page layout, boards",
+      "position": "Front-end"
+    },
+    "Artem": {
+      "name": "Artem",
+      "work": "Authorization and registration. Create, modify and delete tasks and columns. Localization. Editing user data",
+      "position": "Team-lead"
+    },
+    "Dmitriy": {
+      "name": "Dmitriy",
+      "work": "Backend deployment. Drag & drop for columns, tasks, implementation of board functionality",
+      "position": "Front-end"
+    },
+    "role": "Responsibility"
+  }
+}

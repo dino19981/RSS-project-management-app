@@ -8,3 +8,218 @@
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
+
+@mixin nav-link {
+  display: block;
+
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  font-size: 16px;
+  font-family: $title-font;
+  font-weight: 500;
+  color: $accent-color;
+
+  transition: all 0.5s;
+
+  @media (min-width: 420px) {
+    font-size: 18px;
+  }
+
+  @media (min-width: $tablet-width) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 16px;
+  }
+
+  @media (min-width: $desktop-width) {
+    font-size: 21px;
+  }
+
+  &:hover:not(.header__link--active),
+  &:focus:not(.header__link--active) {
+    color: $hover-link-color;
+  }
+
+  &:active:not(.header__link--active) {
+    color: $accent-color;
+  }
+}
+
+@mixin regular-title {
+  margin: 0;
+  margin-bottom: 25px;
+  font-family: $title-font;
+  font-size: 28px;
+
+  @media (min-width: 420px) {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 36px;
+    margin-bottom: 35px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 38px;
+    margin-bottom: 45px;
+  }
+}
+
+@mixin regular-subtitle {
+  margin: 0;
+  margin-bottom: 15px;
+  font-family: $title-font;
+  font-size: 26px;
+  font-weight: 500;
+
+  @media (min-width: 420px) {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 30px;
+    margin-bottom: 25px;
+  }
+}
+
+@mixin regular-text {
+  margin: 0;
+  margin-bottom: 15px;
+  font-family: $main-font;
+  font-size: 21px;
+
+  @media (min-width: 420px) {
+    font-size: 24px;
+  }
+}
+
+@mixin basic-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin card-list {
+  display: grid;
+  grid-row-gap: 25px;
+
+  @include basic-list;
+
+  @media (min-width: $tablet-width) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@mixin card-item {
+  display: flex;
+
+  &:last-child {
+    @media (min-width: $tablet-width) {
+      position: relative;
+      transform: translateX(50%);
+    }
+
+    @media (min-width: 1200px) {
+      position: static;
+      transform: none;
+    }
+  }
+}
+
+@mixin card {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-top: 35px;
+  padding-bottom: 42px;
+  padding-left: 28px;
+  padding-right: 28px;
+
+  box-sizing: border-box;
+  max-width: 360px;
+
+  background-color: $basic-white;
+  box-shadow: 0 14px 28px rgb(196 172 40 / 10%), 0 10px 10px rgb(0 0 0 / 10%);
+
+  border-radius: 24px;
+
+  @media (min-width: 1200px) {
+    .team__item:nth-child(1) & {
+      margin-right: 0;
+    }
+
+    .team__item:nth-child(3) & {
+      margin-left: 0;
+    }
+  }
+}
+
+@mixin fix-main {
+  height: $main-height-mobile;
+  max-height: $main-height-mobile;
+
+  @media (min-width: $desktop-width) {
+    height: $main-height-desktop;
+    max-height: $main-height-desktop;
+  }
+}
+
+@mixin submit-button {
+  background-color: $accent-color;
+  padding: 10px 30px;
+  color: #ffffff;
+
+  font-size: 18px;
+  padding: 10px 15px;
+
+  &:hover {
+    border-color: #20567d;
+    background-color: #348bc9;
+  }
+
+  @media (min-width: $tablet-width) {
+    font-size: 18px;
+    padding: 12px 18px;
+  }
+}
+
+@mixin cancel-button {
+  color: $accent-color;
+  background-color: transparent;
+  border: 1px solid $accent-color;
+  padding: 10px 30px;
+
+  &:hover {
+    border-color: #20567d;
+    background-color: #8ecffd;
+    color: #20567d;
+  }
+  @media (max-width: $tablet-width) {
+    padding: 5px 15px;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 16px;
+    padding: 2px 5px;
+  }
+}

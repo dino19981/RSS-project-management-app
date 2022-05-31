@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import Input from '../input/Input';
 import { formProps } from '../../models/form';
@@ -12,28 +12,40 @@ export default function Form({
   formId,
   onSubmit,
   buttonOptions,
+  formClassName,
 }: formProps) {
-  const { handleChange, handleSubmit, values, errors } = useFormik({
+  const [isValidateOnChange, setIsValidateOnChange] = useState(false);
+  const { handleChange, handleSubmit, values, errors, isSubmitting } = useFormik({
     initialValues,
     validationSchema: schema,
-    validateOnChange: false,
+    validateOnChange: isValidateOnChange,
     onSubmit,
   });
+
+  useEffect(() => {
+    if (isSubmitting && !isValidateOnChange) {
+      setIsValidateOnChange(true);
+    }
+  }, [isSubmitting]);
 
   type fieldName = keyof typeof schema;
 
   return (
-    <form onSubmit={handleSubmit} id={formId}>
-      {fields.map((field, id) => (
-        <Input
-          key={id}
-          onChange={handleChange}
-          value={values[field.name as fieldName]}
-          isHaveError={!!errors[field.name as fieldName]}
-          {...field}
-        />
-      ))}
-
+    <form onSubmit={handleSubmit} id={formId} className={`form ${formClassName || ''}`}>
+      <fieldset className="form__fieldset">
+        <ul className="form__list">
+          {fields.map((field) => (
+            <li className="form__item" key={field.name}>
+              <Input
+                onChange={handleChange}
+                value={values[field.name as fieldName]}
+                isHaveError={!!errors[field.name as fieldName]}
+                {...field}
+              />
+            </li>
+          ))}
+        </ul>
+      </fieldset>
       {isHaveButton && <Button type="submit" {...buttonOptions} />}
     </form>
   );

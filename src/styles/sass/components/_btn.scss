@@ -1,0 +1,60 @@
+.btn {
+  margin-bottom: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 17px;
+  padding-right: 17px;
+
+  border-radius: 25px;
+  box-sizing: border-box;
+
+  border: 2px solid $accent-color;
+
+  background-color: $accent-color;
+
+  color: $basic-white;
+  font-family: $main-font;
+  font-weight: normal;
+  font-size: 21px;
+
+  transition: all 0.3s;
+  cursor: pointer;
+
+  @media (min-width: $tablet-width) {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-size: 24px;
+  }
+
+  &:hover {
+    background-color: $hover-link-color;
+    border-color: $hover-link-color;
+    color: $basic-white;
+  }
+
+  &:disabled {
+    background-color: rgb(68, 44, 75);
+    border: 2px solid rgb(68, 44, 75);
+    color: grey;
+    cursor: default;
+  }
+}
+
+.btn--active {
+  background-color: $accent-color;
+  color: $basic-white;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: $hover-link-color;
+    border-color: $hover-link-color;
+    color: $basic-white;
+  }
+}
+
+.btn--to-main {
+  margin-left: auto;
+  margin-right: auto;
+}

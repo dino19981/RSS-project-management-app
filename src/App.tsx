@@ -1,22 +1,91 @@
+import MainPage from './pages/mainPage/MainPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AppRoute } from './const/routes';
+import MainLayout from './layouts/MainLayout';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Boards from './components/Boards/Boards';
-import Board from './components/Boards/Board/Board';
-import Column from './components/Columns/Column';
+import NotFoundPage from './pages/mainPage/NotFoundPage';
+import Boards from './layouts/Boards/Boards';
+import Board from './layouts/Boards/Board/Board';
+import Authorization from './views/authorization/Authorization';
+import Registration from './views/registration/Registration';
+import TaskEdit from './layouts/Task/TaskEdit';
+import AuthUser from './hocs/AuthUser';
+import UnknownUser from './hocs/UnknownUser';
+import EditUserProfile from './views/editUserProfile/EditUserProfile';
+import { Suspense } from 'react';
+import Loader from './components/loader/loader';
 
 function App() {
   return (
     <ErrorBoundary>
-      <Router>
-        <div className="App">
+      <Suspense fallback={<Loader />}>
+        <BrowserRouter>
           <Routes>
-            <Route path="/boards" element={<Boards />} />
-            <Route path="/boards/:boardId" element={<Board />} />
-            <Route path="/boards/:boardId/columns" element={<Board />} />
-            <Route path="/boards/:boardId/columns/:columnId" element={<Column />} />
+            <Route path={AppRoute.MAIN} element={<MainLayout />}>
+              <Route
+                index
+                element={
+                  <AuthUser redirectTo={AppRoute.WELCOME_PAGE}>
+                    <Boards />
+                  </AuthUser>
+                }
+              />
+              <Route path={AppRoute.WELCOME_PAGE} element={<MainPage />} />
+              <Route
+                path={AppRoute.BOARD}
+                element={
+                  <AuthUser>
+                    <Board />
+                  </AuthUser>
+                }
+              />
+              <Route
+                path={`${AppRoute.BOARD}/columns/:columnId/tasks/:taskId`}
+                element={
+                  <AuthUser>
+                    <Board />
+                  </AuthUser>
+                }
+              >
+                <Route
+                  index
+                  element={
+                    <AuthUser>
+                      <TaskEdit />
+                    </AuthUser>
+                  }
+                />
+              </Route>
+              <Route
+                path={AppRoute.REGISTRATION}
+                element={
+                  <UnknownUser redirectTo={AppRoute.MAIN}>
+                    <Registration />
+                  </UnknownUser>
+                }
+              />
+              <Route
+                path={AppRoute.LOGIN}
+                element={
+                  <UnknownUser redirectTo={AppRoute.MAIN}>
+                    <Authorization />
+                  </UnknownUser>
+                }
+              />
+              <Route
+                path={AppRoute.EDIT_PROFILE}
+                element={
+                  <AuthUser>
+                    <EditUserProfile />
+                  </AuthUser>
+                }
+              />
+              <Route path={AppRoute.NOT_FOUND_PAGE} element={<NotFoundPage />} />
+              <Route path="*" element={<Navigate replace to={AppRoute.NOT_FOUND_PAGE} />} />
+            </Route>
           </Routes>
-        </div>
-      </Router>
+        </BrowserRouter>
+      </Suspense>
     </ErrorBoundary>
   );
 }

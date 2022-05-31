@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { inputProps } from '../../models/input';
 
 export default function Input({
@@ -11,21 +12,35 @@ export default function Input({
   name,
   placeholder,
   onChange,
+  onFocus,
+  onBlur,
   value,
+  isdisabled,
+  defaultValue,
+  elementRef,
 }: inputProps) {
+  const { t } = useTranslation();
+  const inputClassName = isHaveError ? `${inputClass} input__invalid` : inputClass;
+  const labelClassName = labelClass ? `form__label ${labelClass}` : 'form__label';
+
   return (
-    <label className={labelClass}>
-      {labelText || ''}
+    <label className={labelClassName}>
+      {labelText && <span className="form__label-text">{t(`${labelText || ''}`)}</span>}
       <input
+        ref={elementRef}
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
         value={value}
         name={name}
-        placeholder={placeholder}
         defaultChecked={checked}
-        className={inputClass}
+        placeholder={t(`${placeholder || ''}`)}
+        className={`form__input ${inputClassName || ''}`}
         type={type || 'text'}
+        disabled={isdisabled}
+        defaultValue={defaultValue}
       />
-      {isHaveError && <div className="input__error">{errorMessage}</div>}
+      {isHaveError && <span className="form__error-text">{t(`${errorMessage || ''}`)}</span>}
     </label>
   );
 }

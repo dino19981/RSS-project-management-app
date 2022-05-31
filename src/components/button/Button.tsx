@@ -1,16 +1,26 @@
-import React from 'react';
-import { buttonProps } from '../../models/button';
+import { ButtonProps } from '../../models/button';
 
-export default function Button({ text, type, formId, icon, handler, btnClass }: buttonProps) {
+export default function Button({
+  text,
+  type,
+  formId,
+  icon,
+  handler,
+  btnClass,
+  isDisabled,
+  isVisuallyHiddenText,
+}: ButtonProps) {
+  const btnClassName = isVisuallyHiddenText ? 'visually-hidden' : 'modal-button__text';
   return (
     <button
-      className={btnClass}
+      className={`modal-button ${btnClass}`}
       onClick={handler}
       form={formId}
       type={type || 'button'}
+      disabled={isDisabled}
     >
       {icon}
-      {text}
+      <span className={btnClassName}>{text}</span>
     </button>
   );
 }

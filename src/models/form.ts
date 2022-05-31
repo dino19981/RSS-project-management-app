@@ -1,27 +1,50 @@
-import { buttonProps } from './button';
+import { ButtonProps } from './button';
+import { updatedUserInfo, userIdType } from './user';
+import {
+  autorizationSchemaType,
+  registrationSchemaType,
+  TBoardCreateSchema,
+  TColumnCreateSchema,
+  TColumnUpdateSchema,
+  TDeleteBoard,
+  TTaskCreateSchema,
+} from './schemas';
 
 export interface formProps {
-  schema: schema;
-  initialValues: schema;
+  schema: fieldsType;
+  initialValues: fieldsType;
   fields: formField[];
   isHaveButton?: boolean;
   formId?: string;
-  onSubmit: (values: schema) => void;
-  buttonOptions: buttonProps;
+  onSubmit: (values: fieldsType) => void;
+  buttonOptions?: ButtonProps;
+  formClassName?: string;
 }
 
 interface formField {
   name: string;
-  label?: string;
+  labelText?: string;
   inputClass?: string;
   labelClass?: string;
   type?: string;
   errorMessage?: string;
   placeholder?: string;
-  selectClassName?: string;
 }
 
-export type schema = {
-  name: string;
-  id: number;
-};
+interface uploadFile {
+  file: string;
+  taskId: string;
+}
+
+export type fieldsType =
+  | registrationSchemaType
+  | autorizationSchemaType
+  | TBoardCreateSchema
+  | TColumnCreateSchema
+  | TColumnUpdateSchema
+  | TTaskCreateSchema
+  | TDeleteBoard
+  | updatedUserInfo
+  | uploadFile
+  | userIdType
+  | FormData;

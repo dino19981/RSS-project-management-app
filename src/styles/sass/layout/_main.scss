@@ -9,7 +9,7 @@
   padding: 0;
 
   font-family: $title-font;
-  color: $light-grey;
+  color: $dark-green;
   font-size: 32px;
   
   @media (min-width: $tablet-width) {
@@ -43,5 +43,4 @@
   display: grid;
   grid-template-columns: 1fr auto;
   width: 100%;
-  box-sizing: border-box;
 }

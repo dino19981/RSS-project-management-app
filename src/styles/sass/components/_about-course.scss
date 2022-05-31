@@ -1,0 +1,39 @@
+.about-course {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 60px;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 960px;
+
+  background-color: $light-green;
+
+  @media (min-width: $tablet-width) {
+    margin-bottom: 70px;
+    padding: 30px;
+  }
+
+  @media (min-width: $desktop-width) {
+    margin-bottom: 90px;
+    padding: 40px;
+  }
+}
+
+.about-course__title {
+  @include regular-title;
+}
+
+.about-course__desc {
+  @include regular-text;
+}
+
+.about-course__link {
+  color: $accent-color;
+  
+  &:hover:not(.header__link--active),
+  &:focus:not(.header__link--active) {
+    color: $hover-link-color;
+  }
+}
