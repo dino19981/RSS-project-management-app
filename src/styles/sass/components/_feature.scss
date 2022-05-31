@@ -1,0 +1,44 @@
+.feature {
+  @include card;
+}
+
+.feature__image-wrapper {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 200px;
+  height: 200px;
+  background-color: $light-blue;
+  border-radius: 60px;
+  margin-bottom: 20px;
+}
+.feature__title {
+  @include regular-subtitle;
+}
+
+.feature__desc {
+  @include regular-text;
+}
+
+.feature__image {
+  position: absolute;
+  top: 0;
+  left: -25px;
+  
+  &--note {
+    left: -30px;
+    width: 80%;
+  }
+  
+  &--money {
+    width: 130%;
+    max-width: 130%;
+    left: -60px;
+    top: -50px;
+  }
+
+  &--calendar {
+    top: -20px;
+  }
+}

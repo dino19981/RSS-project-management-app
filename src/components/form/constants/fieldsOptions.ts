@@ -1,24 +1,73 @@
-export const autorizationFields = [
+import { ErrorMessage } from '../../../const/errorMessage';
+
+export const authorizationFields = [
   {
     name: 'login',
-    labelText: 'Логин',
-    errorMessage: 'Пробелы недопустимы, минимальная длина 3 символа',
+    labelText: 'labels.login',
+    errorMessage: ErrorMessage.NO_WHITE_SPACES_AND_MIN_LENGTH_3,
   },
   {
     name: 'password',
-    labelText: 'Пароль',
+    labelText: 'labels.password',
     type: 'password',
-    errorMessage: 'Минимальная длина 5 символов',
+    errorMessage: ErrorMessage.MIN_LENGTH_5,
   },
 ];
 
 export const registrationFields = [
-  { name: 'name', labelText: 'Имя', errorMessage: 'Максимальная длина 15 символов' },
-  { name: 'login', labelText: 'Логин', errorMessage: 'Пробелы недопустимы' },
+  { name: 'name', labelText: 'labels.name', errorMessage: ErrorMessage.MAX_LENGTH_15 },
+  {
+    name: 'login',
+    labelText: 'labels.login',
+    errorMessage: ErrorMessage.NO_WHITE_SPACES_AND_MIN_LENGTH_3,
+  },
   {
     name: 'password',
-    labelText: 'Пароль',
+    labelText: 'labels.password',
     type: 'password',
-    errorMessage: 'Минимальная длина 5 символов',
+    errorMessage: ErrorMessage.MIN_LENGTH_5,
+  },
+];
+
+export const editProfileFields = registrationFields;
+
+export const columnfields = [
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.column_title',
+  },
+];
+
+export const editColumnFields = [
+  {
+    name: 'title',
+    placeholder: 'placeholders.column_title',
+  },
+];
+
+export const newBoardFields = [
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.board_name',
+  },
+  {
+    name: 'description',
+    errorMessage: 'error_messages.description_required',
+    placeholder: 'placeholders.board_description',
+  },
+];
+
+export const createTaskFields = [
+  {
+    name: 'title',
+    errorMessage: 'error_messages.title_required',
+    placeholder: 'placeholders.task_title',
+  },
+  {
+    name: 'description',
+    errorMessage: 'error_messages.description_required',
+    placeholder: 'placeholders.task_description',
   },
 ];

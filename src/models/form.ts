@@ -1,10 +1,13 @@
-import { buttonProps } from './button';
+import { ButtonProps } from './button';
+import { updatedUserInfo, userIdType } from './user';
 import {
   autorizationSchemaType,
   registrationSchemaType,
   TBoardCreateSchema,
   TColumnCreateSchema,
+  TColumnUpdateSchema,
   TDeleteBoard,
+  TTaskCreateSchema,
 } from './schemas';
 
 export interface formProps {
@@ -14,7 +17,7 @@ export interface formProps {
   isHaveButton?: boolean;
   formId?: string;
   onSubmit: (values: fieldsType) => void;
-  buttonOptions?: buttonProps;
+  buttonOptions?: ButtonProps;
   formClassName?: string;
 }
 
@@ -28,9 +31,20 @@ interface formField {
   placeholder?: string;
 }
 
+interface uploadFile {
+  file: string;
+  taskId: string;
+}
+
 export type fieldsType =
   | registrationSchemaType
   | autorizationSchemaType
   | TBoardCreateSchema
   | TColumnCreateSchema
-  | TDeleteBoard;
+  | TColumnUpdateSchema
+  | TTaskCreateSchema
+  | TDeleteBoard
+  | updatedUserInfo
+  | uploadFile
+  | userIdType
+  | FormData;

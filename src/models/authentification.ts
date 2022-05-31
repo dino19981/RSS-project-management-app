@@ -4,6 +4,8 @@ export interface authentificationProps {
   formOptions: formProps;
   buttonText: string;
   link: string;
-  linkText: string;
-  answerText: string;
+  linkText?: string;
+  questionText?: string;
+  errorMessage?: boolean | string;
+  loadingStatus: boolean;
 }

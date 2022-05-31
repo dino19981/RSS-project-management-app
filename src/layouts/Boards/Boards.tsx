@@ -1,261 +1,133 @@
-import React, { useEffect, useState } from 'react';
-import * as yup from 'yup';
-import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
+import Input from '../../components/input/Input';
+import Popover from '../../components/popover/Popover';
+import ProcessingWrapper from '../../components/processingWrapper/ProcessingWrapper';
+import { Methods } from '../../const/APIMethod';
+import { boardsURL } from '../../const/requestUrls';
+import { useAxios } from '../../hooks/useAxios';
 import { TBoard } from '../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
+import { throttle } from 'throttle-typescript';
+import { TTask } from '../../models/task';
+import { findMatches, getAllTasksInfo } from '../../utils/search';
+import { SEARCH_DELAY } from './const';
+import { descriptionIcon } from '../../components/icons/Icons';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-const fakeBoards: TBoard[] = [
-  {
-    id: '9a111e19-24ec-43e1-b8c4-1',
-    title: 'Homework tasks 11',
-    columns: [
-      {
-        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-        title: 'Done',
-        order: 1,
-        tasks: [
-          {
-            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-            title: 'Task: pet the cat',
-            order: 1,
-            done: false,
-            description: 'Domestic cat needs to be stroked gently',
-            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-            files: [
-              {
-                filename: 'foto.jpg',
-                fileSize: 6105000,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: '9a111e19-24ec-43e1-b8c4-2',
-    title: 'Homework tasks 22',
-    columns: [
-      {
-        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-        title: 'Done',
-        order: 1,
-        tasks: [
-          {
-            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-            title: 'Task: pet the cat',
-            order: 1,
-            done: false,
-            description: 'Domestic cat needs to be stroked gently',
-            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-            files: [
-              {
-                filename: 'foto.jpg',
-                fileSize: 6105000,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: '9a111e19-24ec-43e1-b8c4-3',
-    title: 'Homework tasks 333',
-    columns: [
-      {
-        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-        title: 'Done',
-        order: 1,
-        tasks: [
-          {
-            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-            title: 'Task: pet the cat',
-            order: 1,
-            done: false,
-            description: 'Domestic cat needs to be stroked gently',
-            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-            files: [
-              {
-                filename: 'foto.jpg',
-                fileSize: 6105000,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: '9a111e19-24ec-43e1-b8c4-4',
-    title: 'Homework tasks 444',
-    columns: [
-      {
-        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-        title: 'Done',
-        order: 1,
-        tasks: [
-          {
-            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-            title: 'Task: pet the cat',
-            order: 1,
-            done: false,
-            description: 'Domestic cat needs to be stroked gently',
-            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-            files: [
-              {
-                filename: 'foto.jpg',
-                fileSize: 6105000,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: '9a111e19-24ec-43e1-b8c4-5',
-    title: 'Homework tasks 555',
-    columns: [
-      {
-        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-        title: 'Done',
-        order: 1,
-        tasks: [
-          {
-            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-            title: 'Task: pet the cat',
-            order: 1,
-            done: false,
-            description: 'Domestic cat needs to be stroked gently',
-            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-            files: [
-              {
-                filename: 'foto.jpg',
-                fileSize: 6105000,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: '9a111e19-24ec-43e1-b8c4-6',
-    title: 'Homework tasks 666',
-    columns: [
-      {
-        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-        title: 'Done',
-        order: 1,
-        tasks: [
-          {
-            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-            title: 'Task: pet the cat',
-            order: 1,
-            done: false,
-            description: 'Domestic cat needs to be stroked gently',
-            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-            files: [
-              {
-                filename: 'foto.jpg',
-                fileSize: 6105000,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: '9a111e19-24ec-43e1-b8c4-7',
-    title: 'Homework tasks 777',
-    columns: [
-      {
-        id: '7b0b41b3-c01e-4139-998f-3ff25d20dc4f',
-        title: 'Done',
-        order: 1,
-        tasks: [
-          {
-            id: '6e3abe9c-ceb1-40fa-9a04-eb2b2184daf9',
-            title: 'Task: pet the cat',
-            order: 1,
-            done: false,
-            description: 'Domestic cat needs to be stroked gently',
-            userId: 'b2d92061-7d23-4641-af52-dd39f95b99f8',
-            files: [
-              {
-                filename: 'foto.jpg',
-                fileSize: 6105000,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const schema = yup
-  .object()
-  .shape({
-    title: yup.string().trim().required(),
-  })
-  .required();
-
-const initialValues = {
-  title: '',
-};
-
-const fields = [
-  //TODO разобраться с полями
-  { name: 'title', errorMessage: 'Title is required', placeholder: 'Board Title' },
-];
-
-const formOptions = {
-  schema,
-  initialValues,
-  fields,
-};
+export type tasks = TTask & { columnId: string; boardId: string };
 
 function Boards() {
-  // let boards: TBoard[] | string;
-  useEffect(() => {
-    //TODO Загрузка  досок /boards
-    // (async () => {
-    //   boards = await getBoards();
-    // })();
-  }, []);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const [searchInputElement, setSearchInputElement] = useState<HTMLDivElement | null>(null);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [isPopoverActive, setIsPopoverActive] = useState(false);
+  const [allTasks, setAllTasks] = useState<tasks[]>([]);
+  const throttledFoundTask = useRef(
+    throttle((tasks, searchValue) => findMatches(tasks, searchValue), SEARCH_DELAY)
+  );
 
-  function createBoardHandler(value: typeof schema) {
-    //TODO отправить запрос на создание
-    console.log('create board');
+  const { data, isLoading, isError, request } = useAxios({
+    url: boardsURL(),
+    method: Methods.GET,
+  });
+
+  const boards = data as TBoard[];
+
+  useEffect(() => {
+    if (boards) {
+      (async () => {
+        const tasks = await getAllTasksInfo(boards);
+        setAllTasks(tasks);
+      })();
+    }
+  }, [boards]);
+
+  function closePopover() {
+    setIsPopoverActive(false);
   }
 
-  const [isModalActive, setIsModalActive] = useState(false);
+  function openPopover() {
+    if (searchValue) {
+      setIsPopoverActive(true);
+    }
+  }
+
+  function changeSearchValue(e: ChangeEvent<HTMLInputElement>) {
+    const inputValue = e.target.value;
+    setSearchValue(inputValue);
+
+    if (!isPopoverActive && inputValue !== '') {
+      setIsPopoverActive(true);
+    }
+
+    if (inputValue === '') {
+      closePopover();
+    }
+  }
+
+  const foundedTasks = useMemo(
+    () => throttledFoundTask.current(allTasks, searchValue),
+    [searchValue, allTasks]
+  );
+
+  function navigateToTask(boardId: string, columnId: string, taskId: string) {
+    navigate(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
+  }
 
   return (
     <div className="boards">
-      <div className="boards_menu">
-        <ButtonWithModalForm
-          submitBtnName="Create Board"
-          modalState={{ isModalActive, setIsModalActive }}
-          buttonOptions={{
-            btnClass: 'boards_create__btn',
-            text: 'Add Board',
-          }}
-          formOptions={{
-            ...formOptions,
-            onSubmit: createBoardHandler,
-            buttonOptions: {},
-          }}
-        />
-      </div>
-      <div className="boards_wrapper">
-        {fakeBoards.map((board) => {
-          return <BoardPreview {...board} key={board.id} />;
-        })}
-      </div>
+      <Input
+        placeholder="placeholders.search_tasks"
+        elementRef={setSearchInputElement}
+        value={searchValue}
+        onChange={changeSearchValue}
+        inputClass="boards__search"
+        onFocus={openPopover}
+      />
+
+      <ul className="boards__list">
+        <ProcessingWrapper isLoading={isLoading} isError={isError} errortext="error">
+          {boards?.map((board) => {
+            return (
+              <li className="boards__item" key={board.id}>
+                <BoardPreview {...board} updateBoards={request} />
+              </li>
+            );
+          })}
+        </ProcessingWrapper>
+      </ul>
+
+      {isPopoverActive && (
+        <Popover
+          reference={searchInputElement}
+          placement="bottom-start"
+          onClose={closePopover}
+          popoverWrapperClass="popover__transparent-wrapper"
+        >
+          <ul className="search__list">
+            {foundedTasks.map(({ boardId, columnId, id: taskId, title, description }) => (
+              <li
+                key={taskId}
+                onClick={() => navigateToTask(boardId, columnId, taskId)}
+                className="search__list-item"
+              >
+                <h5 className="search__task-title">{title}</h5>
+
+                {description && (
+                  <div className="search__description-wrapper">{descriptionIcon}</div>
+                )}
+              </li>
+            ))}
+
+            {!foundedTasks.length && (
+              <h5 className="search__dont-find">{t('board.search_tasks_no_results')}</h5>
+            )}
+          </ul>
+        </Popover>
+      )}
     </div>
   );
 }

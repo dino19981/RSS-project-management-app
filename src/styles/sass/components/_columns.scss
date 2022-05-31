@@ -1,28 +1,18 @@
-.columns_wrapper {
+.columns-wrapper {
   display: flex;
-  flex-wrap: nowrap;
-  row-gap: 0.5rem;
-  height: 90vh;
-  background-color: #ddd;
-  width: 100%;
-  padding: 0.5rem;
-}
-.column-preview,
-.column {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  width: 25%;
-  border: 1px solid #000;
-  border-radius: 5px;
+  overflow-y: hidden;
+  margin-bottom: 5px;
 
-  &_link {
-    width: 100%;
+  &::-webkit-scrollbar {
+    height: 10px;
   }
-  &_title {
-    text-align: center;
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 0.5rem;
+
+  &::-webkit-scrollbar-track {
+    background-color: rgb(233, 233, 233);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(193, 193, 193);
+    cursor: grab;
   }
 }

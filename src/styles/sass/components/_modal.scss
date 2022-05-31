@@ -13,12 +13,19 @@
   transition: 0.5s;
   opacity: 0;
   pointer-events: none;
+  &__close {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    fill: #787878;
+  }
 }
 
 .modal.active {
   opacity: 1;
   transform: scale(1);
   pointer-events: all;
+  cursor: pointer;
 }
 
 .modal__content {
@@ -35,6 +42,7 @@
 
 .modal__content.active {
   transform: scale(1);
+  cursor: auto;
 }
 
 .modal__header {
@@ -55,4 +63,35 @@
   justify-content: right;
   gap: 1rem;
   margin-top: 2rem;
+}
+
+.modal__error-text {
+  text-align: center;
+  margin: 0;
+  color: $error-text-red;
+  font-size: 18px;
+}
+
+.task__edit {
+  min-height: 50vh;
+  padding: 15px;
+}
+
+.window__popover {
+  z-index: 1;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.modal__close {
+  fill: $accent-color;
+}
+
+.modal__delete {
+  max-width: fit-content;
+}
+
+.confirmation__text {
+  text-align: center;
+  margin-bottom: 50px;
 }

@@ -4,3 +4,54 @@ button {
   border-radius: 4px;
   border: 0;
 }
+
+.button__cancel {
+  @include cancel-button;
+}
+
+.button__submit {
+  @include submit-button;
+}
+
+.button__check-icon,
+.button__cancel-icon {
+  border-radius: 50%;
+  height: 35px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.button__check-icon {
+  background-color: #4bae4f;
+
+  svg {
+    fill: #ffffff;
+  }
+
+  &:hover {
+    background-color: #429244;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px rgba(0, 0, 0, 0.14),
+      0px 1px 10px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.button__cancel-icon {
+  background-color: #f34235;
+  margin-right: 5px;
+
+  svg {
+    fill: #ffffff;
+  }
+
+  &:hover {
+    background-color: #da3a2f;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px rgba(0, 0, 0, 0.14),
+      0px 1px 10px rgba(0, 0, 0, 0.12);
+  }
+}

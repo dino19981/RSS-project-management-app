@@ -1,14 +1,31 @@
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { registrationFields } from '../../components/form/constants/fieldsOptions';
 import { registrationValues } from '../../components/form/constants/initialValues';
+import Loader from '../../components/loader/loader';
+import { Methods } from '../../const/APIMethod';
 import { AppRoute } from '../../const/routes';
-import { instanceAxios } from '../../HTTP/configuration';
+import { useAxios } from '../../hooks/useAxios';
 import { fieldsType } from '../../models/form';
 import { registrationSchema } from '../../schemas/authentification';
+import { getAuthentificationErrorMessage } from '../../utils/authentification';
 import Authentification from '../authentification/Authentification';
 
 export default function Registration() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+
   async function onSubmit(value: fieldsType) {
-    console.log(value);
+    const requestOptions = {
+      url: AppRoute.REGISTRATION,
+      method: Methods.POST,
+      data: value,
+    };
+    const data = await request(requestOptions);
+    if (data) {
+      navigate(AppRoute.LOGIN);
+    }
   }
 
   const formOptions = {
@@ -21,12 +38,17 @@ export default function Registration() {
   };
 
   return (
-    <Authentification
-      formOptions={formOptions}
-      buttonText="Зарегистрироваться"
-      link={AppRoute.LOGIN}
-      linkText="Войти"
-      answerText="Уже зарегистрированы?"
-    />
+    <div className="authentification">
+      <Authentification
+        formOptions={formOptions}
+        buttonText={t('buttons.sign_up')}
+        link={AppRoute.LOGIN}
+        linkText={t('buttons.sign_in')}
+        questionText={t('sign_up.is_have_login_text')}
+        errorMessage={isError && getAuthentificationErrorMessage(isError.response?.status)}
+        loadingStatus={isLoading}
+      />
+      {isLoading && <Loader />}
+    </div>
   );
 }
