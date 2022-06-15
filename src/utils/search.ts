@@ -21,9 +21,9 @@ export async function getAllTasksInfo(boards: TBoard[]) {
     const { columns, id: boardId } = boardResponse.data as TBoard;
 
     columns.forEach((column: TColumn) => {
-      const columnId = column.id;
+      const { tasks, id: columnId } = column;
 
-      column.tasks.forEach((task) => {
+      tasks.forEach((task) => {
         const taskData = { ...task, columnId, boardId };
         tasks.push(taskData);
       });

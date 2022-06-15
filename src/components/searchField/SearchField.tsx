@@ -9,10 +9,9 @@ import SearchResults from './SearchResults';
 
 type searchFieldProps = {
   itemsForSearch: tasks[];
-  onClickSearchItem: (boardId: string, columnId: string, taskId: string) => void;
 };
 
-export default function SearchField({ itemsForSearch, onClickSearchItem }: searchFieldProps) {
+export default function SearchField({ itemsForSearch }: searchFieldProps) {
   const [searchInputElement, setSearchInputElement] = useState<HTMLDivElement | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
   const [isPopoverActive, setIsPopoverActive] = useState(false);
@@ -62,7 +61,7 @@ export default function SearchField({ itemsForSearch, onClickSearchItem }: searc
           onClose={closePopover}
           popoverWrapperClass="popover__transparent-wrapper"
         >
-          <SearchResults foundedItems={foundedItems} onClickSearchItem={onClickSearchItem} />
+          <SearchResults foundedItems={foundedItems} />
         </Popover>
       )}
     </>

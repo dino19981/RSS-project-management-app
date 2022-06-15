@@ -7,13 +7,11 @@ import { TBoard } from '../../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 import { TTask } from '../../../models/task';
 import { getAllTasksInfo } from '../../../utils/search';
-import { useNavigate } from 'react-router-dom';
 import SearchField from '../../../components/searchField/SearchField';
 
 export type tasks = TTask & { columnId: string; boardId: string };
 
 function Boards() {
-  const navigate = useNavigate();
   const [allTasks, setAllTasks] = useState<tasks[]>([]);
 
   const { data, isLoading, isError, request } = useAxios({
@@ -32,13 +30,9 @@ function Boards() {
     }
   }, [boards]);
 
-  function navigateToTask(boardId: string, columnId: string, taskId: string) {
-    navigate(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
-  }
-
   return (
     <div className="boards">
-      <SearchField itemsForSearch={allTasks} onClickSearchItem={navigateToTask} />
+      <SearchField itemsForSearch={allTasks} />
 
       <ul className="boards__list">
         <ProcessingWrapper isLoading={isLoading} isError={isError} errortext="error">
