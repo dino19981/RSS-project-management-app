@@ -1,6 +1,6 @@
 import { boardURL } from '../const/requestUrls';
 import { instanceAxios } from '../HTTP/configuration';
-import { tasks } from '../layouts/Boards/Boards';
+import { tasks } from '../views/pages/boards/Boards';
 import { TBoard } from '../models/board';
 import { TColumn } from '../models/column';
 

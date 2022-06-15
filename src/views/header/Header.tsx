@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { throttle } from 'throttle-typescript';
 import { MIN_SCROLL_Y, THROTTLE_DELAY } from './const';
-import HeaderMenu from '../headerMenu/HeaderMenu';
-import Logo from '../../components/logo/Logo';
+import HeaderMenu from './headerMenu/HeaderMenu';
+import Logo from './logo/Logo';
 
 export default function Header() {
   const [isSticky, setIsSticky] = useState(false);

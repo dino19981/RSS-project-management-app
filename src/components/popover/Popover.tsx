@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Portal from '../portal/Portal';
 import { usePopper } from 'react-popper';
-import ClickOutside from '../clickOutside/ClickOutside';
+import ClickOutside from './clickOutside/ClickOutside';
 import { popoverProps } from '../../models/popover';
 
 export default function Popover({
