@@ -1,15 +1,22 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, memo, useMemo, useRef, useState } from 'react';
 import { throttle } from 'throttle-typescript';
 import { findMatches } from '../../utils/search';
+import { tasks } from '../../views/pages/boards/Boards';
 import { SEARCH_DELAY } from '../../views/pages/boards/const';
 import Input from '../input/Input';
 import Popover from '../popover/Popover';
+import SearchResults from './SearchResults';
 
-export default function SearchField() {
+type searchFieldProps = {
+  itemsForSearch: tasks[];
+  onClickSearchItem: (boardId: string, columnId: string, taskId: string) => void;
+};
+
+export default function SearchField({ itemsForSearch, onClickSearchItem }: searchFieldProps) {
   const [searchInputElement, setSearchInputElement] = useState<HTMLDivElement | null>(null);
   const [searchValue, setSearchValue] = useState<string>('');
   const [isPopoverActive, setIsPopoverActive] = useState(false);
-  const throttledFoundTask = useRef(
+  const throttledFoundItems = useRef(
     throttle((tasks, searchValue) => findMatches(tasks, searchValue), SEARCH_DELAY)
   );
 
@@ -36,6 +43,8 @@ export default function SearchField() {
     }
   }
 
+  const foundedItems = throttledFoundItems.current(itemsForSearch, searchValue);
+
   return (
     <>
       <Input
@@ -53,25 +62,7 @@ export default function SearchField() {
           onClose={closePopover}
           popoverWrapperClass="popover__transparent-wrapper"
         >
-          <ul className="search__list">
-            {foundedTasks.map(({ boardId, columnId, id: taskId, title, description }) => (
-              <li
-                key={taskId}
-                onClick={() => navigateToTask(boardId, columnId, taskId)}
-                className="search__list-item"
-              >
-                <h5 className="search__task-title">{title}</h5>
-
-                {description && (
-                  <div className="search__description-wrapper">{descriptionIcon}</div>
-                )}
-              </li>
-            ))}
-
-            {!foundedTasks.length && (
-              <h5 className="search__dont-find">{t('board.search_tasks_no_results')}</h5>
-            )}
-          </ul>
+          <SearchResults foundedItems={foundedItems} onClickSearchItem={onClickSearchItem} />
         </Popover>
       )}
     </>

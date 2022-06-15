@@ -1,18 +1,12 @@
-import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
-import Input from '../../../components/input/Input';
-import Popover from '../../../components/popover/Popover';
+import { useEffect, useState } from 'react';
 import ProcessingWrapper from '../../../components/processingWrapper/ProcessingWrapper';
 import { Methods } from '../../../const/APIMethod';
 import { boardsURL } from '../../../const/requestUrls';
 import { useAxios } from '../../../hooks/useAxios';
 import { TBoard } from '../../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
-import { throttle } from 'throttle-typescript';
 import { TTask } from '../../../models/task';
-import { findMatches, getAllTasksInfo } from '../../../utils/search';
-import { SEARCH_DELAY } from './const';
-import { descriptionIcon } from '../../../components/icons/Icons';
-import { useTranslation } from 'react-i18next';
+import { getAllTasksInfo } from '../../../utils/search';
 import { useNavigate } from 'react-router-dom';
 import SearchField from '../../../components/searchField/SearchField';
 
@@ -20,14 +14,7 @@ export type tasks = TTask & { columnId: string; boardId: string };
 
 function Boards() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
-  const [searchInputElement, setSearchInputElement] = useState<HTMLDivElement | null>(null);
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [isPopoverActive, setIsPopoverActive] = useState(false);
   const [allTasks, setAllTasks] = useState<tasks[]>([]);
-  const throttledFoundTask = useRef(
-    throttle((tasks, searchValue) => findMatches(tasks, searchValue), SEARCH_DELAY)
-  );
 
   const { data, isLoading, isError, request } = useAxios({
     url: boardsURL(),
@@ -45,18 +32,13 @@ function Boards() {
     }
   }, [boards]);
 
-  const foundedTasks = useMemo(
-    () => throttledFoundTask.current(allTasks, searchValue),
-    [searchValue, allTasks]
-  );
-
   function navigateToTask(boardId: string, columnId: string, taskId: string) {
     navigate(`/boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
   }
 
   return (
     <div className="boards">
-      <SearchField />
+      <SearchField itemsForSearch={allTasks} onClickSearchItem={navigateToTask} />
 
       <ul className="boards__list">
         <ProcessingWrapper isLoading={isLoading} isError={isError} errortext="error">
