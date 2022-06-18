@@ -5,7 +5,7 @@ import MainLayout from './layouts/MainLayout';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import NotFoundPage from './views/pages/notFoundPage/NotFoundPage';
 import Boards from './views/pages/boards/Boards';
-import Board from './views/Board/Board';
+import Board from './views/pages/Board/Board';
 import Authorization from './views/pages/authentification/authorization/Authorization';
 import Registration from './views/pages/authentification/registration/Registration';
 import TaskEdit from './views/Task/TaskEdit';

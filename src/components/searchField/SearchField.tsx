@@ -1,14 +1,14 @@
 import React, { ChangeEvent, memo, useMemo, useRef, useState } from 'react';
 import { throttle } from 'throttle-typescript';
+import { searchListTasks } from '../../models/task';
 import { findMatches } from '../../utils/search';
-import { tasks } from '../../views/pages/boards/Boards';
 import { SEARCH_DELAY } from '../../views/pages/boards/const';
 import Input from '../input/Input';
 import Popover from '../popover/Popover';
 import SearchResults from './SearchResults';
 
 type searchFieldProps = {
-  itemsForSearch: tasks[];
+  itemsForSearch: searchListTasks[];
 };
 
 export default function SearchField({ itemsForSearch }: searchFieldProps) {

@@ -41,7 +41,11 @@ export default function CreateBoard() {
 
   return (
     <ButtonWithModalForm
-      submitBtnName={t('buttons.create_board')}
+      modalOptions={{
+        submitBtnName: t('buttons.create_board'),
+        isError: isError,
+        errorText: ErrorMessage.SERVER_ERROR,
+      }}
       modalState={{ isModalActive, setIsModalActive }}
       buttonOptions={{
         btnClass: 'btn-new-board',
@@ -53,8 +57,6 @@ export default function CreateBoard() {
         ...formOptions,
         onSubmit: createBoardHandler,
       }}
-      isError={isError}
-      errorText={ErrorMessage.SERVER_ERROR}
     />
   );
 }

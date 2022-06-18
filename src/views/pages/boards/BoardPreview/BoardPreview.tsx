@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import ButtonWithModalForm from '../../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { boardPreviewProps } from '../../../../models/boardPreview';
@@ -37,17 +37,20 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
       <div className="board-preview__delete-wrapper">
         <ButtonWithModalForm
           modalState={{ isModalActive, setIsModalActive }}
-          modalOptions={{ submitHandler: deleteBoard, contentWrapperClassName: 'modal__delete' }}
+          modalOptions={{
+            submitHandler: deleteBoard,
+            contentWrapperClassName: 'modal__delete',
+            submitBtnName: t('buttons.delete'),
+            isError: isError,
+            errorText: ErrorMessage.SERVER_ERROR,
+          }}
           buttonOptions={{
             text: 'delete',
             icon: deleteIcon,
             isVisuallyHiddenText: true,
             btnClass: 'board-preview__delete-btn',
           }}
-          submitBtnName={t('buttons.delete')}
           questionText={`${t('board.delete_board_message')} ${title}?`}
-          isError={isError}
-          errorText={ErrorMessage.SERVER_ERROR}
         />
       </div>
       {isLoading && <Loader />}
@@ -55,4 +58,4 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
   );
 }
 
-export default BoardPreview;
+export default memo(BoardPreview);

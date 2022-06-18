@@ -1,8 +1,14 @@
 import { processingWrapperProps } from '../../models/processingWrapper';
 import Loader from '../loader/loader';
 
-function ProcessingWrapper({ isLoading, isError, errortext, children }: processingWrapperProps) {
-  if (isLoading) {
+function ProcessingWrapper({
+  isLoading,
+  isError,
+  errortext,
+  children,
+  items,
+}: processingWrapperProps) {
+  if (isLoading && !items) {
     return <Loader />;
   }
 

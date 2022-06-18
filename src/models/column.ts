@@ -7,10 +7,6 @@ export type TColumn = {
   tasks: TGetBoardTask[];
 };
 
-export type TColumnProps = TColumn & {
-  updateBoard: () => void;
-};
-
 export type TGetColumn = {
   id: string;
   title: string;

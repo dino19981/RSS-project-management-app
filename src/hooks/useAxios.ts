@@ -1,16 +1,14 @@
 import { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { instanceAxios } from '../HTTP/configuration';
 import { hookOptionsType, requestOptions, responses } from '../models/useAxios';
 
 export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: hookOptionsType) => {
-  const initialLoading = hookOptions?.dontFetchAtMount ? false : true;
-
   const [data, setData] = useState<responses>();
-  const [isLoading, setIsLoading] = useState(initialLoading);
+  const [isLoading, setIsLoading] = useState(!hookOptions?.dontFetchAtMount);
   const [isError, setIsError] = useState<false | AxiosError>(false);
 
-  const request = async (requestOptions: requestOptions = defaultRequestOptions) => {
+  const request = useCallback(async (requestOptions: requestOptions = defaultRequestOptions) => {
     setIsLoading(true);
     setIsError(false);
 
@@ -28,7 +26,7 @@ export const useAxios = (defaultRequestOptions: requestOptions, hookOptions?: ho
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (!hookOptions?.dontFetchAtMount) {

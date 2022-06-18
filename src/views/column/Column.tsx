@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
@@ -13,7 +13,7 @@ import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
 import { columnURL, tasksURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
-import { TColumnProps } from '../../models/column';
+import { TColumn } from '../../models/column';
 import { columSchema } from '../../schemas/column';
 import { createTaskSchema } from '../../schemas/task';
 import { useAppSelector } from '../../store/hooks';
@@ -39,7 +39,7 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps) {
+function Column({ id: columnId, title, tasks, order }: TColumn) {
   const { t } = useTranslation();
   const { boardId } = useParams();
   const [isCreateTaskModalActive, setIsCreateTaskModalActive] = useState(false);
@@ -49,6 +49,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
 
   const { id: userId } = useAppSelector((state) => state.authorization);
   const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+  console.log('column rerender');
 
   async function createTask(value: typeof createTaskSchema) {
     const body = { ...value, userId };
@@ -59,7 +60,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (taskData) {
-      updateBoard();
+      // updateBoard();
       setIsCreateTaskModalActive(false);
     }
   }
@@ -79,7 +80,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
         },
       });
     }
-    updateBoard();
+    // updateBoard();
   }
 
   function openEditTitle() {
@@ -106,7 +107,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (columnData) {
-      updateBoard();
+      // updateBoard();
     }
   }
 
@@ -117,7 +118,7 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
     });
 
     if (columnData) {
-      updateBoard();
+      // updateBoard();
     }
   }
 
@@ -171,13 +172,15 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
 
       <ul className="column__task-list">
         {tasks.map((task) => {
-          return <Task key={task.id} {...task} columnId={columnId} updateBoard={updateBoard} />;
+          return (
+            <Task key={task.id} {...task} columnId={columnId} updateBoard={() => 'updateBoard'} />
+          );
         })}
         <EmptyTaskPreview
           tasks={tasks}
           boardId={boardId}
           columnId={columnId}
-          update={updateBoard}
+          update={() => 'updateBoard'}
         />
       </ul>
 
@@ -225,4 +228,4 @@ function Column({ id: columnId, title, tasks, order, updateBoard }: TColumnProps
   );
 }
 
-export default Column;
+export default memo(Column);

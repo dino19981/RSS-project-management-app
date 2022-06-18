@@ -11,6 +11,8 @@ export type TTask = {
   columnId: string;
 };
 
+export type searchListTasks = TTask & { columnId: string; boardId: string };
+
 export type taskProps = TGetBoardTask & {
   columnId: string;
   updateBoard: () => void;
