@@ -15,11 +15,7 @@ const userSlice = createSlice({
   initialState: initialAuthorizationState,
   reducers: {
     setUserData: (state, { payload }: PayloadAction<AuthorizationState>) => {
-      state.authorizeStatus = payload.authorizeStatus;
-      state.id = payload.id;
-      state.login = payload.login;
-      state.name = payload.name;
-      state.isLoadingUserData = false;
+      return { ...payload, isLoadingUserData: false };
     },
     setAuthorizeUser: (state) => {
       state.authorizeStatus = true;
@@ -29,10 +25,8 @@ const userSlice = createSlice({
     },
     deleteUserData: (state) => {
       localStorage.removeItem('token');
-      state.authorizeStatus = false;
-      state.id = '';
-      state.login = '';
-      state.name = '';
+
+      return { ...initialAuthorizationState, isLoadingUserData: state.isLoadingUserData };
     },
     updateUserData: (state, { payload }: PayloadAction<updatedUserInfo>) => {
       state.login = payload.login;

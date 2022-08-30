@@ -23,7 +23,7 @@ export function columnURL(boardId: IdType, columnId: IdType): string {
 }
 
 export function tasksURL(boardId: IdType, columnId: IdType): string {
-  return `${columnURL(boardId, columnId)}${URLS.TASKS}`;
+  return `${columnURL(boardId, columnId)}${URLS.TASKS}w`;
 }
 
 export function taskURL(boardId: IdType, columnId: IdType, taskId: IdType): string {

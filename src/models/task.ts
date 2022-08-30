@@ -1,14 +1,22 @@
 import { TFile } from './file';
+import { fieldsType } from './form';
 
-export type TTask = {
+export type createTaskData = fieldsType & {
+  userId: string;
+};
+
+export type responseTask = {
   id: string;
   title: string;
-  order: number;
   description: string;
   userId: string;
-  files: TFile[];
   boardId: string;
   columnId: string;
+};
+
+export type TTask = responseTask & {
+  order: number;
+  files: TFile[];
 };
 
 export type searchListTasks = TTask & { columnId: string; boardId: string };

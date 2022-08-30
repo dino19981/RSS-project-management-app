@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { TColumn } from '../../../models/column';
-import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { fieldsType } from '../../../models/form';
 import { TBoard } from '../../../models/board';
 import Loader from '../../../components/loader/loader';
@@ -15,7 +14,7 @@ import { TFunction, useTranslation } from 'react-i18next';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { plusIcon, deleteIcon } from '../../../components/icons/Icons';
 import { connect } from 'react-redux';
-import { createColumn, deleteBoard, getBoardData } from '../../../store/board.ts/actions';
+import { createColumn, deleteBoard, getBoardData } from '../../../store/board/actions';
 import { RootState } from '../../../store/store';
 
 const formOptions = {
@@ -24,7 +23,7 @@ const formOptions = {
   fields: columnfields,
 };
 
-function generateColumns(columns: TColumn[], t: TFunction<'translation', undefined>) {
+function displayColumns(columns: TColumn[], t: TFunction<'translation', undefined>) {
   if (!columns.length) return <p className="board__add-column">{t('board.add_column_message')}</p>;
 
   return columns.map((column) => <Column key={column.id} {...column} />);
@@ -57,6 +56,7 @@ function Board({
   const [maxColumnCountError, setMaxColumnCountError] = useState(false);
   const [isCreateColumnModalActive, setCreateColumnIsModalActive] = useState(false);
   const [isDeleteBoardModalActive, setDeleteBoardIsModalActive] = useState(false);
+  console.log(board.columns);
 
   useEffect(() => {
     if (boardId) {
@@ -141,11 +141,9 @@ function Board({
           <Link className="board__back-home" to={AppRoute.MAIN}>
             ↩{t('buttons.to_main_page')}
           </Link>
-          <ButtonWithModalForm {...createColumnOptions} />
-          <ButtonWithModalForm {...deleteBoardOptions} />
         </div>
       </div>
-      <div className="columns-wrapper">{generateColumns(board.columns, t)}</div>
+      <div className="columns-wrapper">{displayColumns(board.columns, t)}</div>
       {requestLoading && <Loader />}
       <Outlet />
     </section>

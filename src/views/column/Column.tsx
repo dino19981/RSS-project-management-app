@@ -3,15 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import { createTaskFields, editColumnFields } from '../../components/form/constants/fieldsOptions';
+import { createTaskFields } from '../../components/form/constants/fieldsOptions';
 import { createTaskValues } from '../../components/form/constants/initialValues';
-import Form from '../../components/form/Form';
-import { checkIcon, closeIcon, deleteIcon } from '../../components/icons/Icons';
+import { deleteIcon } from '../../components/icons/Icons';
 import Modal from '../../components/modal/Modal';
-import Popover from '../../components/popover/Popover';
 import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
-import { columnURL, tasksURL } from '../../const/requestUrls';
+import { columnURL } from '../../const/requestUrls';
 import { useAxios } from '../../hooks/useAxios';
 import { TColumn } from '../../models/column';
 import { columSchema } from '../../schemas/column';
@@ -21,6 +19,11 @@ import EmptyTaskPreview from '../Task/EmptyTaskPreview';
 import Task from '../Task/Task';
 import { plusIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
+import { RootState } from '../../store/store';
+import { createTask, deleteColumn, updateColumnData } from '../../store/board/actions';
+import { createTaskData } from '../../models/task';
+import EditTitle from './EditTitle';
+import { connect, ConnectedProps } from 'react-redux';
 
 const formOptions = {
   schema: createTaskSchema,
@@ -39,7 +42,17 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Column({ id: columnId, title, tasks, order }: TColumn) {
+function Column({
+  id: columnId,
+  title,
+  tasks,
+  order,
+  requestError,
+  requestLoading,
+  deleteColumn,
+  updateColumnData,
+  createTask,
+}: TColumn & PropsFromRedux) {
   const { t } = useTranslation();
   const { boardId } = useParams();
   const [isCreateTaskModalActive, setIsCreateTaskModalActive] = useState(false);
@@ -48,19 +61,15 @@ function Column({ id: columnId, title, tasks, order }: TColumn) {
   const [columnTitleElement, setColumnTitleElement] = useState<HTMLDivElement | null>(null);
 
   const { id: userId } = useAppSelector((state) => state.authorization);
-  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
-  console.log('column rerender');
 
-  async function createTask(value: typeof createTaskSchema) {
-    const body = { ...value, userId };
-    const taskData = await request({
-      url: tasksURL(boardId, columnId),
-      method: Methods.POST,
-      data: body,
-    });
+  async function createTaskHandler(value: typeof createTaskSchema) {
+    const requestData: createTaskData = { ...value, userId };
 
-    if (taskData) {
-      // updateBoard();
+    if (!boardId) return;
+
+    const createTaskResponse = await createTask({ boardId, columnId, values: requestData });
+
+    if (createTaskResponse.meta.requestStatus === 'fulfilled') {
       setIsCreateTaskModalActive(false);
     }
   }
@@ -71,14 +80,14 @@ function Column({ id: columnId, title, tasks, order }: TColumn) {
     const title = e.dataTransfer.getData('columnTitle');
     if (!id || !title) return;
     if (id !== columnId) {
-      await request({
-        url: columnURL(boardId, id),
-        method: Methods.PUT,
-        data: {
-          title,
-          order,
-        },
-      });
+      // await request({
+      //   url: columnURL(boardId, id),
+      //   method: Methods.PUT,
+      //   data: {
+      //     title,
+      //     order,
+      //   },
+      // });
     }
     // updateBoard();
   }
@@ -97,28 +106,20 @@ function Column({ id: columnId, title, tasks, order }: TColumn) {
       return;
     }
 
+    if (!boardId) return;
+
     const body = { order, ...value };
-    setIsPopoverActive(false);
+    const response = await updateColumnData({ boardId, columnId, values: body });
 
-    const columnData = await request({
-      url: columnURL(boardId, columnId),
-      method: Methods.PUT,
-      data: body,
-    });
-
-    if (columnData) {
-      // updateBoard();
+    if (response.meta.requestStatus === 'fulfilled') {
+      setIsPopoverActive(false);
     }
   }
 
-  async function deleteColumn() {
-    const columnData = await request({
-      url: columnURL(boardId, columnId),
-      method: Methods.DELETE,
-    });
-
-    if (columnData) {
-      // updateBoard();
+  async function deleteColumnHandler() {
+    if (boardId) {
+      await deleteColumn({ boardId, columnId });
+      setIsDeleteColumnModalActive(false);
     }
   }
 
@@ -132,19 +133,21 @@ function Column({ id: columnId, title, tasks, order }: TColumn) {
   }
 
   const addTaskOptions = {
-    submitBtnName: t('column.add_task'),
     modalState: {
       isModalActive: isCreateTaskModalActive,
       setIsModalActive: setIsCreateTaskModalActive,
+    },
+    modalOptions: {
+      submitBtnName: t('column.add_task'),
+      isError: !!requestError,
+      errorText: ErrorMessage.SERVER_ERROR,
     },
     buttonOptions: {
       btnClass: 'column__create-task-btn',
       text: t('column.add_task'),
       icon: plusIcon,
     },
-    formOptions: { ...formOptions, onSubmit: createTask },
-    isError: isError,
-    errorText: ErrorMessage.SERVER_ERROR,
+    formOptions: { ...formOptions, onSubmit: createTaskHandler },
   };
 
   const deleteColumnOptions = {
@@ -152,8 +155,8 @@ function Column({ id: columnId, title, tasks, order }: TColumn) {
     handleCloseModal: closeDeleteModal,
     contentWrapperClassName: 'modal__delete',
     submitBtnName: t('buttons.delete'),
-    submitHandler: deleteColumn,
-    isError: isError,
+    submitHandler: deleteColumnHandler,
+    isError: !!requestError,
     errorText: ErrorMessage.SERVER_ERROR,
   };
 
@@ -187,45 +190,39 @@ function Column({ id: columnId, title, tasks, order }: TColumn) {
       <ButtonWithModalForm {...addTaskOptions} />
 
       {isPopoverActive && (
-        <Popover
-          placement="bottom-start"
-          onClose={closeEditTitle}
+        <EditTitle
+          closeTitle={closeEditTitle}
           reference={columnTitleElement}
-          popoverWrapperClass="popover__gray-wrapper"
-        >
-          <div className="column__title-edit">
-            <div
-              className="column__form-wrapper"
-              style={{ width: columnTitleElement?.clientWidth }}
-            >
-              <Form
-                schema={columSchema}
-                initialValues={{ title }}
-                fields={editColumnFields}
-                formId="editTitle"
-                onSubmit={updateTitle}
-              />
-            </div>
-            <div className="column__title-buttons">
-              <Button
-                icon={checkIcon}
-                btnClass="button__check-icon"
-                formId="editTitle"
-                type="submit"
-              />
-              <Button icon={closeIcon} btnClass="button__cancel-icon" handler={closeEditTitle} />
-            </div>
-          </div>
-        </Popover>
+          title={title}
+          updateTitle={updateTitle}
+        />
       )}
+
       {isDeleteColumnModalActive && (
         <Modal {...deleteColumnOptions}>
           <p className="confirmation__text">{`${t('column.delete_column_message')} ${title}?`}</p>
         </Modal>
       )}
-      {isLoading && <Loader />}
+      {requestLoading && <Loader />}
     </div>
   );
 }
 
-export default memo(Column);
+const mapStateToProps = (state: RootState) => {
+  return {
+    requestError: state.board.requestError,
+    requestLoading: state.board.requestLoading,
+  };
+};
+
+const mapDispatchToProps = {
+  deleteColumn,
+  updateColumnData,
+  createTask,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(memo(Column));

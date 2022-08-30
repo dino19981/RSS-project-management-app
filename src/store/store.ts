@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import boardSlice from './board.ts/reducer';
+import boardSlice from './board/reducer';
 import userSlice from './user/reducer';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   authorization: userSlice.reducer,
   board: boardSlice.reducer,
 });

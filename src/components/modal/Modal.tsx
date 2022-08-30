@@ -41,7 +41,7 @@ export default function Modal({
               <use xlinkHref="#close-icon" />
             </svg>
           </div>
-          {isError && <p className="modal__error-text">{errorText}</p>}
+          {isError && errorText && <p className="modal__error-text">{t(errorText)}</p>}
 
           {children}
 
