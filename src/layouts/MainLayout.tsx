@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '../store/hooks';
 import { getUserData } from '../utils/authentification';
 import { setAuthorizeUser, setLoadingUserData, setUserData } from '../store/user/actions';
-import { AppRoute } from '../const/routes';
 
 export default function MainLayout() {
   const dispatch = useAppDispatch();

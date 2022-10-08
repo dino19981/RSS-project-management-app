@@ -106,26 +106,30 @@ function Task({ id, title, description, columnId, userId, order, files }: taskPr
   }
 
   return (
-    <>
+    <div className="task">
       <div
-        className="task"
+        className="task__inner"
         onClick={openEditTask}
         draggable={true}
         onDragOver={(e) => dragOverHandler(e)}
         onDragStart={(e) => dragStart(e, id, title, description, columnId, userId)}
         onDrop={(e) => dropHandler(e)}
       >
-        <div className="task__title-wrapper">
-          <div className="task__link">{title}</div>
-          <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
-        </div>
+        <div className="task__link">{title}</div>
+        {/* <div className="task__title-wrapper"> */}
+
+        {/* </div> */}
 
         <div className="task__icons-wrapper">
           <div>{descriptionIcon}</div>
           {!!files.length && <div>{paperClipIcon}</div>}
         </div>
+
+        {isLoading && <Loader />}
       </div>
-      {isLoading && <Loader />}
+
+      <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
+
       {isModalActive && (
         <Modal
           formId="modalForm"
@@ -139,7 +143,7 @@ function Task({ id, title, description, columnId, userId, order, files }: taskPr
           <p className="confirmation__text">{`${t('task.delete_task_message')} ${title}?`}</p>
         </Modal>
       )}
-    </>
+    </div>
   );
 }
 

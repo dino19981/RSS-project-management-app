@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { TColumn } from '../../models/column';
-import EmptyTaskPreview from '../Task/EmptyTaskPreview';
-import Task from '../Task/Task';
+import EmptyTaskPreview from '../task/EmptyTaskPreview';
+import Task from '../task/Task';
 import Loader from '../../components/loader/loader';
 import { RootState } from '../../store/store';
 import { connect, ConnectedProps } from 'react-redux';
@@ -53,7 +53,7 @@ function Column({ id: columnId, title, tasks, order, requestLoading }: TColumn &
 
       <ul className="column__task-list">
         {tasks.map((task) => {
-          return <Task key={task.id} {...task} columnId={columnId} />;
+          return <Task key={task.id} columnId={columnId} {...task} />;
         })}
 
         <EmptyTaskPreview tasks={tasks} boardId={boardId} columnId={columnId} />
