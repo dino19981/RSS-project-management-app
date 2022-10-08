@@ -58,17 +58,16 @@ export const deleteColumn = createAsyncThunk(
 );
 
 export const updateColumnData = createAsyncThunk(
-  'task/createTask',
+  'column/updateColumn',
   async (data: { boardId: string; columnId: string; values: TColumnUpdateSchema }, thunkAPI) => {
     const { boardId, columnId, values } = data;
 
     try {
       const response = await instanceAxios.put(columnURL(boardId, columnId), values);
-      console.log({ ...response.data, columnId }, response.data);
 
       return { ...response.data, columnId };
     } catch (e) {
-      return thunkAPI.rejectWithValue('Не удалось создать обновить колонку.');
+      return thunkAPI.rejectWithValue('Не удалось обновить колонку.');
     }
   }
 );

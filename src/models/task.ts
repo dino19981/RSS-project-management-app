@@ -23,7 +23,6 @@ export type searchListTasks = TTask & { columnId: string; boardId: string };
 
 export type taskProps = TGetBoardTask & {
   columnId: string;
-  updateBoard: () => void;
 };
 
 export type TGetBoardTask = Omit<TTask, 'boardId' | 'columnId' | 'done'>;

@@ -33,7 +33,7 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Task({ id, title, description, columnId, updateBoard, userId, order, files }: taskProps) {
+function Task({ id, title, description, columnId, userId, order, files }: taskProps) {
   const { t } = useTranslation();
   const { boardId } = useParams();
   const { pathname } = useLocation();
@@ -48,7 +48,6 @@ function Task({ id, title, description, columnId, updateBoard, userId, order, fi
     });
 
     if (taskData) {
-      updateBoard();
       setIsModalActive(false);
     }
   }
@@ -104,7 +103,6 @@ function Task({ id, title, description, columnId, updateBoard, userId, order, fi
         },
       });
     }
-    updateBoard();
   }
 
   return (

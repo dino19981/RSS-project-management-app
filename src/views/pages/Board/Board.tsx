@@ -16,6 +16,7 @@ import { plusIcon, deleteIcon } from '../../../components/icons/Icons';
 import { connect } from 'react-redux';
 import { createColumn, deleteBoard, getBoardData } from '../../../store/board/actions';
 import { RootState } from '../../../store/store';
+import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 
 const formOptions = {
   schema: columSchema,
@@ -56,7 +57,6 @@ function Board({
   const [maxColumnCountError, setMaxColumnCountError] = useState(false);
   const [isCreateColumnModalActive, setCreateColumnIsModalActive] = useState(false);
   const [isDeleteBoardModalActive, setDeleteBoardIsModalActive] = useState(false);
-  console.log(board.columns);
 
   useEffect(() => {
     if (boardId) {
@@ -141,6 +141,7 @@ function Board({
           <Link className="board__back-home" to={AppRoute.MAIN}>
             ↩{t('buttons.to_main_page')}
           </Link>
+          <ButtonWithModalForm {...createColumnOptions} />
         </div>
       </div>
       <div className="columns-wrapper">{displayColumns(board.columns, t)}</div>

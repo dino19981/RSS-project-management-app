@@ -8,11 +8,10 @@ import { generateTaskBody } from '../../utils/dragAndDrop';
 type TProps = {
   boardId: string | undefined;
   columnId: string;
-  update: () => void;
   tasks: TGetBoardTask[];
 };
 
-export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: TProps) {
+export default function EmptyTaskPreview({ tasks, columnId, boardId }: TProps) {
   const { request } = useAxios({}, { dontFetchAtMount: true });
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
@@ -75,7 +74,6 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId, update }: T
         });
       }
     }
-    update();
   }
   return <div className="task-empty" onDrop={(e) => dropHandler(e)}></div>;
 }

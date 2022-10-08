@@ -12,9 +12,9 @@ import {
   getBoardData,
 } from './actions';
 
-const findIndex = (allElements: TColumn[], idElement: string) => {
-  return allElements.findIndex((currentElement) => currentElement.id === idElement);
-};
+function findIndex(items: { id: string }[], id: string): number {
+  return items.findIndex((currentElement) => currentElement.id === id);
+}
 
 const initialBoardState: BoardState = {
   board: {
@@ -98,16 +98,14 @@ const boardSlice = createSlice({
       action: PayloadAction<{ title: string; order: string; columnId: string }>
     ) => {
       const columnIndex = findIndex(state.board.columns, action.payload.columnId);
-      console.log(state.board.columns[columnIndex], 222);
 
       state.board.columns[columnIndex] = {
         ...state.board.columns[columnIndex],
         order: +action.payload.order,
-        title: 'wqeqwe',
+        title: action.payload.title,
       };
 
-      return state;
-      // state.board.columns[columnIndex].order = +action.payload.order;
+      state.requestLoading = false;
     },
     [updateColumnData.rejected.type]: (state, action) => {
       state.requestLoading = false;
