@@ -12,28 +12,11 @@
 
   &:hover {
     background-color: #f4f5f7;
-    .task__delete_btn {
+    .button__delete_hidden {
       opacity: 1;
     }
   }
 
-  &__delete_btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-
-    opacity: 0;
-    background-color: transparent;
-    transition: all 0.2s linear;
-    &:hover {
-      background-color: #e6e7e9;
-    }
-    svg {
-      width: 20px;
-      height: 20px;
-      fill: #787878;
-    }
-  }
   &-empty {
     height: 50px;
   }
@@ -42,6 +25,24 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+  }
+}
+
+.button__delete_hidden {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  opacity: 0;
+  background-color: transparent;
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: #e6e7e9;
+  }
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: #787878;
   }
 }
 
@@ -98,10 +99,13 @@
   &_description-input {
     @include regular-text;
     font-size: 17px;
-    width: 60%;
-    margin-left: 40px;
+
+    width: 100%;
+    height: 10vh;
+
     margin-top: 4px;
     padding: 5px 10px;
+
     background-color: transparent;
     cursor: pointer;
 
@@ -109,6 +113,7 @@
     border-radius: 5px;
     resize: none;
     transition: all 0.3s linear;
+
     &:focus-visible {
       outline: none;
       background-color: #ffffff;
@@ -148,4 +153,7 @@
     height: 20px;
     margin-right: 5px;
   }
+}
+.column__create-task-btn .modal-button__text {
+  padding-left: 5px;
 }

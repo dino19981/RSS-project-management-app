@@ -1,6 +1,6 @@
-import React, { ChangeEvent, memo, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState } from 'react';
 import { throttle } from 'throttle-typescript';
-import { searchListTasks } from '../../models/task';
+import { TTask } from '../../models/task';
 import { findMatches } from '../../utils/search';
 import { SEARCH_DELAY } from '../../views/pages/boards/const';
 import Input from '../input/Input';
@@ -8,7 +8,7 @@ import Popover from '../popover/Popover';
 import SearchResults from './SearchResults';
 
 type searchFieldProps = {
-  itemsForSearch: searchListTasks[];
+  itemsForSearch: TTask[];
 };
 
 export default function SearchField({ itemsForSearch }: searchFieldProps) {

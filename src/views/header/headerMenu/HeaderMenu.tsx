@@ -4,11 +4,10 @@ import CreateBoard from '../createBoard/CreateBoard';
 import LangSelect from '../langSelect/LangSelect';
 import UserNav from '../userNav/UserNav';
 import { useAppSelector } from '../../../store/hooks';
-import { selectAuthStatus } from '../../../store/user/action';
 
 export default function HeaderMenu() {
   const [isOpenNav, setIsOpenNav] = useState(false);
-  const authorizeStatus = useAppSelector(selectAuthStatus);
+  const authorizeStatus = useAppSelector((state) => state.authorization.authorizeStatus);
 
   useEffect(() => {
     const lang = localStorage.getItem('i18nextLng');

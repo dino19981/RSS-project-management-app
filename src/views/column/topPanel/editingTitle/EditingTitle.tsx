@@ -6,7 +6,7 @@ import Form from '../../../../components/form/Form';
 import { checkIcon, closeIcon } from '../../../../components/icons/Icons';
 import Popover from '../../../../components/popover/Popover';
 import { columSchema } from '../../../../schemas/column';
-import { updateColumnData } from '../../../../store/board/actions';
+import { updateColumnData } from '../../../../store/board';
 
 type Props = {
   setIsTitleEditActive: (state: boolean) => void;

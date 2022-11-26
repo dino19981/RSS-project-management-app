@@ -7,9 +7,9 @@ import { Methods } from '../../../../const/APIMethod';
 import { AppRoute } from '../../../../const/routes';
 import { useAxios } from '../../../../hooks/useAxios';
 import { fieldsType } from '../../../../models/form';
-import { registrationSchema } from '../../../../schemas/authentification';
-import { getAuthentificationErrorMessage } from '../../../../utils/authentification';
-import Authentification from '../Authentification';
+import { registrationSchema } from '../../../../schemas/authentication';
+import { getAuthenticationErrorMessage } from '../../../../utils/authentication';
+import Authentication from '../Authentication';
 
 export default function Registration() {
   const { t } = useTranslation();
@@ -34,18 +34,18 @@ export default function Registration() {
     fields: registrationFields,
     formId: 'registration',
     onSubmit,
-    formClassName: 'authentification__form',
+    formClassName: 'authentication__form',
   };
 
   return (
-    <div className="authentification">
-      <Authentification
+    <div className="authentication">
+      <Authentication
         formOptions={formOptions}
         buttonText={t('buttons.sign_up')}
         link={AppRoute.LOGIN}
         linkText={t('buttons.sign_in')}
         questionText={t('sign_up.is_have_login_text')}
-        errorMessage={isError && getAuthentificationErrorMessage(isError.response?.status)}
+        errorMessage={isError && getAuthenticationErrorMessage(isError.response?.status)}
         loadingStatus={isLoading}
       />
       {isLoading && <Loader />}

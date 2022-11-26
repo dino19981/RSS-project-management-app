@@ -5,13 +5,13 @@ import { boardsURL } from '../../../const/requestUrls';
 import { useAxios } from '../../../hooks/useAxios';
 import { TBoard } from '../../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
-import { searchListTasks } from '../../../models/task';
+import { TTask } from '../../../models/task';
 import { getAllTasksInfo } from '../../../utils/search';
 import SearchField from '../../../components/searchField/SearchField';
 import Loader from '../../../components/loader/loader';
 
 function Boards() {
-  const [allTasks, setAllTasks] = useState<searchListTasks[]>([]);
+  const [allTasks, setAllTasks] = useState<TTask[]>([]);
 
   const { data, isLoading, isError, request } = useAxios({
     url: boardsURL(),

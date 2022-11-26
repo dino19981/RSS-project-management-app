@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TBoard } from '../../models/board';
 import { TColumn } from '../../models/column';
 import { BoardState } from '../../models/store';
-import { responseTask } from '../../models/task';
+import { TTask } from '../../models/task';
+import { findIndex } from '../../utils/arrayTools';
 import {
   updateColumnData,
   createColumn,
@@ -10,13 +11,13 @@ import {
   deleteBoard,
   deleteColumn,
   getBoardData,
-} from './actions';
+  deleteTask,
+  updateTask,
+  addFileToTask,
+} from './actions/actions';
+import { AllIds, TAddFileToTask } from './actions/models';
 
-function findIndex(items: { id: string }[], id: string): number {
-  return items.findIndex((currentElement) => currentElement.id === id);
-}
-
-const initialBoardState: BoardState = {
+const initialState: BoardState = {
   board: {
     id: '',
     description: '',
@@ -31,7 +32,7 @@ const initialBoardState: BoardState = {
 
 const boardSlice = createSlice({
   name: 'board',
-  initialState: initialBoardState,
+  initialState,
   reducers: {},
   extraReducers: {
     // Get board data
@@ -52,7 +53,7 @@ const boardSlice = createSlice({
     [deleteBoard.fulfilled.type]: (state) => {
       state.requestLoading = false;
       state.requestError = '';
-      state.board = initialBoardState.board;
+      state.board = initialState.board;
     },
     [deleteBoard.rejected.type]: (state, action) => {
       state.requestLoading = false;
@@ -83,6 +84,10 @@ const boardSlice = createSlice({
       state.requestLoading = false;
       state.requestError = '';
       state.board.columns.splice(columnIndex, 1);
+
+      state.board.columns.forEach((column, ind) => {
+        column.order = ind + 1;
+      });
     },
     [deleteColumn.rejected.type]: (state, action) => {
       state.requestLoading = false;
@@ -116,9 +121,8 @@ const boardSlice = createSlice({
     },
 
     // Create task
-    [createTask.fulfilled.type]: (state, action: PayloadAction<responseTask>) => {
-      const taskOrder = state.board.columns.length + 1;
-      const taskData = { ...action.payload, files: [], order: taskOrder };
+    [createTask.fulfilled.type]: (state, action: PayloadAction<Omit<TTask, 'file'>>) => {
+      const taskData = { ...action.payload, files: [] };
 
       const columnIndex = findIndex(state.board.columns, action.payload.columnId);
 
@@ -133,7 +137,73 @@ const boardSlice = createSlice({
     [createTask.pending.type]: (state) => {
       state.requestLoading = true;
     },
+
+    // Delete task
+    [deleteTask.fulfilled.type]: (state, action: PayloadAction<Omit<AllIds, 'boardId'>>) => {
+      const { columnId, taskId } = action.payload;
+      const columnIndex = findIndex(state.board.columns, columnId);
+      const taskIndex = findIndex(state.board.columns[columnIndex].tasks, taskId);
+      const tasks = state.board.columns[columnIndex].tasks;
+
+      state.requestLoading = false;
+      state.requestError = '';
+      tasks.splice(taskIndex, 1);
+
+      tasks.forEach((task, ind) => {
+        task.order = ind + 1;
+      });
+    },
+    [deleteTask.rejected.type]: (state, action) => {
+      state.requestLoading = false;
+      state.requestError = action.payload;
+    },
+    [deleteTask.pending.type]: (state) => {
+      state.requestLoading = true;
+    },
+
+    // Update task
+    [updateTask.fulfilled.type]: (state, action: PayloadAction<Omit<TTask, 'files'>>) => {
+      const { columnId, id: taskId } = action.payload;
+
+      const columnIndex = findIndex(state.board.columns, columnId);
+
+      const taskIndex = findIndex(state.board.columns[columnIndex].tasks, taskId);
+
+      const task = state.board.columns[columnIndex].tasks[taskIndex];
+
+      state.board.columns[columnIndex].tasks[taskIndex] = { ...action.payload, files: task.files };
+      state.requestLoading = false;
+      state.requestError = '';
+    },
+    [updateTask.rejected.type]: (state, action) => {
+      state.requestLoading = false;
+      state.requestError = action.payload;
+    },
+    [updateTask.pending.type]: (state) => {
+      state.requestLoading = true;
+    },
+
+    // add file to  task
+    [addFileToTask.fulfilled.type]: (
+      state,
+      action: PayloadAction<Omit<TAddFileToTask, 'formData'>>
+    ) => {
+      const { taskId, fileName } = action.payload;
+      // const columnIndex = findIndex(state.board.columns, columnId);
+      // const taskIndex = findIndex(state.board.columns[columnIndex].tasks, taskId);
+      // const task = state.board.columns[columnIndex].tasks[taskIndex];
+      // state.board.columns[columnIndex].tasks[taskIndex] = { ...action.payload, files: task.files };
+      state.requestLoading = false;
+      state.requestError = '';
+    },
+    [addFileToTask.rejected.type]: (state, action) => {
+      state.requestLoading = false;
+      state.requestError = action.payload;
+    },
+    [addFileToTask.pending.type]: (state) => {
+      state.requestLoading = true;
+    },
   },
 });
 
-export default boardSlice;
+export const boardReducer = boardSlice.reducer;

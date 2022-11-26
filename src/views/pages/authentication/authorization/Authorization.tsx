@@ -5,13 +5,13 @@ import Loader from '../../../../components/loader/loader';
 import { AppRoute } from '../../../../const/routes';
 import { useAxios } from '../../../../hooks/useAxios';
 import { fieldsType } from '../../../../models/form';
-import { autorizationSchema } from '../../../../schemas/authentification';
-import { useAppDispatch } from '../../../../store/hooks';
-import { getAuthentificationErrorMessage, getUserData } from '../../../../utils/authentification';
-import Authentification from '../Authentification';
-import { setUserData } from '../../../../store/user/actions';
+import { autorizationSchema } from '../../../../schemas/authentication';
+import { useAppDispatch } from '../../../../store';
+import { getAuthenticationErrorMessage, getUserData } from '../../../../utils/authentication';
+import Authentication from '../Authentication';
 import { Methods } from '../../../../const/APIMethod';
 import { useTranslation } from 'react-i18next';
+import { setUserData } from '../../../../store/user';
 
 export default function Autorization() {
   const { t } = useTranslation();
@@ -44,18 +44,18 @@ export default function Autorization() {
     fields: authorizationFields,
     formId: 'autorization',
     onSubmit: signIn,
-    formClassName: 'authentification__form',
+    formClassName: 'authentication__form',
   };
 
   return (
-    <div className="authentification">
-      <Authentification
+    <div className="authentication">
+      <Authentication
         formOptions={formOptions}
         buttonText={t('buttons.sign_in')}
         link={AppRoute.REGISTRATION}
         linkText={t('sign_in.create_account')}
         questionText={t('sign_in.no_register_text')}
-        errorMessage={isError && getAuthentificationErrorMessage(isError.response?.status)}
+        errorMessage={isError && getAuthenticationErrorMessage(isError.response?.status)}
         loadingStatus={isLoading}
       />
       {isLoading && <Loader />}

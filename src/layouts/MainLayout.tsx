@@ -2,9 +2,9 @@ import Footer from '../views/footer/Footer';
 import Header from '../views/header/Header';
 import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useAppDispatch } from '../store/hooks';
-import { getUserData } from '../utils/authentification';
-import { setAuthorizeUser, setLoadingUserData, setUserData } from '../store/user/actions';
+import { useAppDispatch } from '../store';
+import { getUserData } from '../utils/authentication';
+import { setAuthorizeUser, setLoadingUserData, setUserData } from '../store/user';
 
 export default function MainLayout() {
   const dispatch = useAppDispatch();

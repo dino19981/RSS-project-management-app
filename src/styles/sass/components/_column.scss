@@ -30,6 +30,8 @@
   display: flex;
   justify-content: space-between;
 
+  position: relative;
+
   padding: 3px;
   margin-bottom: 10px;
 
@@ -38,7 +40,7 @@
   cursor: pointer;
 
   &:hover {
-    .task__delete_btn {
+    .button__delete_hidden {
       opacity: 1;
     }
   }

@@ -1,4 +1,4 @@
-.authentification {
+.authentication {
   display: flex;
   justify-content: center;
   overflow-y: auto;
@@ -18,7 +18,7 @@
   }
 }
 
-.authentification__inner {
+.authentication__inner {
   @include card;
 
   margin: auto 0;
@@ -36,24 +36,24 @@
   }
 }
 
-.authentification__footer {
+.authentication__footer {
   display: flex;
   justify-content: center;
 }
 
-.authentification__text {
+.authentication__text {
   font-size: 18px;
   font-family: $main-font;
   text-align: center;
 }
 
-.authentification__button {
+.authentication__button {
   @include submit-button;
 
   min-width: 140px;
 }
 
-.authentification__link {
+.authentication__link {
   @include nav-link;
   display: inline;
   margin: 0;
@@ -62,7 +62,7 @@
   text-decoration: underline;
 }
 
-.authentification__error {
+.authentication__error {
   margin: 0 auto;
   text-align: center;
   color: tomato;

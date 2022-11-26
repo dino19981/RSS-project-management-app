@@ -1,7 +1,7 @@
 import { responseStatus } from '../const/responseStatus';
 import { instanceAxios } from '../HTTP/configuration';
 
-export function getAuthentificationErrorMessage(code: number | undefined) {
+export function getAuthenticationErrorMessage(code: number | undefined) {
   if (!code) return;
   switch (code) {
     case responseStatus.USER_NAME_ALREADY_REGISTERED: {

@@ -1,30 +1,18 @@
 import { TFile } from './file';
-import { fieldsType } from './form';
 
-export type createTaskData = fieldsType & {
-  userId: string;
-};
-
-export type responseTask = {
+export type TTask = {
   id: string;
   title: string;
+  order: number;
   description: string;
   userId: string;
   boardId: string;
   columnId: string;
-};
-
-export type TTask = responseTask & {
-  order: number;
   files: TFile[];
 };
 
-export type searchListTasks = TTask & { columnId: string; boardId: string };
+export type TGetBoardTask = Omit<TTask, 'boardId' | 'columnId'>;
 
-export type taskProps = TGetBoardTask & {
-  columnId: string;
+export type TUpdateTask = Omit<TTask, 'files' | 'id'> & {
+  taskId: string;
 };
-
-export type TGetBoardTask = Omit<TTask, 'boardId' | 'columnId' | 'done'>;
-
-export type TGetAllTasks = Omit<TTask, 'done'>[];

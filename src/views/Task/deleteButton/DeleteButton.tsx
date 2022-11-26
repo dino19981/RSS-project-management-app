@@ -1,15 +1,21 @@
 import { t } from 'i18next';
 import React, { useState } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Button from '../../../components/button/Button';
 import { deleteIcon } from '../../../components/icons/Icons';
 import Modal from '../../../components/modal/Modal';
 import { ErrorMessage } from '../../../const/errorMessage';
+import { deleteTask } from '../../../store/board';
 
 type Props = {
   title: string;
+  taskId: string;
+  columnId: string;
 };
 
-export default function DeleteButton({ title }: Props) {
+function DeleteButton({ title, taskId, columnId, deleteTask }: Props & PropsFromRedux) {
+  const { boardId } = useParams();
   const [isModalActive, setIsModalActive] = useState(false);
 
   function closeDeleteModal() {
@@ -20,19 +26,19 @@ export default function DeleteButton({ title }: Props) {
     setIsModalActive(true);
   }
 
-  async function deleteTask() {
-    // const taskData = await request({
-    //   url: taskURL(boardId, columnId, id),
-    //   method: Methods.DELETE,
-    // });
-    // if (taskData) {
-    //   setIsModalActive(false);
-    // }
+  async function makeDeleteTask() {
+    if (!boardId || !columnId) return;
+
+    const response = await deleteTask({ boardId, columnId, taskId });
+
+    if (response.meta.requestStatus === 'fulfilled') {
+      closeDeleteModal();
+    }
   }
 
   return (
     <>
-      <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
+      <Button handler={openDeleteModal} btnClass="button__delete_hidden" icon={deleteIcon} />
 
       {isModalActive && (
         <Modal
@@ -40,7 +46,7 @@ export default function DeleteButton({ title }: Props) {
           handleCloseModal={closeDeleteModal}
           contentWrapperClassName="modal__delete"
           submitBtnName={t('buttons.delete')}
-          submitHandler={deleteTask}
+          submitHandler={makeDeleteTask}
           // isError={isError}
           errorText={ErrorMessage.SERVER_ERROR}
         >
@@ -50,3 +56,13 @@ export default function DeleteButton({ title }: Props) {
     </>
   );
 }
+
+const mapDispatchToProps = {
+  deleteTask,
+};
+
+const connector = connect(null, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(DeleteButton);

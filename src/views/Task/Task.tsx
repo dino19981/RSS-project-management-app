@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Button from '../../components/button/Button';
-import { deleteIcon, descriptionIcon, paperClipIcon } from '../../components/icons/Icons';
-import Loader from '../../components/loader/loader';
-import Modal from '../../components/modal/Modal';
-import { Methods } from '../../const/APIMethod';
-import { ErrorMessage } from '../../const/errorMessage';
-import { taskURL } from '../../const/requestUrls';
-import { useAxios } from '../../hooks/useAxios';
-import { taskProps } from '../../models/task';
-import { generateTaskBody } from '../../utils/dragAndDrop';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { descriptionIcon, paperClipIcon } from '../../components/icons/Icons';
+import { TTask } from '../../models/task';
+import DeleteButton from './deleteButton/DeleteButton';
 
 function dragStart(
   e: React.DragEvent<HTMLDivElement>,
@@ -33,76 +25,51 @@ function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
   e.preventDefault();
 }
 
-function Task({ id, title, description, columnId, userId, order, files }: taskProps) {
-  const { t } = useTranslation();
-  const { boardId } = useParams();
+function Task({ id, title, description, columnId, userId, files }: Omit<TTask, 'boardId'>) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [isModalActive, setIsModalActive] = useState(false);
-  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
-
-  async function deleteTask() {
-    const taskData = await request({
-      url: taskURL(boardId, columnId, id),
-      method: Methods.DELETE,
-    });
-
-    if (taskData) {
-      setIsModalActive(false);
-    }
-  }
 
   function openEditTask() {
     navigate(`${pathname}/columns/${columnId}/tasks/${id}`);
   }
 
-  function openDeleteModal(e: React.MouseEvent<HTMLElement> | undefined) {
-    e?.stopPropagation();
-    setIsModalActive(true);
-  }
-
-  function closeDeleteModal() {
-    setIsModalActive(false);
-  }
-
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
-    if (e.dataTransfer.getData('element') === 'column') {
-      return;
-    }
-    e.preventDefault();
-    e.stopPropagation();
-    const dropTaskId = e.dataTransfer.getData('taskId');
-    const dropTaskTitle = e.dataTransfer.getData('taskTitle');
-    const dropTaskDescription = e.dataTransfer.getData('taskDescription');
-    const dropColumnId = e.dataTransfer.getData('columnId');
-    if (columnId === dropColumnId) {
-      const url = taskURL(boardId, columnId, dropTaskId);
-      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, dropColumnId);
-      await request({
-        url,
-        method: Methods.PUT,
-        data: {
-          ...data,
-          userId,
-          order,
-          boardId,
-        },
-      });
-    } else {
-      const url = taskURL(boardId, dropColumnId, dropTaskId);
-      const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
-
-      await request({
-        url,
-        method: Methods.PUT,
-        data: {
-          ...data,
-          userId,
-          order,
-          boardId,
-        },
-      });
-    }
+    // if (e.dataTransfer.getData('element') === 'column') {
+    //   return;
+    // }
+    // e.preventDefault();
+    // e.stopPropagation();
+    // const dropTaskId = e.dataTransfer.getData('taskId');
+    // const dropTaskTitle = e.dataTransfer.getData('taskTitle');
+    // const dropTaskDescription = e.dataTransfer.getData('taskDescription');
+    // const dropColumnId = e.dataTransfer.getData('columnId');
+    // if (columnId === dropColumnId) {
+    //   const url = taskURL(boardId, columnId, dropTaskId);
+    //   const data = generateTaskBody(dropTaskTitle, dropTaskDescription, dropColumnId);
+    //   await request({
+    //     url,
+    //     method: Methods.PUT,
+    //     data: {
+    //       ...data,
+    //       userId,
+    //       order,
+    //       boardId,
+    //     },
+    //   });
+    // } else {
+    //   const url = taskURL(boardId, dropColumnId, dropTaskId);
+    //   const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
+    //   await request({
+    //     url,
+    //     method: Methods.PUT,
+    //     data: {
+    //       ...data,
+    //       userId,
+    //       order,
+    //       boardId,
+    //     },
+    //   });
+    // }
   }
 
   return (
@@ -116,33 +83,14 @@ function Task({ id, title, description, columnId, userId, order, files }: taskPr
         onDrop={(e) => dropHandler(e)}
       >
         <div className="task__link">{title}</div>
-        {/* <div className="task__title-wrapper"> */}
-
-        {/* </div> */}
 
         <div className="task__icons-wrapper">
           <div>{descriptionIcon}</div>
           {!!files.length && <div>{paperClipIcon}</div>}
         </div>
-
-        {isLoading && <Loader />}
       </div>
 
-      <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
-
-      {isModalActive && (
-        <Modal
-          formId="modalForm"
-          handleCloseModal={closeDeleteModal}
-          contentWrapperClassName="modal__delete"
-          submitBtnName={t('buttons.delete')}
-          submitHandler={deleteTask}
-          isError={isError}
-          errorText={ErrorMessage.SERVER_ERROR}
-        >
-          <p className="confirmation__text">{`${t('task.delete_task_message')} ${title}?`}</p>
-        </Modal>
-      )}
+      <DeleteButton title={title} taskId={id} columnId={columnId} />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import { TBoard } from './board';
 import { TColumn } from './column';
-import { userDataType } from './user';
+import { User } from './user';
 import { fieldsType } from './form';
 import { TTask } from './task';
 
-export type responses = TBoard[] | TColumn[] | TBoard | TColumn | TTask | userDataType;
+export type responses = TBoard[] | TColumn[] | TBoard | TColumn | TTask | User;
 
 export type requestOptions = {
   url?: string;

@@ -6,14 +6,14 @@ import { deleteIcon } from '../../../components/icons/Icons';
 import Modal from '../../../components/modal/Modal';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { RootState } from '../../../models/store';
-import { updateColumnData, deleteColumn } from '../../../store/board/actions';
+import { updateColumnData, deleteColumn } from '../../../store/board';
 import EditingTitle from './editingTitle/EditingTitle';
 
 type Props = {
   data: { boardId: string | undefined; columnId: string; title: string; order: number };
 };
 
-function Header({ data, requestError, deleteColumn }: Props & PropsFromRedux) {
+function TopPanel({ data, requestError, deleteColumn }: Props & PropsFromRedux) {
   const [isTitleEditActive, setIsTitleEditActive] = useState(false);
   const [titleNode, setTitleNode] = useState<HTMLDivElement | null>(null);
   const [isDeleteColumnModalActive, setIsDeleteColumnModalActive] = useState(false);
@@ -57,7 +57,7 @@ function Header({ data, requestError, deleteColumn }: Props & PropsFromRedux) {
     <>
       <div ref={setTitleNode} onClick={openEditTitle} className="column__title-wrapper">
         <h4 className="column__title">{title}</h4>
-        <Button handler={openDeleteModal} btnClass="task__delete_btn" icon={deleteIcon} />
+        <Button handler={openDeleteModal} btnClass="button__delete_hidden" icon={deleteIcon} />
 
         {isTitleEditActive && (
           <EditingTitle
@@ -93,4 +93,4 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
-export default connector(Header);
+export default connector(TopPanel);

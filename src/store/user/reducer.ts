@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { updatedUserInfo } from '../../models/user';
+import { User } from '../../models/user';
 import { AuthorizationState } from '../../models/store';
 
-const initialAuthorizationState: AuthorizationState = {
+const initialState: AuthorizationState = {
   id: '',
   name: '',
   login: '',
@@ -12,7 +12,7 @@ const initialAuthorizationState: AuthorizationState = {
 
 const userSlice = createSlice({
   name: 'authorization',
-  initialState: initialAuthorizationState,
+  initialState,
   reducers: {
     setUserData: (state, { payload }: PayloadAction<AuthorizationState>) => {
       return { ...payload, isLoadingUserData: false };
@@ -26,13 +26,14 @@ const userSlice = createSlice({
     deleteUserData: (state) => {
       localStorage.removeItem('token');
 
-      return { ...initialAuthorizationState, isLoadingUserData: state.isLoadingUserData };
+      return { ...initialState, isLoadingUserData: state.isLoadingUserData };
     },
-    updateUserData: (state, { payload }: PayloadAction<updatedUserInfo>) => {
+    updateUserData: (state, { payload }: PayloadAction<User>) => {
       state.login = payload.login;
       state.name = payload.name;
     },
   },
 });
 
-export default userSlice;
+export const userReducer = userSlice.reducer;
+export const userActions = userSlice.actions;

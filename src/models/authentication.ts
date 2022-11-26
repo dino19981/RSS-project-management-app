@@ -1,6 +1,6 @@
 import { formProps } from './form';
 
-export interface authentificationProps {
+export interface authenticationProps {
   formOptions: formProps;
   buttonText: string;
   link: string;

@@ -1,10 +1,4 @@
-export type updatedUserInfo = {
+export type User = {
   login: string;
   name: string;
 };
-
-export type userIdType = {
-  login: string;
-};
-
-export type userDataType = updatedUserInfo & userIdType;

@@ -8,11 +8,11 @@ import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
 import { AppRoute } from '../../const/routes';
 import { useAxios } from '../../hooks/useAxios';
-import { updatedUserInfo } from '../../models/user';
+import { User } from '../../models/user';
 import { fieldsType, formProps } from '../../models/form';
 import { editProfileSchema } from '../../schemas/user';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { deleteUserData, updateUserData } from '../../store/user/actions';
+import { useAppDispatch, useAppSelector } from '../../store';
+import { deleteUserData, updateUserData } from '../../store/user';
 import { useTranslation } from 'react-i18next';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 
@@ -50,7 +50,7 @@ export default function EditUserProfile() {
     const userData = await request(editUserRequestOptions);
 
     if (userData) {
-      const updatedData = userData.data as updatedUserInfo;
+      const updatedData = userData.data as User;
 
       dispatch(updateUserData(updatedData));
       setIsShowSaveMessage(true);
@@ -85,7 +85,7 @@ export default function EditUserProfile() {
     fields: editProfileFields,
     formId: 'editProfile',
     onSubmit,
-    formClassName: 'authentification__form',
+    formClassName: 'authentication__form',
   };
 
   const deleteUserOptions = {
@@ -102,7 +102,7 @@ export default function EditUserProfile() {
   return (
     <section className="edit-profile">
       <div className="edit-profile__wrapper">
-        {isError && <p className="authentification__error">{ErrorMessage.SERVER_ERROR}</p>}
+        {isError && <p className="authentication__error">{ErrorMessage.SERVER_ERROR}</p>}
         <h4 className="edit-profile__title">{t('edit_profile.title')}</h4>
         <Form {...updateUserFormOptions} />
 

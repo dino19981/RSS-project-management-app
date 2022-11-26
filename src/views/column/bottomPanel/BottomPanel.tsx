@@ -6,11 +6,11 @@ import { plusIcon } from '../../../components/icons/Icons';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { createTaskSchema } from '../../../schemas/task';
 import { useAppSelector } from '../../../store/hooks';
-import { createTask } from '../../../store/board/actions';
+import { createTask } from '../../../store/board';
 import { createTaskValues } from '../../../components/form/constants/initialValues';
 import { createTaskFields } from '../../../components/form/constants/fieldsOptions';
-import { createTaskData } from '../../../models/task';
 import { RootState } from '../../../models/store';
+import { TTask } from '../../../models/task';
 
 const formOptions = {
   schema: createTaskSchema,
@@ -29,7 +29,7 @@ function BottomPanel({ createTask, boardId, columnId, requestError }: Props & Pr
   const { id: userId } = useAppSelector((state) => state.authorization);
 
   async function createTaskHandler(value: typeof createTaskSchema) {
-    const requestData: createTaskData = { ...value, userId };
+    const requestData: Pick<TTask, 'title' | 'description' | 'userId'> = { ...value, userId };
 
     if (!boardId) return;
 

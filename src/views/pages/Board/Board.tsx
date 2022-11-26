@@ -14,7 +14,7 @@ import { TFunction, useTranslation } from 'react-i18next';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { plusIcon, deleteIcon } from '../../../components/icons/Icons';
 import { connect } from 'react-redux';
-import { createColumn, deleteBoard, getBoardData } from '../../../store/board/actions';
+import { createColumn, deleteBoard, getBoardData } from '../../../store/board';
 import { RootState } from '../../../store/store';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 

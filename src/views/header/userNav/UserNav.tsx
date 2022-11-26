@@ -1,8 +1,8 @@
 import { TFunction, useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { navData } from './navData';
-import { useAppDispatch } from '../../../store/hooks';
-import { deleteUserData } from '../../../store/user/actions';
+import { useAppDispatch } from '../../../store';
+import { deleteUserData } from '../../../store/user';
 import { AppRoute } from '../../../const/routes';
 import { NavItem } from '../../../models/userNav';
 import { UserNavComponent } from '../../../models/userNav';

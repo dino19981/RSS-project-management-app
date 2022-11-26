@@ -1,14 +1,9 @@
 import { ButtonProps } from './button';
-import { updatedUserInfo, userIdType } from './user';
-import {
-  autorizationSchemaType,
-  registrationSchemaType,
-  TBoardCreateSchema,
-  TColumnCreateSchema,
-  TColumnUpdateSchema,
-  TDeleteBoard,
-  TTaskCreateSchema,
-} from './schemas';
+import { User } from './user';
+import { autorizationSchemaType, registrationSchemaType } from './schemas';
+import { TColumn } from './column';
+import { TBoard } from './board';
+import { TTask } from './task';
 
 export interface formProps {
   schema: fieldsType;
@@ -39,12 +34,11 @@ interface uploadFile {
 export type fieldsType =
   | registrationSchemaType
   | autorizationSchemaType
-  | TBoardCreateSchema
-  | TColumnCreateSchema
-  | TColumnUpdateSchema
-  | TTaskCreateSchema
-  | TDeleteBoard
-  | updatedUserInfo
+  | Pick<TBoard, 'title'>
+  | Pick<TColumn, 'title'>
+  | Pick<TColumn, 'title' | 'order'>
+  | Omit<TTask, 'file'>
+  | User
   | uploadFile
-  | userIdType
+  | Pick<User, 'login'>
   | FormData;

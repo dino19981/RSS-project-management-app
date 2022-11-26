@@ -31,7 +31,7 @@
 
 .about-course__link {
   color: $accent-color;
-  
+
   &:hover:not(.header__link--active),
   &:focus:not(.header__link--active) {
     color: $hover-link-color;

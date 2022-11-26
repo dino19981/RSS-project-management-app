@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import Button from '../../../components/button/Button';
 import Form from '../../../components/form/Form';
-import { authentificationProps } from '../../../models/authentification';
+import { authenticationProps } from '../../../models/authentication';
 
-export default function Authentification({
+export default function Authentication({
   formOptions,
   buttonText,
   link,
@@ -11,24 +11,24 @@ export default function Authentification({
   questionText,
   errorMessage,
   loadingStatus,
-}: authentificationProps) {
+}: authenticationProps) {
   return (
-    <section className="authentification__inner">
-      {errorMessage && <p className="authentification__error">{errorMessage}</p>}
+    <section className="authentication__inner">
+      {errorMessage && <p className="authentication__error">{errorMessage}</p>}
       <Form {...formOptions}></Form>
-      <p className="authentification__text">
+      <p className="authentication__text">
         {questionText}{' '}
-        <Link className="authentification__link" to={link}>
+        <Link className="authentication__link" to={link}>
           {linkText}
         </Link>
       </p>
-      <div className="authentification__footer">
+      <div className="authentication__footer">
         <Button
           isDisabled={loadingStatus}
           type="submit"
           text={buttonText}
           formId={formOptions.formId}
-          btnClass="authentification__button"
+          btnClass="authentication__button"
         />
       </div>
     </section>

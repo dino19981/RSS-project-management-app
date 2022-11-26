@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { searchListTasks } from '../../models/task';
+import { TTask } from '../../models/task';
 import { descriptionIcon } from '../icons/Icons';
 
 type listProps = {
-  foundedItems: searchListTasks[];
+  foundedItems: TTask[];
 };
 
 function SearchResults({ foundedItems }: listProps) {

@@ -1,4 +1,4 @@
-import { store } from '../store/store';
+import { store } from '../store';
 import { TBoard } from './board';
 
 export interface AuthorizationState {
