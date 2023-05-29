@@ -1,17 +1,13 @@
-import { TBoard } from './board';
-import { TColumn } from './column';
-import { User } from './user';
-import { fieldsType } from './form';
-import { TTask } from './task';
-
-export type responses = TBoard[] | TColumn[] | TBoard | TColumn | TTask | User;
+/*eslint @typescript-eslint/no-explicit-any: ["warn", { "ignoreRestArgs": false }]*/
 
 export type requestOptions = {
-  url?: string;
+  url: string;
   method?: string;
   params?: { [key: string]: string };
-  data?: fieldsType;
+  data?: any;
 };
+
+export type AdditionalRequestOptions = Partial<requestOptions>;
 
 export type hookOptionsType = {
   dontFetchAtMount?: boolean;

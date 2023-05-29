@@ -1,26 +1,21 @@
 import { useState, memo } from 'react';
 import { Link } from 'react-router-dom';
-import ButtonWithModalForm from '../../../../components/buttonWithModalForm/ButtonWithModalForm';
-import { boardPreviewProps } from '../../../../models/boardPreview';
-import { useAxios } from '../../../../hooks/useAxios';
-import Loader from '../../../../components/loader/loader';
-import { Methods } from '../../../../const/APIMethod';
-import { ErrorMessage } from '../../../../const/errorMessage';
-import { boardURL } from '../../../../const/requestUrls';
+import ButtonWithModalForm from 'components/buttonWithModalForm/ButtonWithModalForm';
+import { boardPreviewProps } from 'models/boardPreview';
+import Loader from 'components/loader/loader';
+import { ErrorMessage } from 'const/errorMessage';
+import { boardURL } from 'const/requestUrls';
 import { useTranslation } from 'react-i18next';
-import { deleteIcon } from '../../../../components/icons/Icons';
+import { deleteIcon } from 'components/icons/Icons';
+import { useDeleteBoard } from 'api/requests/board';
 
 function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { t } = useTranslation();
-  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+  const { isLoading, isError, request } = useDeleteBoard(id);
   const [isModalActive, setIsModalActive] = useState(false);
 
   async function deleteBoard() {
-    const deleteOptions = {
-      url: boardURL(id),
-      method: Methods.DELETE,
-    };
-    const deleteData = await request(deleteOptions);
+    const deleteData = await request();
 
     if (deleteData) {
       setIsModalActive(false);
@@ -41,7 +36,7 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
             submitHandler: deleteBoard,
             contentWrapperClassName: 'modal__delete',
             submitBtnName: t('buttons.delete'),
-            isError: isError,
+            isError,
             errorText: ErrorMessage.SERVER_ERROR,
           }}
           buttonOptions={{

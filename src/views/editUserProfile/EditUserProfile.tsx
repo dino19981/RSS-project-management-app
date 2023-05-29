@@ -4,17 +4,15 @@ import Button from '../../components/button/Button';
 import { editProfileFields } from '../../components/form/constants/fieldsOptions';
 import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
-import { Methods } from '../../const/APIMethod';
 import { ErrorMessage } from '../../const/errorMessage';
 import { AppRoute } from '../../const/routes';
-import { useAxios } from '../../hooks/useAxios';
-import { User } from '../../models/user';
 import { fieldsType, formProps } from '../../models/form';
 import { editProfileSchema } from '../../schemas/user';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { deleteUserData, updateUserData } from '../../store/user';
 import { useTranslation } from 'react-i18next';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
+import { useDeleteUser, useEditUser } from 'api/requests/user';
 
 export default function EditUserProfile() {
   const { t } = useTranslation();
@@ -29,7 +27,12 @@ export default function EditUserProfile() {
     id: userId,
   } = useAppSelector((state) => state.authorization);
   const timeoutRef: { current: NodeJS.Timeout | null } = useRef(null);
-  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+  const { isLoading, isError, request: editRequest } = useEditUser(userId);
+  const {
+    isLoading: deleteLoading,
+    isError: deleteError,
+    request: deleteRequest,
+  } = useDeleteUser(userId);
 
   useEffect(
     () => () => {
@@ -41,18 +44,10 @@ export default function EditUserProfile() {
   );
 
   async function onSubmit(value: fieldsType) {
-    const editUserRequestOptions = {
-      url: `${AppRoute.USER}/${userId}`,
-      method: Methods.PUT,
-      data: value,
-    };
-
-    const userData = await request(editUserRequestOptions);
+    const userData = await editRequest({ data: value });
 
     if (userData) {
-      const updatedData = userData.data as User;
-
-      dispatch(updateUserData(updatedData));
+      dispatch(updateUserData(userData.data));
       setIsShowSaveMessage(true);
 
       timeoutRef.current = setTimeout(() => {
@@ -62,12 +57,7 @@ export default function EditUserProfile() {
   }
 
   async function deleteUser() {
-    const editUserRequestOptions = {
-      url: `${AppRoute.USER}/${userId}`,
-      method: Methods.DELETE,
-    };
-
-    const userData = await request(editUserRequestOptions);
+    const userData = await deleteRequest();
 
     if (userData) {
       dispatch(deleteUserData());

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from '../../models/user';
 import { AuthorizationState } from '../../models/store';
+import { User } from 'api/requests/user';
 
 const initialState: AuthorizationState = {
   id: '',
@@ -14,7 +14,7 @@ const userSlice = createSlice({
   name: 'authorization',
   initialState,
   reducers: {
-    setUserData: (state, { payload }: PayloadAction<AuthorizationState>) => {
+    setUserData: (_, { payload }: PayloadAction<Omit<AuthorizationState, 'isLoadingUserData'>>) => {
       return { ...payload, isLoadingUserData: false };
     },
     setAuthorizeUser: (state) => {
@@ -28,7 +28,7 @@ const userSlice = createSlice({
 
       return { ...initialState, isLoadingUserData: state.isLoadingUserData };
     },
-    updateUserData: (state, { payload }: PayloadAction<User>) => {
+    updateUserData: (state, { payload }: PayloadAction<Omit<User, 'id'>>) => {
       state.login = payload.login;
       state.name = payload.name;
     },

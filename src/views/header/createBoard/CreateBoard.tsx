@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { ErrorMessage } from '../../../const/errorMessage';
 import { useTranslation } from 'react-i18next';
 import { newBoardIcon } from '../../../components/icons/Icons';
+import { useCreateBoard } from 'api/requests/board';
 
 const formOptions = {
   schema: newBoardSchema,
@@ -21,21 +22,14 @@ export default function CreateBoard() {
   const { t } = useTranslation();
   const [isModalActive, setIsModalActive] = useState(false);
   const navigate = useNavigate();
-  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+  const { isLoading, isError, request } = useCreateBoard();
 
   async function createBoardHandler(values: typeof newBoardSchema) {
-    const requestOptions = {
-      url: AppRoute.BOARDS,
-      method: Methods.POST,
-      data: values,
-    };
-    const data = await request(requestOptions);
+    const data = await request({ data: values });
+
     if (data) {
-      const {
-        data: { id },
-      } = data;
       setIsModalActive(false);
-      navigate(`${AppRoute.BOARDS}/${id}`);
+      navigate(`${AppRoute.BOARDS}/${data.data.id}`);
     }
   }
 

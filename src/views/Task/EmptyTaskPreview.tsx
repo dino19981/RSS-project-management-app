@@ -12,7 +12,7 @@ type TProps = {
 };
 
 export default function EmptyTaskPreview({ tasks, columnId, boardId }: TProps) {
-  const { request } = useAxios({}, { dontFetchAtMount: true });
+  // const { request } = useAxios({}, { dontFetchAtMount: true });
 
   async function dropHandler(e: React.DragEvent<HTMLDivElement>) {
     if (e.dataTransfer.getData('element') === 'column') {
@@ -34,44 +34,44 @@ export default function EmptyTaskPreview({ tasks, columnId, boardId }: TProps) {
       }
       const url = taskURL(boardId, columnId, dropTaskId);
       const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId, tasks.length);
-      await request({
-        url,
-        method: Methods.PUT,
-        data: {
-          ...data,
-          userId: dropUserId,
-          boardId,
-        },
-      });
+      // await request({
+      //   url,
+      //   method: Methods.PUT,
+      //   data: {
+      //     ...data,
+      //     userId: dropUserId,
+      //     boardId,
+      //   },
+      // });
     } else {
       if (tasks.length === 0) {
         const url = taskURL(boardId, dropColumnId, dropTaskId);
         const data = generateTaskBody(dropTaskTitle, dropTaskDescription, columnId);
 
-        await request({
-          url,
-          method: Methods.PUT,
-          data: {
-            ...data,
-            userId: dropUserId,
-            boardId,
-          },
-        });
+        // await request({
+        //   url,
+        //   method: Methods.PUT,
+        //   data: {
+        //     ...data,
+        //     userId: dropUserId,
+        //     boardId,
+        //   },
+        // });
       } else {
         const url = taskURL(boardId, dropColumnId, dropTaskId);
-        await request({
-          url,
-          method: Methods.DELETE,
-        });
-        await request({
-          url: tasksURL(boardId, columnId),
-          method: Methods.POST,
-          data: {
-            title: dropTaskTitle,
-            description: dropTaskDescription,
-            userId: dropUserId,
-          },
-        });
+        // await request({
+        //   url,
+        //   method: Methods.DELETE,
+        // });
+        // await request({
+        //   url: tasksURL(boardId, columnId),
+        //   method: Methods.POST,
+        //   data: {
+        //     title: dropTaskTitle,
+        //     description: dropTaskDescription,
+        //     userId: dropUserId,
+        //   },
+        // });
       }
     }
   }

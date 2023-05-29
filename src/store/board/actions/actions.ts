@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { boardURL, columnsURL, columnURL, tasksURL, taskURL } from '../../../const/requestUrls';
-import { instanceAxios } from '../../../HTTP/configuration';
+import { instanceAxios } from '../../../api/configuration/axios';
 import { TBoard } from '../../../models/board';
 import { TUpdateTask } from '../../../models/task';
 import {

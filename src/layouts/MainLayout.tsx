@@ -3,8 +3,8 @@ import Header from '../views/header/Header';
 import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../store';
-import { getUserData } from '../utils/authentication';
 import { setAuthorizeUser, setLoadingUserData, setUserData } from '../store/user';
+import { getUserData } from 'api/requests/user';
 
 export default function MainLayout() {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ export default function MainLayout() {
       dispatch(setAuthorizeUser());
       (async () => {
         const userData = await getUserData(token);
-        dispatch(setUserData(userData));
+        dispatch(setUserData({ ...userData, authorizeStatus: true }));
       })();
     } else {
       dispatch(setLoadingUserData(false));

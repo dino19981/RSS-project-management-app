@@ -1,5 +1,6 @@
+import { UseAxiosReturn } from 'hooks/useAxios';
 import { TBoard } from './board';
 
 export type boardPreviewProps = TBoard & {
-  updateBoards: () => void;
+  updateBoards: UseAxiosReturn<TBoard[]>['request'];
 };

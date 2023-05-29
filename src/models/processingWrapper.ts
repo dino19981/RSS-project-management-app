@@ -3,7 +3,7 @@ import { TBoard } from './board';
 
 export type processingWrapperProps = {
   isLoading: boolean;
-  isError: false | AxiosError;
+  isError: null | AxiosError;
   errortext: string;
   children: React.ReactNode;
   items?: TBoard[];

@@ -1,40 +1,34 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import ProcessingWrapper from '../../../components/processingWrapper/ProcessingWrapper';
-import { Methods } from '../../../const/APIMethod';
-import { boardsURL } from '../../../const/requestUrls';
-import { useAxios } from '../../../hooks/useAxios';
-import { TBoard } from '../../../models/board';
 import BoardPreview from './BoardPreview/BoardPreview';
 import { TTask } from '../../../models/task';
 import { getAllTasksInfo } from '../../../utils/search';
-import SearchField from '../../../components/searchField/SearchField';
 import Loader from '../../../components/loader/loader';
+import { useGetBoards } from 'api/requests/board';
+import { TasksSearchField } from 'components/TasksSearchField/TasksSearchField';
 
 function Boards() {
   const [allTasks, setAllTasks] = useState<TTask[]>([]);
 
-  const { data, isLoading, isError, request } = useAxios({
-    url: boardsURL(),
-    method: Methods.GET,
-  });
-
-  const boards = useMemo(() => data as TBoard[], [data]);
+  const { data: boards, isLoading, isError, request } = useGetBoards();
 
   useEffect(() => {
-    if (boards) {
-      (async () => {
-        const tasks = await getAllTasksInfo(boards);
-        setAllTasks(tasks);
-      })();
-    }
+    if (!boards) return;
+
+    getAllTasksInfo(boards).then(setAllTasks);
   }, [boards]);
 
   return (
     <div className="boards">
-      <SearchField itemsForSearch={allTasks} />
+      <TasksSearchField itemsForSearch={allTasks} />
 
       <ul className="boards__list">
-        <ProcessingWrapper isLoading={isLoading} isError={isError} errortext="error" items={boards}>
+        <ProcessingWrapper
+          isLoading={isLoading}
+          isError={isError}
+          errortext="Не удалось загрузить доски, попробуйте позже"
+          items={boards}
+        >
           {boards?.map((board) => {
             return (
               <li className="boards__item" key={board.id}>

@@ -6,6 +6,6 @@ export interface authenticationProps {
   link: string;
   linkText?: string;
   questionText?: string;
-  errorMessage?: boolean | string;
+  errorMessage?: boolean | string | null;
   loadingStatus: boolean;
 }

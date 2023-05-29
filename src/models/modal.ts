@@ -7,7 +7,7 @@ export interface modalProps {
   submitBtnName?: string;
   handleCloseModal?: () => void;
   submitHandler?: () => void;
-  isError?: false | AxiosError | boolean;
+  isError?: null | AxiosError | boolean;
   errorText?: string;
   contentWrapperClassName?: string;
   isDontShowFooter?: boolean;

@@ -3,36 +3,30 @@ import { authorizationFields } from '../../../../components/form/constants/field
 import { autorizationValues } from '../../../../components/form/constants/initialValues';
 import Loader from '../../../../components/loader/loader';
 import { AppRoute } from '../../../../const/routes';
-import { useAxios } from '../../../../hooks/useAxios';
 import { fieldsType } from '../../../../models/form';
 import { autorizationSchema } from '../../../../schemas/authentication';
 import { useAppDispatch } from '../../../../store';
-import { getAuthenticationErrorMessage, getUserData } from '../../../../utils/authentication';
+import { getAuthenticationErrorMessage } from '../../../../utils/authentication';
 import Authentication from '../Authentication';
-import { Methods } from '../../../../const/APIMethod';
 import { useTranslation } from 'react-i18next';
 import { setUserData } from '../../../../store/user';
+import { useMakeLogin } from 'api/requests/auth';
+import { getUserData } from 'api/requests/user';
 
 export default function Autorization() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+  const { isLoading, isError, request } = useMakeLogin();
 
   async function signIn(value: fieldsType) {
-    const loginRequestOptions = {
-      url: AppRoute.LOGIN,
-      method: Methods.POST,
-      data: value,
-    };
-
-    const loginData = await request(loginRequestOptions);
+    const loginData = await request({ data: value });
 
     if (loginData) {
-      localStorage.setItem('token', loginData?.data.token);
+      localStorage.setItem('token', loginData.data.token);
 
-      const userData = await getUserData(loginData?.data.token);
-      dispatch(setUserData(userData));
+      const userData = await getUserData(loginData.data.token);
+      dispatch(setUserData({ ...userData, authorizeStatus: true }));
 
       navigate(AppRoute.MAIN);
     }

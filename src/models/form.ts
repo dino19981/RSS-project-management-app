@@ -1,9 +1,9 @@
 import { ButtonProps } from './button';
-import { User } from './user';
 import { autorizationSchemaType, registrationSchemaType } from './schemas';
 import { TColumn } from './column';
 import { TBoard } from './board';
 import { TTask } from './task';
+import { User } from 'api/requests/user';
 
 export interface formProps {
   schema: fieldsType;
@@ -38,7 +38,6 @@ export type fieldsType =
   | Pick<TColumn, 'title'>
   | Pick<TColumn, 'title' | 'order'>
   | Omit<TTask, 'file'>
-  | User
   | uploadFile
   | Pick<User, 'login'>
   | FormData;

@@ -3,26 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { registrationFields } from '../../../../components/form/constants/fieldsOptions';
 import { registrationValues } from '../../../../components/form/constants/initialValues';
 import Loader from '../../../../components/loader/loader';
-import { Methods } from '../../../../const/APIMethod';
 import { AppRoute } from '../../../../const/routes';
-import { useAxios } from '../../../../hooks/useAxios';
 import { fieldsType } from '../../../../models/form';
 import { registrationSchema } from '../../../../schemas/authentication';
 import { getAuthenticationErrorMessage } from '../../../../utils/authentication';
 import Authentication from '../Authentication';
+import { useMakeRegistration } from 'api/requests/auth';
 
 export default function Registration() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isLoading, isError, request } = useAxios({}, { dontFetchAtMount: true });
+  const { isLoading, isError, request } = useMakeRegistration();
 
   async function onSubmit(value: fieldsType) {
-    const requestOptions = {
-      url: AppRoute.REGISTRATION,
-      method: Methods.POST,
-      data: value,
-    };
-    const data = await request(requestOptions);
+    const data = await request({ data: value });
+
     if (data) {
       navigate(AppRoute.LOGIN);
     }
