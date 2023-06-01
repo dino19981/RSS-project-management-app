@@ -10,8 +10,7 @@ export default function Modal({
   handleCloseModal,
   submitHandler,
   submitBtnName,
-  isError,
-  errorText,
+  error,
   contentWrapperClassName,
   isDontShowFooter,
 }: modalProps) {
@@ -41,7 +40,7 @@ export default function Modal({
               <use xlinkHref="#close-icon" />
             </svg>
           </div>
-          {isError && errorText && <p className="modal__error-text">{t(errorText)}</p>}
+          {error && <p className="modal__error-text">{t(error.message)}</p>}
 
           {children}
 

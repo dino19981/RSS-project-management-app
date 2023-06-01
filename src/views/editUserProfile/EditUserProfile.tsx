@@ -27,10 +27,10 @@ export default function EditUserProfile() {
     id: userId,
   } = useAppSelector((state) => state.authorization);
   const timeoutRef: { current: NodeJS.Timeout | null } = useRef(null);
-  const { isLoading, isError, request: editRequest } = useEditUser(userId);
+  const { isLoading, error, request: editRequest } = useEditUser(userId);
   const {
     isLoading: deleteLoading,
-    isError: deleteError,
+    error: deleteError,
     request: deleteRequest,
   } = useDeleteUser(userId);
 
@@ -92,7 +92,7 @@ export default function EditUserProfile() {
   return (
     <section className="edit-profile">
       <div className="edit-profile__wrapper">
-        {isError && <p className="authentication__error">{ErrorMessage.SERVER_ERROR}</p>}
+        {error && <p className="authentication__error">{error.message}</p>}
         <h4 className="edit-profile__title">{t('edit_profile.title')}</h4>
         <Form {...updateUserFormOptions} />
 

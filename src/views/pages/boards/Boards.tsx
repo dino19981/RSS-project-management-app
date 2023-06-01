@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ProcessingWrapper from '../../../components/processingWrapper/ProcessingWrapper';
+import { ProcessingWrapper } from '../../../components/processingWrapper/ProcessingWrapper';
 import BoardPreview from './BoardPreview/BoardPreview';
 import { TTask } from '../../../models/task';
 import { getAllTasksInfo } from '../../../utils/search';
@@ -7,10 +7,10 @@ import Loader from '../../../components/loader/loader';
 import { useGetBoards } from 'api/requests/board';
 import { TasksSearchField } from 'components/TasksSearchField/TasksSearchField';
 
-function Boards() {
+export function Boards() {
   const [allTasks, setAllTasks] = useState<TTask[]>([]);
 
-  const { data: boards, isLoading, isError, request } = useGetBoards();
+  const { data: boards, isLoading, error, request } = useGetBoards();
 
   useEffect(() => {
     if (!boards) return;
@@ -22,25 +22,15 @@ function Boards() {
     <div className="boards">
       <TasksSearchField itemsForSearch={allTasks} />
 
-      <ul className="boards__list">
-        <ProcessingWrapper
-          isLoading={isLoading}
-          isError={isError}
-          errortext="Не удалось загрузить доски, попробуйте позже"
-          items={boards}
-        >
-          {boards?.map((board) => {
-            return (
-              <li className="boards__item" key={board.id}>
-                <BoardPreview {...board} updateBoards={request} />
-              </li>
-            );
-          })}
-        </ProcessingWrapper>
-      </ul>
+      <ProcessingWrapper isLoading={isLoading} error={error} items={boards}>
+        <ul className="boards__list">
+          {boards?.map((board) => (
+            <BoardPreview key={board.id} {...board} updateBoards={request} />
+          ))}
+        </ul>
+      </ProcessingWrapper>
+
       {isLoading && <Loader />}
     </div>
   );
 }
-
-export default Boards;

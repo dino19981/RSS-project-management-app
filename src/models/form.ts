@@ -1,5 +1,5 @@
 import { ButtonProps } from './button';
-import { autorizationSchemaType, registrationSchemaType } from './schemas';
+import { authorizationSchemaType, registrationSchemaType } from './schemas';
 import { TColumn } from './column';
 import { TBoard } from './board';
 import { TTask } from './task';
@@ -33,7 +33,7 @@ interface uploadFile {
 
 export type fieldsType =
   | registrationSchemaType
-  | autorizationSchemaType
+  | authorizationSchemaType
   | Pick<TBoard, 'title'>
   | Pick<TColumn, 'title'>
   | Pick<TColumn, 'title' | 'order'>

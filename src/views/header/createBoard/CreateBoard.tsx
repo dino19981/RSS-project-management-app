@@ -1,13 +1,10 @@
 import { useState } from 'react';
-import { useAxios } from '../../../hooks/useAxios';
 import ButtonWithModalForm from '../../../components/buttonWithModalForm/ButtonWithModalForm';
 import { AppRoute } from '../../../const/routes';
 import { newBoardSchema } from '../../../schemas/newBoard';
 import { newBoardValues } from '../../../components/form/constants/initialValues';
 import { newBoardFields } from '../../../components/form/constants/fieldsOptions';
-import { Methods } from '../../../const/APIMethod';
 import { useNavigate } from 'react-router-dom';
-import { ErrorMessage } from '../../../const/errorMessage';
 import { useTranslation } from 'react-i18next';
 import { newBoardIcon } from '../../../components/icons/Icons';
 import { useCreateBoard } from 'api/requests/board';
@@ -22,7 +19,7 @@ export default function CreateBoard() {
   const { t } = useTranslation();
   const [isModalActive, setIsModalActive] = useState(false);
   const navigate = useNavigate();
-  const { isLoading, isError, request } = useCreateBoard();
+  const { isLoading, error, request } = useCreateBoard();
 
   async function createBoardHandler(values: typeof newBoardSchema) {
     const data = await request({ data: values });
@@ -35,11 +32,7 @@ export default function CreateBoard() {
 
   return (
     <ButtonWithModalForm
-      modalOptions={{
-        submitBtnName: t('buttons.create_board'),
-        isError: isError,
-        errorText: ErrorMessage.SERVER_ERROR,
-      }}
+      modalOptions={{ submitBtnName: t('buttons.create_board'), error }}
       modalState={{ isModalActive, setIsModalActive }}
       buttonOptions={{
         btnClass: 'btn-new-board',

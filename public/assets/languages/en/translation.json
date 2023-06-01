@@ -32,7 +32,14 @@
     "server_error": "An error has occurred, try to perform the action later",
     "description_required": "Description is required",
     "title_required": "Title is required",
-    "max_columns_count": "Maximum number of columns created"
+    "max_columns_count": "Maximum number of columns created",
+    "boards": {
+      "cantGetBoards": "Cant get boards.",
+      "cantGetBoard": "Cant get board.",
+      "cantUpdateBoard": "Cant update board.",
+      "cantDeleteBoard": "Cant delete board.",
+      "cantCreateBoard": "Cant create board."
+    }
   },
   "header": {
     "create_new_board": "Create new board",

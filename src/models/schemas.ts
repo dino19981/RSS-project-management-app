@@ -1,8 +1,8 @@
-export interface autorizationSchemaType {
+export interface authorizationSchemaType {
   login: string;
   password: string;
 }
 
-export interface registrationSchemaType extends autorizationSchemaType {
+export interface registrationSchemaType extends authorizationSchemaType {
   name: string;
 }

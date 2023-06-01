@@ -47,8 +47,6 @@ function DeleteButton({ title, taskId, columnId, deleteTask }: Props & PropsFrom
           contentWrapperClassName="modal__delete"
           submitBtnName={t('buttons.delete')}
           submitHandler={makeDeleteTask}
-          // isError={isError}
-          errorText={ErrorMessage.SERVER_ERROR}
         >
           <p className="confirmation__text">{`${t('task.delete_task_message')} ${title}?`}</p>
         </Modal>

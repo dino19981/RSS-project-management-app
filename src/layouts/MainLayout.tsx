@@ -1,4 +1,4 @@
-import Footer from '../views/footer/Footer';
+import Footer from './components/footer/Footer';
 import Header from '../views/header/Header';
 import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';

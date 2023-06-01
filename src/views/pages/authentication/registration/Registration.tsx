@@ -6,14 +6,13 @@ import Loader from '../../../../components/loader/loader';
 import { AppRoute } from '../../../../const/routes';
 import { fieldsType } from '../../../../models/form';
 import { registrationSchema } from '../../../../schemas/authentication';
-import { getAuthenticationErrorMessage } from '../../../../utils/authentication';
 import Authentication from '../Authentication';
 import { useMakeRegistration } from 'api/requests/auth';
 
-export default function Registration() {
+export function Registration() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isLoading, isError, request } = useMakeRegistration();
+  const { isLoading, error, request } = useMakeRegistration();
 
   async function onSubmit(value: fieldsType) {
     const data = await request({ data: value });
@@ -40,7 +39,7 @@ export default function Registration() {
         link={AppRoute.LOGIN}
         linkText={t('buttons.sign_in')}
         questionText={t('sign_up.is_have_login_text')}
-        errorMessage={isError && getAuthenticationErrorMessage(isError.response?.status)}
+        errorMessage={error?.message}
         loadingStatus={isLoading}
       />
       {isLoading && <Loader />}

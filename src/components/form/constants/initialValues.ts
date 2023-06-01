@@ -1,4 +1,4 @@
-export const autorizationValues = {
+export const authorizationValues = {
   login: '',
   password: '',
 };

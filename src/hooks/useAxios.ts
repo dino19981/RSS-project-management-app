@@ -6,7 +6,7 @@ import { request as axiosRequest } from 'api/configuration/request';
 export type UseAxiosReturn<T> = {
   data: T | undefined;
   isLoading: boolean;
-  isError: AxiosError | null;
+  error: AxiosError | null;
   request: (requestOptions?: AdditionalRequestOptions) => Promise<AxiosResponse<T> | undefined>;
 };
 
@@ -16,12 +16,12 @@ export const useAxios = <T>(
 ): UseAxiosReturn<T> => {
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(!hookOptions?.dontFetchAtMount);
-  const [isError, setIsError] = useState<null | AxiosError>(null);
+  const [error, setError] = useState<null | AxiosError>(null);
 
   const request = useCallback(
     async (additionalRequestOptions: AdditionalRequestOptions = defaultRequestOptions) => {
       setIsLoading(true);
-      setIsError(null);
+      setError(null);
 
       try {
         const requestOptions = { ...defaultRequestOptions, ...additionalRequestOptions };
@@ -34,7 +34,7 @@ export const useAxios = <T>(
         return response;
       } catch (err) {
         const error = err as AxiosError;
-        setIsError(error);
+        setError(error);
       } finally {
         setIsLoading(false);
       }
@@ -48,5 +48,5 @@ export const useAxios = <T>(
     }
   }, []);
 
-  return { data, isLoading, isError, request };
+  return { data, isLoading, error, request };
 };
