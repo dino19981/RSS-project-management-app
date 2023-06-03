@@ -2,5 +2,5 @@ export const endpoints = {
   registration: '/signup',
   login: '/signin',
   users: '/users',
-  boards: '/boards1',
+  boards: '/boards',
 } as const;

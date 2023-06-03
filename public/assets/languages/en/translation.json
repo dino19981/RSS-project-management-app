@@ -39,6 +39,17 @@
       "cantUpdateBoard": "Cant update board.",
       "cantDeleteBoard": "Cant delete board.",
       "cantCreateBoard": "Cant create board."
+    },
+    "user": {
+      "cantGetUsers": "Cant get users.",
+      "cantGetUser": "Cant get user.",
+      "cantUpdateUser": "Cant update user.",
+      "cantDeleteUser": "Cant delete user.",
+      "cantCreateUser": "Cant create user."
+    },
+    "auth": {
+      "alreadyExist": "User already exist",
+      "notCorrectLoginOrPass": "Not correct login or password"
     }
   },
   "header": {

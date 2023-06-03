@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Button from '../../../components/button/Button';
 import Form from '../../../components/form/Form';
 import { authenticationProps } from '../../../models/authentication';
+import { ErrorMessage } from 'components/errorMessage/ErrorMessage';
 
 export default function Authentication({
   formOptions,
@@ -14,7 +15,7 @@ export default function Authentication({
 }: authenticationProps) {
   return (
     <section className="authentication__inner">
-      {errorMessage && <p className="authentication__error">{errorMessage}</p>}
+      {errorMessage && <ErrorMessage message={errorMessage} />}
       <Form {...formOptions}></Form>
       <p className="authentication__text">
         {questionText}{' '}

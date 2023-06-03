@@ -5,7 +5,6 @@ import MainLayout from './layouts/MainLayout';
 import ErrorBoundary from './components/errorBoundary/errorBoundary';
 import NotFoundPage from './views/pages/notFoundPage/NotFoundPage';
 import { Boards } from './views/pages/boards/Boards';
-import Board from './views/pages/board/Board';
 import { Authorization } from './views/pages/authentication/authorization/Authorization';
 import { Registration } from './views/pages/authentication/registration/Registration';
 import TaskEdit from './views/taskEdit/TaskEdit';
@@ -14,6 +13,7 @@ import UnknownUser from './hocs/UnknownUser';
 import EditUserProfile from './views/editUserProfile/EditUserProfile';
 import { Suspense } from 'react';
 import Loader from './components/loader/loader';
+import Board from 'views/pages/Board/Board';
 
 function App() {
   return (

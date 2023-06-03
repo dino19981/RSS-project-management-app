@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { TColumn } from '../../models/column';
-import EmptyTaskPreview from '../task/EmptyTaskPreview';
-import Task from '../task/Task';
 import Loader from '../../components/loader/loader';
 import { RootState } from '../../store/store';
 import { connect, ConnectedProps } from 'react-redux';
 import TopPanel from './topPanel/TopPanel';
 import BottomPanel from './bottomPanel/BottomPanel';
+import EmptyTaskPreview from 'views/Task/EmptyTaskPreview';
+import Task from 'views/Task/Task';
 
 function dragStart(e: React.DragEvent<HTMLDivElement>, id: string, title: string) {
   e.stopPropagation();

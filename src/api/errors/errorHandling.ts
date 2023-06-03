@@ -1,8 +1,8 @@
 import { endpoints } from 'api/endpoints';
 import { AxiosError } from 'axios';
-import { getBoardsError } from './boards';
-import { getLoginError, getRegistrationError } from './auth';
-import { getUserError } from './user';
+import { getBoardsError } from './entities/boards';
+import { getLoginError, getRegistrationError } from './entities/auth';
+import { getUserError } from './entities/user';
 
 const commonErrorMessages = {
   unknownError: 'error_messages.server_error',

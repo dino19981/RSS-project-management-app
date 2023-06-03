@@ -4,7 +4,6 @@ import Button from '../../components/button/Button';
 import { editProfileFields } from '../../components/form/constants/fieldsOptions';
 import Form from '../../components/form/Form';
 import Loader from '../../components/loader/loader';
-import { ErrorMessage } from '../../const/errorMessage';
 import { AppRoute } from '../../const/routes';
 import { fieldsType, formProps } from '../../models/form';
 import { editProfileSchema } from '../../schemas/user';
@@ -13,6 +12,7 @@ import { deleteUserData, updateUserData } from '../../store/user';
 import { useTranslation } from 'react-i18next';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
 import { useDeleteUser, useEditUser } from 'api/requests/user';
+import { ErrorMessage } from 'components/errorMessage/ErrorMessage';
 
 export default function EditUserProfile() {
   const { t } = useTranslation();
@@ -92,8 +92,10 @@ export default function EditUserProfile() {
   return (
     <section className="edit-profile">
       <div className="edit-profile__wrapper">
-        {error && <p className="authentication__error">{error.message}</p>}
         <h4 className="edit-profile__title">{t('edit_profile.title')}</h4>
+
+        {error && <ErrorMessage message={error.message} className="authentication__error" />}
+
         <Form {...updateUserFormOptions} />
 
         {isShowSaveMessage && (

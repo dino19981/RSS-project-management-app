@@ -15,8 +15,13 @@ export default function MainLayout() {
     if (token) {
       dispatch(setAuthorizeUser());
       (async () => {
-        const userData = await getUserData(token);
-        dispatch(setUserData({ ...userData, authorizeStatus: true }));
+        try {
+          const userData = await getUserData(token);
+
+          dispatch(setUserData({ ...userData, authorizeStatus: true }));
+        } catch {
+          dispatch(setLoadingUserData(false));
+        }
       })();
     } else {
       dispatch(setLoadingUserData(false));
