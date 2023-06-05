@@ -10,7 +10,7 @@ import { useDeleteBoard } from 'api/requests/board';
 
 function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { t } = useTranslation();
-  const { isLoading, error, request } = useDeleteBoard(id);
+  const { isLoading, error, request } = useDeleteBoard(id + 1);
   const [isModalActive, setIsModalActive] = useState(false);
 
   async function deleteBoard() {

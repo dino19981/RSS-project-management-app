@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef, useLayoutEffect } from 'react';
 import { AdditionalRequestOptions, hookOptionsType, requestOptions } from '../models/useAxios';
 import { request as axiosRequest } from 'api/configuration/request';
 
@@ -17,14 +17,20 @@ export const useAxios = <T>(
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(!hookOptions?.dontFetchAtMount);
   const [error, setError] = useState<null | AxiosError>(null);
+  const defaultOptions = useRef(defaultRequestOptions);
+
+  useLayoutEffect(() => {
+    defaultOptions.current = defaultRequestOptions;
+  }, [defaultRequestOptions]);
 
   const request = useCallback(
-    async (additionalRequestOptions: AdditionalRequestOptions = defaultRequestOptions) => {
+    async (additionalRequestOptions: AdditionalRequestOptions = defaultOptions.current) => {
       setIsLoading(true);
       setError(null);
 
       try {
-        const requestOptions = { ...defaultRequestOptions, ...additionalRequestOptions };
+        const requestOptions = { ...defaultOptions.current, ...additionalRequestOptions };
+
         const response = await axiosRequest<T>(requestOptions);
 
         if (requestOptions.method === 'get') {
