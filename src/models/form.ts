@@ -3,7 +3,7 @@ import { authorizationSchemaType, registrationSchemaType } from './schemas';
 import { TColumn } from './column';
 import { TBoard } from './board';
 import { TTask } from './task';
-import { User } from 'api/requests/user';
+import { User } from 'shared/api/requests/user';
 
 export interface formProps {
   schema: fieldsType;

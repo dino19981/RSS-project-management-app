@@ -10,7 +10,7 @@ export function ProcessingWrapper({ isLoading, error, children, items }: process
   }
 
   if (error) {
-    return <p className="modal__error-text">{t(`error_messages.${error.message}`)}</p>;
+    return <p className="modal__error-text">{t(error.message)}</p>;
   }
 
   return <>{children}</>;

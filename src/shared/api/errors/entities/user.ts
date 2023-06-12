@@ -1,11 +1,11 @@
 import { AxiosError, Method } from 'axios';
 
 export const errors = {
-  cantGetUsers: 'user.cantGetUsers',
-  cantGetUser: 'user.cantGetUser',
-  cantUpdateUser: 'user.cantUpdateUser',
-  cantDeleteUser: 'user.cantDeleteUser',
-  cantCreateUser: 'user.cantCreateUser',
+  cantGetUsers: 'error_messages.user.cantGetUsers',
+  cantGetUser: 'error_messages.user.cantGetUser',
+  cantUpdateUser: 'error_messages.user.cantUpdateUser',
+  cantDeleteUser: 'error_messages.user.cantDeleteUser',
+  cantCreateUser: 'error_messages.user.cantCreateUser',
 };
 
 export function getUserError(error: AxiosError): string | undefined {

@@ -7,7 +7,7 @@ import { AppRoute } from '../../../../const/routes';
 import { fieldsType } from '../../../../models/form';
 import { registrationSchema } from '../../../../schemas/authentication';
 import Authentication from '../Authentication';
-import { useMakeRegistration } from 'api/requests/auth';
+import { useMakeRegistration } from 'shared/api/requests/auth';
 
 export function Registration() {
   const { t } = useTranslation();

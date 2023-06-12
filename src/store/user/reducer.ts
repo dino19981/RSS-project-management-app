@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationState } from '../../models/store';
-import { User } from 'api/requests/user';
+import { User } from 'shared/api/requests/user';
 
 const initialState: AuthorizationState = {
   id: '',

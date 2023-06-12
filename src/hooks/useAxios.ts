@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { useEffect, useState, useCallback, useRef, useLayoutEffect } from 'react';
 import { AdditionalRequestOptions, hookOptionsType, requestOptions } from '../models/useAxios';
-import { request as axiosRequest } from 'api/configuration/request';
+import { request as axiosRequest } from 'shared/api/configuration/request';
 
 export type UseAxiosReturn<T> = {
   data: T | undefined;
@@ -12,7 +12,8 @@ export type UseAxiosReturn<T> = {
 
 export const useAxios = <T>(
   defaultRequestOptions: requestOptions,
-  hookOptions?: hookOptionsType
+  hookOptions?: hookOptionsType,
+  errorMessageHandler?: (error: AxiosError) => string | undefined
 ): UseAxiosReturn<T> => {
   const [data, setData] = useState<T>();
   const [isLoading, setIsLoading] = useState(!hookOptions?.dontFetchAtMount);
@@ -31,7 +32,7 @@ export const useAxios = <T>(
       try {
         const requestOptions = { ...defaultOptions.current, ...additionalRequestOptions };
 
-        const response = await axiosRequest<T>(requestOptions);
+        const response = await axiosRequest<T>(requestOptions, errorMessageHandler);
 
         if (requestOptions.method === 'get') {
           setData(response.data);
@@ -40,7 +41,10 @@ export const useAxios = <T>(
         return response;
       } catch (err) {
         const error = err as AxiosError;
+
         setError(error);
+
+        throw new AxiosError(error.message);
       } finally {
         setIsLoading(false);
       }

@@ -1,25 +1,19 @@
-import { useState, memo } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import ButtonWithModalForm from 'components/buttonWithModalForm/ButtonWithModalForm';
 import { boardPreviewProps } from 'models/boardPreview';
 import Loader from 'components/loader/loader';
 import { boardURL } from 'const/requestUrls';
 import { useTranslation } from 'react-i18next';
-import { deleteIcon } from 'components/icons/Icons';
-import { useDeleteBoard } from 'api/requests/board';
+import { useDeleteBoard } from 'shared/api/requests/board';
+import { ActionButtonWithIcon } from 'components/ActionButtonWithIcon/ActionButtonWithIcon';
 
 function BoardPreview({ id, title, description, updateBoards }: boardPreviewProps) {
   const { t } = useTranslation();
-  const { isLoading, error, request } = useDeleteBoard(id + 1);
-  const [isModalActive, setIsModalActive] = useState(false);
+  const { isLoading, error, request } = useDeleteBoard(id);
 
   async function deleteBoard() {
-    const deleteData = await request();
-
-    if (deleteData) {
-      setIsModalActive(false);
-      updateBoards();
-    }
+    await request();
+    updateBoards();
   }
 
   return (
@@ -30,21 +24,10 @@ function BoardPreview({ id, title, description, updateBoards }: boardPreviewProp
           <p className="board-preview__description">{description}</p>
         </Link>
         <div className="board-preview__delete-wrapper">
-          <ButtonWithModalForm
-            modalState={{ isModalActive, setIsModalActive }}
-            modalOptions={{
-              submitHandler: deleteBoard,
-              contentWrapperClassName: 'modal__delete',
-              submitBtnName: t('buttons.delete'),
-              error,
-            }}
-            buttonOptions={{
-              text: 'delete',
-              icon: deleteIcon,
-              isVisuallyHiddenText: true,
-              btnClass: 'board-preview__delete-btn',
-            }}
-            questionText={`${t('board.delete_board_message')} ${title}?`}
+          <ActionButtonWithIcon
+            onSubmit={deleteBoard}
+            error={error}
+            text={`${t('board.delete_board_message')} ${title}?`}
           />
         </div>
         {isLoading && <Loader />}

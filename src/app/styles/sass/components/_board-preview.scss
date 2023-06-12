@@ -16,18 +16,8 @@
   padding-top: 35px;
   padding-bottom: 42px;
   padding-left: 28px;
-  padding-right: 28px;  
+  padding-right: 28px;
   color: $dark-green;
-}
-
-.board-preview__title {
-  @include regular-subtitle;
-  color: $dark-green;
-}
-
-.board-preview__description {
-  @include regular-text;
-  margin-bottom: 0;
 }
 
 .board-preview__delete-wrapper {
@@ -43,9 +33,10 @@
   border-radius: 50%;
   background-color: transparent;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: rgb(237, 235, 235);
-  } 
+  }
 }
 
 .delete-icon {

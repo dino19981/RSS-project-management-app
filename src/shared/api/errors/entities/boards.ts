@@ -3,16 +3,16 @@ import { AxiosError, Method } from 'axios';
 export function getBoardsError(error: AxiosError): string | undefined {
   const messageByMethod: Partial<Record<Method, string>> = {
     get get() {
-      if (error.config.params?.id) return 'boards.cantGetBoard';
-      return 'boards.cantGetBoards';
+      if (error.config.params?.id) return 'error_messages.boards.cantGetBoard';
+      return 'error_messages.boards.cantGetBoards';
     },
     get post() {
-      return 'boards.cantCreateBoard';
+      return 'error_messages.boards.cantCreateBoard';
     },
     get patch() {
-      return 'boards.cantUpdateBoard';
+      return 'error_messages.boards.cantUpdateBoard';
     },
-    delete: 'boards.cantDeleteBoard',
+    delete: 'error_messages.boards.cantDeleteBoard',
   };
 
   return messageByMethod[error.config.method as Method];

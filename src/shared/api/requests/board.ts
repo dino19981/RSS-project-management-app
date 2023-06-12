@@ -1,28 +1,33 @@
-import { endpoints } from 'api/endpoints';
+import { endpoints } from '../endpoints';
+import { getBoardsError } from '../errors/entities/boards';
 import { Methods } from 'const/APIMethod';
 import { useAxios } from 'hooks/useAxios';
 import { TColumn } from 'models/column';
 
-type Board = {
+export type Board = {
   id: string;
   title: string;
-  columns: TColumn[];
   description: string;
 };
 
 export function useGetBoards() {
-  return useAxios<Board[]>({ url: endpoints.boards, method: Methods.GET });
+  return useAxios<Board[]>(
+    { url: endpoints.boards, method: Methods.GET },
+    undefined,
+    getBoardsError
+  );
 }
 
 export function useCreateBoard() {
   return useAxios<Board>(
     { url: endpoints.boards, method: Methods.POST },
-    { dontFetchAtMount: true }
+    { dontFetchAtMount: true },
+    getBoardsError
   );
 }
 
 export function useDeleteBoard(id: string) {
   const url = `${endpoints.boards}/${id}`;
 
-  return useAxios({ url, method: Methods.DELETE }, { dontFetchAtMount: true });
+  return useAxios({ url, method: Methods.DELETE }, { dontFetchAtMount: true }, getBoardsError);
 }

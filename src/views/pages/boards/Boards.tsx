@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ProcessingWrapper } from '../../../components/processingWrapper/ProcessingWrapper';
-import BoardPreview from './BoardPreview/BoardPreview';
 import { TTask } from '../../../models/task';
 import { getAllTasksInfo } from '../../../utils/search';
 import Loader from '../../../components/loader/loader';
-import { useGetBoards } from 'api/requests/board';
+import { useGetBoards } from 'shared/api/requests/board';
 import { TasksSearchField } from 'components/TasksSearchField/TasksSearchField';
+import { BoardPreview } from 'widgets/board/ui/BoardPreview';
 
 export function Boards() {
   const [allTasks, setAllTasks] = useState<TTask[]>([]);

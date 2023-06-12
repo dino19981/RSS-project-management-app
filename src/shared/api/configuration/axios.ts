@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { responseStatus } from '../../const/responseStatus';
-import { AppRoute } from '../../const/routes';
+import { responseStatus } from 'const/responseStatus';
+import { AppRoute } from 'const/routes';
 
 export const instanceAxios = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,

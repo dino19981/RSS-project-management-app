@@ -1,0 +1,9 @@
+.title {
+  @include regular-subtitle;
+  color: $dark-green;
+}
+
+.description {
+  @include regular-text;
+  margin-bottom: 0;
+}

@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../store';
 import { setAuthorizeUser, setLoadingUserData, setUserData } from '../store/user';
-import { getUserData } from 'api/requests/user';
+import { getUserData } from 'shared/api/requests/user';
 
 export default function MainLayout() {
   const dispatch = useAppDispatch();

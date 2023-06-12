@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../store';
 import { deleteUserData, updateUserData } from '../../store/user';
 import { useTranslation } from 'react-i18next';
 import ButtonWithModalForm from '../../components/buttonWithModalForm/ButtonWithModalForm';
-import { useDeleteUser, useEditUser } from 'api/requests/user';
+import { useDeleteUser, useEditUser } from 'shared/api/requests/user';
 import { ErrorMessage } from 'components/errorMessage/ErrorMessage';
 
 export default function EditUserProfile() {

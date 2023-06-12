@@ -9,8 +9,8 @@ import { useAppDispatch } from '../../../../store';
 import Authentication from '../Authentication';
 import { useTranslation } from 'react-i18next';
 import { setUserData } from '../../../../store/user';
-import { useMakeLogin } from 'api/requests/auth';
-import { getUserData } from 'api/requests/user';
+import { useMakeLogin } from 'shared/api/requests/auth';
+import { getUserData } from 'shared/api/requests/user';
 
 export function Authorization() {
   const { t } = useTranslation();

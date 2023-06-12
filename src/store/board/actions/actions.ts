@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { boardURL, columnsURL, columnURL, tasksURL, taskURL } from '../../../const/requestUrls';
-import { instanceAxios } from '../../../api/configuration/axios';
-import { TBoard } from '../../../models/board';
-import { TUpdateTask } from '../../../models/task';
+import { instanceAxios } from 'shared/api/configuration/axios';
 import {
   createColumnArgs,
   createTaskArgs,
@@ -10,6 +8,8 @@ import {
   TAddFileToTask,
   AllIds,
 } from './models';
+import { TBoard } from 'models/board';
+import { TUpdateTask } from 'models/task';
 
 export const getBoardData = createAsyncThunk(
   'board/fetchBoardData',

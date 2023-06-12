@@ -7,7 +7,7 @@ import { newBoardFields } from '../../../components/form/constants/fieldsOptions
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { newBoardIcon } from '../../../components/icons/Icons';
-import { useCreateBoard } from 'api/requests/board';
+import { useCreateBoard } from 'shared/api/requests/board';
 
 const formOptions = {
   schema: newBoardSchema,
